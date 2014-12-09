@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "common" >
+	
+    <select id="getCommonCodeList" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
+    	/* common.getCommonCodeList() */
+		SELECT 	
+			M.code, 
+			M.codeName, 
+			M.description, 
+			M.parentCode, 
+			M.isUsed, 
+			M.dispOrder, 
+			M.creationDate, 
+			M.modificationDate
+		FROM 
+			CommonCode M
+			LEFT OUTER JOIN CommonCode P on M.parentCode = P.code
+		ORDER BY
+			IF(ISNULL(P.dispOrder), M.dispOrder, P.dispOrder), M.dispOrder
+    </select>
+    
+
+</mapper>
