@@ -19,6 +19,13 @@
         <org.mysql.connector-version>5.1.27</org.mysql.connector-version>
         <!-- add dependencies version end -->			
 	</properties>
+	<repositories>
+		<repository>
+		    <id>oracle</id>
+		    <name>ORACLE JDBC Repository</name>
+		    <url>http://maven.jahia.org/maven2</url>
+		</repository>	
+	</repositories>	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -203,8 +210,19 @@
 			<version>1.47</version>
 		</dependency>		          						            		    		
 		                          
-        <!-- add dependencies end -->			
+        <!-- add dependencies end -->
+        <dependency>
+        	<groupId>commons-dbcp</groupId>
+        	<artifactId>commons-dbcp</artifactId>
+        	<version>1.4</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.oracle</groupId>
+        	<artifactId>ojdbc6</artifactId>
+        	<version>11.1.0.7.0</version>
+        </dependency>
 	</dependencies>
+
     <build>
         <plugins>
             <plugin>
