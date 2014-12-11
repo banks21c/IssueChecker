@@ -18,7 +18,7 @@
 			CommonCode M
 			LEFT OUTER JOIN CommonCode P on M.parentCode = P.code
 		ORDER BY
-			IF(ISNULL(P.dispOrder), M.dispOrder, P.dispOrder), M.dispOrder
+			NVL(P.dispOrder, M.dispOrder), M.dispOrder
     </select>
     
 
