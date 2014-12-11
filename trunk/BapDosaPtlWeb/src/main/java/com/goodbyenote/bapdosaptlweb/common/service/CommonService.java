@@ -10,6 +10,8 @@ public interface CommonService {
 	
 	List<CommonCodeVO> getCommonCodeList();
 
+	List<CommonCodeVO> getCommonCodeParents();
+
 	//void insertAccessLog(Map<String, String> paramMap);
 	
 }

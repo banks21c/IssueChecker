@@ -6,19 +6,24 @@
     <select id="getCommonCodeList" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
     	/* common.getCommonCodeList() */
 		SELECT 	
-			M.code, 
-			M.codeName, 
-			M.description, 
-			M.parentCode, 
-			M.isUsed, 
-			M.dispOrder, 
-			M.creationDate, 
-			M.modificationDate
+			M.*
 		FROM 
 			CommonCode M
 			LEFT OUTER JOIN CommonCode P on M.parentCode = P.code
 		ORDER BY
 			NVL(P.dispOrder, M.dispOrder), M.dispOrder
+    </select>
+    
+    <select id="getCommonCodeParents" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
+    	/* common.getCommonCodeList() */
+		SELECT 	
+			M.*
+		FROM 
+			CommonCode M
+		WHERE
+			parentCode IS NULL
+		ORDER BY
+			M.dispOrder
     </select>
     
 
