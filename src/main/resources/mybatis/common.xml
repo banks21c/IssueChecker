@@ -11,7 +11,13 @@
 			CommonCode M
 			LEFT OUTER JOIN CommonCode P on M.parentCode = P.code
 		ORDER BY
-			NVL(P.dispOrder, M.dispOrder), M.dispOrder
+			CASE WHEN
+                P.dispOrder IS NULL
+            THEN
+                M.dispOrder * 100
+            ELSE
+                P.dispOrder * 100 + M.dispOrder
+            END
     </select>
     
     <select id="getCommonCodeParents" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
