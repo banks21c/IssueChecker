@@ -17,17 +17,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
-		<!-- 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-		<property name="url"
-			value="jdbc:mysql://222.236.44.116:3306/cgm">
-		</property>
-		<property name="password" value="cgm()()"></property>
-		<property name="username" value="cgm"></property>
-	</bean>
-	 -->
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
