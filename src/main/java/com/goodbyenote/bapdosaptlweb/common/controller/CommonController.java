@@ -65,6 +65,22 @@ public class CommonController {
 		return mav; 
 	}	
 	
+	@RequestMapping("/common/getCommonCodeParents.json")
+	public ModelAndView getCommonCodeParents() {
+		
+		List<CommonCodeVO> commonCodeList = commonService.getCommonCodeParents();
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
+//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnObj(commonCodeList);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
+	
 	
 	
 }

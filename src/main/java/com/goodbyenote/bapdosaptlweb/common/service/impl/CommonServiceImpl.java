@@ -22,6 +22,14 @@ public class CommonServiceImpl implements CommonService {
 		// TODO Auto-generated method stub
 		return commonDAO.getCommonCodeList();
 	}
+
+	@Override
+	public List<CommonCodeVO> getCommonCodeParents() {
+		// TODO Auto-generated method stub
+		return commonDAO.getCommonCodeParents();
+	}
+	
+	
 	
 /*
 	@Override

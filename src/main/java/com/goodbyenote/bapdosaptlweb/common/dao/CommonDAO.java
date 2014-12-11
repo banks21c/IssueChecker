@@ -20,4 +20,10 @@ public class CommonDAO {
 		return sqlSession.selectList("common.getCommonCodeList");
 	}
 
+
+	public List<CommonCodeVO> getCommonCodeParents() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("common.getCommonCodeParents");
+	}
+
 }
