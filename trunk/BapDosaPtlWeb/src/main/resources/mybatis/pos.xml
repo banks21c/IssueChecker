@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "pos" >
+    <insert id="insertCustomerData" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO">
+    	INSERT INTO Customer
+    		(
+			    customerId,
+			    name,
+			    phoneNumber,
+			    totalSales,
+			    isInstant,
+			    totalCredit,
+			    totalDeposit,
+			    isDelivery,
+			    phoneNumber2,
+			    buildingId,
+			    address,
+			    isBlack,
+			    isDeleted,
+			    creationDate,
+			    modificationDate    
+    		)
+    		VALUES 
+    		(
+    			#{CustomerId},
+			    #{Name},
+			    #{PhoneNumber},
+			    #{TotalSales},
+			    #{IsInstant},
+			    #{TotalCredit},
+			    #{TotalDeposit},
+			    #{IsDelivery},
+			    #{PhoneNumber2},
+			    #{BuildingId},
+			    #{Addr},
+			    #{IsBlack},
+			    #{IsDeleted},
+			    #{CreationDate},
+			    #{MDate}
+			)   		
+    </insert>
+    
+    <insert id="insertMember" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MemberDriverVO">
+    	INSERT INTO MemberDriver
+    		(
+			    memberDriverId,
+			    name,
+			    phoneNumber,
+			    isDeleted,
+			    creationDate,
+			    modificationDate       
+    		)
+    		VALUES 
+    		(
+    			#{MemberDriverId},
+			    #{Name},
+			    #{PhoneNumber},
+			    #{IsDeleted},
+			    #{CreationDate},
+			    #{ModificationDate}
+			)
+    </insert>
+    
+    <insert id="insertMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+    	INSERT INTO MENU
+    		(
+    			menuId, categoryId, name, sortOrder, defaultPrice, 
+    			storePrice, takeoutPrice, deliveryPrice, defaultPoint, storePoint, 
+    			takeoutPoint, deliveryPoint, defaultDiscount, storeDiscount, takeoutDiscount, 
+    			deliveryDiscount, creationDate, modificationDate
+    		)
+    		VALUES 
+    		(
+			    #{MenuId}, #{CategoryId}, #{Name}, #{SortOrder}, #{DefaultPrice},
+			    #{StorePrice}, #{TakeoutPrice}, #{DeliveryPrice},  #{DefaultPoint}, #{StorePoint},
+			    #{TakeoutPoint}, #{DeliveryPoint}, #{DefaultDiscount}, #{StoreDiscount}, #{TakeoutDiscount},				    
+			    #{DeliveryDiscount}, #{CreationDate}, #{MDate}
+			)   		
+    </insert>
+</mapper>

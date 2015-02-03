@@ -5,5 +5,6 @@
 <configuration>
     <mappers>
         <mapper resource="mybatis/common.xml" />
+        <mapper resource="mybatis/pos.xml" />
     </mappers >
 </configuration>
