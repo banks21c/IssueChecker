@@ -6,9 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TestController {
-	@RequestMapping("/test.do")
+	@RequestMapping("/home/test.do")
 	public ModelAndView home() {
-		ModelAndView mav = new ModelAndView("test");
+		ModelAndView mav = new ModelAndView("home/test");
 		mav.addObject("message", "hello, world!");
 
 		return mav;
