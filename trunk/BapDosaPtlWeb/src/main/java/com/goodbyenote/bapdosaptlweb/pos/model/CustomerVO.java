@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -111,6 +112,10 @@ public class CustomerVO implements Serializable {
     @Column(name = "ISDELIVER")
     private int isdeliver;
     @Basic(optional = false)
+    @Null
+    @Column(name = "ISDELETED")    
+    private int isdeleted;
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 18)
     @Column(name = "PHONENUMBER2")
@@ -192,7 +197,15 @@ public class CustomerVO implements Serializable {
         this.isinstant = isinstant;
     }
 
-    public int getTotalcredit() {
+    public int getIsdeleted() {
+		return isdeleted;
+	}
+
+	public void setIsdeleted(int isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	public int getTotalcredit() {
         return totalcredit;
     }
 
