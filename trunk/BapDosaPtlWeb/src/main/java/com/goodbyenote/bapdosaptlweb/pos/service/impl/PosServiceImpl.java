@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goodbyenote.bapdosaptlweb.common.dao.CommonDAO;
 import com.goodbyenote.bapdosaptlweb.pos.dao.CustomerDAO;
 import com.goodbyenote.bapdosaptlweb.pos.dao.MemberDriverDAO;
 import com.goodbyenote.bapdosaptlweb.pos.service.PosService;
