@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,19 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")})
-public class CategoryVO implements Serializable {
+public class CategoryVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CategoryPK categoryPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 18)
     @Column(name = "NAME")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ORDERID")
-    private int orderid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ISETC")
@@ -59,43 +53,12 @@ public class CategoryVO implements Serializable {
     public CategoryVO() {
     }
 
-    public CategoryVO(CategoryPK categoryPK) {
-        this.categoryPK = categoryPK;
-    }
-
-    public CategoryVO(CategoryPK categoryPK, String name, int orderid, Character isetc) {
-        this.categoryPK = categoryPK;
-        this.name = name;
-        this.orderid = orderid;
-        this.isetc = isetc;
-    }
-
-    public CategoryVO(String memberid, String deviceid, int categoryid) {
-        this.categoryPK = new CategoryPK(memberid, deviceid, categoryid);
-    }
-
-    public CategoryPK getCategoryPK() {
-        return categoryPK;
-    }
-
-    public void setCategoryPK(CategoryPK categoryPK) {
-        this.categoryPK = categoryPK;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
     }
 
     public Character getIsetc() {
@@ -129,30 +92,4 @@ public class CategoryVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (categoryPK != null ? categoryPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CategoryVO)) {
-            return false;
-        }
-        CategoryVO other = (CategoryVO) object;
-        if ((this.categoryPK == null && other.categoryPK != null) || (this.categoryPK != null && !this.categoryPK.equals(other.categoryPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Category[ categoryPK=" + categoryPK + " ]";
-    }
-    
 }

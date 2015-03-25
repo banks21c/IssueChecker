@@ -28,10 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Device.findAll", query = "SELECT d FROM Device d")})
-public class DeviceVO implements Serializable {
+public class DeviceVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DevicePK devicePK;
     @Size(max = 50)
     @Column(name = "IDENTIFYNO")
     private String identifyno;
@@ -43,22 +41,6 @@ public class DeviceVO implements Serializable {
     private Date modificationdate;
 
     public DeviceVO() {
-    }
-
-    public DeviceVO(DevicePK devicePK) {
-        this.devicePK = devicePK;
-    }
-
-    public DeviceVO(int memberid, int deviceid) {
-        this.devicePK = new DevicePK(memberid, deviceid);
-    }
-
-    public DevicePK getDevicePK() {
-        return devicePK;
-    }
-
-    public void setDevicePK(DevicePK devicePK) {
-        this.devicePK = devicePK;
     }
 
     public String getIdentifyno() {
@@ -83,31 +65,6 @@ public class DeviceVO implements Serializable {
 
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (devicePK != null ? devicePK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DeviceVO)) {
-            return false;
-        }
-        DeviceVO other = (DeviceVO) object;
-        if ((this.devicePK == null && other.devicePK != null) || (this.devicePK != null && !this.devicePK.equals(other.devicePK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Device[ devicePK=" + devicePK + " ]";
     }
     
 }

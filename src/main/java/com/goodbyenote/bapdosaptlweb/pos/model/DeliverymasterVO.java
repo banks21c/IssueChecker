@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,15 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Deliverymaster.findAll", query = "SELECT d FROM Deliverymaster d")})
-public class DeliverymasterVO implements Serializable {
+public class DeliverymasterVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DeliverymasterPK deliverymasterPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "STARTSALESDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startsalesdate;
     @Column(name = "CREATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationdate;
@@ -156,61 +149,6 @@ public class DeliverymasterVO implements Serializable {
     private Date modificationdate;
 
     public DeliverymasterVO() {
-    }
-
-    public DeliverymasterVO(DeliverymasterPK deliverymasterPK) {
-        this.deliverymasterPK = deliverymasterPK;
-    }
-
-    public DeliverymasterVO(DeliverymasterPK deliverymasterPK, Date startsalesdate, int status, int price, int cashpayment, int cardpayment, int intocredit, int givebackcredit, int loss, int discount, int billmoney, int intodeposit, Character ispickupdish, Date completedate, int customerid, Character ispickupmoney, Character iscompleted, Character ishurry, int intoloss, int savedpoint, String address, String phonenumber, String customername, int lastdeliverid, String memo, int usedticket, int useddeposit, int usedpoint) {
-        this.deliverymasterPK = deliverymasterPK;
-        this.startsalesdate = startsalesdate;
-        this.status = status;
-        this.price = price;
-        this.cashpayment = cashpayment;
-        this.cardpayment = cardpayment;
-        this.intocredit = intocredit;
-        this.givebackcredit = givebackcredit;
-        this.loss = loss;
-        this.discount = discount;
-        this.billmoney = billmoney;
-        this.intodeposit = intodeposit;
-        this.ispickupdish = ispickupdish;
-        this.completedate = completedate;
-        this.customerid = customerid;
-        this.ispickupmoney = ispickupmoney;
-        this.iscompleted = iscompleted;
-        this.ishurry = ishurry;
-        this.intoloss = intoloss;
-        this.savedpoint = savedpoint;
-        this.address = address;
-        this.phonenumber = phonenumber;
-        this.customername = customername;
-        this.lastdeliverid = lastdeliverid;
-        this.memo = memo;
-        this.usedticket = usedticket;
-        this.useddeposit = useddeposit;
-        this.usedpoint = usedpoint;
-    }
-
-    public DeliverymasterVO(int memberid, int deviceid, int deliverymasterid) {
-        this.deliverymasterPK = new DeliverymasterPK(memberid, deviceid, deliverymasterid);
-    }
-
-    public DeliverymasterPK getDeliverymasterPK() {
-        return deliverymasterPK;
-    }
-
-    public void setDeliverymasterPK(DeliverymasterPK deliverymasterPK) {
-        this.deliverymasterPK = deliverymasterPK;
-    }
-
-    public Date getStartsalesdate() {
-        return startsalesdate;
-    }
-
-    public void setStartsalesdate(Date startsalesdate) {
-        this.startsalesdate = startsalesdate;
     }
 
     public Date getCreationdate() {
@@ -435,31 +373,6 @@ public class DeliverymasterVO implements Serializable {
 
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (deliverymasterPK != null ? deliverymasterPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DeliverymasterVO)) {
-            return false;
-        }
-        DeliverymasterVO other = (DeliverymasterVO) object;
-        if ((this.deliverymasterPK == null && other.deliverymasterPK != null) || (this.deliverymasterPK != null && !this.deliverymasterPK.equals(other.deliverymasterPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Deliverymaster[ deliverymasterPK=" + deliverymasterPK + " ]";
     }
     
 }

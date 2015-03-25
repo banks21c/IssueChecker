@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Deliverer.findAll", query = "SELECT d FROM Deliverer d")})
-public class DelivererVO implements Serializable {
+public class DelivererVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DelivererPK delivererPK;
     @Size(max = 18)
     @Column(name = "DELIVERERNAME")
     private String deliverername;
@@ -43,22 +41,6 @@ public class DelivererVO implements Serializable {
     private String modificationdate;
 
     public DelivererVO() {
-    }
-
-    public DelivererVO(DelivererPK delivererPK) {
-        this.delivererPK = delivererPK;
-    }
-
-    public DelivererVO(int memberid, int deviceid, int delivererid) {
-        this.delivererPK = new DelivererPK(memberid, deviceid, delivererid);
-    }
-
-    public DelivererPK getDelivererPK() {
-        return delivererPK;
-    }
-
-    public void setDelivererPK(DelivererPK delivererPK) {
-        this.delivererPK = delivererPK;
     }
 
     public String getDeliverername() {
@@ -92,30 +74,4 @@ public class DelivererVO implements Serializable {
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (delivererPK != null ? delivererPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DelivererVO)) {
-            return false;
-        }
-        DelivererVO other = (DelivererVO) object;
-        if ((this.delivererPK == null && other.delivererPK != null) || (this.delivererPK != null && !this.delivererPK.equals(other.delivererPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Deliverer[ delivererPK=" + delivererPK + " ]";
-    }
-    
 }

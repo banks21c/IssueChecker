@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,16 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orderdetail.findAll", query = "SELECT o FROM Orderdetail o")})
-public class OrderdetailVO implements Serializable {
+public class OrderdetailVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OrderdetailPK orderdetailPK;
-    @Column(name = "TABLEID")
-    private int tableid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MEMUID")
-    private int memuid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "AMOUNT")
@@ -61,46 +53,6 @@ public class OrderdetailVO implements Serializable {
     private Date modificationdate;
 
     public OrderdetailVO() {
-    }
-
-    public OrderdetailVO(OrderdetailPK orderdetailPK) {
-        this.orderdetailPK = orderdetailPK;
-    }
-
-    public OrderdetailVO(OrderdetailPK orderdetailPK, int memuid, int amount, Character istakeout, int price) {
-        this.orderdetailPK = orderdetailPK;
-        this.memuid = memuid;
-        this.amount = amount;
-        this.istakeout = istakeout;
-        this.price = price;
-    }
-
-    public OrderdetailVO(int memberid, int deviceid, int orderdetailid, int orderid) {
-        this.orderdetailPK = new OrderdetailPK(memberid, deviceid, orderdetailid, orderid);
-    }
-
-    public OrderdetailPK getOrderdetailPK() {
-        return orderdetailPK;
-    }
-
-    public void setOrderdetailPK(OrderdetailPK orderdetailPK) {
-        this.orderdetailPK = orderdetailPK;
-    }
-
-    public int getTableid() {
-        return tableid;
-    }
-
-    public void setTableid(int tableid) {
-        this.tableid = tableid;
-    }
-
-    public int getMemuid() {
-        return memuid;
-    }
-
-    public void setMemuid(int memuid) {
-        this.memuid = memuid;
     }
 
     public int getAmount() {
@@ -150,30 +102,4 @@ public class OrderdetailVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (orderdetailPK != null ? orderdetailPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderdetailVO)) {
-            return false;
-        }
-        OrderdetailVO other = (OrderdetailVO) object;
-        if ((this.orderdetailPK == null && other.orderdetailPK != null) || (this.orderdetailPK != null && !this.orderdetailPK.equals(other.orderdetailPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Orderdetail[ orderdetailPK=" + orderdetailPK + " ]";
-    }
-    
 }

@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,26 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Point.findAll", query = "SELECT p FROM Point p")})
-public class PointVO implements Serializable {
+public class PointVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PointPK pointPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CUSTOMERID")
-    private int customerid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "POINTTYPE")
     private int pointtype;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ORDERID")
-    private int orderid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DELIVERYMASTERID")
-    private int deliverymasterid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TOTALPOINT")
@@ -71,63 +57,12 @@ public class PointVO implements Serializable {
     public PointVO() {
     }
 
-    public PointVO(PointPK pointPK) {
-        this.pointPK = pointPK;
-    }
-
-    public PointVO(PointPK pointPK, int customerid, int pointtype, int orderid, int deliverymasterid, int totalpoint, int usedpoint, int remainpoint) {
-        this.pointPK = pointPK;
-        this.customerid = customerid;
-        this.pointtype = pointtype;
-        this.orderid = orderid;
-        this.deliverymasterid = deliverymasterid;
-        this.totalpoint = totalpoint;
-        this.usedpoint = usedpoint;
-        this.remainpoint = remainpoint;
-    }
-
-    public PointVO(int memberid, int deviceid, int pointid) {
-        this.pointPK = new PointPK(memberid, deviceid, pointid);
-    }
-
-    public PointPK getPointPK() {
-        return pointPK;
-    }
-
-    public void setPointPK(PointPK pointPK) {
-        this.pointPK = pointPK;
-    }
-
-    public int getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
-    }
-
     public int getPointtype() {
         return pointtype;
     }
 
     public void setPointtype(int pointtype) {
         this.pointtype = pointtype;
-    }
-
-    public int getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
-    }
-
-    public int getDeliverymasterid() {
-        return deliverymasterid;
-    }
-
-    public void setDeliverymasterid(int deliverymasterid) {
-        this.deliverymasterid = deliverymasterid;
     }
 
     public int getTotalpoint() {
@@ -169,30 +104,4 @@ public class PointVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (pointPK != null ? pointPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PointVO)) {
-            return false;
-        }
-        PointVO other = (PointVO) object;
-        if ((this.pointPK == null && other.pointPK != null) || (this.pointPK != null && !this.pointPK.equals(other.pointPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Point[ pointPK=" + pointPK + " ]";
-    }
-    
 }

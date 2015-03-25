@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,21 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customertrade.findAll", query = "SELECT c FROM Customertrade c")})
-public class CustomertradeVO implements Serializable {
+public class CustomertradeVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CustomertradePK customertradePK;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 18)
-    @Column(name = "STARTSALESDATE")
-    private String startsalesdate;
-    @Column(name = "CUSTOMERID")
-    private int customerid;
-    @Column(name = "TRADEID")
-    private int tradeid;
-    @Column(name = "DELIVERYMASTERID")
-    private int deliverymasterid;
     @Size(max = 18)
     @Column(name = "CONTENTS")
     private String contents;
@@ -66,59 +53,6 @@ public class CustomertradeVO implements Serializable {
     private Date modificationdate;
 
     public CustomertradeVO() {
-    }
-
-    public CustomertradeVO(CustomertradePK customertradePK) {
-        this.customertradePK = customertradePK;
-    }
-
-    public CustomertradeVO(CustomertradePK customertradePK, String startsalesdate) {
-        this.customertradePK = customertradePK;
-        this.startsalesdate = startsalesdate;
-    }
-
-    public CustomertradeVO(int memberid, int deviceid, int customertradeid) {
-        this.customertradePK = new CustomertradePK(memberid, deviceid, customertradeid);
-    }
-
-    public CustomertradePK getCustomertradePK() {
-        return customertradePK;
-    }
-
-    public void setCustomertradePK(CustomertradePK customertradePK) {
-        this.customertradePK = customertradePK;
-    }
-
-    public String getStartsalesdate() {
-        return startsalesdate;
-    }
-
-    public void setStartsalesdate(String startsalesdate) {
-        this.startsalesdate = startsalesdate;
-    }
-
-    public int getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
-    }
-
-    public int getTradeid() {
-        return tradeid;
-    }
-
-    public void setTradeid(int tradeid) {
-        this.tradeid = tradeid;
-    }
-
-    public int getDeliverymasterid() {
-        return deliverymasterid;
-    }
-
-    public void setDeliverymasterid(int deliverymasterid) {
-        this.deliverymasterid = deliverymasterid;
     }
 
     public String getContents() {
@@ -184,30 +118,4 @@ public class CustomertradeVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (customertradePK != null ? customertradePK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CustomertradeVO)) {
-            return false;
-        }
-        CustomertradeVO other = (CustomertradeVO) object;
-        if ((this.customertradePK == null && other.customertradePK != null) || (this.customertradePK != null && !this.customertradePK.equals(other.customertradePK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Customertrade[ customertradePK=" + customertradePK + " ]";
-    }
-    
 }

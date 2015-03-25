@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Startamount.findAll", query = "SELECT s FROM Startamount s")})
-public class StartamountVO implements Serializable {
+public class StartamountVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected StartamountPK startamountPK;
     @Size(max = 18)
     @Column(name = "STARTAMOUNT")
     private String startamount;
@@ -45,22 +43,6 @@ public class StartamountVO implements Serializable {
     private String modificationdate;
 
     public StartamountVO() {
-    }
-
-    public StartamountVO(StartamountPK startamountPK) {
-        this.startamountPK = startamountPK;
-    }
-
-    public StartamountVO(int memberid, int deviceid, int delivererid, String startsalesdate) {
-        this.startamountPK = new StartamountPK(memberid, deviceid, delivererid, startsalesdate);
-    }
-
-    public StartamountPK getStartamountPK() {
-        return startamountPK;
-    }
-
-    public void setStartamountPK(StartamountPK startamountPK) {
-        this.startamountPK = startamountPK;
     }
 
     public String getStartamount() {
@@ -102,30 +84,4 @@ public class StartamountVO implements Serializable {
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (startamountPK != null ? startamountPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StartamountVO)) {
-            return false;
-        }
-        StartamountVO other = (StartamountVO) object;
-        if ((this.startamountPK == null && other.startamountPK != null) || (this.startamountPK != null && !this.startamountPK.equals(other.startamountPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Startamount[ startamountPK=" + startamountPK + " ]";
-    }
-    
 }

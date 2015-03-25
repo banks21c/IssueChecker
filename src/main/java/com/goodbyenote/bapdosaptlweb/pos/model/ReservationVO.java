@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,23 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r")})
-public class ReservationVO implements Serializable {
+public class ReservationVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ReservationPK reservationPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "STARTSALESDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startsalesdate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TABLENO")
-    private int tableno;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CUSTOMERID")
-    private int customerid;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 18)
@@ -91,61 +77,6 @@ public class ReservationVO implements Serializable {
     private Date modificationdate;
 
     public ReservationVO() {
-    }
-
-    public ReservationVO(ReservationPK reservationPK) {
-        this.reservationPK = reservationPK;
-    }
-
-    public ReservationVO(ReservationPK reservationPK, Date startsalesdate, int tableno, int customerid, String customername, String phonenumber, int smssendtime, Date reservtime, int numberofpeople, String memo, int status, int orderid) {
-        this.reservationPK = reservationPK;
-        this.startsalesdate = startsalesdate;
-        this.tableno = tableno;
-        this.customerid = customerid;
-        this.customername = customername;
-        this.phonenumber = phonenumber;
-        this.smssendtime = smssendtime;
-        this.reservtime = reservtime;
-        this.numberofpeople = numberofpeople;
-        this.memo = memo;
-        this.status = status;
-        this.orderid = orderid;
-    }
-
-    public ReservationVO(int memberid, int deviceid, int reservid) {
-        this.reservationPK = new ReservationPK(memberid, deviceid, reservid);
-    }
-
-    public ReservationPK getReservationPK() {
-        return reservationPK;
-    }
-
-    public void setReservationPK(ReservationPK reservationPK) {
-        this.reservationPK = reservationPK;
-    }
-
-    public Date getStartsalesdate() {
-        return startsalesdate;
-    }
-
-    public void setStartsalesdate(Date startsalesdate) {
-        this.startsalesdate = startsalesdate;
-    }
-
-    public int getTableno() {
-        return tableno;
-    }
-
-    public void setTableno(int tableno) {
-        this.tableno = tableno;
-    }
-
-    public int getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
     }
 
     public String getCustomername() {
@@ -226,31 +157,6 @@ public class ReservationVO implements Serializable {
 
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (reservationPK != null ? reservationPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReservationVO)) {
-            return false;
-        }
-        ReservationVO other = (ReservationVO) object;
-        if ((this.reservationPK == null && other.reservationPK != null) || (this.reservationPK != null && !this.reservationPK.equals(other.reservationPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Reservation[ reservationPK=" + reservationPK + " ]";
     }
     
 }

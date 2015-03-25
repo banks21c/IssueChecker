@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CustomerVO.findAll", query = "SELECT c FROM CustomerVO c")})
-public class CustomerVO implements Serializable {
+public class CustomerVO extends PosCommonVO implements Serializable {
 	
 	/**
      * 주문 내역 유형
@@ -70,8 +70,6 @@ public class CustomerVO implements Serializable {
     }
     
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CustomerPK customerPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 18)
@@ -132,37 +130,6 @@ public class CustomerVO implements Serializable {
     private Date modificationdate;
 
     public CustomerVO() {
-    }
-
-    public CustomerVO(CustomerPK customerPK) {
-        this.customerPK = customerPK;
-    }
-
-    public CustomerVO(CustomerPK customerPK, String name, String phonenumber, int totalsales, Character isinstant, int totalcredit, int totaldeposit, String address, int isblack, int isdeliver, String phonenumber2, int buildingid) {
-        this.customerPK = customerPK;
-        this.name = name;
-        this.phonenumber = phonenumber;
-        this.totalsales = totalsales;
-        this.isinstant = isinstant;
-        this.totalcredit = totalcredit;
-        this.totaldeposit = totaldeposit;
-        this.address = address;
-        this.isblack = isblack;
-        this.isdeliver = isdeliver;
-        this.phonenumber2 = phonenumber2;
-        this.buildingid = buildingid;
-    }
-
-    public CustomerVO(int deviceid, int memberid, int customerid) {
-        this.customerPK = new CustomerPK(deviceid, memberid, customerid);
-    }
-
-    public CustomerPK getCustomerPK() {
-        return customerPK;
-    }
-
-    public void setCustomerPK(CustomerPK customerPK) {
-        this.customerPK = customerPK;
     }
 
     public String getName() {
@@ -275,31 +242,6 @@ public class CustomerVO implements Serializable {
 
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (customerPK != null ? customerPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CustomerVO)) {
-            return false;
-        }
-        CustomerVO other = (CustomerVO) object;
-        if ((this.customerPK == null && other.customerPK != null) || (this.customerPK != null && !this.customerPK.equals(other.customerPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO[ customerPK=" + customerPK + " ]";
     }
     
 }

@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Favoratemenuyearly.findAll", query = "SELECT f FROM Favoratemenuyearly f")})
-public class FavoratemenuyearlyVO implements Serializable {
+public class FavoratemenuyearlyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FavoratemenuyearlyPK favoratemenuyearlyPK;
     @Column(name = "QUANTITY")
     private int quantity;
     @Column(name = "AMOUNT")
@@ -41,22 +39,6 @@ public class FavoratemenuyearlyVO implements Serializable {
     private String modificationdate;
 
     public FavoratemenuyearlyVO() {
-    }
-
-    public FavoratemenuyearlyVO(FavoratemenuyearlyPK favoratemenuyearlyPK) {
-        this.favoratemenuyearlyPK = favoratemenuyearlyPK;
-    }
-
-    public FavoratemenuyearlyVO(int memberid, int deviceid, int memuid, String year) {
-        this.favoratemenuyearlyPK = new FavoratemenuyearlyPK(memberid, deviceid, memuid, year);
-    }
-
-    public FavoratemenuyearlyPK getFavoratemenuyearlyPK() {
-        return favoratemenuyearlyPK;
-    }
-
-    public void setFavoratemenuyearlyPK(FavoratemenuyearlyPK favoratemenuyearlyPK) {
-        this.favoratemenuyearlyPK = favoratemenuyearlyPK;
     }
 
     public int getQuantity() {
@@ -89,31 +71,6 @@ public class FavoratemenuyearlyVO implements Serializable {
 
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (favoratemenuyearlyPK != null ? favoratemenuyearlyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FavoratemenuyearlyVO)) {
-            return false;
-        }
-        FavoratemenuyearlyVO other = (FavoratemenuyearlyVO) object;
-        if ((this.favoratemenuyearlyPK == null && other.favoratemenuyearlyPK != null) || (this.favoratemenuyearlyPK != null && !this.favoratemenuyearlyPK.equals(other.favoratemenuyearlyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Favoratemenuyearly[ favoratemenuyearlyPK=" + favoratemenuyearlyPK + " ]";
     }
     
 }

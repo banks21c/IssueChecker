@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Possaleshourly.findAll", query = "SELECT p FROM Possaleshourly p")})
-public class PossaleshourlyVO implements Serializable {
+public class PossaleshourlyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PossaleshourlyPK possaleshourlyPK;
     @Column(name = "SALESAMOUNT")
     private int salesamount;
     @Size(max = 18)
@@ -39,22 +37,6 @@ public class PossaleshourlyVO implements Serializable {
     private String creationdate;
 
     public PossaleshourlyVO() {
-    }
-
-    public PossaleshourlyVO(PossaleshourlyPK possaleshourlyPK) {
-        this.possaleshourlyPK = possaleshourlyPK;
-    }
-
-    public PossaleshourlyVO(int memberid, int deviceid, String startsalesdate, String hour) {
-        this.possaleshourlyPK = new PossaleshourlyPK(memberid, deviceid, startsalesdate, hour);
-    }
-
-    public PossaleshourlyPK getPossaleshourlyPK() {
-        return possaleshourlyPK;
-    }
-
-    public void setPossaleshourlyPK(PossaleshourlyPK possaleshourlyPK) {
-        this.possaleshourlyPK = possaleshourlyPK;
     }
 
     public int getSalesamount() {
@@ -79,31 +61,6 @@ public class PossaleshourlyVO implements Serializable {
 
     public void setCreationdate(String creationdate) {
         this.creationdate = creationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (possaleshourlyPK != null ? possaleshourlyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PossaleshourlyVO)) {
-            return false;
-        }
-        PossaleshourlyVO other = (PossaleshourlyVO) object;
-        if ((this.possaleshourlyPK == null && other.possaleshourlyPK != null) || (this.possaleshourlyPK != null && !this.possaleshourlyPK.equals(other.possaleshourlyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Possaleshourly[ possaleshourlyPK=" + possaleshourlyPK + " ]";
     }
     
 }
