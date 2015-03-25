@@ -1,10 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
-         
+
 <configuration>
+	<typeAliases>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO" alias="MenuVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MemoVO" alias="MemoVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.BeforemergeVO" 		alias="BeforemergeVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.BuildingVO" 			alias="BuildingVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO" 			alias="CategoryVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.ClassbybuildingmonthlyVO" 	alias="ClassbybuildingmonthlyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CompareregionVO" 		alias="CompareregionVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CustomerrequestVO" 		alias="CustomerrequestVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CustomertradeVO" 		alias="CustomertradeVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO" 			alias="CustomerVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DelivererVO" 			alias="DelivererVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DeliverymasterVO" 		alias="DeliverymasterVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DeliveryorderVO" 		alias="DeliveryorderVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DeliveryrecordVO" 		alias="DeliveryrecordVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DeviceVO" 			alias="DeviceVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.DiscounttimezoneVO" 		alias="DiscounttimezoneVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.FavoratemenudailyVO" 		alias="FavoratemenudailyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.FavoratemenuhourlyVO" 		alias="FavoratemenuhourlyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.FavoratemenumonthlyVO" 	alias="FavoratemenumonthlyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.FavoratemenuyearlyVO" 		alias="FavoratemenuyearlyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MemberDriverVO" 		alias="MemberDriverVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MemberVO" 			alias="MemberVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MemoVO" 			alias="MemoVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO" 			alias="MenuVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.OrderdetailVO" 		alias="OrderdetailVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.OrdertableVO" 			alias="OrdertableVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PointVO" 			alias="PointVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PosCommonVO" 			alias="PosCommonVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PossalesdayVO" 		alias="PossalesdayVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PossaleshourlyVO" 		alias="PossaleshourlyVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PossalesmonthVO" 		alias="PossalesmonthVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.PossalesyearVO" 		alias="PossalesyearVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.ReservationVO" 		alias="ReservationVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.StartamountVO" 		alias="StartamountVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.TableorderVO" 			alias="TableorderVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.TradeVO" 			alias="TradeVO"/>
+    </typeAliases>
+
     <mappers>
         <mapper resource="mybatis/common.xml" />
         <mapper resource="mybatis/pos.xml" />
     </mappers >
+    
 </configuration>
+ 
