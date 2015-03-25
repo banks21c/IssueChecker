@@ -48,7 +48,7 @@ public class MemoVO extends PosCommonVO implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "MEMOTYPE")
-    private int memotype;
+    private char memotype;
     @Basic(optional = false)
     @NotNull
     @Column(name = "RESERVID")
@@ -120,11 +120,11 @@ public class MemoVO extends PosCommonVO implements Serializable {
         this.startsalesdate = startsalesdate;
     }
 
-    public int getMemotype() {
+    public char getMemotype() {
         return memotype;
     }
 
-    public void setMemotype(int memotype) {
+    public void setMemotype(char memotype) {
         this.memotype = memotype;
     }
 
