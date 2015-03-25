@@ -122,14 +122,15 @@ public class PosCommonVO implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "RESERVID")
-    private int reservid;
+    @Column(name = "RESERVATIONID")
+    private int reservationid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRADEID")
     private int tradeid;
     private String code;
     private String codename;
+    private String time;
     
     public PosCommonVO() {
     }
@@ -324,12 +325,12 @@ public class PosCommonVO implements Serializable {
 		this.pointid = pointid;
 	}
 
-	public int getReservid() {
-		return reservid;
+	public int getReservationid() {
+		return reservationid;
 	}
 
-	public void setReservid(int reservid) {
-		this.reservid = reservid;
+	public void setReservationid(int reservationid) {
+		this.reservationid = reservationid;
 	}
 
 	public int getTradeid() {
@@ -354,6 +355,14 @@ public class PosCommonVO implements Serializable {
 
 	public void setCodename(String codename) {
 		this.codename = codename;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }
