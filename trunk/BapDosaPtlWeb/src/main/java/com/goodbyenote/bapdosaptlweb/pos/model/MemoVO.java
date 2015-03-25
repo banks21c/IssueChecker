@@ -30,10 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Memo.findAll", query = "SELECT m FROM Memo m")})
-public class MemoVO implements Serializable {
+public class MemoVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected MemoPK memoPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MEMOID")
+    private int memoid;
     @Column(name = "DELIVERYMASTERID")
     private int deliverymasterid;
     @Column(name = "ORDERID")
@@ -86,35 +88,14 @@ public class MemoVO implements Serializable {
     public MemoVO() {
     }
 
-    public MemoVO(MemoPK memoPK) {
-        this.memoPK = memoPK;
+    public int getMemoid() {
+        return memoid;
     }
 
-    public MemoVO(MemoPK memoPK, Date startsalesdate, int memotype, int reservid, int requestid, int tradeid, String contents, Character isimportant, Character ischecked, Character isdeleted) {
-        this.memoPK = memoPK;
-        this.startsalesdate = startsalesdate;
-        this.memotype = memotype;
-        this.reservid = reservid;
-        this.requestid = requestid;
-        this.tradeid = tradeid;
-        this.contents = contents;
-        this.isimportant = isimportant;
-        this.ischecked = ischecked;
-        this.isdeleted = isdeleted;
+    public void setMemoid(int memoid) {
+        this.memoid = memoid;
     }
-
-    public MemoVO(int memberid, int deviceid, int memoid) {
-        this.memoPK = new MemoPK(memberid, deviceid, memoid);
-    }
-
-    public MemoPK getMemoPK() {
-        return memoPK;
-    }
-
-    public void setMemoPK(MemoPK memoPK) {
-        this.memoPK = memoPK;
-    }
-
+    
     public int getDeliverymasterid() {
         return deliverymasterid;
     }
@@ -219,29 +200,5 @@ public class MemoVO implements Serializable {
         this.modificationdate = modificationdate;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (memoPK != null ? memoPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MemoVO)) {
-            return false;
-        }
-        MemoVO other = (MemoVO) object;
-        if ((this.memoPK == null && other.memoPK != null) || (this.memoPK != null && !this.memoPK.equals(other.memoPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Memo[ memoPK=" + memoPK + " ]";
-    }
     
 }
