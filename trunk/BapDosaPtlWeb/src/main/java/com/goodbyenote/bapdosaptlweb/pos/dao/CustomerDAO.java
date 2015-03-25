@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.goodbyenote.bapdosaptlweb.pos.model.CustomerPK;
 import com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO;
 import com.goodbyenote.bapdosaptlweb.pos.model.MenuVO;
 
@@ -31,7 +30,9 @@ public class CustomerDAO {
 	        
 		 for(int i = 0; i < 5; i++ ) {
 	        CustomerVO regular = new CustomerVO();
-	        regular.setCustomerPK(new CustomerPK(0,0,i + 1));
+	        regular.setMemberid(0);
+	        regular.setDeviceid(0);
+	        regular.setCustomerid(i+1);
 		    regular.setName(names[i]);
 		    regular.setPhonenumber(numbers[i]);
 		    regular.setTotalsales(sales[i]);
