@@ -30,10 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m")})
-public class MenuVO implements Serializable {
+public class MenuVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected MenuPK menuPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MENUID")
+    private int menuid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "CATEGORYID")
@@ -88,30 +90,6 @@ public class MenuVO implements Serializable {
     private Character isdeleted;
 
     public MenuVO() {
-    }
-
-    public MenuVO(MenuPK menuPK) {
-        this.menuPK = menuPK;
-    }
-
-    public MenuVO(MenuPK menuPK, int categoryid, String name, int sortorder, int defaultprice) {
-        this.menuPK = menuPK;
-        this.categoryid = categoryid;
-        this.name = name;
-        this.sortorder = sortorder;
-        this.defaultprice = defaultprice;
-    }
-
-    public MenuVO(int memberid, int deviceid, int menuid) {
-        this.menuPK = new MenuPK(memberid, deviceid, menuid);
-    }
-
-    public MenuPK getMenuPK() {
-        return menuPK;
-    }
-
-    public void setMenuPK(MenuPK menuPK) {
-        this.menuPK = menuPK;
     }
 
     public int getCategoryid() {
@@ -274,29 +252,12 @@ public class MenuVO implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (menuPK != null ? menuPK.hashCode() : 0);
-        return hash;
+    public int getMenuid() {
+        return menuid;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MenuVO)) {
-            return false;
-        }
-        MenuVO other = (MenuVO) object;
-        if ((this.menuPK == null && other.menuPK != null) || (this.menuPK != null && !this.menuPK.equals(other.menuPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Menu[ menuPK=" + menuPK + " ]";
+    public void setMenuid(int menuid) {
+        this.menuid = menuid;
     }
     
 }
