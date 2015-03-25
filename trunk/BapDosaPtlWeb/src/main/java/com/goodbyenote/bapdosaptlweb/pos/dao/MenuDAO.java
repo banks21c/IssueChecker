@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.goodbyenote.bapdosaptlweb.pos.model.MenuPK;
 import com.goodbyenote.bapdosaptlweb.pos.model.MenuVO;
 
 @Repository
@@ -176,16 +177,16 @@ public class MenuDAO {
         int menuId = 1;
         for (String name : cook_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = cook_price[i];
-            item.StorePrice = cook_price[i];
-            item.TakeoutPrice = cook_price[i];
-            item.DeliveryPrice = cook_price[i];
-            item.CategoryId = 1;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(cook_price[i]);
+            item.setStoreprice(cook_price[i]);
+            item.setTakeoutprice(cook_price[i]);
+            item.setDeliveryprice(cook_price[i]);
+            item.setCategoryid(1);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
 
             i++;
@@ -194,16 +195,16 @@ public class MenuDAO {
         i = 0;
         for (String name : meal_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = meal_price[i];
-            item.StorePrice = meal_price[i];
-            item.TakeoutPrice = meal_price[i];
-            item.DeliveryPrice = meal_price[i];
-            item.CategoryId = 2;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(meal_price[i]);
+            item.setStoreprice(meal_price[i]);
+            item.setTakeoutprice(meal_price[i]);
+            item.setDeliveryprice(meal_price[i]);
+            item.setCategoryid(2);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
 
             i++;
@@ -212,16 +213,16 @@ public class MenuDAO {
         i = 0;
         for (String name : alchol_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = alchol_price[i];
-            item.StorePrice = alchol_price[i];
-            item.TakeoutPrice = alchol_price[i];
-            item.DeliveryPrice = alchol_price[i];
-            item.CategoryId = 3;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(alchol_price[i]);
+            item.setStoreprice(alchol_price[i]);
+            item.setTakeoutprice(alchol_price[i]);
+            item.setDeliveryprice(alchol_price[i]);
+            item.setCategoryid(3);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
 
             i++;
@@ -230,16 +231,16 @@ public class MenuDAO {
         i = 0;
         for (String name : drink_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = drink_price[i];
-            item.StorePrice = drink_price[i];
-            item.TakeoutPrice = drink_price[i];
-            item.DeliveryPrice = drink_price[i];
-            item.CategoryId = 4;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(drink_price[i]);
+            item.setStoreprice(drink_price[i]);
+            item.setTakeoutprice(drink_price[i]);
+            item.setDeliveryprice(drink_price[i]);
+            item.setCategoryid(4);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
 
             i++;
@@ -248,16 +249,16 @@ public class MenuDAO {
         i = 0;
         for (String name : special_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = 5000;
-            item.StorePrice = 5000;
-            item.TakeoutPrice = 5000;
-            item.DeliveryPrice = 5000;
-            item.CategoryId = 6;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(5000);
+            item.setStoreprice(5000);
+            item.setTakeoutprice(5000);
+            item.setDeliveryprice(5000);
+            item.setCategoryid(6);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
 
             i++;
@@ -266,16 +267,16 @@ public class MenuDAO {
         i = 0;
         for (String name : combo_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = 10000;
-            item.StorePrice = 10000;
-            item.TakeoutPrice = 10000;
-            item.DeliveryPrice = 10000;
-            item.CategoryId = 7;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(10000);
+            item.setStoreprice(10000);
+            item.setTakeoutprice(10000);
+            item.setDeliveryprice(10000);
+            item.setCategoryid(7);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
             i++;
         }
@@ -283,16 +284,16 @@ public class MenuDAO {
         i = 0;
         for (String name : discount_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = 10000;
-            item.StorePrice = 10000;
-            item.TakeoutPrice = 10000;
-            item.DeliveryPrice = 10000;
-            item.CategoryId = 8;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(10000);
+            item.setStoreprice(10000);
+            item.setTakeoutprice(10000);
+            item.setDeliveryprice(10000);
+            item.setCategoryid(8);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
             i++;
         }
@@ -300,16 +301,16 @@ public class MenuDAO {
         i = 0;
         for (String name : takeout_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = 10000;
-            item.StorePrice = 10000;
-            item.TakeoutPrice = 10000;
-            item.DeliveryPrice = 10000;
-            item.CategoryId = 9;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(10000);
+            item.setStoreprice(10000);
+            item.setTakeoutprice(10000);
+            item.setDeliveryprice(10000);
+            item.setCategoryid(9);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
             i++;
         }
@@ -317,16 +318,16 @@ public class MenuDAO {
         i = 0;
         for (String name : service_menus) {
             MenuVO item = new MenuVO();
-            item.MenuId = menuId ++;
-            item.Name = name;
-            item.DefaultPrice = 0;
-            item.StorePrice = 0;
-            item.TakeoutPrice = 0;
-            item.DeliveryPrice = 0;
-            item.CategoryId = 10;
-            item.SortOrder = i;
-            item.CreationDate = date;
-            item.MDate = date;
+            item.setMenuPK(new MenuPK(0,0,menuId ++));
+            item.setName(name);
+            item.setDefaultprice(0);
+            item.setStoreprice(0);
+            item.setTakeoutprice(0);
+            item.setDeliveryprice(0);
+            item.setCategoryid(10);
+            item.setSortorder(i);
+            item.setCreationdate(date);
+            item.setModificationdate(date);
             menus.add(item);
             i++;
         }

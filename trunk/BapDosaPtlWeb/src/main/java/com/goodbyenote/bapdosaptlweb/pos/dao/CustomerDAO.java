@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.goodbyenote.bapdosaptlweb.pos.model.CustomerPK;
 import com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO;
 import com.goodbyenote.bapdosaptlweb.pos.model.MenuVO;
 
@@ -30,21 +31,21 @@ public class CustomerDAO {
 	        
 		 for(int i = 0; i < 5; i++ ) {
 	        CustomerVO regular = new CustomerVO();
-	        regular.CustomerId = i + 1;
-		    regular.Name = names[i];
-		    regular.PhoneNumber = numbers[i];
-		    regular.TotalSales = sales[i];
-		    regular.IsInstant = 'N';
-		    regular.TotalCredit = 0;
-		    regular.TotalDeposit = 0;
-		    regular.IsDelivery = 'N';
-		    regular.PhoneNumber2 = "";
-		    regular.BuildingId = buildings[i];
-		    regular.Addr = addr[i];
-		    regular.IsBlack = 'N';
-		    regular.IsDeleted = 'N';
-		    regular.CreationDate = date;
-		    regular.MDate = date;
+	        regular.setCustomerPK(new CustomerPK(0,0,i + 1));
+		    regular.setName(names[i]);
+		    regular.setPhonenumber(numbers[i]);
+		    regular.setTotalsales(sales[i]);
+		    regular.setIsinstant('N');
+		    regular.setTotalcredit(0);
+		    regular.setTotaldeposit(0);
+		    regular.setIsdeliver('N');
+		    regular.setPhonenumber2("");
+		    regular.setBuildingid(buildings[i]);
+		    regular.setAddress(addr[i]);
+		    regular.setIsblack('N');
+		    regular.setIsdeleted('N');
+		    regular.setCreationdate(date);
+		    regular.setModificationdate(date);
 		  
 	        sqlSession.insert("pos.insertCustomerData", regular);
 		 }
