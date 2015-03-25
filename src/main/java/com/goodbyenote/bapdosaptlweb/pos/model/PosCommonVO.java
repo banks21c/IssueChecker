@@ -129,7 +129,7 @@ public class PosCommonVO implements Serializable {
     @Column(name = "TRADEID")
     private int tradeid;
     private String code;
-    private String codeName;
+    private String codename;
     
     public PosCommonVO() {
     }
@@ -348,12 +348,12 @@ public class PosCommonVO implements Serializable {
 		this.code = code;
 	}
 
-	public String getCodeName() {
-		return codeName;
+	public String getCodename() {
+		return codename;
 	}
 
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
+	public void setCodename(String codename) {
+		this.codename = codename;
 	}
 
 }
