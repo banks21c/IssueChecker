@@ -35,6 +35,11 @@
 		</property>
 	</bean>
 	
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+		
 	<!-- 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -58,9 +63,4 @@
 			pointcut-ref="requiredTx" />
 	</aop:config>	
 	
-	
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
-	</bean>
 </beans>
