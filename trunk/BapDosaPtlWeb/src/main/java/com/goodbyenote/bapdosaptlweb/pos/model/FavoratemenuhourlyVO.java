@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Favoratemenuhourly.findAll", query = "SELECT f FROM Favoratemenuhourly f")})
-public class FavoratemenuhourlyVO implements Serializable {
+public class FavoratemenuhourlyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FavoratemenuhourlyPK favoratemenuhourlyPK;
     @Column(name = "QUANTITY")
     private int quantity;
     @Column(name = "AMOUNT")
@@ -41,22 +39,6 @@ public class FavoratemenuhourlyVO implements Serializable {
     private String modificationdate;
 
     public FavoratemenuhourlyVO() {
-    }
-
-    public FavoratemenuhourlyVO(FavoratemenuhourlyPK favoratemenuhourlyPK) {
-        this.favoratemenuhourlyPK = favoratemenuhourlyPK;
-    }
-
-    public FavoratemenuhourlyVO(int memberid, int deviceid, int memuid, String startsalesdate, String hour) {
-        this.favoratemenuhourlyPK = new FavoratemenuhourlyPK(memberid, deviceid, memuid, startsalesdate, hour);
-    }
-
-    public FavoratemenuhourlyPK getFavoratemenuhourlyPK() {
-        return favoratemenuhourlyPK;
-    }
-
-    public void setFavoratemenuhourlyPK(FavoratemenuhourlyPK favoratemenuhourlyPK) {
-        this.favoratemenuhourlyPK = favoratemenuhourlyPK;
     }
 
     public int getQuantity() {
@@ -89,31 +71,6 @@ public class FavoratemenuhourlyVO implements Serializable {
 
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (favoratemenuhourlyPK != null ? favoratemenuhourlyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FavoratemenuhourlyVO)) {
-            return false;
-        }
-        FavoratemenuhourlyVO other = (FavoratemenuhourlyVO) object;
-        if ((this.favoratemenuhourlyPK == null && other.favoratemenuhourlyPK != null) || (this.favoratemenuhourlyPK != null && !this.favoratemenuhourlyPK.equals(other.favoratemenuhourlyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Favoratemenuhourly[ favoratemenuhourlyPK=" + favoratemenuhourlyPK + " ]";
     }
     
 }

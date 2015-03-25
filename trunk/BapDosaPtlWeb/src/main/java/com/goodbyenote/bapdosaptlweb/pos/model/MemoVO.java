@@ -42,11 +42,6 @@ public class MemoVO extends PosCommonVO implements Serializable {
     private int orderid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "STARTSALESDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startsalesdate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "MEMOTYPE")
     private char memotype;
     @Basic(optional = false)
@@ -110,14 +105,6 @@ public class MemoVO extends PosCommonVO implements Serializable {
 
     public void setOrderid(int orderid) {
         this.orderid = orderid;
-    }
-
-    public Date getStartsalesdate() {
-        return startsalesdate;
-    }
-
-    public void setStartsalesdate(Date startsalesdate) {
-        this.startsalesdate = startsalesdate;
     }
 
     public char getMemotype() {

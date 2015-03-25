@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,23 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tableorder.findAll", query = "SELECT t FROM Tableorder t")})
-public class TableorderVO implements Serializable {
+public class TableorderVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TableorderPK tableorderPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TABLEID")
-    private int tableid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "STARTSALESDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startsalesdate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CUSTOMERID")
-    private int customerid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRICE")
@@ -114,68 +99,6 @@ public class TableorderVO implements Serializable {
     private Date modificationdate;
 
     public TableorderVO() {
-    }
-
-    public TableorderVO(TableorderPK tableorderPK) {
-        this.tableorderPK = tableorderPK;
-    }
-
-    public TableorderVO(TableorderPK tableorderPK, int tableid, Date startsalesdate, int customerid, int price, int givebackcredit, int loss, int discount, int billmoney, int cashpayment, int cardpayment, int intocredit, int intoloss, int intodeposit, int usedticket, int savedpoint, int useddeposit, int usedpoint, Character ischangeaftermerge) {
-        this.tableorderPK = tableorderPK;
-        this.tableid = tableid;
-        this.startsalesdate = startsalesdate;
-        this.customerid = customerid;
-        this.price = price;
-        this.givebackcredit = givebackcredit;
-        this.loss = loss;
-        this.discount = discount;
-        this.billmoney = billmoney;
-        this.cashpayment = cashpayment;
-        this.cardpayment = cardpayment;
-        this.intocredit = intocredit;
-        this.intoloss = intoloss;
-        this.intodeposit = intodeposit;
-        this.usedticket = usedticket;
-        this.savedpoint = savedpoint;
-        this.useddeposit = useddeposit;
-        this.usedpoint = usedpoint;
-        this.ischangeaftermerge = ischangeaftermerge;
-    }
-
-    public TableorderVO(int memberid, int deviceid, int orderid) {
-        this.tableorderPK = new TableorderPK(memberid, deviceid, orderid);
-    }
-
-    public TableorderPK getTableorderPK() {
-        return tableorderPK;
-    }
-
-    public void setTableorderPK(TableorderPK tableorderPK) {
-        this.tableorderPK = tableorderPK;
-    }
-
-    public int getTableid() {
-        return tableid;
-    }
-
-    public void setTableid(int tableid) {
-        this.tableid = tableid;
-    }
-
-    public Date getStartsalesdate() {
-        return startsalesdate;
-    }
-
-    public void setStartsalesdate(Date startsalesdate) {
-        this.startsalesdate = startsalesdate;
-    }
-
-    public int getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
     }
 
     public int getPrice() {
@@ -313,30 +236,4 @@ public class TableorderVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (tableorderPK != null ? tableorderPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TableorderVO)) {
-            return false;
-        }
-        TableorderVO other = (TableorderVO) object;
-        if ((this.tableorderPK == null && other.tableorderPK != null) || (this.tableorderPK != null && !this.tableorderPK.equals(other.tableorderPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Tableorder[ tableorderPK=" + tableorderPK + " ]";
-    }
-    
 }

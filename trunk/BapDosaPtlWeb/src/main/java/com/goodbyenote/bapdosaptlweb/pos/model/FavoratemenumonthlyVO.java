@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Favoratemenumonthly.findAll", query = "SELECT f FROM Favoratemenumonthly f")})
-public class FavoratemenumonthlyVO implements Serializable {
+public class FavoratemenumonthlyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FavoratemenumonthlyPK favoratemenumonthlyPK;
     @Column(name = "QUANTITY")
     private int quantity;
     @Column(name = "AMOUNT")
@@ -41,22 +39,6 @@ public class FavoratemenumonthlyVO implements Serializable {
     private String modificationdate;
 
     public FavoratemenumonthlyVO() {
-    }
-
-    public FavoratemenumonthlyVO(FavoratemenumonthlyPK favoratemenumonthlyPK) {
-        this.favoratemenumonthlyPK = favoratemenumonthlyPK;
-    }
-
-    public FavoratemenumonthlyVO(int memberid, int deviceid, int memuid, String yearmonth) {
-        this.favoratemenumonthlyPK = new FavoratemenumonthlyPK(memberid, deviceid, memuid, yearmonth);
-    }
-
-    public FavoratemenumonthlyPK getFavoratemenumonthlyPK() {
-        return favoratemenumonthlyPK;
-    }
-
-    public void setFavoratemenumonthlyPK(FavoratemenumonthlyPK favoratemenumonthlyPK) {
-        this.favoratemenumonthlyPK = favoratemenumonthlyPK;
     }
 
     public int getQuantity() {
@@ -90,30 +72,4 @@ public class FavoratemenumonthlyVO implements Serializable {
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (favoratemenumonthlyPK != null ? favoratemenumonthlyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FavoratemenumonthlyVO)) {
-            return false;
-        }
-        FavoratemenumonthlyVO other = (FavoratemenumonthlyVO) object;
-        if ((this.favoratemenumonthlyPK == null && other.favoratemenumonthlyPK != null) || (this.favoratemenumonthlyPK != null && !this.favoratemenumonthlyPK.equals(other.favoratemenumonthlyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Favoratemenumonthly[ favoratemenumonthlyPK=" + favoratemenumonthlyPK + " ]";
-    }
-    
 }

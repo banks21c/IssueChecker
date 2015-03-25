@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Favoratemenudaily.findAll", query = "SELECT f FROM Favoratemenudaily f")})
-public class FavoratemenudailyVO implements Serializable {
+public class FavoratemenudailyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FavoratemenudailyPK favoratemenudailyPK;
     @Column(name = "QUANTITY")
     private int quantity;
     @Column(name = "AMOUNT")
@@ -41,22 +39,6 @@ public class FavoratemenudailyVO implements Serializable {
     private String modificationdate;
 
     public FavoratemenudailyVO() {
-    }
-
-    public FavoratemenudailyVO(FavoratemenudailyPK favoratemenudailyPK) {
-        this.favoratemenudailyPK = favoratemenudailyPK;
-    }
-
-    public FavoratemenudailyVO(int memberid, int deviceid, int memuid, String startsalesdate) {
-        this.favoratemenudailyPK = new FavoratemenudailyPK(memberid, deviceid, memuid, startsalesdate);
-    }
-
-    public FavoratemenudailyPK getFavoratemenudailyPK() {
-        return favoratemenudailyPK;
-    }
-
-    public void setFavoratemenudailyPK(FavoratemenudailyPK favoratemenudailyPK) {
-        this.favoratemenudailyPK = favoratemenudailyPK;
     }
 
     public int getQuantity() {
@@ -89,31 +71,6 @@ public class FavoratemenudailyVO implements Serializable {
 
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (favoratemenudailyPK != null ? favoratemenudailyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof FavoratemenudailyVO)) {
-            return false;
-        }
-        FavoratemenudailyVO other = (FavoratemenudailyVO) object;
-        if ((this.favoratemenudailyPK == null && other.favoratemenudailyPK != null) || (this.favoratemenudailyPK != null && !this.favoratemenudailyPK.equals(other.favoratemenudailyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Favoratemenudaily[ favoratemenudailyPK=" + favoratemenudailyPK + " ]";
     }
     
 }

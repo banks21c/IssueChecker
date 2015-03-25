@@ -7,8 +7,8 @@ package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Member.findAll", query = "SELECT m FROM Member m")})
-public class MemberVO implements Serializable {
+public class MemberVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MEMBERID")
-    private BigDecimal memberid;
     @Column(name = "STARTBUSINESSDESIREYN")
     private Character startbusinessdesireyn;
     @Column(name = "FRANCHISEJOINYN")
@@ -102,18 +98,6 @@ public class MemberVO implements Serializable {
     private String modificationdate;
 
     public MemberVO() {
-    }
-
-    public MemberVO(BigDecimal memberid) {
-        this.memberid = memberid;
-    }
-
-    public BigDecimal getMemberid() {
-        return memberid;
-    }
-
-    public void setMemberid(BigDecimal memberid) {
-        this.memberid = memberid;
     }
 
     public Character getStartbusinessdesireyn() {
@@ -298,31 +282,6 @@ public class MemberVO implements Serializable {
 
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (memberid != null ? memberid.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MemberVO)) {
-            return false;
-        }
-        MemberVO other = (MemberVO) object;
-        if ((this.memberid == null && other.memberid != null) || (this.memberid != null && !this.memberid.equals(other.memberid))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Member[ memberid=" + memberid + " ]";
     }
     
 }

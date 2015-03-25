@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Possalesyear.findAll", query = "SELECT p FROM Possalesyear p")})
-public class PossalesyearVO implements Serializable {
+public class PossalesyearVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PossalesyearPK possalesyearPK;
     @Size(max = 18)
     @Column(name = "SALES")
     private String sales;
@@ -52,22 +50,6 @@ public class PossalesyearVO implements Serializable {
     private String creationdate;
 
     public PossalesyearVO() {
-    }
-
-    public PossalesyearVO(PossalesyearPK possalesyearPK) {
-        this.possalesyearPK = possalesyearPK;
-    }
-
-    public PossalesyearVO(int memberid, int deviceid, String year) {
-        this.possalesyearPK = new PossalesyearPK(memberid, deviceid, year);
-    }
-
-    public PossalesyearPK getPossalesyearPK() {
-        return possalesyearPK;
-    }
-
-    public void setPossalesyearPK(PossalesyearPK possalesyearPK) {
-        this.possalesyearPK = possalesyearPK;
     }
 
     public String getSales() {
@@ -125,30 +107,4 @@ public class PossalesyearVO implements Serializable {
     public void setCreationdate(String creationdate) {
         this.creationdate = creationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (possalesyearPK != null ? possalesyearPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PossalesyearVO)) {
-            return false;
-        }
-        PossalesyearVO other = (PossalesyearVO) object;
-        if ((this.possalesyearPK == null && other.possalesyearPK != null) || (this.possalesyearPK != null && !this.possalesyearPK.equals(other.possalesyearPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Possalesyear[ possalesyearPK=" + possalesyearPK + " ]";
-    }
-    
 }

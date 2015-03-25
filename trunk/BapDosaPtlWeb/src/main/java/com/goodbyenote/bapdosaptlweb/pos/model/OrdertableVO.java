@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ordertable.findAll", query = "SELECT o FROM Ordertable o")})
-public class OrdertableVO implements Serializable {
+public class OrdertableVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OrdertablePK ordertablePK;
     @Size(max = 18)
     @Column(name = "TABLENUMBER")
     private String tablenumber;
@@ -54,28 +52,6 @@ public class OrdertableVO implements Serializable {
     private Date modificationdate;
 
     public OrdertableVO() {
-    }
-
-    public OrdertableVO(OrdertablePK ordertablePK) {
-        this.ordertablePK = ordertablePK;
-    }
-
-    public OrdertableVO(OrdertablePK ordertablePK, String tablename, int linkedtableid) {
-        this.ordertablePK = ordertablePK;
-        this.tablename = tablename;
-        this.linkedtableid = linkedtableid;
-    }
-
-    public OrdertableVO(int memberid, int deviceid, int tableid) {
-        this.ordertablePK = new OrdertablePK(memberid, deviceid, tableid);
-    }
-
-    public OrdertablePK getOrdertablePK() {
-        return ordertablePK;
-    }
-
-    public void setOrdertablePK(OrdertablePK ordertablePK) {
-        this.ordertablePK = ordertablePK;
     }
 
     public String getTablenumber() {
@@ -117,30 +93,4 @@ public class OrdertableVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ordertablePK != null ? ordertablePK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrdertableVO)) {
-            return false;
-        }
-        OrdertableVO other = (OrdertableVO) object;
-        if ((this.ordertablePK == null && other.ordertablePK != null) || (this.ordertablePK != null && !this.ordertablePK.equals(other.ordertablePK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Ordertable[ ordertablePK=" + ordertablePK + " ]";
-    }
-    
 }

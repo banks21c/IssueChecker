@@ -7,6 +7,7 @@ package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -28,10 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Discounttimezone.findAll", query = "SELECT d FROM Discounttimezone d")})
-public class DiscounttimezoneVO implements Serializable {
+public class DiscounttimezoneVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DiscounttimezonePK discounttimezonePK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "STARTTIME")
@@ -50,28 +49,6 @@ public class DiscounttimezoneVO implements Serializable {
     private Date modificationdate;
 
     public DiscounttimezoneVO() {
-    }
-
-    public DiscounttimezoneVO(DiscounttimezonePK discounttimezonePK) {
-        this.discounttimezonePK = discounttimezonePK;
-    }
-
-    public DiscounttimezoneVO(DiscounttimezonePK discounttimezonePK, Date starttime, Date endtime) {
-        this.discounttimezonePK = discounttimezonePK;
-        this.starttime = starttime;
-        this.endtime = endtime;
-    }
-
-    public DiscounttimezoneVO(String memberid, String deviceid, String weekday) {
-        this.discounttimezonePK = new DiscounttimezonePK(memberid, deviceid, weekday);
-    }
-
-    public DiscounttimezonePK getDiscounttimezonePK() {
-        return discounttimezonePK;
-    }
-
-    public void setDiscounttimezonePK(DiscounttimezonePK discounttimezonePK) {
-        this.discounttimezonePK = discounttimezonePK;
     }
 
     public Date getStarttime() {
@@ -105,30 +82,4 @@ public class DiscounttimezoneVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (discounttimezonePK != null ? discounttimezonePK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DiscounttimezoneVO)) {
-            return false;
-        }
-        DiscounttimezoneVO other = (DiscounttimezoneVO) object;
-        if ((this.discounttimezonePK == null && other.discounttimezonePK != null) || (this.discounttimezonePK != null && !this.discounttimezonePK.equals(other.discounttimezonePK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Discounttimezone[ discounttimezonePK=" + discounttimezonePK + " ]";
-    }
-    
 }

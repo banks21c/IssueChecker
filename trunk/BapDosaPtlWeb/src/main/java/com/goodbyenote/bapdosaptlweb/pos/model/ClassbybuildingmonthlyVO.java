@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Classbybuildingmonthly.findAll", query = "SELECT c FROM Classbybuildingmonthly c")})
-public class ClassbybuildingmonthlyVO implements Serializable {
+public class ClassbybuildingmonthlyVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ClassbybuildingmonthlyPK classbybuildingmonthlyPK;
     @Size(max = 18)
     @Column(name = "SALESAMOUNT")
     private String salesamount;
@@ -40,22 +38,6 @@ public class ClassbybuildingmonthlyVO implements Serializable {
     private String modificationdate;
 
     public ClassbybuildingmonthlyVO() {
-    }
-
-    public ClassbybuildingmonthlyVO(ClassbybuildingmonthlyPK classbybuildingmonthlyPK) {
-        this.classbybuildingmonthlyPK = classbybuildingmonthlyPK;
-    }
-
-    public ClassbybuildingmonthlyVO(int memberid, int deviceid, int buildingid, String year, String month) {
-        this.classbybuildingmonthlyPK = new ClassbybuildingmonthlyPK(memberid, deviceid, buildingid, year, month);
-    }
-
-    public ClassbybuildingmonthlyPK getClassbybuildingmonthlyPK() {
-        return classbybuildingmonthlyPK;
-    }
-
-    public void setClassbybuildingmonthlyPK(ClassbybuildingmonthlyPK classbybuildingmonthlyPK) {
-        this.classbybuildingmonthlyPK = classbybuildingmonthlyPK;
     }
 
     public String getSalesamount() {
@@ -80,31 +62,6 @@ public class ClassbybuildingmonthlyVO implements Serializable {
 
     public void setModificationdate(String modificationdate) {
         this.modificationdate = modificationdate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (classbybuildingmonthlyPK != null ? classbybuildingmonthlyPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClassbybuildingmonthlyVO)) {
-            return false;
-        }
-        ClassbybuildingmonthlyVO other = (ClassbybuildingmonthlyVO) object;
-        if ((this.classbybuildingmonthlyPK == null && other.classbybuildingmonthlyPK != null) || (this.classbybuildingmonthlyPK != null && !this.classbybuildingmonthlyPK.equals(other.classbybuildingmonthlyPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Classbybuildingmonthly[ classbybuildingmonthlyPK=" + classbybuildingmonthlyPK + " ]";
     }
     
 }

@@ -25,10 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Possalesmonth.findAll", query = "SELECT p FROM Possalesmonth p")})
-public class PossalesmonthVO implements Serializable {
+public class PossalesmonthVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected PossalesmonthPK possalesmonthPK;
     @Size(max = 18)
     @Column(name = "SALES")
     private String sales;
@@ -52,22 +50,6 @@ public class PossalesmonthVO implements Serializable {
     private String creationdate;
 
     public PossalesmonthVO() {
-    }
-
-    public PossalesmonthVO(PossalesmonthPK possalesmonthPK) {
-        this.possalesmonthPK = possalesmonthPK;
-    }
-
-    public PossalesmonthVO(int memberid, int deviceid, String yearmonth) {
-        this.possalesmonthPK = new PossalesmonthPK(memberid, deviceid, yearmonth);
-    }
-
-    public PossalesmonthPK getPossalesmonthPK() {
-        return possalesmonthPK;
-    }
-
-    public void setPossalesmonthPK(PossalesmonthPK possalesmonthPK) {
-        this.possalesmonthPK = possalesmonthPK;
     }
 
     public String getSales() {
@@ -125,30 +107,4 @@ public class PossalesmonthVO implements Serializable {
     public void setCreationdate(String creationdate) {
         this.creationdate = creationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (possalesmonthPK != null ? possalesmonthPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PossalesmonthVO)) {
-            return false;
-        }
-        PossalesmonthVO other = (PossalesmonthVO) object;
-        if ((this.possalesmonthPK == null && other.possalesmonthPK != null) || (this.possalesmonthPK != null && !this.possalesmonthPK.equals(other.possalesmonthPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Possalesmonth[ possalesmonthPK=" + possalesmonthPK + " ]";
-    }
-    
 }

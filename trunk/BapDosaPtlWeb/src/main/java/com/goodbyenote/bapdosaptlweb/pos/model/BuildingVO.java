@@ -7,6 +7,7 @@ package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Building.findAll", query = "SELECT b FROM Building b")})
-public class BuildingVO implements Serializable {
+public class BuildingVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected BuildingPK buildingPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ISAPT")
@@ -54,29 +53,6 @@ public class BuildingVO implements Serializable {
     private Date modificationdate;
 
     public BuildingVO() {
-    }
-
-    public BuildingVO(BuildingPK buildingPK) {
-        this.buildingPK = buildingPK;
-    }
-
-    public BuildingVO(BuildingPK buildingPK, Character isapt, int buildingtype, String name) {
-        this.buildingPK = buildingPK;
-        this.isapt = isapt;
-        this.buildingtype = buildingtype;
-        this.name = name;
-    }
-
-    public BuildingVO(int memberid, int deviceid, int buildingid) {
-        this.buildingPK = new BuildingPK(memberid, deviceid, buildingid);
-    }
-
-    public BuildingPK getBuildingPK() {
-        return buildingPK;
-    }
-
-    public void setBuildingPK(BuildingPK buildingPK) {
-        this.buildingPK = buildingPK;
     }
 
     public Character getIsapt() {
@@ -118,30 +94,4 @@ public class BuildingVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (buildingPK != null ? buildingPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BuildingVO)) {
-            return false;
-        }
-        BuildingVO other = (BuildingVO) object;
-        if ((this.buildingPK == null && other.buildingPK != null) || (this.buildingPK != null && !this.buildingPK.equals(other.buildingPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Building[ buildingPK=" + buildingPK + " ]";
-    }
-    
 }

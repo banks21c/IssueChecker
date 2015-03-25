@@ -6,8 +6,8 @@
 package com.goodbyenote.bapdosaptlweb.pos.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -30,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customerrequest.findAll", query = "SELECT c FROM Customerrequest c")})
-public class CustomerrequestVO implements Serializable {
+public class CustomerrequestVO extends PosCommonVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CustomerrequestPK customerrequestPK;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
@@ -55,29 +53,6 @@ public class CustomerrequestVO implements Serializable {
     private Date modificationdate;
 
     public CustomerrequestVO() {
-    }
-
-    public CustomerrequestVO(CustomerrequestPK customerrequestPK) {
-        this.customerrequestPK = customerrequestPK;
-    }
-
-    public CustomerrequestVO(CustomerrequestPK customerrequestPK, String contents, Character isdefault, int orderid) {
-        this.customerrequestPK = customerrequestPK;
-        this.contents = contents;
-        this.isdefault = isdefault;
-        this.orderid = orderid;
-    }
-
-    public CustomerrequestVO(int memberid, int deviceid, int requestid) {
-        this.customerrequestPK = new CustomerrequestPK(memberid, deviceid, requestid);
-    }
-
-    public CustomerrequestPK getCustomerrequestPK() {
-        return customerrequestPK;
-    }
-
-    public void setCustomerrequestPK(CustomerrequestPK customerrequestPK) {
-        this.customerrequestPK = customerrequestPK;
     }
 
     public String getContents() {
@@ -119,30 +94,4 @@ public class CustomerrequestVO implements Serializable {
     public void setModificationdate(Date modificationdate) {
         this.modificationdate = modificationdate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (customerrequestPK != null ? customerrequestPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CustomerrequestVO)) {
-            return false;
-        }
-        CustomerrequestVO other = (CustomerrequestVO) object;
-        if ((this.customerrequestPK == null && other.customerrequestPK != null) || (this.customerrequestPK != null && !this.customerrequestPK.equals(other.customerrequestPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.Customerrequest[ customerrequestPK=" + customerrequestPK + " ]";
-    }
-    
 }
