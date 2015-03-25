@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  * @author David
  */
 @Embeddable
-public class MenuPK implements Serializable {
+public class PosCommonVO implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "MEMBERID")
@@ -26,18 +26,13 @@ public class MenuPK implements Serializable {
     @NotNull
     @Column(name = "DEVICEID")
     private int deviceid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MENUID")
-    private int menuid;
 
-    public MenuPK() {
+    public PosCommonVO() {
     }
 
-    public MenuPK(int memberid, int deviceid, int menuid) {
+    public PosCommonVO(int memberid, int deviceid) {
         this.memberid = memberid;
         this.deviceid = deviceid;
-        this.menuid = menuid;
     }
 
     public int getMemberid() {
@@ -56,17 +51,10 @@ public class MenuPK implements Serializable {
         this.deviceid = deviceid;
     }
 
-    public int getMenuid() {
-        return menuid;
-    }
-
-    public void setMenuid(int menuid) {
-        this.menuid = menuid;
-    }
 
     @Override
     public String toString() {
-        return "com.goodbyenote.bapdosaptlweb.pos.model.MenuPK[ memberid=" + memberid + ", deviceid=" + deviceid + ", menuid=" + menuid + " ]";
+        return "com.goodbyenote.bapdosaptlweb.pos.model.MenuPK[ memberid=" + memberid + ", deviceid=" + deviceid + " ]";
     }
     
 }
