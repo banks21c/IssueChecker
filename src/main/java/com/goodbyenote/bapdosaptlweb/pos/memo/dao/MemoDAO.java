@@ -85,13 +85,13 @@ public class MemoDAO {
 		return 0;
 	}
 
-	public MemoVO viewDtlSum(MemoVO adjust) {
+	public MemoVO viewDtlSum(MemoVO memo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public MemoVO getDetail(MemoVO menu) {
-		return (MemoVO)sqlSession.selectOne("MemoMapper.getDetail",menu);
+	public MemoVO getDetail(MemoVO memo) {
+		return (MemoVO)sqlSession.selectOne("MemoMapper.getDetail",memo);
 
 	}
 }

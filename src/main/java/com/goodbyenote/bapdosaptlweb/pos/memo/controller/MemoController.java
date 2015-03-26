@@ -2,6 +2,7 @@ package com.goodbyenote.bapdosaptlweb.pos.memo.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -29,7 +30,14 @@ public class MemoController {
 	private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
 
 	@Autowired
+    ServletContext context; 
+	
+	@Autowired
 	private MemoService memoService;
+	
+	public void setServletContext(ServletContext servletContext) {
+	     this.context = servletContext;
+	}
 	
 	/**
 	 * @param memo
@@ -43,7 +51,7 @@ public class MemoController {
 			, HttpServletRequest request) {
 
 		model.addAttribute("memo", memo);
-		
+		model.addAttribute("ContextPath",context.getContextPath());
 		return "pos/memo/memoList";
 	}	
 	
@@ -90,15 +98,41 @@ public class MemoController {
 		
 		return mav; 
 	}
-	
+	/**
+	 * A	메모
+	 * B	예약
+	 * C	예약해지
+	 * D	고객요구
+	 * E	이동
+	 * F	합석
+	 * G	연결
+	 * H	연결해제
+	 * I	주문
+	 * J	포장
+	 * K	배달
+	 * L	포장판매
+	 * M	손실
+	 * N	배달실패
+	 * O	식권
+	 * @param memo
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	
 	@RequestMapping(value = "/pos/memo/getMemoDetail")
 	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
 		
+		System.out.println("memberid:"+memo.getMemberid());
+		System.out.println("deviceid:"+memo.getDeviceid());
+		System.out.println("memoid:"+memo.getMemoid());
+
 		MemoVO detailData = memoService.getDetail(memo);
-		System.out.println("detailData:"+detailData);
+		System.out.println("detailData contents:"+detailData.getContents());
 		model.addAttribute("detailData",detailData);
-		return "/pos/memo/memoDetail";
+		String url = "pos/memo/memoDetail";
+		System.out.println("detailData.getMemotype():"+detailData.getMemotype());
+		return url;
 	}
 	
 }
