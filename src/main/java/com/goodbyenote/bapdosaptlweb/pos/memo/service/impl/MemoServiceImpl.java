@@ -47,8 +47,7 @@ public class MemoServiceImpl implements MemoService {
 
 	@Override
 	public MemoVO getDetail(MemoVO menu) {
-		// TODO Auto-generated method stub
-		return null;
+		return memoDAO.getDetail(menu);
 	}
 
 	@Override

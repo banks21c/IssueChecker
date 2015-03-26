@@ -37,14 +37,14 @@ public class MemoController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/list")
+	@RequestMapping(value = "/pos/memo/memoList")
 	public String list( MemoVO memo
 			, Model model
 			, HttpServletRequest request) {
 
 		model.addAttribute("memo", memo);
 		
-		return "pos/memo/list";
+		return "pos/memo/memoList";
 	}	
 	
 	@RequestMapping(value = "/pos/memo/getMemoList.json")	
@@ -64,14 +64,6 @@ public class MemoController {
 		
 		return mav; 
 	}	
-	
-	
-	@RequestMapping(value = "/pos/memo/getMemoDetail")
-	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
-		MemoVO vo = memoService.getDetail(memo);	
-		model.addAttribute("dataVO", vo);
-		return "pos/memo/list";
-	}
 	
 	@RequestMapping(value = "/pos/memo/saveMemo.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
@@ -97,6 +89,16 @@ public class MemoController {
 		mav.setViewName("jsonView");
 		
 		return mav; 
+	}
+	
+	
+	@RequestMapping(value = "/pos/memo/getMemoDetail")
+	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
+		
+		MemoVO detailData = memoService.getDetail(memo);
+		System.out.println("detailData:"+detailData);
+		model.addAttribute("detailData",detailData);
+		return "/pos/memo/memoDetail";
 	}
 	
 }
