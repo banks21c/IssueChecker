@@ -3,18 +3,31 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-<title>°¡°Ô³ëÆ®</title>
+<title>ê°€ê²Œë…¸íŠ¸</title>
 <link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.min.css" />
 <link rel="stylesheet" href="../../css/style.css" />
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
 <script>
 $(document).ready(function() {
-
-	var url = "/bapdosaptlweb/pos/memo/getMemoList.json";
+	var useragent = navigator.userAgent.toLowerCase();
+	/**
+	*ëª¨ë°”ì¼ì—ì„œ ì ‘ì†í–ˆëŠ”ì§€, PCì—ì„œ ì ‘ì†í–ˆëŠ”ì§€ êµ¬ë¶„í•´ì„œ ì´ë²¤íŠ¸ë¥¼ ì¤€ë‹¤.
+	*/
+	var connectDevice = "mobile";
+	var selectEvent = "";
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		connectDevice = "mobile";
+		selectEvent = "touchstart";
+	}else{
+		connectDevice = "pc";
+		selectEvent = "click";
+	}
+	console.log("connect device:"+connectDevice);
+	
+	var url = "${ContextPath}/pos/memo/getMemoList.json";
 	var param = "";
 	$.ajax({
 		url: url,
@@ -37,7 +50,7 @@ $(document).ready(function() {
 				}	
 				
 			} else {
-				alert("¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.");
+				alert("ì˜¤ë¥˜ë°œìƒ");
 			}
 			
 		}
@@ -45,79 +58,88 @@ $(document).ready(function() {
 	
 	function makeList(returnObj,id){
 		$.each(returnObj, function (i, item) {
-		    console.log(item.memberid);
-		    console.log(item.deviceid);
-		    console.log(item.memoid);
-		    console.log(item.deliverymasterid);
-		    console.log(item.orderid);
-		    console.log(item.startsalesdate);
-		    console.log(item.memotype);
-		    console.log(item.codename);
-		    console.log(item.reservid);
-		    console.log(item.requestid);
-		    console.log(item.tradeid);
-		    console.log(item.contents);
-		    console.log(item.creationdate);
-		    console.log(item.isimportant);
-		    console.log(item.ischecked);
-		    console.log(item.isdeleted);
-		    console.log(item.modificationdate);
-		    
+			var memotype = item.memotype;
+			var popId = "memo_pop";
+			if(memotype == 'A'){
+				popId = "memo_pop";
+			}else if(memotype == 'B'){
+				popId = "reservation_pop";
+			}else if(memotype == 'I'){
+				popId = "order_pop";
+			}else if(memotype == 'K'){
+				popId = "delivery_pop";
+			}
 			var html = '';
-			html += '<tr id="tr"'+i+'>';
+			html += '<tr>';
 			html += '<td class="a_tc"><input type="checkbox" id="chk'+i+'" data-role="none"></td>';
 			html += '<td class="data">'+item.time+'</td>';
-			html += '<td>'+item.codename+'</td>';
-			html += '<td><a href="#reservation_pop" data-rel="popup" data-position-to="window" data-transition="pop" aria-haspopup="true" aria-owns="reservation_pop" aria-expanded="false" class="ui-link">'+item.contents+'</a></td>';
+			html += '<td>';
+			html += item.codename;
+			html += '</td>';
+			html += '<td>';
+			html += '<a href="#'+popId+'" data-rel="popup" data-position-to="window" data-transition="pop" aria-haspopup="true" aria-owns="'+popId+'" aria-expanded="false" class="ui-link">'+item.contents+'</a>';
+			html += '<input type="hidden" class="hiddenKey" name="key" value="'+item.memberid+'^'+item.deviceid+'^'+item.memoid+'^'+item.memotype+'"/>';
+			html += '</td>';
 			html += '</tr>';
 			$('#'+id).append(html);
 		});
 		
 		$('input:checkbox').click(function() {
-			console.log("aa");
 		    var $this = $(this);
 		    if ($this.is(':checked')) {
-				console.log($this.attr("id"));
+				console.log($this.closest("tr").addClass("gray"));
 		    } else {
-				console.log($this.attr("id"));
+				console.log($this.closest("tr").removeClass("gray"));
 		    }
 		});		
-	}
-	
-	$("#more").bind("tap", function(event) {
-//  		$.post('getMemoDetail.json', "param", function(data) {
-//  			$('#popupDiv').html(data);
-// 			    $('#reservation_pop').popup();
-// 			    $('#reservation_pop').popup('open');			
-//  		});
-		
-		
-		// Assign handlers immediately after making the request,
-		// and remember the jqxhr object for this request
-		var jqxhr = $.post( "getMemoDetail.json", function(data) {
-			$('#popupDiv').html(data);
-		})
-		  .done(function() {
-			    $('#reservation_pop').popup();
-			    $('#reservation_pop').popup('open');			  
-		  })
-		  .fail(function() {
-		    console.log( "error" );
-		  })
-		  .always(function() {
-		    console.log( "finished" );
-		});		
-	});
 
-	$('input:checkbox').click(function() {
-		console.log("kk");
-	    var $this = $(this);
-	    if ($this.is(':checked')) {
-			console.log($this.attr("id"));
-	    } else {
-			console.log($this.attr("id"));
-	    }
-	});
+		$("a").bind(selectEvent, function(event) {
+			var key = $(this).siblings('.hiddenKey').attr('value');
+			var keys = key.split('^');
+			var param = "";
+			if(keys.length >0){
+				$('#memberid').val(keys[0]);
+				$('#deviceid').val(keys[1]);
+				$('#memoid').val(keys[2]);
+				$('#memotype').val(keys[3]);
+			}
+			var memotype = keys[3];
+			var popId = "memo_pop";
+			if(memotype == 'A'){
+				popId = "memo_pop";
+			}else if(memotype == 'B'){
+				popId = "reservation_pop";
+			}else if(memotype == 'I'){
+				popId = "order_pop";
+			}else if(memotype == 'K'){
+				popId = "delivery_pop";
+			}
+			
+//	  		$.post('getMemoDetail.json', "param", function(data) {
+//	  			$('#popupDiv').html(data);
+//	 			    $('#reservation_pop').popup();
+//	 			    $('#reservation_pop').popup('open');			
+//	  		});
+			
+			
+			// Assign handlers immediately after making the request,
+			// and remember the jqxhr object for this request
+			var jqxhr = $.post( "getMemoDetail.json",$("#detailViewParamForm").serialize(),function(data) {
+				console.log("data:"+data);
+				$('#popupDiv').html(data);
+			})
+			  .done(function() {
+				    $('#'+popId).popup();
+				    $('#'+popId).popup('open');			  
+			  })
+			  .fail(function() {
+			    console.log( "error" );
+			  })
+			  .always(function() {
+			    console.log( "finished" );
+			});		
+		});	
+	}
 		
 });
 </script>
@@ -127,8 +149,8 @@ $(document).ready(function() {
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
-		<a href="#" class="btn_admin" title="¼³Á¤" data-role="none"></a>
-		<h1>°£ÆíÆ÷½º</h1>
+		<a href="#" class="btn_admin" title="ì„¤ì •" data-role="none"></a>
+		<h1>ê°„í¸í¬ìŠ¤</h1>
 	</div>
 	<div data-role="content">
 		<div class="top_total">
@@ -146,92 +168,99 @@ $(document).ready(function() {
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>¿¹¾à</td>
-						<td><a href="#reservation_pop" id="more" data-rel="popup" data-position-to="window" data-transition="pop">±è¼º±â8¸í(010-5555-5555) 17</a></td>
+						<td>ì˜ˆì•½</td>
+						<td><a href="#reservation_pop" id="more" data-rel="popup" data-position-to="window" data-transition="pop">ê¹€ì„±ê¸°8ëª…(010-5555-5555) 17</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>¹è´Ş½ÇÆĞ</td>
-						<td><a href="#delivery_pop" data-rel="popup" data-position-to="window" data-transition="pop">Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í</a></td>
+						<td>ë°°ë‹¬ì‹¤íŒ¨</td>
+						<td><a href="#delivery_pop" data-rel="popup" data-position-to="window" data-transition="pop">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª… ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª…</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>¸Ş¸ğ</td>
-						<td><a href="#memo_pop" data-rel="popup" data-position-to="window" data-transition="pop">°è¶õ ±è¾¾ 8½Ã µµÂø</a></td>
+						<td>ë©”ëª¨</td>
+						<td><a href="#memo_pop" data-rel="popup" data-position-to="window" data-transition="pop">ê³„ë€ ê¹€ì”¨ 8ì‹œ ë„ì°©</a></td>
 					</tr>
 					<tr class="gray">
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" checked="checked" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
+						<td>ì‹ê¶Œ</td>
 						<td><span class="tover">20</span></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>Æ÷Àå</td>
-						<td><a href="#order_pop" data-rel="popup" data-position-to="window" data-transition="pop">14¹ø Æ÷Àå¸Ş´º Ãß°¡</a></td>
+						<td>í¬ì¥</td>
+						<td><a href="#order_pop" data-rel="popup" data-position-to="window" data-transition="pop">14ë²ˆ í¬ì¥ë©”ë‰´ ì¶”ê°€</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
-						<td><a href="#">Á¤¸í¼¼¹«±×·ì °Å½º¸§µ· Á¤¸í¼¼¹«±×·ì °Å½º¸§µ·</a></td>
+						<td>ì‹ê¶Œ</td>
+						<td><a href="#">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
+						<td>ì‹ê¶Œ</td>
 						<td><a href="#">20</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>¹è´Ş½ÇÆĞ</td>
-						<td><span class="tover">Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í</span></td>
+						<td>ë°°ë‹¬ì‹¤íŒ¨</td>
+						<td><span class="tover">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª… ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª…</span></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
-						<td><a href="#">Á¤¸í¼¼¹«±×·ì °Å½º¸§µ· Á¤¸í¼¼¹«±×·ì °Å½º¸§µ·</a></td>
+						<td>ì‹ê¶Œ</td>
+						<td><a href="#">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
+						<td>ì‹ê¶Œ</td>
 						<td><a href="#">20</a></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>¹è´Ş½ÇÆĞ</td>
-						<td><span class="tover">Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í Á¤¸í¼¼¹«±×·ì ÁÖ¼ÒºÒ¸í</span></td>
+						<td>ë°°ë‹¬ì‹¤íŒ¨</td>
+						<td><span class="tover">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª… ì •ëª…ì„¸ë¬´ê·¸ë£¹ ì£¼ì†Œë¶ˆëª…</span></td>
 					</tr>
 					<tr>
 						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
 						<td class="data">21:32</td>
-						<td>½Ä±Ç</td>
-						<td><a href="#">Á¤¸í¼¼¹«±×·ì °Å½º¸§µ· Á¤¸í¼¼¹«±×·ì °Å½º¸§µ·</a></td>
+						<td>ì‹ê¶Œ</td>
+						<td><a href="#">ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ ì •ëª…ì„¸ë¬´ê·¸ë£¹ ê±°ìŠ¤ë¦„ëˆ</a></td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div class="btn_c tline">
-				<a href="#" class="btn_blue">¿¹¾à</a><a href="#" class="btn_blue">°í°´ÁÖ¹®</a><a href="#" class="btn_blue">¸Ş¸ğ</a><a href="#" class="btn_white" data-rel="back">µ¹¾Æ°¡±â</a>
+				<a href="#" class="btn_blue">ì˜ˆì•½</a><a href="#" class="btn_blue">ê³ ê°ì£¼ë¬¸</a><a href="#" class="btn_blue">ë©”ëª¨</a><a href="#" class="btn_white" data-rel="back">ëŒì•„ê°€ê¸°</a>
 			</div>
 		</div>
 	</div>
 	<div data-role="footer" data-position="fixed">
 		<div class="help">
-			<p><span>¿Ï·áµÈ ¸Ş¸ğ´Â ¿ŞÂÊ Ã¼Å· ÇÏ¸é »ö»óÀÌ Èñ¹ÌÇØÁı´Ï´Ù.</span></p>
+			<p><span>ì™„ë£Œëœ ë©”ëª¨ëŠ” ì™¼ìª½ ì²´í‚¹ í•˜ë©´ ìƒ‰ìƒì´ í¬ë¯¸í•´ì§‘ë‹ˆë‹¤.</span></p>
 		</div>
 	</div>
+
 
 	<div id="popupDiv" class="ui-screen-hidden">
 	</div>
 
+	<form id="detailViewParamForm">
+		<input type="hidden" name="memberid" id="memberid" value=""/>
+		<input type="hidden" name="deviceid" id="deviceid" value=""/>
+		<input type="hidden" name="memoid" id="memoid" value=""/>
+		<input type="hidden" name="memotype" id="memotype" value=""/>
+	</form>
 </div>
 </body>
 </html> 
