@@ -89,4 +89,9 @@ public class MemoDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public MemoVO getDetail(MemoVO menu) {
+		return (MemoVO)sqlSession.selectOne("MemoMapper.getDetail",menu);
+
+	}
 }
