@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goodbyenote.bapdosaptlweb.pos.dao.CustomerDAO;
 import com.goodbyenote.bapdosaptlweb.pos.dao.MemberDriverDAO;
 import com.goodbyenote.bapdosaptlweb.pos.service.PosService;
 
@@ -19,8 +18,8 @@ public class PosServiceImpl implements PosService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PosServiceImpl.class);
 	
-	@Autowired
-	CustomerDAO customerDAO;
+	//@Autowired
+	//CustomerDAO customerDAO;
 	
 	@Autowired
 	MemberDriverDAO memberDAO;
