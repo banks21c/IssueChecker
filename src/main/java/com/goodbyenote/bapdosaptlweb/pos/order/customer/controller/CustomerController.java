@@ -2,6 +2,7 @@ package com.goodbyenote.bapdosaptlweb.pos.order.customer.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -30,6 +31,11 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+    ServletContext context; 	
+	public void setServletContext(ServletContext servletContext) {
+	     this.context = servletContext;
+	}
 	
 	/**
 	 * @param memo
@@ -43,7 +49,7 @@ public class CustomerController {
 			, HttpServletRequest request) {
 
 		model.addAttribute("memo", memo);
-		
+		model.addAttribute("ContextPath",context.getContextPath());		
 		return "pos/order/customer/regularOrderHistory";
 	}	
 	
