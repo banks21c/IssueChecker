@@ -52,6 +52,7 @@ public class MemoController {
 
 		model.addAttribute("memo", memo);
 		model.addAttribute("ContextPath",context.getContextPath());
+
 		return "pos/memo/memoList";
 	}	
 	

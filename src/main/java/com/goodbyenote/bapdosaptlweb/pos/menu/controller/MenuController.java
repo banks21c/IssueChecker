@@ -2,6 +2,7 @@ package com.goodbyenote.bapdosaptlweb.pos.menu.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -30,6 +31,13 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+    ServletContext context;
+	
+	public void setServletContext(ServletContext servletContext) {
+	     this.context = servletContext;
+	}
 	
 	/**
 	 * @param menu
@@ -43,7 +51,8 @@ public class MenuController {
 			, HttpServletRequest request) {
 
 		model.addAttribute("menu", menu);
-		
+		model.addAttribute("ContextPath",context.getContextPath());
+
 		return "pos/menu/list";
 	}	
 	
@@ -123,6 +132,7 @@ public class MenuController {
 			, HttpServletRequest request) {
 
 		model.addAttribute("menu", menu);
+		model.addAttribute("ContextPath",context.getContextPath());
 		
 		return "pos/menu/menuManage";
 	}	
