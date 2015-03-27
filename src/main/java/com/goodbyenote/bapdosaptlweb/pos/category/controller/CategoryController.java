@@ -1,4 +1,4 @@
-package com.goodbyenote.bapdosaptlweb.pos.memo.controller;
+package com.goodbyenote.bapdosaptlweb.pos.category.controller;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
-import com.goodbyenote.bapdosaptlweb.pos.memo.service.MemoService;
-import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
+import com.goodbyenote.bapdosaptlweb.pos.category.service.CategoryService;
+import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class MemoController {
+public class CategoryController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
 	@Autowired
-	private MemoService memoService;
+	private CategoryService categoryService;
 
 	@Autowired
     ServletContext context;
@@ -40,33 +40,33 @@ public class MemoController {
 	}
 	
 	/**
-	 * @param memo
+	 * @param category
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoList")
-	public String list( MemoVO memo
+	@RequestMapping(value = "/pos/category/categoryManage")
+	public String list( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("category", category);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoList";
+		return "pos/category/categoryManage";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getMemoList.json")	
-	public ModelAndView getMemoList( MemoVO memo
+	@RequestMapping(value = "/pos/category/getCategoryList.json")	
+	public ModelAndView getCategoryList( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getList(memo);
+		List<CategoryVO> categoryList = categoryService.getList(category);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(categoryList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -74,30 +74,30 @@ public class MemoController {
 	}	
 	
 	/**
-	 * @param memo
+	 * @param category
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoRegist")
-	public String memoRegist( MemoVO memo
+	@RequestMapping(value = "/pos/category/categoryRegist")
+	public String categoryRegist( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("category", category);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoRegist";
+		return "pos/category/categoryRegist";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/saveMemo.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/pos/category/saveCategory.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
-			@Valid MemoVO memo,
+			@Valid CategoryVO category,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
-		int resultValue = memoService.insertAction(memo);
+		int resultValue = categoryService.insertAction(category);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -115,21 +115,20 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIschecked.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIschecked(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/category/modifyCategoryIschecked.json", method = RequestMethod.POST)
+	public ModelAndView modifyCategoryIschecked(
+			@Valid CategoryVO category,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("ischecked:"+memo.getIschecked());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+category.getMemberid());
+		System.out.println("deviceid:"+category.getDeviceid());
+		System.out.println("categoryid:"+category.getCategoryid());
 
-		int resultValue = memoService.updateMemoIschecked(memo);
+		int resultValue = categoryService.updateCategoryIschecked(category);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -147,21 +146,20 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIsimportant.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIsimportant(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/category/modifyCategoryIsimportant.json", method = RequestMethod.POST)
+	public ModelAndView modifyCategoryIsimportant(
+			@Valid CategoryVO category,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("isimportant:"+memo.getIsimportant());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+category.getMemberid());
+		System.out.println("deviceid:"+category.getDeviceid());
+		System.out.println("categoryid:"+category.getCategoryid());
 
-		int resultValue = memoService.updateMemoIsimportant(memo);
+		int resultValue = categoryService.updateCategoryIsimportant(category);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -197,56 +195,53 @@ public class MemoController {
 	 * M	손실
 	 * N	배달실패
 	 * O	식권
-	 * @param memo
+	 * @param category
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/getMemoDetail")
-	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
+	@RequestMapping(value = "/pos/category/getCategoryDetail")
+	public String getCategoryDetail(CategoryVO category, Model model, HttpServletRequest request){
 		
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+category.getMemberid());
+		System.out.println("deviceid:"+category.getDeviceid());
+		System.out.println("categoryid:"+category.getCategoryid());
 
-		MemoVO detailData = memoService.getDetail(memo);
-		System.out.println("detailData contents:"+detailData.getContents());
-		System.out.println("detailData isimportant:"+detailData.getIsimportant());
+		CategoryVO detailData = categoryService.getDetail(category);
 		model.addAttribute("detailData",detailData);
-		String url = "pos/memo/memoDetail";
-		System.out.println("detailData.getMemotype():"+detailData.getMemotype());
+		String url = "pos/category/categoryDetail";
 		return url;
 	}
 
 //예약	
 	/**
-	 * @param memo
+	 * @param category
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/reservation")
-	public String reservation( MemoVO memo
+	@RequestMapping(value = "/pos/category/reservation")
+	public String reservation( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("category", category);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/reservation";
+		return "pos/category/reservation";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getReservationList.json")	
-	public ModelAndView getReservationList( MemoVO memo
+	@RequestMapping(value = "/pos/category/getReservationList.json")	
+	public ModelAndView getReservationList( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getReservationList(memo);
+		List<CategoryVO> categoryList = categoryService.getReservationList(category);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(categoryList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -256,33 +251,33 @@ public class MemoController {
 //고객요구
 	
 	/**
-	 * @param memo
+	 * @param category
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/customerRequest")
-	public String customerRequest( MemoVO memo
+	@RequestMapping(value = "/pos/category/customerRequest")
+	public String customerRequest( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("category", category);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/customerRequest";
+		return "pos/category/customerRequest";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getCustomerRequestList.json")	
-	public ModelAndView getCustomerRequestList( MemoVO memo
+	@RequestMapping(value = "/pos/category/getCustomerRequestList.json")	
+	public ModelAndView getCustomerRequestList( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getCustomerRequestList(memo);
+		List<CategoryVO> categoryList = categoryService.getCustomerRequestList(category);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(categoryList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		

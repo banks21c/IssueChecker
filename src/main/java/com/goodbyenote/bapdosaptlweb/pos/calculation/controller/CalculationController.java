@@ -1,4 +1,4 @@
-package com.goodbyenote.bapdosaptlweb.pos.memo.controller;
+package com.goodbyenote.bapdosaptlweb.pos.calculation.controller;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
-import com.goodbyenote.bapdosaptlweb.pos.memo.service.MemoService;
-import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
+import com.goodbyenote.bapdosaptlweb.pos.calculation.service.CalculationService;
+import com.goodbyenote.bapdosaptlweb.pos.model.CalculationVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class MemoController {
+public class CalculationController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CalculationController.class);
 	
 	@Autowired
-	private MemoService memoService;
+	private CalculationService calculationService;
 
 	@Autowired
     ServletContext context;
@@ -40,33 +40,49 @@ public class MemoController {
 	}
 	
 	/**
-	 * @param memo
+	 * @param calculation
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoList")
-	public String list( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/calculation")
+	public String calculation( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("calculation", calculation);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoList";
+		return "pos/calculation/calculation";
+	}	
+
+	/**
+	 * @param calculation
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/pos/calculation/calculationList")
+	public String list( CalculationVO calculation
+			, Model model
+			, HttpServletRequest request) {
+
+		model.addAttribute("calculation", calculation);
+		model.addAttribute("ContextPath",context.getContextPath());
+		return "pos/calculation/calculationList";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getMemoList.json")	
-	public ModelAndView getMemoList( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/getCalculationList.json")	
+	public ModelAndView getCalculationList( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getList(memo);
+		List<CalculationVO> calculationList = calculationService.getList(calculation);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(calculationList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -74,30 +90,30 @@ public class MemoController {
 	}	
 	
 	/**
-	 * @param memo
+	 * @param calculation
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoRegist")
-	public String memoRegist( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/calculationRegist")
+	public String calculationRegist( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("calculation", calculation);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoRegist";
+		return "pos/calculation/calculationRegist";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/saveMemo.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/pos/calculation/saveCalculation.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
-			@Valid MemoVO memo,
+			@Valid CalculationVO calculation,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
-		int resultValue = memoService.insertAction(memo);
+		int resultValue = calculationService.insertAction(calculation);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -115,21 +131,19 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIschecked.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIschecked(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/calculation/modifyCalculationIschecked.json", method = RequestMethod.POST)
+	public ModelAndView modifyCalculationIschecked(
+			@Valid CalculationVO calculation,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("ischecked:"+memo.getIschecked());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+calculation.getMemberid());
+		System.out.println("deviceid:"+calculation.getDeviceid());
 
-		int resultValue = memoService.updateMemoIschecked(memo);
+		int resultValue = calculationService.updateCalculationIschecked(calculation);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -147,21 +161,19 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIsimportant.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIsimportant(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/calculation/modifyCalculationIsimportant.json", method = RequestMethod.POST)
+	public ModelAndView modifyCalculationIsimportant(
+			@Valid CalculationVO calculation,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("isimportant:"+memo.getIsimportant());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+calculation.getMemberid());
+		System.out.println("deviceid:"+calculation.getDeviceid());
 
-		int resultValue = memoService.updateMemoIsimportant(memo);
+		int resultValue = calculationService.updateCalculationIsimportant(calculation);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -197,56 +209,52 @@ public class MemoController {
 	 * M	손실
 	 * N	배달실패
 	 * O	식권
-	 * @param memo
+	 * @param calculation
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/getMemoDetail")
-	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
+	@RequestMapping(value = "/pos/calculation/getCalculationDetail")
+	public String getCalculationDetail(CalculationVO calculation, Model model, HttpServletRequest request){
 		
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+calculation.getMemberid());
+		System.out.println("deviceid:"+calculation.getDeviceid());
 
-		MemoVO detailData = memoService.getDetail(memo);
-		System.out.println("detailData contents:"+detailData.getContents());
-		System.out.println("detailData isimportant:"+detailData.getIsimportant());
+		CalculationVO detailData = calculationService.getDetail(calculation);
 		model.addAttribute("detailData",detailData);
-		String url = "pos/memo/memoDetail";
-		System.out.println("detailData.getMemotype():"+detailData.getMemotype());
+		String url = "pos/calculation/calculationDetail";
 		return url;
 	}
 
 //예약	
 	/**
-	 * @param memo
+	 * @param calculation
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/reservation")
-	public String reservation( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/reservation")
+	public String reservation( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("calculation", calculation);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/reservation";
+		return "pos/calculation/reservation";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getReservationList.json")	
-	public ModelAndView getReservationList( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/getReservationList.json")	
+	public ModelAndView getReservationList( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getReservationList(memo);
+		List<CalculationVO> calculationList = calculationService.getReservationList(calculation);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(calculationList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -256,33 +264,33 @@ public class MemoController {
 //고객요구
 	
 	/**
-	 * @param memo
+	 * @param calculation
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/customerRequest")
-	public String customerRequest( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/customerRequest")
+	public String customerRequest( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("calculation", calculation);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/customerRequest";
+		return "pos/calculation/customerRequest";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getCustomerRequestList.json")	
-	public ModelAndView getCustomerRequestList( MemoVO memo
+	@RequestMapping(value = "/pos/calculation/getCustomerRequestList.json")	
+	public ModelAndView getCustomerRequestList( CalculationVO calculation
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getCustomerRequestList(memo);
+		List<CalculationVO> calculationList = calculationService.getCustomerRequestList(calculation);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(calculationList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		

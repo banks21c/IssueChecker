@@ -4,8 +4,7 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO" alias="MenuVO"/>
-		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MemoVO" alias="MemoVO"/>
+		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.MainVO" alias="MainVO"/>
 		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.BeforemergeVO" 		alias="BeforemergeVO"/>
 		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.BuildingVO" 			alias="BuildingVO"/>
 		<typeAlias type="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO" 			alias="CategoryVO"/>

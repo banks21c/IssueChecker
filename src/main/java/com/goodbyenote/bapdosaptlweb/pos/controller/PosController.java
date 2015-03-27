@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.goodbyenote.bapdosaptlweb.pos.model.MainVO;
 import com.goodbyenote.bapdosaptlweb.pos.service.PosService;
 
 @Controller
@@ -30,6 +31,15 @@ public class PosController {
 	
 	@Autowired
 	PosService datastoreService;
+	
+	@RequestMapping(value = "/pos/list")
+	public String list( MainVO main
+			, Model model
+			, HttpServletRequest request) {
+
+		model.addAttribute("ContextPath",context.getContextPath());
+		return "pos/list";
+	}	
 	
 	@RequestMapping("/pos/insertTestData.do")
 	public void insertTestData(Model model, 

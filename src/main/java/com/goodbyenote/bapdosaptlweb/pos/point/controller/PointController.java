@@ -1,4 +1,4 @@
-package com.goodbyenote.bapdosaptlweb.pos.memo.controller;
+package com.goodbyenote.bapdosaptlweb.pos.point.controller;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
-import com.goodbyenote.bapdosaptlweb.pos.memo.service.MemoService;
-import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
+import com.goodbyenote.bapdosaptlweb.pos.point.service.PointService;
+import com.goodbyenote.bapdosaptlweb.pos.model.PointVO;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class MemoController {
+public class PointController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PointController.class);
 	
 	@Autowired
-	private MemoService memoService;
+	private PointService pointService;
 
 	@Autowired
     ServletContext context;
@@ -40,33 +40,33 @@ public class MemoController {
 	}
 	
 	/**
-	 * @param memo
+	 * @param point
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoList")
-	public String list( MemoVO memo
+	@RequestMapping(value = "/pos/point/pointManage")
+	public String pointManage( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("point", point);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoList";
+		return "pos/point/pointManage";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getMemoList.json")	
-	public ModelAndView getMemoList( MemoVO memo
+	@RequestMapping(value = "/pos/point/getPointList.json")	
+	public ModelAndView getPointList( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getList(memo);
+		List<PointVO> pointList = pointService.getList(point);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(pointList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -74,30 +74,30 @@ public class MemoController {
 	}	
 	
 	/**
-	 * @param memo
+	 * @param point
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/memoRegist")
-	public String memoRegist( MemoVO memo
+	@RequestMapping(value = "/pos/point/pointRegist")
+	public String pointRegist( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("point", point);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/memoRegist";
+		return "pos/point/pointRegist";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/saveMemo.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/pos/point/savePoint.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
-			@Valid MemoVO memo,
+			@Valid PointVO point,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
-		int resultValue = memoService.insertAction(memo);
+		int resultValue = pointService.insertAction(point);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -115,21 +115,20 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIschecked.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIschecked(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/point/modifyPointIschecked.json", method = RequestMethod.POST)
+	public ModelAndView modifyPointIschecked(
+			@Valid PointVO point,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("ischecked:"+memo.getIschecked());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+point.getMemberid());
+		System.out.println("deviceid:"+point.getDeviceid());
+		System.out.println("pointid:"+point.getPointid());
 
-		int resultValue = memoService.updateMemoIschecked(memo);
+		int resultValue = pointService.updatePointIschecked(point);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -147,21 +146,20 @@ public class MemoController {
 		return mav; 
 	}
 	
-	@RequestMapping(value = "/pos/memo/modifyMemoIsimportant.json", method = RequestMethod.POST)
-	public ModelAndView modifyMemoIsimportant(
-			@Valid MemoVO memo,
+	@RequestMapping(value = "/pos/point/modifyPointIsimportant.json", method = RequestMethod.POST)
+	public ModelAndView modifyPointIsimportant(
+			@Valid PointVO point,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
 		
-		System.out.println("isimportant:"+memo.getIsimportant());
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+point.getMemberid());
+		System.out.println("deviceid:"+point.getDeviceid());
+		System.out.println("pointid:"+point.getPointid());
 
-		int resultValue = memoService.updateMemoIsimportant(memo);
+		int resultValue = pointService.updatePointIsimportant(point);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -197,56 +195,54 @@ public class MemoController {
 	 * M	손실
 	 * N	배달실패
 	 * O	식권
-	 * @param memo
+	 * @param point
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/getMemoDetail")
-	public String getMemoDetail(MemoVO memo, Model model, HttpServletRequest request){
+	@RequestMapping(value = "/pos/point/getPointDetail")
+	public String getPointDetail(PointVO point, Model model, HttpServletRequest request){
 		
-		System.out.println("memberid:"+memo.getMemberid());
-		System.out.println("deviceid:"+memo.getDeviceid());
-		System.out.println("memoid:"+memo.getMemoid());
+		System.out.println("memberid:"+point.getMemberid());
+		System.out.println("deviceid:"+point.getDeviceid());
+		System.out.println("pointid:"+point.getPointid());
 
-		MemoVO detailData = memoService.getDetail(memo);
-		System.out.println("detailData contents:"+detailData.getContents());
-		System.out.println("detailData isimportant:"+detailData.getIsimportant());
+		PointVO detailData = pointService.getDetail(point);
 		model.addAttribute("detailData",detailData);
-		String url = "pos/memo/memoDetail";
-		System.out.println("detailData.getMemotype():"+detailData.getMemotype());
+		String url = "pos/point/pointDetail";
+		System.out.println("detailData.getPointtype():"+detailData.getPointtype());
 		return url;
 	}
 
 //예약	
 	/**
-	 * @param memo
+	 * @param point
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/reservation")
-	public String reservation( MemoVO memo
+	@RequestMapping(value = "/pos/point/reservation")
+	public String reservation( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("point", point);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/reservation";
+		return "pos/point/reservation";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getReservationList.json")	
-	public ModelAndView getReservationList( MemoVO memo
+	@RequestMapping(value = "/pos/point/getReservationList.json")	
+	public ModelAndView getReservationList( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getReservationList(memo);
+		List<PointVO> pointList = pointService.getReservationList(point);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(pointList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
@@ -256,33 +252,33 @@ public class MemoController {
 //고객요구
 	
 	/**
-	 * @param memo
+	 * @param point
 	 * @param model
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/memo/customerRequest")
-	public String customerRequest( MemoVO memo
+	@RequestMapping(value = "/pos/point/customerRequest")
+	public String customerRequest( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("point", point);
 		model.addAttribute("ContextPath",context.getContextPath());
-		return "pos/memo/customerRequest";
+		return "pos/point/customerRequest";
 	}	
 	
-	@RequestMapping(value = "/pos/memo/getCustomerRequestList.json")	
-	public ModelAndView getCustomerRequestList( MemoVO memo
+	@RequestMapping(value = "/pos/point/getCustomerRequestList.json")	
+	public ModelAndView getCustomerRequestList( PointVO point
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<MemoVO> memoList = memoService.getCustomerRequestList(memo);
+		List<PointVO> pointList = pointService.getCustomerRequestList(point);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(memoList);
+		returnJsonVO.setReturnObj(pointList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		

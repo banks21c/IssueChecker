@@ -14,21 +14,21 @@ import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
 public class MemoDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	public void insertTestData() {
 		List<MemoVO> menus = new ArrayList<MemoVO>(13);
-		
-        for(MemoVO m : menus){
-        	sqlSession.insert("pos.insertMemo", m);	
-        }
+
+		for (MemoVO m : menus) {
+			sqlSession.insert("pos.insertMemo", m);
+		}
 	}
 
 	public List<MemoVO> getList(MemoVO memo) {
-		return sqlSession.selectList("MemoMapper.getList",memo);
+		return sqlSession.selectList("MemoMapper.getList", memo);
 	}
 
 	public int count(MemoVO memo) {
-		return (Integer)sqlSession.selectOne("MemoMapper.count",memo);
+		return (Integer) sqlSession.selectOne("MemoMapper.count", memo);
 	}
 
 	public List<Map<String, ?>> listExcel(MemoVO memo) {
@@ -46,7 +46,7 @@ public class MemoDAO {
 	}
 
 	public MemoVO getDetailSum(MemoVO memo) {
-		return (MemoVO)sqlSession.selectOne("MemoMapper.getViewData",memo);
+		return (MemoVO) sqlSession.selectOne("MemoMapper.getViewData", memo);
 	}
 
 	public MemoVO view(MemoVO memo) {
@@ -77,7 +77,7 @@ public class MemoDAO {
 	public int deleteDtlAction(MemoVO memo) {
 		// TODO Auto-generated method stub
 		return 0;
-		
+
 	}
 
 	public int deleteAction(MemoVO memo) {
@@ -91,7 +91,23 @@ public class MemoDAO {
 	}
 
 	public MemoVO getDetail(MemoVO memo) {
-		return (MemoVO)sqlSession.selectOne("MemoMapper.getDetail",memo);
+		return (MemoVO) sqlSession.selectOne("MemoMapper.getDetail", memo);
 
+	}
+
+	public int updateMemoIschecked(MemoVO memo) {
+		return sqlSession.update("MemoMapper.updateMemoIschecked", memo);
+	}
+
+	public int updateMemoIsimportant(MemoVO memo) {
+		return sqlSession.update("MemoMapper.updateMemoIsimportant", memo);
+	}
+
+	public List<MemoVO> getReservationList(MemoVO memo) {
+		return sqlSession.selectList("MemoMapper.getReservationList", memo);
+	}
+
+	public List<MemoVO> getCustomerRequestList(MemoVO memo) {
+		return sqlSession.selectList("MemoMapper.getCustomerRequestList", memo);
 	}
 }

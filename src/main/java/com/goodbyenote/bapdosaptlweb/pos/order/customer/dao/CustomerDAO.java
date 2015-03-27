@@ -90,8 +90,9 @@ public class CustomerDAO {
 		return null;
 	}
 
-	public CustomerVO getDetail(CustomerVO menu) {
-		return (CustomerVO)sqlSession.selectOne("CustomerMapper.getDetail",menu);
+	public CustomerVO getRegularDetail(CustomerVO menu) {
+		return (CustomerVO)sqlSession.selectOne("CustomerMapper.getRegularDetail",menu);
 
 	}
+
 }
