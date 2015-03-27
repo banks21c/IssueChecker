@@ -11,6 +11,9 @@
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
 <script>
+var recievedData;
+
+
 $(document).ready(function() {
 	var useragent = navigator.userAgent.toLowerCase();
 	/**
@@ -25,7 +28,7 @@ $(document).ready(function() {
 		connectDevice = "pc";
 		selectEvent = "click";
 	}
-	console.log("connect device:"+connectDevice);
+	var popId = "memo_pop";
 	
 	var url = "${ContextPath}/pos/memo/getMemoList.json";
 	var param = "";
@@ -55,22 +58,26 @@ $(document).ready(function() {
 			
 		}
 	});
-	
+
 	function makeList(returnObj,id){
 		$.each(returnObj, function (i, item) {
 			var memotype = item.memotype;
-			var popId = "memo_pop";
+			popId = "memo_pop";
 			if(memotype == 'A'){
 				popId = "memo_pop";
-			}else if(memotype == 'B'){
+			}else if(memotype == 'B' || memotype == 'C'){
 				popId = "reservation_pop";
 			}else if(memotype == 'I'){
 				popId = "order_pop";
-			}else if(memotype == 'K'){
+			}else if(memotype == 'K' || memotype == 'N'){
 				popId = "delivery_pop";
 			}
 			var html = '';
-			html += '<tr>';
+			if(item.ischecked == 'Y'){
+				html += '<tr class="gray">';
+			}else{
+				html += '<tr>';
+			}
 			html += '<td class="a_tc"><input type="checkbox" id="chk'+i+'" data-role="none"></td>';
 			html += '<td class="data">'+item.time+'</td>';
 			html += '<td>';
@@ -86,15 +93,32 @@ $(document).ready(function() {
 		
 		$('input:checkbox').click(function() {
 		    var $this = $(this);
+			
+			var key = $this.closest("tr").find('td').eq(3).find('.hiddenKey').val();
+			if(key == undefined) return;
+			var keys = key.split('^');
+			var param = "";
+			if(keys.length >0){
+				$('#memberid').val(keys[0]);
+				$('#deviceid').val(keys[1]);
+				$('#memoid').val(keys[2]);
+				$('#memotype').val(keys[3]);
+			}
+			
 		    if ($this.is(':checked')) {
-				console.log($this.closest("tr").addClass("gray"));
+				$this.closest("tr").addClass("gray");
+				$('#ischecked').val('Y');
 		    } else {
-				console.log($this.closest("tr").removeClass("gray"));
+				$this.closest("tr").removeClass("gray");
+				$('#ischecked').val('N');
 		    }
+		    
+			changeCheckFlag();
 		});		
 
 		$("a").bind(selectEvent, function(event) {
 			var key = $(this).siblings('.hiddenKey').attr('value');
+			if(key == undefined) return;
 			var keys = key.split('^');
 			var param = "";
 			if(keys.length >0){
@@ -104,17 +128,16 @@ $(document).ready(function() {
 				$('#memotype').val(keys[3]);
 			}
 			var memotype = keys[3];
-			var popId = "memo_pop";
+			popId = "memo_pop";
 			if(memotype == 'A'){
 				popId = "memo_pop";
-			}else if(memotype == 'B'){
+			}else if(memotype == 'B' || memotype == 'C'){
 				popId = "reservation_pop";
 			}else if(memotype == 'I'){
 				popId = "order_pop";
-			}else if(memotype == 'K'){
+			}else if(memotype == 'K' || memotype == 'N'){
 				popId = "delivery_pop";
 			}
-			
 //	  		$.post('getMemoDetail.json', "param", function(data) {
 //	  			$('#popupDiv').html(data);
 //	 			    $('#reservation_pop').popup();
@@ -125,12 +148,23 @@ $(document).ready(function() {
 			// Assign handlers immediately after making the request,
 			// and remember the jqxhr object for this request
 			var jqxhr = $.post( "getMemoDetail.json",$("#detailViewParamForm").serialize(),function(data) {
-				console.log("data:"+data);
-				$('#popupDiv').html(data);
-			})
+				$('#' + popId).html(data);
+				
+				//주요메모로 보관 		
+				$('#memos').change(function() {
+				    var $this = $(this);
+					if ($this.is(':checked')) {
+						$('#isimportant').val('Y');
+				    } else {
+						$('#isimportant').val('N');
+				    }
+					console.log("isimportant",$('#isimportant').val());
+					changeImportantFlag();
+				});
+			  })
 			  .done(function() {
-				    $('#'+popId).popup();
-				    $('#'+popId).popup('open');			  
+				    $('#' + popId).popup();
+				    $('#' + popId).popup('open');			  
 			  })
 			  .fail(function() {
 			    console.log( "error" );
@@ -138,10 +172,47 @@ $(document).ready(function() {
 			  .always(function() {
 			    console.log( "finished" );
 			});		
-		});	
+		});
+
 	}
 		
 });
+
+function changeCheckFlag(){
+	var url = "${ContextPath}/pos/memo/modifyMemoIschecked.json";
+	var param = $("#detailViewParamForm").serialize();
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: param,
+		dataType: "json",
+		error:function (xhr, ajaxOptions, thrownError){
+			
+			alert("thrownError:"+thrownError);
+		},
+		success:function(data){
+			console.log(data);			
+		}
+	});	
+}
+
+function changeImportantFlag(){
+	var url = "${ContextPath}/pos/memo/modifyMemoIsimportant.json";
+	var param = $("#detailViewParamForm").serialize();
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: param,
+		dataType: "json",
+		error:function (xhr, ajaxOptions, thrownError){
+			
+			alert("thrownError:"+thrownError);
+		},
+		success:function(data){
+			console.log(data);			
+		}
+	});	
+}
 </script>
 </head>
 <body>
@@ -165,83 +236,15 @@ $(document).ready(function() {
 					<col width="*" />
 				</colgroup>
 				<tbody>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>예약</td>
-						<td><a href="#reservation_pop" id="more" data-rel="popup" data-position-to="window" data-transition="pop">김성기8명(010-5555-5555) 17</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>배달실패</td>
-						<td><a href="#delivery_pop" data-rel="popup" data-position-to="window" data-transition="pop">정명세무그룹 주소불명 정명세무그룹 주소불명</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>메모</td>
-						<td><a href="#memo_pop" data-rel="popup" data-position-to="window" data-transition="pop">계란 김씨 8시 도착</a></td>
-					</tr>
-					<tr class="gray">
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" checked="checked" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><span class="tover">20</span></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>포장</td>
-						<td><a href="#order_pop" data-rel="popup" data-position-to="window" data-transition="pop">14번 포장메뉴 추가</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><a href="#">정명세무그룹 거스름돈 정명세무그룹 거스름돈</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><a href="#">20</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>배달실패</td>
-						<td><span class="tover">정명세무그룹 주소불명 정명세무그룹 주소불명</span></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><a href="#">정명세무그룹 거스름돈 정명세무그룹 거스름돈</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><a href="#">20</a></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>배달실패</td>
-						<td><span class="tover">정명세무그룹 주소불명 정명세무그룹 주소불명</span></td>
-					</tr>
-					<tr>
-						<td class="a_tc"><input type="checkbox" id="" data-role="none" /></td>
-						<td class="data">21:32</td>
-						<td>식권</td>
-						<td><a href="#">정명세무그룹 거스름돈 정명세무그룹 거스름돈</a></td>
-					</tr>
+					
 				</tbody>
 			</table>
 
 			<div class="btn_c tline">
-				<a href="#" class="btn_blue">예약</a><a href="#" class="btn_blue">고객주문</a><a href="#" class="btn_blue">메모</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+				<a href="#" class="btn_blue">예약</a>
+				<a href="#" class="btn_blue">고객주문</a>
+				<a href="#" class="btn_blue">메모</a>
+				<a href="#" class="btn_white" data-rel="back">돌아가기</a>
 			</div>
 		</div>
 	</div>
@@ -251,8 +254,13 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-
-	<div id="popupDiv" class="ui-screen-hidden">
+	<div data-role="popup" id="memo_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+	</div>
+	<div data-role="popup" id="reservation_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+	</div>
+	<div data-role="popup" id="order_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+	</div>
+	<div data-role="popup" id="delivery_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 	</div>
 
 	<form id="detailViewParamForm">
@@ -260,6 +268,8 @@ $(document).ready(function() {
 		<input type="hidden" name="deviceid" id="deviceid" value=""/>
 		<input type="hidden" name="memoid" id="memoid" value=""/>
 		<input type="hidden" name="memotype" id="memotype" value=""/>
+		<input type="hidden" name="ischecked" id="ischecked" value=""/>
+		<input type="hidden" name="isimportant" id="isimportant" value=""/>
 	</form>
 </div>
 </body>
