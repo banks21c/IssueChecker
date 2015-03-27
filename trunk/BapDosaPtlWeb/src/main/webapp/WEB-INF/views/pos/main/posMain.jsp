@@ -13,7 +13,7 @@
 <body>
 <div data-role="page" id="demo-page" data-url="demo-page">
 	<div data-role="header" data-position="fixed">
-		<a href="#" class="topbtn btn_home" title="home" data-role="none"></a>
+		<a href="${ContextPath}/pos/list.ui" class="topbtn btn_home" title="home" data-role="none"></a>
 		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>간편포스</h1>
 	</div>
