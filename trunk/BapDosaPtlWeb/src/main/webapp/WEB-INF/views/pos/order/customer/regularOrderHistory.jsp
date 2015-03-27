@@ -5,10 +5,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 <title>가게노트</title>
-<link rel="stylesheet" href="/bapdosaptlweb/css/jquery.mobile-1.4.5.min.css" />
-<link rel="stylesheet" href="/bapdosaptlweb/css/style.css" />
-<script type="text/javascript" src="/bapdosaptlweb/js/jquery.min.js"></script>
-<script type="text/javascript" src="/bapdosaptlweb/js/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="${ContextPath}/css/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="${ContextPath}/css/style.css" />
+<script type="text/javascript" src="${ContextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${ContextPath}/js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 <div data-role="page" id="demo-page" data-url="demo-page">
