@@ -10,6 +10,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+
 </head>
 <body>
 
@@ -17,7 +20,6 @@
 <c:choose>
 <c:when test="${fn:contains(memotype, 'A')}">
 	<!-- s: 메모 팝업 -->
-	<div data-role="popup" id="memo_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1>메모조회</h1>
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
@@ -27,18 +29,24 @@
 				<p>${detailData.contents}</p>
 			</div>
 			<p class="point_memo">
-				<input type="checkbox" id="memos" data-role="none" /><label for="memos">주요메모로 보관</label>
+				<c:choose>
+					<c:when test="${fn:contains(detailData.isimportant, 'Y')}">
+						<input type="checkbox" checked id="memos" data-role="none" />
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" id="memos" data-role="none" />
+					</c:otherwise>
+				</c:choose>
+				<label for="memos">주요메모로 보관</label>
 			</p>
 			<div class="btn_c">
 				<a href="#" class="btn_blue" data-rel="back">확인</a><a href="#" class="btn_white">수정</a>
 			</div>
 		</div>
-	</div>
 	<!--e: 메모 팝업 -->
 </c:when>
-<c:when test="${fn:contains(memotype, 'B')}">
+<c:when test="${fn:contains(memotype, 'B') or fn:contains(memotype, 'C')}">
 	<!-- s: 예약 팝업 -->
-	<div data-role="popup" id="reservation_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1 class="has_num"><span class="table_number">${detailData.memberid}</span>예약조회</h1>
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
@@ -70,12 +78,10 @@
 				<a href="#" class="btn_blue" data-rel="back">확인</a><a href="#" class="btn_white">수정</a>
 			</div>
 		</div>
-	</div>
 	<!--e: 예약 팝업 -->
 </c:when>
 <c:when test="${fn:contains(memotype, 'I')}">
 	<!-- s: 주문 팝업 -->
-	<div data-role="popup" id="order_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1>주문조회</h1>
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
@@ -122,12 +128,10 @@
 				<a href="#" class="btn_blue" data-rel="back">확인</a><a href="#" class="btn_white">수정</a>
 			</div>
 		</div>
-	</div>
 	<!--e: 주문 팝업 -->
 </c:when>
-<c:when test="${fn:contains(memotype, 'K')}">
+<c:when test="${fn:contains(memotype, 'K') or fn:contains(memotype, 'N')}">
 	<!-- s: 배달 팝업 -->
-	<div data-role="popup" id="delivery_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1>배달조회</h1>
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
@@ -163,12 +167,11 @@
 				<a href="#" class="btn_blue" data-rel="back">확인</a>
 			</div>
 		</div>
-	</div>
 	<!--e: 배달 팝업 -->
 </c:when>
 <c:otherwise>
+	<!-- 기타 등등 -->
 	<!-- s: 메모 팝업 -->
-	<div data-role="popup" id="memo_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1>메모조회</h1>
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
@@ -178,13 +181,20 @@
 				<p>${detailData.contents}</p>
 			</div>
 			<p class="point_memo">
-				<input type="checkbox" id="memos" data-role="none" /><label for="memos">주요메모로 보관</label>
+				<c:choose>
+					<c:when test="${fn:contains(detailData.isimportant, 'Y')}">
+						<input type="checkbox" checked id="memos" data-role="none" />
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" id="memos" data-role="none" />
+					</c:otherwise>
+				</c:choose>
+				<label for="memos">주요메모로 보관</label>
 			</p>
 			<div class="btn_c">
 				<a href="#" class="btn_blue" data-rel="back">확인</a><a href="#" class="btn_white">수정</a>
 			</div>
 		</div>
-	</div>
 	<!--e: 메모 팝업 -->
 </c:otherwise>
 </c:choose>
