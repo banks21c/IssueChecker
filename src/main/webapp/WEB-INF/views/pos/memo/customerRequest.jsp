@@ -14,7 +14,7 @@
 <div data-role="page" id="demo-page" data-url="demo-page">
 	<div data-role="header" data-position="fixed">
 		<a href="${ContextPath}/pos/main/posMain.ui" class="topbtn btn_poshome" title="home" data-role="none"></a>
-		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
+		<a href="${ContextPath}/pos/list.ui" class="topbtn btn_home2" title="home" data-role="none"></a>
 		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>고객요구</h1>
 	</div>
