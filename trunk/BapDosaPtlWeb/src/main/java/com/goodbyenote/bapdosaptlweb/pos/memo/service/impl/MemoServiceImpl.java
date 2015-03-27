@@ -35,24 +35,42 @@ public class MemoServiceImpl implements MemoService {
 	}
 
 	@Override
-	public List<MemoVO> getList(MemoVO menu) {
-		return memoDAO.getList(menu);
+	public List<MemoVO> getList(MemoVO memo) {
+		return memoDAO.getList(memo);
 	}
 
 	@Override
-	public int count(MemoVO menu) {
+	public int count(MemoVO memo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public MemoVO getDetail(MemoVO menu) {
-		return memoDAO.getDetail(menu);
+	public MemoVO getDetail(MemoVO memo) {
+		return memoDAO.getDetail(memo);
 	}
 
 	@Override
-	public int insertAction(MemoVO menu) {
+	public int insertAction(MemoVO memo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public int updateMemoIschecked(MemoVO memo){
+		return memoDAO.updateMemoIschecked(memo);
+	}
+	public int updateMemoIsimportant(MemoVO memo){
+		return memoDAO.updateMemoIsimportant(memo);
+	}
+
+	@Override
+	public List<MemoVO> getReservationList(MemoVO memo) {
+		return memoDAO.getReservationList(memo);
+	}
+
+	@Override
+	public List<MemoVO> getCustomerRequestList(MemoVO memo) {
+		return memoDAO.getCustomerRequestList(memo);
+	}
+
 }

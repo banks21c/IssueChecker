@@ -31,34 +31,52 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
 	@Autowired
-    ServletContext context; 	
+    ServletContext context;
+	
 	public void setServletContext(ServletContext servletContext) {
 	     this.context = servletContext;
 	}
 	
+	
 	/**
-	 * @param memo
+	 * @param customer
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/pos/order/customer/regularList")
+	public String regularList( CustomerVO customer
+			, Model model
+			, HttpServletRequest request) {
+
+		model.addAttribute("customer", customer);
+		model.addAttribute("ContextPath",context.getContextPath());		
+		return "pos/order/customer/regularList";
+	}		
+	/**
+	 * @param customer
 	 * @param model
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/pos/order/customer/regularOrderHistory")
-	public String list( CustomerVO memo
+	public String list( CustomerVO customer
 			, Model model
 			, HttpServletRequest request) {
 
-		model.addAttribute("memo", memo);
+		model.addAttribute("customer", customer);
 		model.addAttribute("ContextPath",context.getContextPath());		
 		return "pos/order/customer/regularOrderHistory";
 	}	
 	
 	@RequestMapping(value = "/pos/order/customer/getMemoList.json")	
-	public ModelAndView getMemoList( CustomerVO memo
+	public ModelAndView getMemoList( CustomerVO customer
 			, Model model
 			, HttpServletRequest request) {
 		
-		List<CustomerVO> customerOrderList = customerService.getList(memo);
+		List<CustomerVO> customerOrderList = customerService.getList(customer);
 
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
@@ -73,13 +91,13 @@ public class CustomerController {
 	
 	@RequestMapping(value = "/pos/order/customer/saveMemo.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
-			@Valid CustomerVO memo,
+			@Valid CustomerVO customer,
 			BindingResult result, // 파라미터 검증 결과
 			RedirectAttributes redirectAttrs,
 			Model model,
 			HttpServletRequest request) {	
 
-		int resultValue = customerService.insertAction(memo);
+		int resultValue = customerService.insertAction(customer);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
@@ -98,13 +116,29 @@ public class CustomerController {
 	}
 	
 	
-	@RequestMapping(value = "/pos/order/customer/getMemoDetail")
-	public String getMemoDetail(CustomerVO memo, Model model, HttpServletRequest request){
+	@RequestMapping(value = "/pos/order/customer/regularDetail")
+	public String regularDetail(CustomerVO customer, Model model, HttpServletRequest request){
 		
-		CustomerVO detailData = customerService.getDetail(memo);
-		System.out.println("detailData:"+detailData);
-		model.addAttribute("detailData",detailData);
-		return "/pos/order/customer/memoDetail";
+		model.addAttribute("ContextPath",context.getContextPath());		
+		return "/pos/order/customer/regularDetail";
+	}
+
+	@RequestMapping(value = "/pos/order/customer/getRegularDetail.json")	
+	public ModelAndView getRegularDetail( CustomerVO customer
+			, Model model
+			, HttpServletRequest request) {
+		
+		CustomerVO regular = customerService.getRegularDetail(customer);
+
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
+//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnObj(regular);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
 	}
 	
 }

@@ -2,8 +2,8 @@
  <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="MemoMapper">
-	<select id="getList" resultType="MemoVO" parameterType="map">
+<mapper namespace="MainMapper">
+	<select id="getList" resultType="MainVO" parameterType="map">
 	SELECT 
 		MEMBERID,
 		DEVICEID,
@@ -31,7 +31,7 @@
 		FROM MEMO
 	</select>
 	<!-- 상세보기 -->
-	<select id="getDetail" resultType="MemoVO" parameterType="map">
+	<select id="getDetail" resultType="MainVO" parameterType="map">
 	SELECT 
 		MEMBERID,
 		DEVICEID,
@@ -59,7 +59,7 @@
 	</select>
 		
 	<!-- 입력 -->		
-	<insert id="insertMemo" parameterType="MemoVO">
+	<insert id="insertMemo" parameterType="MainVO">
 		INSERT INTO MEMO (MEMBERID,
 	            DEVICEID,
 	            CATEGORYID,
@@ -110,7 +110,7 @@
 	</insert>
 
 	<!-- 수정 -->
-	<update id="updateMemo" parameterType="MemoVO">
+	<update id="updateMemo" parameterType="MainVO">
 		UPDATE MEMO
 		SET    
 		       CATEGORYID       = 0,
@@ -148,7 +148,7 @@
 	</delete>
 	  
 	<!-- 수정 -->
-	<update id="updateMemoIschecked" parameterType="MemoVO">
+	<update id="updateMemoIschecked" parameterType="MainVO">
 		UPDATE MEMO
 		SET    
 		       ISCHECKED        = #{ischecked}       
@@ -158,7 +158,7 @@
 	</update>	  
 
 	<!-- 수정 -->
-	<update id="updateMemoIsimportant" parameterType="MemoVO">
+	<update id="updateMemoIsimportant" parameterType="MainVO">
 		UPDATE MEMO
 		SET    
 		       ISIMPORTANT      = #{isimportant}       

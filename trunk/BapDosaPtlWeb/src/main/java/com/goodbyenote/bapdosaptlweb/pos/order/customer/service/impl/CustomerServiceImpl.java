@@ -46,8 +46,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerVO getDetail(CustomerVO menu) {
-		return customerDAO.getDetail(menu);
+	public CustomerVO getRegularDetail(CustomerVO menu) {
+		return customerDAO.getRegularDetail(menu);
 	}
 
 	@Override

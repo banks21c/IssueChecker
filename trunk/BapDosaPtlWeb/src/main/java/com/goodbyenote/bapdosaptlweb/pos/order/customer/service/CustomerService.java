@@ -16,7 +16,7 @@ public interface CustomerService {
 
 	public int count(CustomerVO customer);
 
-	public CustomerVO getDetail(CustomerVO customer);
-
 	public int insertAction(CustomerVO customer);
+
+	public CustomerVO getRegularDetail(CustomerVO memo);
 }

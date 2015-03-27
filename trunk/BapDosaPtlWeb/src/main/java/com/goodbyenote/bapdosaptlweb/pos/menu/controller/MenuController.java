@@ -110,4 +110,21 @@ public class MenuController {
 		return mav; 
 	}
 	
+	
+	/**
+	 * @param menu
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/pos/menu/menuManage")
+	public String menuManage( MenuVO menu
+			, Model model
+			, HttpServletRequest request) {
+
+		model.addAttribute("menu", menu);
+		
+		return "pos/menu/menuManage";
+	}	
+	
 }
