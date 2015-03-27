@@ -4,7 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text; charset=euc-kr" />
 <title>가게노트</title>
-<link type="text/css" rel="stylesheet" href="${ContextPath}/css/base.css" />
 <style type="text/css">
 	body {background:none;background-color:#f5f5f5}
 	a:link		{text-decoration:underline;color:#777}
