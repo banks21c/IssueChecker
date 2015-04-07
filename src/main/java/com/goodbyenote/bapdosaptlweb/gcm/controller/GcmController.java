@@ -51,8 +51,8 @@ public class GcmController {
     @Autowired
     private ServletContext context;
     
-    @Autowired
-    private ServletConfig config;
+//    @Autowired
+//    private ServletConfig config;
 	
 	@Autowired
 	DatastoreService datastoreService;
@@ -75,7 +75,7 @@ public class GcmController {
 	public String sendAll(Model model, @RequestParam Map parameterMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if ( sender == null ) {
-			sender = newSender(config);
+			//sender = newSender(config);
 		}
 		
 		List<String> devices = datastoreService.getDevices();

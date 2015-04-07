@@ -1,58 +1,57 @@
 package com.goodbyenote.bapdosaptlweb.common.model;
 
 public class SessionUserInfo {
-	String userId;
-	String loginId;
-	String nickName;
-	int cashBalance;
-	/**
-	 * @return the userId
-	 */
-	public String getUserId() {
-		return userId;
+	private String memberId;
+	private  String phonenumber;
+	private String phonenumber2;
+	private String membername;
+	private String businessnumber;
+	private String membertype;
+	
+	public String getMemberId() {
+		return memberId;
 	}
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	/**
-	 * @return the loginId
-	 */
-	public String getLoginId() {
-		return loginId;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
-	/**
-	 * @param loginId the loginId to set
-	 */
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
-	/**
-	 * @return the nickName
-	 */
-	public String getNickName() {
-		return nickName;
+	public String getPhonenumber2() {
+		return phonenumber2;
 	}
-	/**
-	 * @param nickName the nickName to set
-	 */
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setPhonenumber2(String phonenumber2) {
+		this.phonenumber2 = phonenumber2;
 	}
-	/**
-	 * @return the cashBalance
-	 */
-	public int getCashBalance() {
-		return cashBalance;
+	public String getMembername() {
+		return membername;
 	}
-	/**
-	 * @param cashBalance the cashBalance to set
-	 */
-	public void setCashBalance(int cashBalance) {
-		this.cashBalance = cashBalance;
+	public void setMembername(String membername) {
+		this.membername = membername;
 	}
+	public String getBusinessnumber() {
+		return businessnumber;
+	}
+	public void setBusinessnumber(String businessnumber) {
+		this.businessnumber = businessnumber;
+	}
+	public String getMembertype() {
+		return membertype;
+	}
+	public void setMembertype(String membertype) {
+		this.membertype = membertype;
+	}
+	@Override
+	public String toString() {
+		return "SessionUserInfo [memberId=" + memberId + ", phonenumber="
+				+ phonenumber + ", phonenumber2=" + phonenumber2
+				+ ", membername=" + membername + ", businessnumber="
+				+ businessnumber + ", membertype=" + membertype + "]";
+	}
+
 	
 	
 }

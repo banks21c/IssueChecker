@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "member" >
+	
+    <select id="getMemberByBusinessNumber" resultType="map">
+    	/* member.getMemberByBusinessNumber */
+		SELECT
+		  MEMBERID,
+		  STARTBUSINESSDESIREYN,
+		  FRANCHISEJOINYN,
+		  ITEM,
+		  PHONENUMBER,
+		  PHONENUMBER2,
+		  ADDRESS1,
+		  ADDRESS2,
+		  BIRTHDAY,
+		  APPENGAGEDATE,
+		  ESEROEXTRACT,
+		  BEFORESALES,
+		  LASTCONSULTDATE,
+		  AVAILABLEMONEY,
+		  BUSINESSTYPE,
+		  MEMBERNAME,
+		  BUSINESSNUMBER,
+		  GENDER,
+		  MEMBERTYPE,
+		  ESEROJOINYN,
+		  TAXACCOUNTACCEPTYN,
+		  OPENDATE,
+		  ISDELETED,
+		  CREATIONDATE,
+		  MODIFICATIONDATE
+		FROM 
+		  MEMBER
+		WHERE
+		  BUSINESSNUMBER = #{businessNumber}
+    </select>
+        
+    
+</mapper>

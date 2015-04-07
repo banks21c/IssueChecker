@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.goodbyenote.bapdosaptlweb.common.dao.CommonDAO;
 import com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO;
+import com.goodbyenote.bapdosaptlweb.common.model.ExceptionVO;
 import com.goodbyenote.bapdosaptlweb.common.model.MenuVO;
 import com.goodbyenote.bapdosaptlweb.common.service.CommonService;
 
@@ -27,6 +28,12 @@ public class CommonServiceImpl implements CommonService {
 	public List<CommonCodeVO> getCommonCodeParents() {
 		// TODO Auto-generated method stub
 		return commonDAO.getCommonCodeParents();
+	}
+
+	@Override
+	public void insertExceptionLog(ExceptionVO exceptionVO) {
+		// TODO Auto-generated method stub
+		commonDAO.insertExceptionLog(exceptionVO);
 	}
 	
 	

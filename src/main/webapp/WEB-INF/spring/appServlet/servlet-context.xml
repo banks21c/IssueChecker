@@ -39,9 +39,17 @@
 
 		<mvc:interceptor>
 		    <mvc:mapping path="/**/*.do" />
-   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.AccessLogInterceptor" />
+		    <mvc:mapping path="/**/*.json" />
+		    <mvc:exclude-mapping path="/login/**"/>
+   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
-    
+		
+		<!-- 
+		<mvc:interceptor>
+		    <mvc:mapping path="/**/*.json" />
+   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.AccessLogInterceptor" />
+		</mvc:interceptor>		
+    	-->
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**/*.do" />
    			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.AdminInterceptor" />
@@ -73,5 +81,6 @@
         <beans:property name="subject" value="FATAL - Application crash. Save your job !!"/>
     </beans:bean>    
 	
+	<!-- <bean class="org.springframework.mock.web.MockServletContext"/>-->
 	
 </beans:beans>

@@ -103,9 +103,9 @@ public class CategoryController {
 		if(resultValue > 0){
 			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			returnJsonVO.setReturnVal(Integer.toString(resultValue));
+			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
 			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj("");
+			returnJsonVO.setReturnObj(Integer.toString(resultValue));
 			mav.addObject(returnJsonVO);
 		}else{
 			mav.addObject(null);
@@ -134,9 +134,9 @@ public class CategoryController {
 		if(resultValue > 0){
 			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			returnJsonVO.setReturnVal(Integer.toString(resultValue));
+			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
 			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj("");
+			returnJsonVO.setReturnObj(Integer.toString(resultValue));
 			mav.addObject(returnJsonVO);
 		}else{
 			mav.addObject(null);
@@ -164,10 +164,10 @@ public class CategoryController {
 		ModelAndView mav = new ModelAndView();		
 		if(resultValue > 0){
 			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			returnJsonVO.setReturnVal(Integer.toString(resultValue));
+			returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
 			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj("");
+			returnJsonVO.setReturnObj(Integer.toString(resultValue));
 			mav.addObject(returnJsonVO);
 		}else{
 			mav.addObject(null);

@@ -26,8 +26,8 @@ public class PosController {
     @Autowired
     private ServletContext context;
     
-    @Autowired
-    private ServletConfig config;
+//    @Autowired
+//    private ServletConfig config;
 	
 	@Autowired
 	PosService datastoreService;

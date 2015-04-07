@@ -8,12 +8,14 @@
 	<packaging>war</packaging>
 	<version>1.0.1-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<java-version>1.8</java-version>
+		<!-- <org.springframework-version>3.1.1.RELEASE</org.springframework-version>-->
+		<org.springframework-version>4.1.6.RELEASE</org.springframework-version>		
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<!-- add dependencies version start -->
-		<org.springframework.jdbc-version>3.2.5.RELEASE</org.springframework.jdbc-version>
+		<!-- <org.springframework.jdbc-version>3.2.5.RELEASE</org.springframework.jdbc-version>-->
+		<org.springframework.jdbc-version>4.1.6.RELEASE</org.springframework.jdbc-version>
 		<org.mybatis-version>3.2.2</org.mybatis-version>
 		<org.mybatis.spring-version>1.2.0</org.mybatis.spring-version>
 		<org.mysql.connector-version>5.1.27</org.mysql.connector-version>
@@ -133,9 +135,14 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.6.RELEASE</version>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -292,6 +299,14 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
+		<!-- servlet api 업글, 스프링4에서 추가 -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
+		</dependency>	
 		
 	</dependencies>
 

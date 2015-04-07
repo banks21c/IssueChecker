@@ -56,8 +56,7 @@ public class CommonController {
 		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
-//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 		returnJsonVO.setReturnObj(commonCodeList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
@@ -72,8 +71,7 @@ public class CommonController {
 		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
-//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 		returnJsonVO.setReturnObj(commonCodeList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
