@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.goodbyenote.bapdosaptlweb.common.exception.RequriedLoginException;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.common.service.CommonService;
 
@@ -21,41 +22,45 @@ public class AccessLogInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	CommonService commonService;
-	/*
-	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
-		// TODO Auto-generated method stub
-		
-		HttpSession session = request.getSession(false);
-		StringBuffer url = request.getRequestURL();
-		String queryString = request.getQueryString();
-		if (queryString != null) {
-		    url.append('?');
-		    url.append(queryString);
-		}
-		String requestURL = url.toString();	
-		
-		logger.debug("requestURL: " + requestURL);
-		
-		boolean result = true;	
-		Map<String, String> paramMap = new HashMap<String, String>();
-		
-		
-		paramMap.put("url", requestURL);
-			
-		if(session != null){
-			paramMap.put("sessionId", session.getId());
-			SessionUserInfo sessionUserInfo = (SessionUserInfo)session.getAttribute("SESSION_USER_INFO");
-			
-			if(sessionUserInfo != null){			
-				paramMap.put("userId", sessionUserInfo.getUserId());				
-			}
-		} 
-		
-		commonService.insertAccessLog(paramMap);
-		
-		return result;
-	}
-	*/
+
+//	@Override
+//	public boolean preHandle(HttpServletRequest request,
+//			HttpServletResponse response, Object handler) throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//		logger.debug("AccessLogInterceptor .. preHandle....");
+//		
+//		HttpSession session = request.getSession(false);
+//		StringBuffer url = request.getRequestURL();
+//		String queryString = request.getQueryString();
+//		if (queryString != null) {
+//		    url.append('?');
+//		    url.append(queryString);
+//		}
+//		String requestURL = url.toString();	
+//		
+//		logger.debug("requestURL: " + requestURL);
+//		
+//		boolean result = true;	
+//		Map<String, String> paramMap = new HashMap<String, String>();
+//		
+//		
+//		paramMap.put("url", requestURL);
+//			
+//		if(session != null){
+//			paramMap.put("sessionId", session.getId());
+//			SessionUserInfo sessionUserInfo = (SessionUserInfo)session.getAttribute("SESSION_USER_INFO");
+//			
+//			if(sessionUserInfo != null){			
+//				paramMap.put("userId", sessionUserInfo.getUserId());				
+//			}
+//		} 
+//		
+//		
+//		//throw new RequriedLoginException("로그인이 필요합니다.");	//"로그인이 필요합니다."
+//		
+//		commonService.insertAccessLog(paramMap);
+//		
+//		return result;
+//	}
 }

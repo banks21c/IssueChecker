@@ -44,6 +44,7 @@
     <mappers>
         <mapper resource="mybatis/common.xml" />
         <mapper resource="mybatis/pos.xml" />
+        <mapper resource="mybatis/member.xml" />
     </mappers >
     
 </configuration>

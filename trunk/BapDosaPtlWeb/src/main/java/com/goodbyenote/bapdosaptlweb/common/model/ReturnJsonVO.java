@@ -2,66 +2,49 @@ package com.goodbyenote.bapdosaptlweb.common.model;
 
 public class ReturnJsonVO {
 
-	String returnCode;
-	String returnVal;
+	String returnCode = "1";	//0:실패, 1:성공
+	String ReturnErrorCode;
+	String ReturnErrorException;
+	String ReturnErrorStackTrace;
 	String message;
 	Object returnObj;
-	
-	String articleId;
-	
-	public String getArticleId() {
-		return articleId;
-	}
-	public void setArticleId(String articleId) {
-		this.articleId = articleId;
-	}
-	/**
-	 * @return the returnCode
-	 */
 	public String getReturnCode() {
 		return returnCode;
 	}
-	/**
-	 * @param returnCode the returnCode to set
-	 */
 	public void setReturnCode(String returnCode) {
 		this.returnCode = returnCode;
 	}
-	/**
-	 * @return the returnVal
-	 */
-	public String getReturnVal() {
-		return returnVal;
+	public String getReturnErrorCode() {
+		return ReturnErrorCode;
 	}
-	/**
-	 * @param returnVal the returnVal to set
-	 */
-	public void setReturnVal(String returnVal) {
-		this.returnVal = returnVal;
+	public void setReturnErrorCode(String returnErrorCode) {
+		ReturnErrorCode = returnErrorCode;
 	}
-	/**
-	 * @return the message
-	 */
+	public String getReturnErrorException() {
+		return ReturnErrorException;
+	}
+	public void setReturnErrorException(String returnErrorException) {
+		ReturnErrorException = returnErrorException;
+	}
+	public String getReturnErrorStackTrace() {
+		return ReturnErrorStackTrace;
+	}
+	public void setReturnErrorStackTrace(String returnErrorStackTrace) {
+		ReturnErrorStackTrace = returnErrorStackTrace;
+	}
 	public String getMessage() {
 		return message;
 	}
-	/**
-	 * @param message the message to set
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	/**
-	 * @return the returnObj
-	 */
 	public Object getReturnObj() {
 		return returnObj;
 	}
-	/**
-	 * @param returnObj the returnObj to set
-	 */
 	public void setReturnObj(Object returnObj) {
 		this.returnObj = returnObj;
-	}
+	}	
 	
+	
+
 }

@@ -12,11 +12,11 @@
 			LEFT OUTER JOIN CommonCode P on M.parentCode = P.code
 		ORDER BY
 			CASE WHEN
-                P.dispOrder IS NULL
+                P.sortOrder IS NULL
             THEN
-                M.dispOrder * 100
+                M.sortOrder * 100
             ELSE
-                P.dispOrder * 100 + M.dispOrder
+                P.sortOrder * 100 + M.sortOrder
             END
     </select>
     
@@ -31,6 +31,24 @@
 		ORDER BY
 			M.dispOrder
     </select>
+    
+    <insert id="insertExceptionLog" parameterType="com.goodbyenote.bapdosaptlweb.common.model.ExceptionVO">
+		INSERT INTO EXCEPTIONLOG
+		( 
+			URL, 
+			<if test="cause != null">
+			CAUSE,
+			</if>
+			STACKTRACE 
+		)
+		VALUES(
+			#{url, javaType=java.lang.String,jdbcType=VARCHAR },
+			<if test="cause != null">
+			#{cause}, 
+			</if>
+			#{stackTrace}
+		)  
+    </insert>       
     
 
 </mapper>
