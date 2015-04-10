@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>가게노트</title>
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.touchSlider.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	//touch slider
+	$("#touch_slider").touchSlider({
+		flexible : true,
+		isBind : true,
+		btn_prev : false,
+		btn_next : false,
+		paging : false,
+		counter : false,
+	});
+	return false;
+});
+</script>
+</head>
+<body>
+<div data-role="page" id="demo-page" data-url="demo-page">
+	<div data-role="header" data-position="fixed">
+		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
+		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
+		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
+		<h1>배달</h1>
+	</div>
+	<div data-role="content">
+		<div class="menu_tab delivery">
+			<ul>
+				<li><a href="#">주문접수</a></li>
+				<li><a href="#">출발</a></li>
+				<li><a href="#" class="on">배달관리</a></li>
+				<li><a href="#">배달원관리</a></li>
+			</ul>
+		</div>
+		<div class="pos_top">
+			<div class="dman_wrap">
+				<div class="dman_list" id="touch_slider">
+					<div>
+						<ul>
+							<li><a href="#" class="btn_01 active">전체</a></li> <!-- 선택된 배달원 active 추가 -->
+							<li><a href="#" class="btn_01">김배달</a></li>
+							<li><a href="#" class="btn_01">최배달</a></li>
+							<li><a href="#" class="btn_01">박배달</a></li>
+							<li><a href="#" class="btn_01">정배달</a></li>
+						</ul>
+					</div>
+					<div>
+						<ul>
+							<li><a href="#" class="btn_01">공배달</a></li>
+							<li><a href="#" class="btn_01">윤배달</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="top03">
+				<div class="btn_fl">
+					<p class="day">
+						<a href="#" class="btn_pn prev" title="이전"></a>
+						<span>10/10</span>
+						<a href="#" class="btn_pn next" title="다음"></a>
+					</p>
+				</div>
+				<div class="sell_count">
+					<ul>
+						<li><span class="sell_name">현금</span><span class="sell_num"></span></li>
+						<li><span class="sell_name">수금</span><span class="sell_num"></span></li>
+						<li><span class="sell_name">합계</span><span class="sell_num"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="list3 del">
+			<table>
+				<colgroup>
+					<col width="*" />
+					<col width="10%" />
+					<col width="12.5%" />
+					<col width="12.5%" />
+					<col width="12.5%" />
+					<col width="12.5%" />
+					<col width="16%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col" colspan="2">배달처</th>
+						<th scope="col">출발</th>
+						<th scope="col">현금</th>
+						<th scope="col">카드</th>
+						<th scope="col">수거</th>
+						<th scope="col">배달</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="a_tl"><span class="tover">주문3</span></td>
+						<td>17</td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><span class="tover">이배달</span></td>
+					</tr>
+					<tr>
+						<td class="a_tl"><span class="tover">이유미 치과</span></td>
+						<td>17</td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+						<td><span class="tover">이배달</span></td>
+					</tr>
+					<tr><!-- 삭제한 경우 <span class="del_line"></span> td에 추가 -->
+						<td class="a_tl"><span class="del_line"></span><span class="tover">주문2</span></td>
+						<td><span class="del_line"></span>17</td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_ico" title="삭제"></span></td>
+						<td><span class="tover">이배달</span></td>
+					</tr>
+					<tr class="del02"><!-- 직원이 삭제한 경우 tr에 del02 추가 -->
+						<td class="a_tl"><span class="del_line"></span><span class="tover">주문1</span></td>
+						<td><span class="del_line"></span>17</td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_line"></span><label><input type="checkbox" id="" /></label></td>
+						<td><span class="del_ico" title="삭제"></span></td>
+						<td><span class="tover">이배달</span></td>
+					</tr>
+					<!--s: 복합결제인 경우 -->
+					<tr>
+						<td class="a_tl"><span class="tover">세무그룹정명</span></td>
+						<td>17</td>
+						<td colspan="4" class="complex">
+							<span class="ico c">외</span>100
+							<span class="ico cd">카</span>250
+							<span class="ico ch">현</span>230
+						</td>
+						<td><span class="tover">이배달</span></td>
+					</tr>
+					<!--e: 복합결제인 경우 -->
+				</tbody>
+				<tfoot>
+					<tr>
+						<th scope="row">total : <span>26</span></th>
+						<td colspan="6" class="a_tr">매상(현금+카드+외상) <span class="all_count">26</span></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="sell_count">
+			<ul>
+				<li><span class="sell_name">카드</span><span class="sell_num"></span></li>
+				<li><span class="sell_name">외상</span><span class="sell_num"></span></li>
+				<li><span class="sell_name">손실</span><span class="sell_num"></span></li>
+				<li><span class="sell_name">배달</span><span class="sell_num"></span></li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div class="help">
+			<a href="delivery_start.html" class="pnprev" data-ajax="false"><span>&lt;</span></a><!-- 개발에선 지워주세요 -->
+			<p><span>외상,부분외상은 주문화면 진입하여 결제버튼에 입력</span></p>
+			<a href="delivery_count.html" class="pnnext" data-ajax="false"><span>&gt;</span></a><!-- 개발에선 지워주세요 -->
+		</div>
+	</div>
+</div>
+
+</body>
+</html> 

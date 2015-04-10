@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>가게노트</title>
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.touchSlider.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	//touch slider
+	$("#touch_slider").touchSlider({
+		flexible : true,
+		isBind : true,
+		btn_prev : false,
+		btn_next : false,
+		paging : false,
+		counter : false,
+	});
+	return false;
+});
+$(document).ready(function () {
+	$('.dm_tap a').click(function () {
+		$('.this').removeClass('this')
+		$(this).addClass('this')
+		$('.dmanager').hide()
+		var contentid = $(this).attr('title')
+		$('#' + contentid).show()
+	});
+	$('.dm_m01').click(function () {
+		$('.dayw, .ft01').css('display', 'block');
+		$('.ft02').css('display', 'none');
+	});
+	$('.dm_m02').click(function () {
+		$('.dayw, .ft01').css('display', 'none');
+		$('.ft02').css('display', 'block');
+	});
+});
+</script>
+</head>
+<body>
+<div data-role="page" id="demo-page" data-url="demo-page">
+	<div data-role="header" data-position="fixed">
+		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
+		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
+		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
+		<h1>배달</h1>
+	</div>
+	<div data-role="content">
+		<div class="menu_tab delivery">
+			<ul>
+				<li><a href="#">주문접수</a></li>
+				<li><a href="#">출발</a></li>
+				<li><a href="#">배달관리</a></li>
+				<li><a href="#" class="on">배달원관리</a></li>
+			</ul>
+		</div>
+		<div class="dmanager_tab">
+			<ul class="dm_tap">
+				<li><a href="#;" title="tab1" class="dm_m01 this">정산</a></li>
+				<li><a href="#;" title="tab2" class="dm_m02">배달원등록</a></li>
+			</ul>
+			<div class="dayw">
+				<span class="day">
+					<a href="#" class="btn_pn prev" title="이전"></a>
+					<span>10/10</span>
+					<a href="#" class="btn_pn next" title="다음"></a>
+				</span>
+				<span class="ttc">총 : <span>26</span></span>
+			</div>
+		</div>
+		<div class="dmanager" id="tab1">
+			<div class="pos_top gray">
+				<div class="top03" style="display:none">
+					<div class="btn_fl">
+						<p class="day">
+							<a href="#" class="btn_pn prev" title="이전"></a>
+							<span>10/10</span>
+							<a href="#" class="btn_pn next" title="다음"></a>
+						</p>
+					</div>
+					<div class="sell_count">
+						<ul>
+							<li><span class="sell_name">현금</span><span class="sell_num"></span></li>
+							<li><span class="sell_name">수금</span><span class="sell_num"></span></li>
+							<li><span class="sell_name">합계</span><span class="sell_num"></span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="dman_wrap">
+					<div class="dman_list" id="touch_slider">
+						<div>
+							<ul>
+								<li><a href="#" class="btn_01 active">이배달</a></li> <!-- 선택된 배달원 active 추가 -->
+								<li><a href="#" class="btn_01">김배달</a></li>
+								<li><a href="#" class="btn_01">최배달</a></li>
+								<li><a href="#" class="btn_01">박배달</a></li>
+								<li><a href="#" class="btn_01">정배달</a></li>
+							</ul>
+						</div>
+						<div>
+							<ul>
+								<li><a href="#" class="btn_01">공배달</a></li>
+								<li><a href="#" class="btn_01">윤배달</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="list3 del bline">
+				<table>
+					<colgroup>
+						<col width="15%" />
+						<col width="*" />
+						<col width="12%" />
+						<col width="12%" />
+						<col width="12%" />
+						<col width="12%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">시간</th>
+							<th scope="col">고객</th>
+							<th scope="col">매상</th>
+							<th scope="col">수금</th>
+							<th scope="col">회수</th>
+							<th scope="col">잔액</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover"><span class="ico c">외</span>4914</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover">회수</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover"><span class="ico cg">수</span>4614</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover"><span class="ico cs">손</span>박정호</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover">이유미 영어교실</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover"><span class="ico cd">카</span>김치과</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover">세무그룹 홍길동 법인사무소</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+						<tr>
+							<td>19:34</td>
+							<td class="a_tl"><span class="tover">시작</span></td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+							<td>14</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="btn_c mgt01">
+				<a href="#repay_pop" class="btn_blue" data-rel="popup" data-position-to="window" data-transition="pop">회수</a><a href="#start_add_pop" class="btn_white" data-rel="popup" data-position-to="window" data-transition="pop">시작금액 입력</a>
+			</div>
+		</div>
+		<div class="dmanager" id="tab2" style="display:none">
+			<div class="list4">
+				<table>
+					<colgroup>
+						<col width="8%" />
+						<col width="25%" />
+						<col width="*" />
+						<col width="25%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col" colspan="2">이름</th>
+							<th scope="col" colspan="2">휴대전화</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+						<tr>
+							<td><label><input type="checkbox" id="" /></label></td>
+							<td><input type="text" id="" data-role="none" /></td>
+							<td><input type="number" id="" data-role="none" /></td>
+							<td><a href="#" class="btn_02">인증요청</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="btn_c mgt01">
+				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white">수정</a><a href="#" class="btn_white">삭제</a>
+			</div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div class="help">
+			<a href="delivery_manager.html" class="pnprev" data-ajax="false"><span>&lt;</span></a><!-- 개발에선 지워주세요 -->
+			<p class="ft01"><span>먼저 시작금액을 입력하세요(최초 거스름용 돈)</span></p>
+			<p class="ft02" style="display:none"><span>배달원 추가→공란에 이름/전번 기입 후 [저장]버튼</span></p>
+			<a href="table_move.html" class="pnnext" data-ajax="false"><span>&gt;</span></a><!-- 개발에선 지워주세요 -->
+		</div>
+	</div>
+
+	<!-- s: 시작금액 입력 팝업 -->
+	<div data-role="popup" id="start_add_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>시작금액 입력</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="start_pay">
+				<p class="day">
+					<a href="#" class="btn_pn prev" title="이전"></a>
+					<span>10/10</span>
+					<a href="#" class="btn_pn next" title="다음"></a>
+				</p>
+				<div class="man_list">
+					<ul>
+						<li>
+							<div class="gbox active"><!-- 선택된 배달원에 active 추가 -->
+								<a href="#">이배달</a>
+								<span>50</span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="change_wrap stp">
+				<div class="change_in">
+					<p class="stxt">오늘 하루도 무사히!!</p>
+					<p class="gb"><input type="number" id="" data-role="none" /> 천원</p>
+					<div class="btn_c">
+						<a href="#" class="btn_04">입력</a><a href="#" class="btn_01">취소</a>
+					</div>
+				</div>
+				<div class="keypad">
+					<ul>
+						<li><a href="#"><span>1</span></a></li>
+						<li><a href="#"><span>2</span></a></li>
+						<li><a href="#"><span>3</span></a></li>
+						<li><a href="#"><span>4</span></a></li>
+						<li><a href="#"><span>5</span></a></li>
+						<li><a href="#"><span>6</span></a></li>
+						<li><a href="#"><span>7</span></a></li>
+						<li><a href="#"><span>8</span></a></li>
+						<li><a href="#"><span>9</span></a></li>
+						<li>
+							<a href="#"><span>-</span></a>
+							<a href="#" style="display:none"><span><i></i></span></a><!-- 숫자가 입력되면 마이너스가 백버튼으로 변경 -->
+						</li>
+						<li><a href="#"><span>0</span></a></li>
+						<li><a href="#"><span>.</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="btn_c">
+			<a href="#" class="btn_blue" data-rel="back">닫기</a>
+		</div>
+	</div>
+	<!--e: 시작금액 입력 팝업 -->
+
+	<!-- s: 회수금액 입력 팝업 -->
+	<div data-role="popup" id="repay_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>회수금액 입력</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="start_pay">
+				<p class="day">
+					<a href="#" class="btn_pn prev" title="이전"></a>
+					<span>10/10</span>
+					<a href="#" class="btn_pn next" title="다음"></a>
+				</p>
+				<div class="man_list">
+					<ul>
+						<li>
+							<div class="gbox active"><!-- 선택된 배달원에 active 추가 -->
+								<a href="#">이배달</a>
+								<span>50</span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+						<li>
+							<div class="gbox">
+								<a href="#">이배달</a>
+								<span></span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="change_wrap stp">
+				<div class="change_in">
+					<p class="stxt">47천원 소지 중</p>
+					<p class="gb"><input type="number" id="" data-role="none" /> 천원</p>
+					<div class="btn_c">
+						<a href="#" class="btn_04">입력</a><a href="#" class="btn_01">취소</a>
+					</div>
+				</div>
+				<div class="keypad">
+					<ul>
+						<li><a href="#"><span>1</span></a></li>
+						<li><a href="#"><span>2</span></a></li>
+						<li><a href="#"><span>3</span></a></li>
+						<li><a href="#"><span>4</span></a></li>
+						<li><a href="#"><span>5</span></a></li>
+						<li><a href="#"><span>6</span></a></li>
+						<li><a href="#"><span>7</span></a></li>
+						<li><a href="#"><span>8</span></a></li>
+						<li><a href="#"><span>9</span></a></li>
+						<li>
+							<a href="#"><span>-</span></a>
+							<a href="#" style="display:none"><span><i></i></span></a><!-- 숫자가 입력되면 마이너스가 백버튼으로 변경 -->
+						</li>
+						<li><a href="#"><span>0</span></a></li>
+						<li><a href="#"><span>.</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="btn_c">
+			<a href="#" class="btn_blue" data-rel="back">닫기</a>
+		</div>
+	</div>
+	<!--e: 회수금액 입력 팝업 -->
+</div>
+
+</body>
+</html> 

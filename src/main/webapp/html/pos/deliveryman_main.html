@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>가게노트</title>
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript">
+jQuery(function($){ // on document load
+	$('.btn_delivery').click(function(){
+		$(".delivery_admin").slideToggle("fast");
+		$(".btn_delivery").toggleClass("active");
+	});
+})
+</script>
+</head>
+<body>
+<div data-role="page" id="demo-page" data-url="demo-page">
+	<div data-role="header" data-position="fixed">
+		<!-- <a href="#" class="topbtn btn_home" title="home" data-role="none"></a> -->
+		<a href="#" class="btn_delivery ui-btn-right" title="설정" data-role="none"></a>
+		<h1>가게장부</h1>
+		<div class="delivery_admin">
+			<ul>
+				<li><a href="#">정산화면 보기</a></li>
+				<li><a href="#">일반모드로 보기</a></li>
+				<li><a href="#">다른매장 가기</a></li>
+				<li><a href="#">전주식당 퇴사</a></li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="content">
+		<div class="gage_list">
+			<ul>
+				<li><a href="#">전주식당</a></li>
+				<li><a href="#">홍콩상하이 짬뽕</a></li>
+				<li><a href="#">원조안동찜닭</a></li>
+				<li><a href="#">부대찌게</a></li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div class="help">
+			<a href="table_connect.html" class="pnprev" data-ajax="false"><span>&lt;</span></a><!-- 개발에선 지워주세요 -->
+			<p><span>주문→테이블터치, 메뉴설정→메뉴버튼</span></p>
+			<a href="deliveryman_list.html" class="pnnext" data-ajax="false"><span>&gt;</span></a><!-- 개발에선 지워주세요 -->
+		</div>
+	</div>
+</div>
+</body>
+</html> 
