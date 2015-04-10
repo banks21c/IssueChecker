@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>가게노트</title>
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript">
+jQuery(function($){ // on document load
+	$('.bigs, .small').click(function(){
+		$(".list_total").toggleClass("list_open");
+		$(".btn_btm").toggleClass("bigtype");
+		$(".address_write").toggleClass("none");
+		$(".minh").toggleClass("full");
+	});
+})
+</script>
+</head>
+<body>
+<div data-role="page" id="demo-page" data-url="demo-page">
+	<div data-role="header" data-position="fixed">
+		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
+		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
+		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
+		<h1>배달</h1>
+	</div>
+	<div data-role="content">
+		<div class="menu_tab delivery">
+			<ul>
+				<li><a href="#" class="on">주문접수</a></li>
+				<li><a href="#">출발</a></li>
+				<li><a href="#">배달관리</a></li>
+				<li><a href="#">배달원관리</a></li>
+			</ul>
+		</div>
+		<div class="pos_top">
+			<div class="top02">
+				<div class="btn_fl">
+					<a href="#" class="btn_01 pds"><i title="추가" class="plus"></i></a><a href="#" class="btn_01 pds"><i title="삭제" class="minus"></i></a><a href="#" class="btn_02">삭제</a><a href="#" class="btn_02">전체삭제</a>
+				</div>
+				<div class="btn_fr">
+					<a href="#" class="btn_03">메모</a><a href="#" class="btn_03">고객주문</a>
+				</div>
+			</div>
+		</div>
+		<!--s: 목록출력 -->
+		<div class="list minh">
+			<table>
+				<colgroup>
+					<col width="*" />
+					<col width="7%" />
+					<col width="17%" />
+					<col width="20%" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td class="a_tl">소갈비 - 한우</td>
+						<td>3</td>
+						<td>16:43</td>
+						<td class="price">60,000</td>
+					</tr>
+					<tr>
+						<td class="a_tl">양념갈비 - 한우</td>
+						<td>3</td>
+						<td>16:43</td>
+						<td class="price">36,000</td>
+					</tr>
+					<tr>
+						<td class="a_tl">소갈비 - 한우</td>
+						<td>6</td>
+						<td>16:43</td>
+						<td class="price">216,000</td>
+					</tr>
+					<tr>
+						<td class="a_tl">소갈비 - 한우</td>
+						<td>6</td>
+						<td>16:43</td>
+						<td class="price">216,000</td>
+					</tr>
+					<tr>
+						<td class="a_tl">소갈비 - 한우</td>
+						<td>6</td>
+						<td>16:43</td>
+						<td class="price">216,000</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="list_total">
+			<div class="btn_fl">
+				<a href="#" class="btn_01 small"><i></i>축소</a><a href="#" class="btn_01 bigs"><i></i>확대</a>
+			</div>
+			<p class="paging_count">total : <span>26</span></p>
+			<p class="price_total">합계 <span>216,000 </span></p>
+		</div>
+		<!--e: 목록출력 -->
+		<div class="btn_btm">
+			<div class="btn_fl">
+				<a href="#" class="btn_01">독촉</a><a href="#" class="btn_01">블랙</a>
+			</div>
+			<div class="btn_fr">
+				<a href="#" class="btn_04">계산</a>
+			</div>
+		</div>
+		<div class="address_write">
+			<div class="address">
+				<div class="ad_w">
+					<div class="fl"><input type="text" id="" data-role="none" /></div>
+					<div class="fr lb">
+						<input type="radio" id="tel_sh" name="tel_name" /><label for="tel_sh">전화번호 검색</label>
+						<input type="radio" id="name_sh" name="tel_name" /><label for="name_sh">상호 검색</label>
+					</div>
+				</div>
+				<div class="ad_w">
+					<p class="add_info">
+						<a href="#add_detail" class="tover" data-rel="popup" data-position-to="window" data-transition="pop">
+							<span class="name">세무그룹정명</span>
+							<span class="hp">02-555-5123</span>
+							잠원동 한신A 102-123호 잠원동 한신A 102-123호
+						</a>
+					</p>
+				</div>
+				<div class="ad_w">
+					<div class="fl">
+						<dl>
+							<dt>배달자</dt>
+							<dd><input type="text" id="" data-role="none" /></dd>
+						</dl>
+					</div>
+					<div class="fr">
+						<a href="#" class="btn_04">저장</a><a href="#" class="btn_01">삭제</a><a href="#" class="btn_01" data-rel="back">돌아가기</a>
+					</div>
+				</div>
+			</div>
+			<!-- s:주문메뉴 목록 -->
+			<div class="food_list">
+				<div class="tab">
+					<ul>
+						<li class="on"><a href="#">요리류</a></li>
+						<li><a href="#">식사류</a></li>
+						<li><a href="#">주류</a></li>
+						<li><a href="#">음료류</a></li>
+						<li><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
+					</ul>
+				</div>
+				<div class="list2">
+					<table>
+						<colgroup>
+							<col width="40%" />
+							<col width="10%" />
+							<col width="40%" />
+							<col width="10%" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<td class="a_tl">양념갈비 - 호주</td>
+								<td>20</td>
+								<td class="a_tl">양념갈비 - 호주</td>
+								<td>20</td>
+							</tr>
+							<tr>
+								<td class="a_tl"></td>
+								<td></td>
+								<td class="a_tl"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="a_tl"></td>
+								<td></td>
+								<td class="a_tl"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="a_tl"></td>
+								<td></td>
+								<td class="a_tl"></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--e: 주문메뉴 목록 -->
+			<!--s: 전화번호 검색 일경우 -->
+			<div class="guest_list" style="display:none">
+				<ul>
+					<li><a href="#"><span class="new_guest">신규고객등록</span></a></li>
+					<li>
+						<a href="#" class="tover">
+							<span class="name">박정호</span>
+							<span class="hp">010-5236-5123</span>
+							잠원동 한신A 102-123호 잠원동 한신A 102-123호
+						</a>
+					</li>
+					<li>
+						<a href="#" class="tover">
+							<span class="name">세무그룹정명</span>
+							<span class="hp">02-555-5123</span>
+							잠원동 한신A 102-123호 잠원동 한신A 102-123호
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!--e: 전화번호 검색일 경우 -->
+			<!--s: 상호 검색일 경우 -->
+			<div class="name_shw" style="display:none">
+				<div class="name_choice">
+					<ul>
+						<li><a href="#" class="active">모두</a></li>
+						<li><a href="#"><span class="icot t01" title="ㄱ"></span></a></li>
+						<li><a href="#"><span class="icot t02" title="ㄴ"></span></a></li>
+						<li><a href="#"><span class="icot t03" title="ㄷ"></span></a></li>
+						<li><a href="#"><span class="icot t04" title="ㄹ"></span></a></li>
+						<li><a href="#"><span class="icot t05" title="ㅁ"></span></a></li>
+						<li><a href="#"><span class="icot t06" title="ㅂ"></span></a></li>
+						<li><a href="#"><span class="icot t07" title="ㅅ"></span></a></li>
+						<li><a href="#"><span class="icot t08" title="ㅇ"></span></a></li>
+						<li><a href="#"><span class="icot t09" title="ㅈ"></span></a></li>
+						<li><a href="#"><span class="icot t10" title="ㅊ"></span></a></li>
+						<li><a href="#"><span class="icot t11" title="ㅋ"></span></a></li>
+						<li><a href="#"><span class="icot t12" title="ㅌ"></span></a></li>
+						<li><a href="#"><span class="icot t13" title="ㅍ"></span></a></li>
+						<li><a href="#"><span class="icot t14" title="ㅎ"></span></a></li>
+					</ul>
+				</div>
+				<div class="guest_list">
+					<ul>
+						<li><a href="#"><span class="new_guest">신규고객등록</span></a></li>
+						<li>
+							<a href="#list_pop" class="tover" data-transition="slide">리스트 확대</a>
+						</li>
+						<li>
+							<a href="#" class="tover">가나안 교회</a>
+							<a href="#" title="자세히보기" class="btn_go"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">가나안 교회</a>
+							<a href="#" title="자세히보기" class="btn_go"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">가나안 교회</a>
+							<a href="#" title="자세히보기" class="btn_go"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">가나안 교회</a>
+							<a href="#" title="자세히보기" class="btn_go"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--e: 상호 검색일 경우 -->
+			<!--s: 배달자 선택일 경우 -->
+			<div class="name_shw">
+				<div class="name_choice">
+					<ul>
+						<li><a href="#" class="active">모두</a></li>
+						<li><a href="#"><span class="icot t01" title="ㄱ"></span></a></li>
+						<li><a href="#"><span class="icot t02" title="ㄴ"></span></a></li>
+						<li><a href="#"><span class="icot t03" title="ㄷ"></span></a></li>
+						<li><a href="#"><span class="icot t04" title="ㄹ"></span></a></li>
+						<li><a href="#"><span class="icot t05" title="ㅁ"></span></a></li>
+						<li><a href="#"><span class="icot t06" title="ㅂ"></span></a></li>
+						<li><a href="#"><span class="icot t07" title="ㅅ"></span></a></li>
+						<li><a href="#"><span class="icot t08" title="ㅇ"></span></a></li>
+						<li><a href="#"><span class="icot t09" title="ㅈ"></span></a></li>
+						<li><a href="#"><span class="icot t10" title="ㅊ"></span></a></li>
+						<li><a href="#"><span class="icot t11" title="ㅋ"></span></a></li>
+						<li><a href="#"><span class="icot t12" title="ㅌ"></span></a></li>
+						<li><a href="#"><span class="icot t13" title="ㅍ"></span></a></li>
+						<li><a href="#"><span class="icot t14" title="ㅎ"></span></a></li>
+					</ul>
+				</div>
+				<div class="guest_list">
+					<ul>
+						<li><a href="#deliveryman_add" data-rel="popup" data-position-to="window" data-transition="pop"><span class="new_guest">배달원 등록</span></a></li>
+						<li>
+							<a href="#" class="tover">이배달</a>
+							<a href="#deliveryman_view" title="자세히보기" class="btn_go" data-transition="slide"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">이배달</a>
+							<a href="#deliveryman_view" title="자세히보기" class="btn_go" data-transition="slide"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">이배달</a>
+							<a href="#deliveryman_view" title="자세히보기" class="btn_go" data-transition="slide"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">이배달</a>
+							<a href="#deliveryman_view" title="자세히보기" class="btn_go" data-transition="slide"></a>
+						</li>
+						<li>
+							<a href="#" class="tover">이배달</a>
+							<a href="#deliveryman_view" title="자세히보기" class="btn_go" data-transition="slide"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--e: 상배달자 선택일 경우 -->
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div class="help">
+			<a href="account.html" class="pnprev" data-ajax="false"><span>&lt;</span></a><!-- 개발에선 지워주세요 -->
+			<p><span>메뉴를 선택하세요. 점심특선/포장 등은 기타</span></p>
+			<a href="guest_write.html" class="pnnext" data-ajax="false"><span>&gt;</span></a><!-- 개발에선 지워주세요 -->
+		</div>
+	</div>
+
+	<!-- s: 자세히보기 팝업 -->
+	<div data-role="popup" id="add_detail" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>자세히보기</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="pop_q">
+				<p class="add">
+					<span class="name">세무그룹정명</span>
+					<span class="hp">02-555-5123</span><br />
+					잠원동 한신 뉴코아 B동 102-123호
+				</p>
+			</div>
+			<div class="btn_c">
+				<a href="#" class="btn_blue" data-rel="back">닫기</a>
+			</div>
+		</div>
+	</div>
+	<!--e: 자세히보기 팝업 -->
+
+	<!-- s: 배달원등록 팝업 -->
+	<div data-role="popup" id="deliveryman_add" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>배달원등록</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="write_guest">
+				<table>
+					<colgroup>
+						<col width="20%" />
+						<col width="*" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">성명</th>
+							<td>
+								<input type="text" id="" data-role="none" class="wp60" />
+								<p class="structure_tt">사장님 자신도 등록 가능합니다.</p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">전화</th>
+							<td>
+								<input type="number" id="" data-role="none" class="wp20" /> -
+								<input type="number" id="" data-role="none" class="wp20" /> -
+								<input type="number" id="" data-role="none" class="wp20" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="btn_c line">
+				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+			</div>
+		</div>
+	</div>
+	<!--e: 배달원등록 팝업 -->
+
+</div>
+
+<!-- s: 리스트확대 팝업 -->
+<div data-role="page" id="list_pop" data-title="delivery" data-url="delivery-page">
+	<div data-role="header" data-theme="a">
+		<h1>배달고객</h1>
+		<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="sh_type">
+			<input type="radio" id="sh_01" name="sht" /><label for="sh_01">가나다 순</label>
+			<input type="radio" id="sh_02" name="sht" /><label for="sh_02">매상액 순</label>
+		</div>
+		<div class="name_shw">
+			<div class="name_choice">
+				<ul>
+					<li><a href="#" class="active">모두</a></li>
+					<li><a href="#"><span class="icot t01" title="ㄱ"></span></a></li>
+					<li><a href="#"><span class="icot t02" title="ㄴ"></span></a></li>
+					<li><a href="#"><span class="icot t03" title="ㄷ"></span></a></li>
+					<li><a href="#"><span class="icot t04" title="ㄹ"></span></a></li>
+					<li><a href="#"><span class="icot t05" title="ㅁ"></span></a></li>
+					<li><a href="#"><span class="icot t06" title="ㅂ"></span></a></li>
+					<li><a href="#"><span class="icot t07" title="ㅅ"></span></a></li>
+					<li><a href="#"><span class="icot t08" title="ㅇ"></span></a></li>
+					<li><a href="#"><span class="icot t09" title="ㅈ"></span></a></li>
+					<li><a href="#"><span class="icot t10" title="ㅊ"></span></a></li>
+					<li><a href="#"><span class="icot t11" title="ㅋ"></span></a></li>
+					<li><a href="#"><span class="icot t12" title="ㅌ"></span></a></li>
+					<li><a href="#"><span class="icot t13" title="ㅍ"></span></a></li>
+					<li><a href="#"><span class="icot t14" title="ㅎ"></span></a></li>
+				</ul>
+			</div>
+			<div class="delivery_name">
+				<ul>
+					<li><a href="#">직접입력</a></li>
+					<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
+					<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
+					<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 예치금인 경우 -->
+				</ul>
+			</div>
+			<div class="name_sh">
+				<p>검색 <input type="text" id="" data-role="none" /></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- s: 고객상세 팝업 -->
+	<div data-role="popup" id="guest_detail" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>고객 상세정보</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="pos_top">
+				<div class="top01">
+					<span class="name">이명필 <span><em>117</em> / 1,256</span></span>
+					<p><strong>010-5555-5555</strong></p>
+				</div>
+				<div class="top02 bgf">
+					<div class="btn_fl">
+						<span class="year_write">
+							<a href="#" class="perv" title="이전"></a>
+							<input type="text" id="" data-role="none" class="year" />
+							<a href="#" class="next" title="다음"></a>
+						</span>
+					</div>
+					<div class="btn_fr">
+						<span class="month">
+							<input type="text" id="" data-role="none" /> 월 ~
+							<input type="text" id="" data-role="none" /> 월
+						</span>
+						<a href="#" class="btn_02">조회</a>
+					</div>
+				</div>
+			</div>
+			<div class="list3">
+				<table>
+					<colgroup>
+						<col width="15%" />
+						<col width="*" />
+						<col width="12%" />
+						<col width="12%" />
+						<col width="14%" />
+						<col width="12%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">일자</th>
+							<th scope="col">주문</th>
+							<th scope="col">금액</th>
+							<th scope="col">결제</th>
+							<th scope="col">외상</th>
+							<th scope="col">잔액</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>10/10</td>
+							<td class="a_tl"><span class="tover">김치찌게 외</span></td>
+							<td>23</td>
+							<td>13</td>
+							<td>외상</td>
+							<td>117</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td class="a_tl"><span class="tover">김치찌게 김치찌게 외</span></td>
+							<td>23</td>
+							<td>13</td>
+							<td>외상</td>
+							<td>117</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td class="a_tl"><span class="tover">김치찌게 외</span></td>
+							<td>23</td>
+							<td>13</td>
+							<td>외상</td>
+							<td>117</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td class="a_tl"><span class="tover">김치찌게 외</span></td>
+							<td>23</td>
+							<td>13</td>
+							<td>외상</td>
+							<td>117</td>
+						</tr>
+						<tr>
+							<td>10/10</td>
+							<td class="a_tl"><span class="tover">김치찌게 외</span></td>
+							<td>23</td>
+							<td>13</td>
+							<td>외상</td>
+							<td>117</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row" colspan="2">합계</th>
+							<td>67</td>
+							<td>50</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="btn_c">
+			<a href="#" class="btn_blue" data-rel="back">확인</a>
+		</div>
+	</div>
+	<!--e: 고객상세 팝업 -->
+</div>
+<!--e: 리스트확대 팝업 -->
+
+<!-- s: 배달원정보 팝업 -->
+<div data-role="page" id="deliveryman_view" data-title="deliveryman" data-url="deliveryman-page">
+	<div data-role="header" data-theme="a">
+		<h1>배달원정보</h1>
+		<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="pos_top">
+			<div class="top01 noline">
+				<div class="btn_fl">
+					<p class="day">
+						<a href="#" class="btn_pn prev" title="이전"></a>
+						<span>10/10 (금)</span>
+						<a href="#" class="btn_pn next" title="다음"></a>
+					</p>
+				</div>
+				<p>이배달</p>
+			</div>
+		</div>
+		<div class="list3">
+			<table>
+				<colgroup>
+					<col width="*" />
+					<col width="12%" />
+					<col width="24%" />
+					<col width="12%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col" colspan="2">배달처</th>
+						<th scope="col">상태</th>
+						<th scope="col">수거</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="a_tl"><span class="tover">주문3</span></td>
+						<td>17</td>
+						<td><span class="dely ready">대기1</span></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+					</tr>
+					<tr>
+						<td class="a_tl"><span class="tover">이유미 치과</span></td>
+						<td>17</td>
+						<td><span class="dely ing">배달중</span></td>
+						<td><label><input type="checkbox" id="" /></label></td>
+					</tr>
+					<tr>
+						<td class="a_tl"><span class="tover">주문2</span></td>
+						<td>23</td>
+						<td><a href="#pay_cash" data-rel="popup" data-position-to="window" data-transition="pop"><span class="dely cash">현금</span></a></td>
+						<td><label><input type="checkbox" id="" checked="checked" /></label></td>
+					</tr>
+					<tr>
+						<td class="a_tl"><span class="tover">주문1</span></td>
+						<td>23</td>
+						<td><a href="#pay_cash" data-rel="popup" data-position-to="window" data-transition="pop"><span class="dely card">카드</span></a></td>
+						<td><label><input type="checkbox" id="" checked="checked" /></label></td>
+					</tr>
+					<tr>
+						<td class="a_tl"><span class="tover">법률사무소</span></td>
+						<td>23</td>
+						<td><a href="#pay_cash" data-rel="popup" data-position-to="window" data-transition="pop"><span class="dely credit">외상</span></a></td>
+						<td><label><input type="checkbox" id="" checked="checked" /></label></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="btn_c mgt01">
+			<a href="#" class="btn_blue" data-rel="back">확인</a>
+		</div>
+	</div>
+	<!-- s: 금액확인 팝업 -->
+	<div data-role="popup" id="pay_cash" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>금액확인</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="pop_q">
+				<ul>
+					<li>카드 : <strong>10</strong></li>
+					<li>외상 : <strong>5</strong></li>
+				</ul>
+			</div>
+		</div>
+		<div class="btn_c">
+			<a href="#" class="btn_blue" data-rel="back">확인</a>
+		</div>
+	</div>
+	<!--e: 금액확인 팝업 -->
+</div>
+<!--e: 배달원정보 팝업 -->
+</body>
+</html> 
