@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class DefaultControllerAdvice {
 	CommonService commonService;
 	
     @ExceptionHandler(RequriedLoginException.class)
-    public ModelAndView handleBusinessException(RequriedLoginException ex, HttpServletRequest request) {
+    public ModelAndView handleBusinessException(RequriedLoginException ex, HttpServletRequest request, HttpServletResponse response) throws Exception{
     	
     	String url = request.getRequestURI();
     	String extention = url.substring( url.lastIndexOf(".") + 1);	
@@ -68,7 +69,9 @@ public class DefaultControllerAdvice {
 		if("json".equals(extention)){
 			mav.setViewName("jsonView");
 		} else {
-			mav.setViewName("error/error");
+			//mav.setViewName("error/error");
+			String falseUrl = "/login/login.do";
+			response.sendRedirect(request.getContextPath()+falseUrl);
 		}
 		
         return mav;
