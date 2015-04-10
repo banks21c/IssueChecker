@@ -45,13 +45,9 @@ public class MainController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/main/posMain")
-	public String list( MainVO main
-			, Model model
-			, HttpServletRequest request) {
+	@RequestMapping(value = "/pos/main/posMain.do")
+	public String posMain() {
 
-		model.addAttribute("main", main);
-		model.addAttribute("ContextPath",context.getContextPath());
 		return "pos/main/posMain";
 	}	
 	
