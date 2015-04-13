@@ -39,6 +39,12 @@ public class OrderController {
 	     this.context = servletContext;
 	}
 	
+	@RequestMapping(value = "/pos/order/orderList.do")
+	public String orderList() {
+
+		return "pos/order/orderList";
+	}		
+	
 	/**
 	 * @param order
 	 * @param model
