@@ -30,7 +30,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		logger.debug("LoginCheckInterceptor .. preHandle....");
 		
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		
 		boolean result = true;	
 			
