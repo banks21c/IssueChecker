@@ -5,6 +5,7 @@ package com.goodbyenote.bapdosaptlweb.member.service;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -45,8 +46,10 @@ public class MemberServiceTest extends AbstractTestCase {
 	 */
 	@Test
 	public void testGetMemberByBusinessNumber() {
-		String businessNumber = "1304155250";		
-		Map userMapTemp = memberService.getMemberByBusinessNumber(businessNumber);
+		String businessNumber = "1304155250";	
+		Map parameterMap = new HashMap();
+		parameterMap.put("businessNumber", businessNumber);
+		Map userMapTemp = memberService.getMemberByBusinessNumber(parameterMap);
 		System.out.println(userMapTemp);
 		Assert.assertNotNull(userMapTemp);
 	}
