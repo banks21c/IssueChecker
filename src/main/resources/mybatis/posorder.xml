@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "posorder" >
+	
+    <select id="getOrderTablePresentList" resultType="map">
+    	/* posorder.getTableOrderPresentList */
+		SELECT
+			A.MEMBERID
+			,A.DEVICEID
+			,A.TABLEID
+			,A.TABLENAME
+			,A.LINKEDTABLEID
+			,A.ISDELETED
+			,B.ORDERID
+			,B.CREATIONDATE
+			,to_char(B.CREATIONDATE,'yyyymmdd hh24:mi:ss') CREATIONDATE_STR
+			,B.MODIFICATIONDATE
+			,(SELECT NVL(SUM(NVL(PRICE, 0)*NVL(QUANTITY, 0)), 0) FROM ORDERDETAIL WHERE ISDELETED = 'N' AND ISSERVICE != 'Y' AND MEMBERID = #{memberId} AND TABLEID = A.TABLEID) AS SUM_PRICE
+		FROM 
+		  ORDERTABLE A
+		  LEFT OUTER JOIN TABLEORDER B ON A.TABLEID = B.TABLEID AND A.MEMBERID = B.MEMBERID AND B.ISPAID = 'N' AND B.ISDELETED = 'N'
+		WHERE
+		  A.MEMBERID = #{memberId}
+		  <if test="isDeleted != null">
+		  AND A.ISDELETED = #{isDeleted}
+		  </if>
+		  
+		<if	test="orderBy != null and orderOption != null">
+			ORDER BY ${orderBy} ${orderOption}
+		</if>
+		<if	test="orderBy == null">
+			ORDER BY A.TABLEID ASC
+		</if>			  
+    </select>
+        
+    
+</mapper>

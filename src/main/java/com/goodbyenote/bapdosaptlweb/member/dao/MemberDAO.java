@@ -11,8 +11,8 @@ public class MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public Map getMemberByBusinessNumber(String businessNumber) {
+	public Map getMemberByBusinessNumber(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("member.getMemberByBusinessNumber", businessNumber);
+		return sqlSession.selectOne("member.getMemberByBusinessNumber", parametaMap);
 	}
 }

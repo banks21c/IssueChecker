@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.pos.main.service.MainService;
 import com.goodbyenote.bapdosaptlweb.pos.model.MainVO;
+import com.goodbyenote.bapdosaptlweb.pos.order.service.OrderService;
 
 /**
  * Handles requests for the application home page.
@@ -34,6 +35,7 @@ public class MainController {
 	
 	@Autowired
 	private MainService mainService;
+	
 	
 	public void setServletContext(ServletContext servletContext) {
 	     this.context = servletContext;
@@ -50,6 +52,10 @@ public class MainController {
 
 		return "pos/main/posMain";
 	}	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/pos/main/getMainList.json")	
 	public ModelAndView getMainList( MainVO main

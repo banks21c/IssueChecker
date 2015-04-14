@@ -102,4 +102,9 @@ public class OrderDAO {
 	public int updateOrderIsimportant(OrderVO order) {
 		return sqlSession.update("OrderMapper.updateOrderIsimportant", order);
 	}
+
+	public List<Map> getOrderTablePresentList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("posorder.getOrderTablePresentList", parametaMap);
+	}
 }

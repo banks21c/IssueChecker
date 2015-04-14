@@ -43,9 +43,9 @@ public class LoginController {
 		logger.debug(parametaMap.toString());
 		
 		String returnCode = "1";// 0: error, 1: 성공
-		String businessNumber = (String)parametaMap.get("BUSINESSNUMBER");
+		String businessNumber = (String)parametaMap.get("businessNumber");
 		
-		Map userMapTemp = memberService.getMemberByBusinessNumber(businessNumber);
+		Map userMapTemp = memberService.getMemberByBusinessNumber(parametaMap);
 		System.out.println(userMapTemp);
 		int returnVal = 0;
 		String message = "해당 사업자번호가 등록되지 않았습니다.";
@@ -67,6 +67,7 @@ public class LoginController {
 				sessionUserInfo.setMembername((String)userMapTemp.get("MEMBERNAME"));
 				sessionUserInfo.setPhonenumber2((String)userMapTemp.get("PHONENUMBER2"));
 				sessionUserInfo.setMembertype((String)userMapTemp.get("MEMBERTYPE"));
+				sessionUserInfo.setDeviceId(userMapTemp.get("DEVICEID").toString());
 				
 				System.out.println("sessionUserInfo:" + sessionUserInfo);
 					
