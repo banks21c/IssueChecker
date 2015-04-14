@@ -1,6 +1,9 @@
 package com.goodbyenote.bapdosaptlweb.pos.order.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +64,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 	public int updateOrderIsimportant(OrderVO order){
 		return orderDAO.updateOrderIsimportant(order);
+	}
+
+	@Override
+	public List<Map> getOrderTablePresentList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return orderDAO.getOrderTablePresentList(parametaMap);
 	}
 
 }

@@ -10,16 +10,16 @@
 			$(".class-event-login-apply").click(function(e){
 				e.preventDefault();
 				
-				if(!$.trim($("input[name='BUSINESSNUMBER']").val())){
+				if(!$.trim($("input[name='businessNumber']").val())){
 					alert("사업자번호를 입력해 주세요.");
 					return false;
 				}
-				if(!$.trim($("input[name='BUSINESSNUMBER']").length != 10)){
+				if(!$.trim($("input[name='businessNumber']").length != 10)){
 					alert("사업자번호는 10자리입니다.");
 					return false;
 				}				
 				var url = "loginOk.json";
-				var param = "BUSINESSNUMBER=" + $.trim($("input[name='BUSINESSNUMBER']").val()) ;
+				var param = "businessNumber=" + $.trim($("input[name='businessNumber']").val()) ;
 				if(typeof console != 'undefined'){
 					console.log("param: " + param);
 				}
@@ -101,7 +101,7 @@
 	</head>
 	<body>
 		<form name="loginForm" method="post">
-		<input name="BUSINESSNUMBER" value="1234567890"/>
+		<input name="businessNumber" value="1234567890"/>
 		<input type="button" value="로그인" class="class-event-login-apply"/>
 		</form>
 		<br/><br/>

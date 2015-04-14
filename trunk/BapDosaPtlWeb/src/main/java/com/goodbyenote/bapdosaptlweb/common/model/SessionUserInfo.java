@@ -7,7 +7,14 @@ public class SessionUserInfo {
 	private String membername;
 	private String businessnumber;
 	private String membertype;
+	private String deviceId;
 	
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -49,8 +56,10 @@ public class SessionUserInfo {
 		return "SessionUserInfo [memberId=" + memberId + ", phonenumber="
 				+ phonenumber + ", phonenumber2=" + phonenumber2
 				+ ", membername=" + membername + ", businessnumber="
-				+ businessnumber + ", membertype=" + membertype + "]";
+				+ businessnumber + ", membertype=" + membertype + ", deviceId="
+				+ deviceId + "]";
 	}
+
 
 	
 	

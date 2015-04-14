@@ -1,9 +1,12 @@
 package com.goodbyenote.bapdosaptlweb.pos.order.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.pos.model.OrderVO;
 import com.goodbyenote.bapdosaptlweb.pos.order.service.OrderService;
 
@@ -38,6 +42,28 @@ public class OrderController {
 	public void setServletContext(ServletContext servletContext) {
 	     this.context = servletContext;
 	}
+	
+	@RequestMapping(value = "/pos/order/getOrderTablePresentList.json")	
+	public ModelAndView getOrderTablePresentList(HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		Map parametaMap = new HashMap();
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("isDeleted", "N");
+		parametaMap.put("orderBy", "A.TABLEID");
+		parametaMap.put("orderOption", "ASC");
+		
+		List<Map> orderMapList = orderService.getOrderTablePresentList(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setReturnObj(orderMapList);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}		
 	
 	@RequestMapping(value = "/pos/order/orderList.do")
 	public String orderList() {

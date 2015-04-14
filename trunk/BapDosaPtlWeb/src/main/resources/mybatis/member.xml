@@ -30,9 +30,19 @@
 		  OPENDATE,
 		  ISDELETED,
 		  CREATIONDATE,
-		  MODIFICATIONDATE
+		  MODIFICATIONDATE,
+		  (
+		  	SELECT DEVICEID FROM DEVICE 
+		  	WHERE MEMBERID = A.MEMBERID 
+			<if test="identifyNo != null">
+			AND IDENTIFYNO = #{identifyNo}
+			</if>	
+			<if test="identifyNo == null">
+			AND IDENTIFYNO = 'SERVER'
+			</if>
+			) AS DEVICEID
 		FROM 
-		  MEMBER
+		  MEMBER A
 		WHERE
 		  BUSINESSNUMBER = #{businessNumber}
     </select>

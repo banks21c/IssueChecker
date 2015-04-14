@@ -15,9 +15,9 @@ public class MemberServiceImpl implements MemberService {
 	MemberDAO memberDAO;	
 
 	@Override
-	public Map getMemberByBusinessNumber(String businessNumber) {
+	public Map getMemberByBusinessNumber(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return memberDAO.getMemberByBusinessNumber(businessNumber);
+		return memberDAO.getMemberByBusinessNumber(parametaMap);
 	}
 
 }
