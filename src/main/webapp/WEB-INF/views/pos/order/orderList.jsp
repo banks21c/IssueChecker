@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript" src="../../js/common/common.js"></script>
 <script type="text/javascript" src="../../js/common/util.js"></script>
+<script type="text/javascript" src="../../js/pos/order.js"></script>
 <script type="text/javascript">
 jQuery(function($){ // on document load
 	$('.bigs, .small').click(function(){
@@ -117,7 +118,7 @@ jQuery(function($){ // on document load
 		</div>
 		<div class="food_list">
 			<div class="tab">
-				<ul>
+				<ul class="class-category-area">
 					<li class="on"><a href="#">요리류</a></li>
 					<li><a href="#">식사류</a></li>
 					<li><a href="#">주류</a></li>
@@ -125,41 +126,16 @@ jQuery(function($){ // on document load
 					<li><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
 				</ul>
 			</div>
-			<div class="list2">
-				<table>
-					<colgroup>
-						<col width="40%" />
-						<col width="10%" />
-						<col width="40%" />
-						<col width="10%" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<td class="a_tl">양념갈비 - 호주</td>
-							<td>20</td>
-							<td class="a_tl">양념갈비 - 호주</td>
-							<td>20</td>
-						</tr>
-						<tr>
-							<td class="a_tl"></td>
-							<td></td>
-							<td class="a_tl"></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="a_tl"></td>
-							<td></td>
-							<td class="a_tl"></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="a_tl"></td>
-							<td></td>
-							<td class="a_tl"></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="foodlist">
+				<ul>
+				<!-- 
+					<li><span class="name">양념갈비 - 호주 양념갈비 - 호주</span><span>20</span></li>
+					<li><span class="name">양념갈비 - 호주</span><span>20</span></li>
+					<li><span class="name">양념갈비 - 호주</span><span>20</span></li>
+					<li><span class="name">양념갈비 - 호주</span><span>20</span></li>
+					<li><span class="name">양념갈비 - 호주</span><span>20</span></li>
+					 -->
+				</ul>
 			</div>
 		</div>
 	</div>

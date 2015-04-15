@@ -6,6 +6,10 @@ var console = window.console || {log:function(){}};
 
 var console = window.console || {log:function(){}};
 $(document).ready(function(){	
+	
+	//get방식으로 넘어오는 파라미터 object화
+	window.bapdosa.urlParams = window.bapdosa.util.parseQueryString(decodeURI( window.location.search.substring(1) ));
+	console.log(window.bapdosa.urlParams);
 
 	//숫자 타입일 경우  숫자만 입력받게처리	
 	$(".inputOnlyNumber").keypress(function(e) {
