@@ -22,13 +22,49 @@ public class CategoryDAO {
 			sqlSession.insert("pos.insertCategory", m);
 		}
 	}
+	@SuppressWarnings("rawtypes")
+	public List<Map> getCategoryList(Map searchCondition) {
+		return sqlSession.selectList("category.getCategoryList", searchCondition);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List<Map> getCategoryJsonList(Map searchCondition) {
+		return sqlSession.selectList("category.getCategoryJsonList", searchCondition);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public int insertCategory(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("category.insertCategory", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public int updateCategory(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateCategory", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List<Map> getCategoryMenuList(Map searchCondition) {
+		return sqlSession.selectList("category.getCategoryMenuList", searchCondition);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List<Map> getCategoryMenuJsonList(Map searchCondition) {
+		return sqlSession.selectList("category.getCategoryMenuJsonList", searchCondition);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List<Map> getCategoryPointList(Map searchCondition) {
+		return sqlSession.selectList("category.getCategoryPointList", searchCondition);
+	}
 
 	public List<CategoryVO> getList(CategoryVO category) {
-		return sqlSession.selectList("CategoryMapper.getList", category);
+		return sqlSession.selectList("category.getList", category);
 	}
 
 	public int count(CategoryVO category) {
-		return (Integer) sqlSession.selectOne("CategoryMapper.count", category);
+		return (Integer) sqlSession.selectOne("category.count", category);
 	}
 
 	public List<Map<String, ?>> listExcel(CategoryVO category) {
@@ -46,7 +82,7 @@ public class CategoryDAO {
 	}
 
 	public CategoryVO getDetailSum(CategoryVO category) {
-		return (CategoryVO) sqlSession.selectOne("CategoryMapper.getViewData", category);
+		return (CategoryVO) sqlSession.selectOne("category.getViewData", category);
 	}
 
 	public CategoryVO view(CategoryVO category) {
@@ -91,23 +127,23 @@ public class CategoryDAO {
 	}
 
 	public CategoryVO getDetail(CategoryVO category) {
-		return (CategoryVO) sqlSession.selectOne("CategoryMapper.getDetail", category);
+		return (CategoryVO) sqlSession.selectOne("category.getDetail", category);
 
 	}
 
 	public int updateCategoryIschecked(CategoryVO category) {
-		return sqlSession.update("CategoryMapper.updateCategoryIschecked", category);
+		return sqlSession.update("category.updateCategoryIschecked", category);
 	}
 
 	public int updateCategoryIsimportant(CategoryVO category) {
-		return sqlSession.update("CategoryMapper.updateCategoryIsimportant", category);
+		return sqlSession.update("category.updateCategoryIsimportant", category);
 	}
 
 	public List<CategoryVO> getReservationList(CategoryVO category) {
-		return sqlSession.selectList("CategoryMapper.getReservationList", category);
+		return sqlSession.selectList("category.getReservationList", category);
 	}
 
 	public List<CategoryVO> getCustomerRequestList(CategoryVO category) {
-		return sqlSession.selectList("CategoryMapper.getCustomerRequestList", category);
+		return sqlSession.selectList("category.getCustomerRequestList", category);
 	}
 }

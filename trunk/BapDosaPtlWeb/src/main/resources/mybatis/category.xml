@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<select id="getCategoryList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+	SELECT
+		MEMBERID,
+		DEVICEID,
+		CATEGORYID,
+		NAME,
+		SORTORDER,
+		ISETC,
+		ISSERVICE,
+		ISEDITABLE,		
+		CREATIONDATE,
+		MODIFICATIONDATE		
+	FROM CATEGORY
+	WHERE MEMBERID = #{memberid} AND ISEDITABLE = #{iseditable}
+	</select>
+	
+	<select id="getCategoryJsonList" resultType="map">
+	SELECT
+		MEMBERID,
+		DEVICEID,
+		CATEGORYID,
+		NAME,
+		SORTORDER,
+		ISETC,
+		ISSERVICE,
+		ISEDITABLE,		
+		CREATIONDATE,
+		MODIFICATIONDATE		
+	FROM CATEGORY
+	WHERE MEMBERID = #{memberid}
+	</select>
+	
+	<select id="getCategoryMenuJsonList" resultType="map">
+	SELECT
+		MEMBERID,
+		DEVICEID,
+		CATEGORYID,
+		MENUID,
+		NAME,
+		SORTORDER,
+		DEFAULTPRICE,
+		STOREPRICE,
+		DELIVERYPRICE,
+		TAKEOUTPOINT,
+		DEFAULTDISCOUNT,
+		STOREDISCOUNT,
+		DELIVERYDISCOUNT,
+		TAKEOUTDISCOUNT,
+		ISHIDDEN,
+		ISDELETED,
+		CREATIONDATE,
+		MODIFICATIONDATE,
+		SYNCDATE
+	FROM  MENU
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+    ORDER BY SORTORDER 
+	</select>
+	
+	<insert id="insertCategory" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+		INSERT INTO CATEGORY (MEMBERID,
+	            DEVICEID,
+	            CATEGORYID,	            
+	            NAME,
+	            SORTORDER,
+	            ISETC,
+	            ISSERVIVE,
+	            ISEDITABLE
+	            )	            
+	            
+		VALUES (#{memberid},
+				0,
+				#{categoryid},				
+				#{name},
+				#{sortorder,jdbcType=VARCHAR},
+				#{isetc ,jdbcType=VARCHAR},
+				#{isservice,jdbcType=VARCHAR},
+				#{iseditable,jdbcType=VARCHAR}				
+				)
+				
+		)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateCategory" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+		UPDATE CATEGORY
+		SET    
+		       
+		       NAME             = #{name},
+		       SORTORDER        = #{sortorder}
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}
+		AND    CATEGORYID       = #{categoryid}
+	</update>
+	
+	<select id="getCategoryMenuList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+	SELECT
+		MEMBERID,
+		DEVICEID,
+		CATEGORYID,
+		MENUID,
+		NAME,
+		SORTORDER,
+		DEFAULTPRICE,
+		STOREPRICE,
+		DELIVERYPRICE,
+		TAKEOUTPOINT,
+		DEFAULTDISCOUNT,
+		STOREDISCOUNT,
+		DELIVERYDISCOUNT,
+		TAKEOUTDISCOUNT,
+		ISHIDDEN,
+		ISDELETED,
+		CREATIONDATE,
+		MODIFICATIONDATE,
+		SYNCDATE
+	FROM MENU
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+    ORDER BY SORTORDER 
+	</select>
+	
+	<select id="getCategoryPointList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO" >
+	SELECT
+		MEMBERID,
+		DEVICEID,
+		CATEGORYID,
+		MENUID,
+		NAME,
+		SORTORDER,
+		DEFAULTPRICE,
+		STOREPRICE,
+		DELIVERYPRICE,
+		TAKEOUTPOINT,
+		DEFAULTDISCOUNT,
+		STOREDISCOUNT,
+		DELIVERYDISCOUNT,
+		TAKEOUTDISCOUNT,
+		ISHIDDEN,
+		ISDELETED,
+		CREATIONDATE,
+		MODIFICATIONDATE,
+		SYNCDATE
+	FROM MENU
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+    ORDER BY SORTORDER 
+	</select>
+	  
+</mapper>
