@@ -36,9 +36,11 @@ public class CategoryVO extends PosCommonVO implements Serializable {
     @NotNull
     @Size(min = 1, max = 18)
     @Column(name = "NAME")
-    private String name;
-    @Basic(optional = false)
+    private String name;   
+	@Basic(optional = false)
     @NotNull
+    @Column(name = "SORTORDER")
+    private Character sortorder;
     @Column(name = "ISETC")
     private Character isetc;
     @Column(name = "ISSERVICE")
@@ -60,6 +62,14 @@ public class CategoryVO extends PosCommonVO implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public Character getSortorder() {
+		return sortorder;
+	}
+
+	public void setSortorder(Character sortorder) {
+		this.sortorder = sortorder;
+	}
 
     public Character getIsetc() {
         return isetc;

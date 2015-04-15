@@ -1,9 +1,14 @@
 package com.goodbyenote.bapdosaptlweb.pos.category.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,10 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.pos.category.service.CategoryService;
 import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
 
@@ -43,25 +50,211 @@ public class CategoryController {
 	 * @param category
 	 * @param model
 	 * @param request
+	 * @param httpSession 
+	 * @param memberid 
 	 * @return
 	 */
-	@RequestMapping(value = "/pos/category/categoryManage")
+	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+	@RequestMapping("/pos/category/categoryManage")
+	public String getCategoryList( Model model, @RequestParam Map parametaMap, HttpServletRequest request, HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		HashMap searchCondition = new HashMap();		
+		
+		String isetc = (String)parametaMap.get("isetc");
+		String iseditable = (String)parametaMap.get("iseditable");
+		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());
+		searchCondition.put("isetc", isetc);
+		searchCondition.put("iseditable", "Y");
+		
+		List<Map> categoryList = categoryService.getCategoryList(searchCondition);
+		logger.debug("categoryList: " + categoryList);
+		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("parametaMap", parametaMap);	
+		
+		return "pos/category/categoryManage";
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/category/getCategoryJsonList.json")	
+	public ModelAndView getCategoryJsonList( @RequestParam Map parametaMap, Model model, HttpServletRequest request ,HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		HashMap searchCondition = new HashMap();		
+		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());
+		
+		List<Map> categoryJsonList = categoryService.getCategoryJsonList(searchCondition);		
+		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@categoryJsonList: " + categoryJsonList);
+		
+		for(int i=0; i<categoryJsonList.size();i++){
+			
+			Map  categoryMap = categoryJsonList.get(i);			
+			BigDecimal categoryid = (BigDecimal)categoryMap.get("CATEGORYID");			
+			
+			searchCondition.put("categoryid", categoryid);
+			
+			List<Map> categoryMenuList = categoryService.getCategoryMenuJsonList(searchCondition);
+			for(Map categoryMenu : categoryMenuList){
+				logger.debug("#################################################categoryMenu: " + categoryMenu);
+				
+			}
+						
+			categoryMap.put("categoryMenuList", categoryMenuList);
+		}
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnObj(categoryJsonList);		
+		logger.debug("categoryJsonList: " + categoryJsonList);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/pos/category/insert_ok.json")
+	public ModelAndView categoryInsertOk(Model model, @RequestParam Map parametaMap){
+		logger.debug(parametaMap.toString());		
+		
+		categoryService.insertCategory(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/update_ok.json")
+	public ModelAndView categoryUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		
+		categoryService.updateCategory(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+	@RequestMapping("/pos/category/categoryMenuManage")
+	public String getCategoryMenuList( Model model, @RequestParam Map parametaMap, HttpServletRequest request, HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		HashMap searchCondition = new HashMap();
+		String categoryid = (String)parametaMap.get("categoryid");
+		String iseditable = (String)parametaMap.get("iseditable");
+		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());
+		searchCondition.put("categoryid", categoryid);
+		searchCondition.put("iseditable", "Y");
+		
+		List<Map> categoryList = categoryService.getCategoryList(searchCondition);
+		List<Map> categoryMenuList = categoryService.getCategoryMenuList(searchCondition);
+		logger.debug("categoryMenuList: " + categoryMenuList);
+		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryMenuList", categoryMenuList);
+		model.addAttribute("parametaMap", parametaMap);	
+		
+		return "pos/category/categoryMenuManage";
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/category/getCategoryMenuJsonList.json")	
+	public ModelAndView getCategoryMenuJsonList( @RequestParam Map parametaMap, Model model, HttpServletRequest request ,HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		HashMap searchCondition = new HashMap();
+		
+		String categoryid = (String)parametaMap.get("categoryid");
+		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());
+		searchCondition.put("categoryid", categoryid);		
+		
+		List<Map> categoryMenuJsonList = categoryService.getCategoryMenuJsonList(searchCondition);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+//		returnJsonVO.setMessage(loginId);
+		returnJsonVO.setReturnObj(categoryMenuJsonList);		
+		logger.debug("categoryMenuJsonList: " + categoryMenuJsonList);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/categoryPointManage")
+	public String getCategoryPointList( Model model, @RequestParam Map parametaMap, HttpServletRequest request, HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		HashMap searchCondition = new HashMap();
+		String categoryid = (String)parametaMap.get("categoryid");
+		String iseditable = (String)parametaMap.get("iseditable");
+		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());
+		searchCondition.put("categoryid", categoryid);
+		searchCondition.put("iseditable", "Y");
+		
+		List<Map> categoryPointList = categoryService.getCategoryPointList(searchCondition);
+		logger.debug("categoryPointList: " + categoryPointList);
+		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
+		model.addAttribute("categoryPointList", categoryPointList);
+		model.addAttribute("parametaMap", parametaMap);	
+		
+		return "pos/category/categoryPointManage";
+	}
+	
+	/*@RequestMapping(value = "/pos/category/categoryManage")
 	public String list( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 
 		model.addAttribute("category", category);
-		model.addAttribute("ContextPath",context.getContextPath());
+		logger.debug("category: " + category);		
+		logger.debug("name: " + category.getName());
+		System.out.println("#######################name:"+category.getName());
 		return "pos/category/categoryManage";
-	}	
+	}	*/
 	
-	@RequestMapping(value = "/pos/category/getCategoryList.json")	
+	/*@RequestMapping(value = "/pos/category/getCategoryList.json")	
 	public ModelAndView getCategoryList( CategoryVO category
 			, Model model
 			, HttpServletRequest request) {
 		
 		List<CategoryVO> categoryList = categoryService.getList(category);
-
+		System.out.println("####################categoryList:"+categoryList);
+		logger.debug("categoryList: " + categoryList);
+		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("2");// 0: error, 1: returnVal 참조, 2: returnObject참조
@@ -70,8 +263,9 @@ public class CategoryController {
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
-		return mav; 
-	}	
+		return mav;
+		
+	}	*/
 	
 	/**
 	 * @param category
