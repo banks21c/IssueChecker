@@ -84,6 +84,8 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 .pos_top .top02 {overflow:hidden;padding:.3em}
 .pos_top .top02.tline {border-top:1px solid #c3c3c1}
 .pos_top .top02.bgf {background-color:#fff}
+.pos_top .top02.onlyt_bgf {background-color:#fff;padding:.5em .1em .6em .1em}
+.pos_top .top02.onlyt_bgf label {font-size:13px !important}
 .pos_top .top02 .btn_fl  * {vertical-align:top}
 .pos_top .top02 .btn_fl  i {margin-top:8px}
 .pos_top .top02 .btn_fr .month {font-weight:bold}
@@ -134,6 +136,9 @@ input[type="text"].year {width:60px !important;padding:0 !important}
 .menu_tab.type6 {padding:0}
 .menu_tab.type6 ul li {width:16.5%}
 .menu_tab.type6 ul li:nth-child(1), .menu_tab.type6 ul li:nth-child(6) {width:17%}
+.menu_tab.type3 {padding:0}
+.menu_tab.type3 ul li {width:33.3%}
+.menu_tab.type3 ul li:nth-child(2) {width:33.4%}
 
 .nav_btn {background-color:#e3e2dd}
 .nav_btn ul {overflow:hidden;border-bottom:1px solid #888787}
@@ -355,6 +360,8 @@ span.del_ico {background-image:url('../images/ico/ico_waste.png');background-rep
 .share_cancel {background-color:#fff;padding:.4em .5em;border-bottom:1px solid #e6e6e6;text-align:right}
 .share_cancel.noline {border-bottom:none}
 .tb_ch {background-color:#fff;padding:.7em .5em}
+.prepaid_type {padding:0 .3em}
+.prepaid_type ul li {margin-top:.5em}
 
 /* width */
 .wp10 {width:10% !important}
@@ -460,6 +467,12 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .food_list .tab ul li.on a {color:#fff !important;background-color:#72b5b1;border-color:#72b5b1}
 .food_list .tab ul li.on+li a {border:none}
 
+.food_list .foodlist {background-color:#fff}
+.food_list .foodlist ul {overflow:hidden}
+.food_list .foodlist ul li {float:left;width:50%;display:table;table-layout:fixed;border-bottom:1px solid #e6e6e6}
+.food_list .foodlist ul li span {display:table-cell;border-right:1px solid #e6e6e6;padding:.5em 0;text-align:center}
+.food_list .foodlist ul li span.name {width:81%;padding-left:2%;text-align:left;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+
 .address_write {background-color:#fff;border-top:1px solid #9c9b96}
 .guest_list {background-color:#f4ffed;border-top:1px solid #e6e6e6}
 .guest_list ul li {border-bottom:1px solid #e6e6e6;overflow:hidden}
@@ -482,11 +495,17 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .ad_w .fr a.btn_01, .ad_w .fr a.btn_04 {min-width:32px;text-align:center}
 
 .name_shw .name_choice {background-color:#bfc2c7;padding:.4em .4em 0 .4em;border-top:1px solid #9ea1a6}
+.name_shw.base .name_choice {border-top:none}
 .name_shw .name_choice ul:after {display:block;content:'';overflow:hidden;clear:both}
 .name_shw .name_choice ul li {float:left;width:10.75%;margin:0 1% .4em 1%}
 .name_shw .name_choice ul li:nth-child(1) {width:23.5%}
+.name_shw .name_choice.nb ul li:nth-child(1) {width:10.75%}
 .name_shw .name_choice ul li:nth-child(1), .name_shw .name_choice ul li:nth-child(8) {margin-left:0}
 .name_shw .name_choice ul li:nth-child(7), .name_shw .name_choice ul li:nth-child(15) {margin-right:0}
+.name_shw .name_choice.nb ul li:nth-child(9) {margin-left:0}
+.name_shw .name_choice.nb ul li:nth-child(8)  {margin-left:1%;margin-right:0}
+.name_shw .name_choice.nb ul li:nth-child(7), .name_shw .name_choice.nb ul li:nth-child(15) {margin-right:1%}
+.name_shw .name_choice.nb ul li:nth-child(16) {margin-right:0}
 .name_shw .name_choice ul li a {display:block;text-align:center;text-shadow:none;height:32px;line-height:32px;-webkit-border-radius:.3em;border-radius:.3em;
 	background-image: -moz-linear-gradient(top, #fff, #edebeb);
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #edebeb));
@@ -508,6 +527,7 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .name_shw .guest_list .btn_go {position:absolute;z-index:10;top:0;right:0}
 
 .name_shw .name_sh {background-color:#bfc3c8;-webkit-border-radius:0 0 .3em .3em;border-radius:0 0 .3em .3em;padding:.3em .7em}
+.name_shw.base .name_sh {;-webkit-border-radius:0;border-radius:0}
 .name_shw .name_sh p {background:url('../images/ico/ico_sh.png') no-repeat 0 50%;background-size:17px auto;padding-left:23px;line-height:28px;font-size:15px;font-weight:bold;text-shadow:none}
 .name_shw .name_sh p * {vertical-align:middle}
 .name_shw .name_sh p input {-webkit-border-radius:.3em;border-radius:.3em;border:2px solid #018cb7;margin-left:.2em;height:28px;line-height:28px;padding:0 !important}
@@ -582,6 +602,7 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .btn_fr a {margin-left:4px}
 .btn_fr a:first-child {margin-left:0}
 .btn_c {text-align:center}
+.btn_c.line {border-top:1px solid #9c9b96;padding-top:1em}
 .btn_c a {margin-right:5px}
 .btn_c.mgs a {margin-right:3px;padding:0 .2em;min-width:20px}
 .btn_c a:last-child {margin-right:0}
@@ -772,6 +793,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 .delivery_name ul li a strong {font-family:'arial'}
 .delivery_name .tc {color:#db5c08}
 .delivery_name .ty {color:#0a80c5}
+/*.name_shw.base .delivery_name {max-height:none}*/
 
 .structure_sh {margin:.8em .4em}
 .structure_sh ul {overflow:hidden;margin-top:.8em}
@@ -810,6 +832,11 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 .change_wrap.stp {border-top:1px solid #f0f0ef;border-bottom:1px solid #f0f0ef;margin-bottom:0}
 .change_wrap.stp .keypad {-webkit-border-radius:0em;border-radius:0em}
 .change_wrap.stp .change_in .gb {margin-bottom:.5em}
+.change_wrap .change_in .day {margin:2.5em .5em 0 .5em;position:relative;text-align:center}
+.change_wrap .change_in .day span {display:inline-block;margin-top:.2em;font-weight:bold}
+.change_wrap .change_in .day  .btn_pn {position:absolute;top:0}
+.change_wrap .change_in .day  .btn_pn.prev {left:0}
+.change_wrap .change_in .day  .btn_pn.next {right:0}
 
 .credit_write {background-color:#ededed;border-bottom:1px solid #e6e6e6;padding:.3em .8em .8em .8em}
 .credit_write dl {overflow:hidden;padding-top:.5em}
@@ -885,6 +912,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.list3.del table tbody td.complex span.ico {margin:0 .15em 0 .2em}
 	.table_map.list6 ul li {margin:0 0 1% .9%;width:15.6%}
 	.fre_pop .delivery_name {max-height:240px}
+	.pos_top .top02.onlyt_bgf label {font-size:14px !important}
 }
 @media screen and (min-width:760px){
 	body {font-size:24px}
@@ -1011,6 +1039,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 
 	.food_list {border-top:2px solid #72b5b1}
 	.food_list .tab ul li a {height:60px;line-height:60px}
+	.food_list .foodlist ul li span.name {width:80.5%}
 
 	.ask_write ul li {height:60px}
 	.ask_write ul li a {line-height:60px;height:60px;padding-left:16px}
@@ -1063,6 +1092,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	input[type="date"], input[type="time"], input[type="number"] {height:50px;line-height:50px}
 	input.disable {box-shadow:0 4px 6px 0 #a5a5a5 inset;border:1px solid #a5a5a5;border-bottom:1px solid #e6e6e6}
 	input.in_green, input.in_orange, input.in_brown {padding:0 6px !important;height:50px;line-height:50px;font-size:30px}
+	.pos_top .top02.onlyt_bgf label {font-size:24px !important}
 
 	.pos_top .top02 .year_write a {background-size:auto 38px;width:38px;height:38px}
 	.pos_top .top02 .year_write a.next {background-position:-38px 0}

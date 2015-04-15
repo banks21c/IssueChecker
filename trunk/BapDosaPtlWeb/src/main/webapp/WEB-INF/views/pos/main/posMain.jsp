@@ -235,12 +235,56 @@
 					<li><input type="radio" id="specialM_06" name="specialM" /><label for="specialM_06">예치금(선불금) 입금 및 반환</label></li>
 					<li><input type="radio" id="specialM_07" name="specialM" /><label for="specialM_07">외상수금</label></li>
 					<li><input type="radio" id="specialM_08" name="specialM" /><label for="specialM_08">테이블 이름 변경</label></li>
-					<li><input type="radio" id="specialM_09" name="specialM" /><label for="specialM_09">설정(프로그램 셋팅)</label></li>
+					<li><input type="radio" id="specialM_09" name="specialM" /><label for="specialM_09">식권판매</label></li>
+					<li><input type="radio" id="specialM_10" name="specialM" /><label for="specialM_10">설정(프로그램 셋팅)</label></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<!--e: 특수 팝업 -->
+	
+	<!-- s: 식권 팝업 -->
+	<div data-role="popup" id="voucher_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>식권판매금액 입력</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="change_wrap">
+				<div class="change_in">
+					<p class="day">
+						<a href="#" class="btn_pn prev ui-link" title="이전"></a>
+						<span>10/10 화</span>
+						<a href="#" class="btn_pn next ui-link" title="다음"></a>
+					</p>
+					<p class="gb"><input type="number" id="" data-role="none" /> 천원</p>
+				</div>
+				<div class="keypad">
+					<ul>
+						<li><a href="#"><span>1</span></a></li>
+						<li><a href="#"><span>2</span></a></li>
+						<li><a href="#"><span>3</span></a></li>
+						<li><a href="#"><span>4</span></a></li>
+						<li><a href="#"><span>5</span></a></li>
+						<li><a href="#"><span>6</span></a></li>
+						<li><a href="#"><span>7</span></a></li>
+						<li><a href="#"><span>8</span></a></li>
+						<li><a href="#"><span>9</span></a></li>
+						<li>
+							<a href="#"><span>-</span></a>
+							<a href="#" style="display:none"><span><i></i></span></a><!-- 숫자가 입력되면 마이너스가 백버튼으로 변경 -->
+						</li>
+						<li><a href="#"><span>0</span></a></li>
+						<li><a href="#"><span>.</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="btn_c line">
+			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+		</div>
+	</div>
+	<!--e: 식권 팝업 -->	
 </div>
 </body>
 </html>
