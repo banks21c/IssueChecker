@@ -108,11 +108,16 @@ public class CategoryController {
 			categoryMap.put("categoryMenuList", categoryMenuList);
 		}
 		
+		Map returnMap = new HashMap();
+		returnMap.put("categoryJsonList", categoryJsonList);
+		returnMap.put("isPriceDiffer", "N");
+		returnMap.put("isDPdiffer", "N");
+		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 //		returnJsonVO.setMessage(loginId);
-		returnJsonVO.setReturnObj(categoryJsonList);		
+		returnJsonVO.setReturnObj(returnMap);		
 		logger.debug("categoryJsonList: " + categoryJsonList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
