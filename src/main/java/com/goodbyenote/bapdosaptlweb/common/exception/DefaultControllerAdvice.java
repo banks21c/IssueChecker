@@ -104,7 +104,7 @@ public class DefaultControllerAdvice {
     	
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-		returnJsonVO.setReturnCode("1");// 1: 정상, 0: error
+		returnJsonVO.setReturnCode("0");// 1: 정상, 0: error
 		returnJsonVO.setReturnErrorCode("202");  // 202: RuntimeException
 		returnJsonVO.setMessage("exception error");
 		returnJsonVO.setReturnErrorException(exceptionVO.getCause());

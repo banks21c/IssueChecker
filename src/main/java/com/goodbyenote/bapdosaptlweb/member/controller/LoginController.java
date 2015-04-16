@@ -69,6 +69,11 @@ public class LoginController {
 				sessionUserInfo.setMembertype((String)userMapTemp.get("MEMBERTYPE"));
 				sessionUserInfo.setDeviceId(userMapTemp.get("DEVICEID").toString());
 				
+				Map e​nvironmentMap = new HashMap();
+				e​nvironmentMap.put("isPriceDeviced", "Y");
+				sessionUserInfo.setE​nvironmentMap(e​nvironmentMap);
+				
+				
 				System.out.println("sessionUserInfo:" + sessionUserInfo);
 					
 				//세션 생성
