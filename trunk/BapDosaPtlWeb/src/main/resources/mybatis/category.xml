@@ -46,6 +46,7 @@
 		DEFAULTPRICE,
 		STOREPRICE,
 		DELIVERYPRICE,
+		TAKEOUTPRICE,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -57,7 +58,7 @@
 		MODIFICATIONDATE,
 		SYNCDATE
 	FROM  MENU
-	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid} AND ISDELETED = #{isdeleted}
     ORDER BY SORTORDER 
 	</select>
 	
@@ -108,6 +109,7 @@
 		DEFAULTPRICE,
 		STOREPRICE,
 		DELIVERYPRICE,
+		TAKEOUTPRICE,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -134,6 +136,7 @@
 		DEFAULTPRICE,
 		STOREPRICE,
 		DELIVERYPRICE,
+		TAKEOUTPRICE,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -148,5 +151,55 @@
 	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
     ORDER BY SORTORDER 
 	</select>
+	
+	<insert id="insertCateMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+		INSERT INTO MENU (MEMBERID,
+	            DEVICEID,
+	            CATEGORYID,
+	            MENUID,
+	            NAME,
+	            SORTORDER,
+	            DEFAULTPRICE,
+	            STOREPRICE,
+	            DELIVERYPRICE,
+	            TAKEOUTPRICE,
+	            DEFAULTPOINT,
+	            STOREPOINT,
+	            DELIVERYPOINT,
+	            TAKEOUTPOINT,
+	            DEFAULTDISCOUNT,
+	            STOREDISCOUNT,
+	            DELIVERYDISCOUNT,
+	            TAKEOUTDISCOUNT,
+	            ISHIDDEN,
+	            CREATIONDATE,
+	            MODIFICATIONDATE,
+	            SYNCDATE,
+	            ISDELETED)
+		VALUES ( #{memberid},
+				#{deviceid},
+				#{categoryid},
+				SELECT To_Number('0' || Max(MENUID))+1 FROM MENU,
+				#{name},
+				#{sortorder},
+				#{defaultprice},
+				#{storeprice},
+				#{deliveryprice},
+				#{takeoutprice},
+				#{defaultpoint},
+				#{storepoint},
+				#{deliverypoint},
+				#{takeoutpoint},
+				#{defaultdiscount},
+				#{storediscount},
+				#{deliverydiscount},
+				#{takeoutdiscount},
+				#{ishidden},
+				sysdate,
+				sysdate,
+				sysdate,
+				#{isdeleted}
+		)
+	</insert>
 	  
 </mapper>
