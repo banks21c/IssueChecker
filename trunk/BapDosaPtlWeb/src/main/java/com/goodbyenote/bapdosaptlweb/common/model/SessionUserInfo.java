@@ -1,5 +1,7 @@
 package com.goodbyenote.bapdosaptlweb.common.model;
 
+import java.util.Map;
+
 public class SessionUserInfo {
 	private String memberId;
 	private  String phonenumber;
@@ -8,6 +10,8 @@ public class SessionUserInfo {
 	private String businessnumber;
 	private String membertype;
 	private String deviceId;
+	private Map e​nvironmentMap;
+	
 	
 	public String getDeviceId() {
 		return deviceId;
@@ -50,6 +54,12 @@ public class SessionUserInfo {
 	}
 	public void setMembertype(String membertype) {
 		this.membertype = membertype;
+	}
+	public Map getE​nvironmentMap() {
+		return e​nvironmentMap;
+	}
+	public void setE​nvironmentMap(Map e​nvironmentMap) {
+		this.e​nvironmentMap = e​nvironmentMap;
 	}
 	@Override
 	public String toString() {

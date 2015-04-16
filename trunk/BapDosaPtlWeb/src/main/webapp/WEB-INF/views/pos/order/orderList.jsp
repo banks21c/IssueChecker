@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../css/style.css" />
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../../js/moment.min.js"></script>
 <script type="text/javascript" src="../../js/common/common.js"></script>
 <script type="text/javascript" src="../../js/common/util.js"></script>
 <script type="text/javascript" src="../../js/pos/order.js"></script>
@@ -50,7 +51,7 @@ jQuery(function($){ // on document load
 			</div>
 			<div class="top02">
 				<div class="btn_fl">
-					<a href="#" class="btn_01 pds"><i title="추가" class="plus"></i></a><a href="#" class="btn_01 pds"><i title="삭제" class="minus"></i></a><a href="#" class="btn_02">삭제</a><a href="#" class="btn_02">전체삭제</a>
+					<a href="#" class="btn_01 pds class-event-order-add"><i title="추가" class="plus"></i></a><a href="#" class="btn_01 pds class-event-order-del"><i title="삭제" class="minus"></i></a><a href="#" class="btn_02 class-event-order-delete">삭제</a><a href="#" class="btn_02 class-event-order-delete-all">전체삭제</a>
 				</div>
 				<div class="btn_fr">
 					<a href="#" class="btn_03">고객주문</a><a href="#" class="btn_03">서비스</a>
@@ -67,6 +68,7 @@ jQuery(function($){ // on document load
 					<col width="20%" />
 				</colgroup>
 				<tbody>
+					<!-- 
 					<tr>
 						<td class="a_tl"><span class="ico p">포</span>소갈비 - 한우</td>
 						<td>3</td>
@@ -97,6 +99,7 @@ jQuery(function($){ // on document load
 						<td>16:43</td>
 						<td class="price">216,000</td>
 					</tr>
+					 -->
 				</tbody>
 			</table>
 		</div>
@@ -104,8 +107,8 @@ jQuery(function($){ // on document load
 			<div class="btn_fl">
 				<a href="#" class="btn_01 small"><i></i>축소</a><a href="#" class="btn_01 bigs"><i></i>확대</a>
 			</div>
-			<p class="paging_count">total : <span>26</span></p>
-			<p class="price_total">합계 <span>216,000 </span></p>
+			<p class="paging_count">total : <span>0</span></p>
+			<p class="price_total">합계 <span>0 </span></p>
 		</div>
 		<!--e: 목록출력 -->
 		<div class="btn_btm">
