@@ -1,7 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.category.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +77,7 @@ public class CategoryController {
 		return "pos/category/categoryManage";
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	@RequestMapping(value = "/pos/category/getCategoryJsonList.json")	
 	public ModelAndView getCategoryJsonList( @RequestParam Map parametaMap, Model model, HttpServletRequest request ,HttpSession httpSession) {
 		
@@ -95,8 +94,10 @@ public class CategoryController {
 			
 			Map  categoryMap = categoryJsonList.get(i);			
 			BigDecimal categoryid = (BigDecimal)categoryMap.get("CATEGORYID");			
+			String isdeleted = (String)parametaMap.get("isdeleted");
 			
 			searchCondition.put("categoryid", categoryid);
+			searchCondition.put("isdeleted", "N");
 			
 			List<Map> categoryMenuList = categoryService.getCategoryMenuJsonList(searchCondition);
 			for(Map categoryMenu : categoryMenuList){
@@ -183,7 +184,7 @@ public class CategoryController {
 		return "pos/category/categoryMenuManage";
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	@RequestMapping(value = "/pos/category/getCategoryMenuJsonList.json")	
 	public ModelAndView getCategoryMenuJsonList( @RequestParam Map parametaMap, Model model, HttpServletRequest request ,HttpSession httpSession) {
 		
@@ -192,9 +193,11 @@ public class CategoryController {
 		HashMap searchCondition = new HashMap();
 		
 		String categoryid = (String)parametaMap.get("categoryid");
+		String isdeleted = (String)parametaMap.get("isdeleted");
 		
 		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		searchCondition.put("categoryid", categoryid);		
+		searchCondition.put("categoryid", categoryid);
+		searchCondition.put("isdeleted", "N");
 		
 		List<Map> categoryMenuJsonList = categoryService.getCategoryMenuJsonList(searchCondition);		
 		
@@ -232,6 +235,28 @@ public class CategoryController {
 		model.addAttribute("parametaMap", parametaMap);	
 		
 		return "pos/category/categoryPointManage";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/MenuInsertOk.json")
+	public ModelAndView categoryMenuInsertOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());		
+		
+		categoryService.insertCateMenu(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
 	}
 	
 	/*@RequestMapping(value = "/pos/category/categoryManage")
