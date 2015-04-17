@@ -10,6 +10,8 @@
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript" src="../../js/moment.min.js"></script>
+<script type="text/javascript" src="../../js/json2.js"></script>
+<script type="text/javascript" src="../../js/base64.js"></script>
 <script type="text/javascript" src="../../js/common/common.js"></script>
 <script type="text/javascript" src="../../js/common/util.js"></script>
 <script type="text/javascript" src="../../js/pos/order.js"></script>
@@ -54,7 +56,7 @@ jQuery(function($){ // on document load
 					<a href="#" class="btn_01 pds class-event-order-add"><i title="추가" class="plus"></i></a><a href="#" class="btn_01 pds class-event-order-del"><i title="삭제" class="minus"></i></a><a href="#" class="btn_02 class-event-order-delete">삭제</a><a href="#" class="btn_02 class-event-order-delete-all">전체삭제</a>
 				</div>
 				<div class="btn_fr">
-					<a href="#" class="btn_03">고객주문</a><a href="#" class="btn_03">서비스</a>
+					<a href="#" class="btn_03">고객주문</a><a href="#" class="btn_03 class-event-order-service">서비스</a>
 				</div>
 			</div>
 		</div>
@@ -113,10 +115,10 @@ jQuery(function($){ // on document load
 		<!--e: 목록출력 -->
 		<div class="btn_btm">
 			<div class="btn_fl">
-				<a href="#" class="btn_01">포장</a><a href="#" class="btn_01 view_fre">단골</a>
+				<a href="#" class="btn_01 class-event-order-takeout">포장</a><a href="#" class="btn_01 view_fre">단골</a>
 			</div>
 			<div class="btn_fr">
-				<a href="#" class="btn_02">저장</a><a href="#" class="btn_02" data-rel="back">돌아가기</a><a href="#" class="btn_04">계산</a>
+				<a href="#" class="btn_02 class-event-order-save">저장</a><a href="#" class="btn_02" data-rel="back">돌아가기</a><a href="#" class="btn_04">계산</a>
 			</div>
 		</div>
 		<div class="food_list">

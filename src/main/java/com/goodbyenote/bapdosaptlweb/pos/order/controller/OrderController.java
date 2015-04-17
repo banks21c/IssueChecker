@@ -1,5 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.order.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -105,27 +110,46 @@ public class OrderController {
 		return mav; 
 	}	
 	
-	@RequestMapping(value = "/pos/order/saveOrder.json", method = RequestMethod.POST)
+	@RequestMapping(value = "/pos/order/orderSave.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
-			@Valid OrderVO order,
-			BindingResult result, // 파라미터 검증 결과
-			RedirectAttributes redirectAttrs,
-			Model model,
-			HttpServletRequest request) {	
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
+		
+		//logger.debug(parametaMap.toString());
+		
+		String orderObjJson = (String)parametaMap.get("orderObjJson");		
+		
+		logger.debug(orderObjJson);
+		Map<String, Object> orderObjMap = new ObjectMapper().readValue(orderObjJson, HashMap.class) ;
+		
+		//System.out.println(orderObjMap);
+		
+		String tableId = (String)orderObjMap.get("tableId");
+		String orderId = (String)orderObjMap.get("orderId");
+		List<Map> orderDataList = (List<Map>)orderObjMap.get("orderDataList");
+		
+		orderDataList.forEach( 
+			orderData -> {
+				System.out.println(orderData);
+				
+				//orderData.put
+				
+			}
+		);
+		
+		
+		
+		int resultValue = 1;
 
-		int resultValue = orderService.insertAction(order);
+		//int resultValue = orderService.insertAction(order);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
-		if(resultValue > 0){
-			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
-			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj(Integer.toString(resultValue));
-			mav.addObject(returnJsonVO);
-		}else{
-			mav.addObject(null);
-		}
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(Integer.toString(resultValue));
+		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
 		return mav; 

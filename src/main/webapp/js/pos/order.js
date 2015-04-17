@@ -11,7 +11,9 @@ $(document).on("mobileinit", function () {
     $.mobile.ajaxEnabled = false;
 });
 
-window.bapdosa.order = (function() {	
+window.bapdosa.order = (function() {
+	var mTableId = ""; //테이블아이디
+	var mOrderId = ""; //주문번호
 	
 	var isPriceDiffer;
 	var isDPdiffer;
@@ -20,6 +22,9 @@ window.bapdosa.order = (function() {
 	var orderArea;
 	
 	function eventReg(){
+		
+		mTableId = window.bapdosa.urlParams["tableId"] || "";
+		mOrderId = window.bapdosa.urlParams["orderId"] || "";
 		
 		//주문영역세팅
 		orderArea = $("#order-page .list.minh table tbody");
@@ -108,6 +113,147 @@ window.bapdosa.order = (function() {
 			} 	
 		});
 		
+		//서비스버튼클릭
+		$(".class-event-order-service").click(function(e){
+			e.preventDefault();
+			var selOrderDetail = orderArea.children("tr.active");
+			if(selOrderDetail.length >= 1){
+				setOrderDetailService(selOrderDetail);
+				displayTotal();
+			} else {
+				alert("먼저 주문목록을 선택해 주세요.");
+			}			
+		});
+		//포장버튼클릭
+		$(".class-event-order-takeout").click(function(e){
+			e.preventDefault();
+			var selOrderDetail = orderArea.children("tr.active");
+			if(selOrderDetail.length >= 1){
+				setOrderDetailTakeout(selOrderDetail);
+				displayTotal();
+			} else {
+				alert("먼저 주문목록을 선택해 주세요.");
+			}			
+		});	
+		
+		//저장
+		$(".class-event-order-save").click(function(e){
+			e.preventDefault();
+			var orderAreaList = orderArea.children("tr");
+			
+			var orderDataList = [];
+			orderAreaList.each(function(i){	
+				var menuId = $(this).attr("menuId") || "";
+				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
+				var orderCount = parseInt($(this).find("td:eq(1)").text());
+				var price =  parseInt($(this).attr("defaultPrice"));
+				var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
+				var storePrice =  parseInt($(this).attr("storePrice"));
+				var isService = $(this).attr("isService") || "";		
+				var isTakeout = $(this).attr("isTakeout") || "";
+				var newFlag = $(this).attr("newFlag") || "N";			
+				
+				if(isPriceDiffer == "Y"){
+					if(isTakeout == "Y"){
+						price = parseInt($(this).attr("takeoutPrice")); 
+					} else {
+						price = parseInt($(this).attr("storePrice"));
+					}				
+				}			
+				
+				if(isService == "Y"){
+					price = 0;
+				}
+				price = price * orderCount;
+				
+				var data = {
+						orderDetailId : orderDetailId,
+						menuId: menuId,
+						quantity: orderCount,
+						isTakeout: isTakeout,
+						isService: isService,
+						price: price,
+						newFlag: newFlag
+				}
+				orderDataList.push(data);
+			});	
+			
+			var orderObj = {
+					tableId: mTableId,
+					orderId: mOrderId,
+					orderDataList: orderDataList
+			};
+			
+			orderObjJson = JSON.stringify(orderObj);			
+			//console.log(JSON.stringify(orderObj));
+			orderSave(orderObjJson);
+		});		
+	}
+	
+	function orderSave(orderObjJson){
+		
+		var url="/pos/order/orderSave.json";
+		var param="orderObjJson=" + orderObjJson;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			console.log(returnObj);
+		};
+
+		commonAjaxCall(url, param, success);		
+	}	
+	
+	//선택한 주문을 포장으로 세팅
+	function setOrderDetailTakeout(selOrderDetail){
+		if(selOrderDetail.attr("isTakeout") == "Y"){
+			selOrderDetail.attr("isTakeout", "N");
+			selOrderDetail.find("td:eq(0) .ico.p").remove();			
+		} else {
+			selOrderDetail.attr("isTakeout", "Y");
+			selOrderDetail.find("td:eq(0)").prepend(
+					$("<span>").addClass("ico")
+					   .addClass("p")
+					   .text("포")
+			);
+		}		
+		setOrderDetailPriceSync(selOrderDetail);
+	}	
+	
+	//선택한 주문을 서비스로 세팅
+	function setOrderDetailService(selOrderDetail){
+		if(selOrderDetail.attr("isService") == "Y"){
+			selOrderDetail.attr("isService", "N");
+			selOrderDetail.find("td:eq(0) .ico.s").remove();			
+		} else {
+			selOrderDetail.attr("isService", "Y");
+			selOrderDetail.find("td:eq(0)").prepend(
+					$("<span>").addClass("ico")
+					   .addClass("s")
+					   .text("서")
+			);
+		}		
+		setOrderDetailPriceSync(selOrderDetail);
+	}
+	
+	function setOrderDetailPriceSync(selArea){		
+		var orderCount = parseInt(selArea.find("td:eq(1)").text());
+		var defaultPrice =  parseInt(selArea.attr("defaultPrice"));
+		var isService = selArea.attr("isService") || "";
+		var isTakeout = selArea.attr("isTakeout") || "";
+		
+		if(isPriceDiffer == "Y"){			
+			if(isTakeout == "Y"){
+				defaultPrice = parseInt(selArea.attr("takeoutPrice")); 
+			} else {
+				defaultPrice = parseInt(selArea.attr("storePrice"));
+			}
+		}		
+				
+		if(isService == "Y"){
+			defaultPrice = 0;
+		}
+		selArea.find("td:eq(1)").text(orderCount);
+		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(defaultPrice * orderCount));			
 	}
 	
 	//total개수, 합계금액 계산
@@ -117,9 +263,14 @@ window.bapdosa.order = (function() {
 		orderAreaList.each(function(i){				
 			var orderCount = parseInt($(this).find("td:eq(1)").text());
 			var defaultPrice =  parseInt($(this).attr("defaultPrice"));			
-			var isService = $(this).attr("isService") || "";			
+			var isService = $(this).attr("isService") || "";		
+			var isTakeout = $(this).attr("isTakeout") || "";
 			if(isPriceDiffer == "Y"){
-				defaultPrice = parseInt(selArea.attr("storePrice")); 
+				if(isTakeout == "Y"){
+					defaultPrice = parseInt($(this).attr("takeoutPrice")); 
+				} else {
+					defaultPrice = parseInt($(this).attr("storePrice"));
+				}				
 			}			
 			
 			if(isService == "Y"){
@@ -168,39 +319,19 @@ window.bapdosa.order = (function() {
 	function countAddMenu(orderDetailId){
 		var selArea = orderArea.find("tr[orderDetailId=" + orderDetailId + "]");		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text()) + 1;
-		var defaultPrice =  parseInt(selArea.attr("defaultPrice"));
-		var isService = selArea.attr("isService") || "";
-		
-		if(isPriceDiffer == "Y"){
-			defaultPrice = parseInt(selArea.attr("storePrice")); 
-		}		
-				
-		if(isService == "Y"){
-			defaultPrice = 0;
-		}
 		selArea.find("td:eq(1)").text(orderCount);
-		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(defaultPrice * orderCount));		
+		setOrderDetailPriceSync(selArea);	
 	}
 	
 	function countDelMenu(orderDetailId){
 		var selArea = orderArea.find("tr[orderDetailId=" + orderDetailId + "]");		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text()) - 1;
-		var defaultPrice =  parseInt(selArea.attr("defaultPrice"));
-		var isService = selArea.attr("isService") || "";
-		
-		if(isPriceDiffer == "Y"){
-			defaultPrice = parseInt(selArea.attr("storePrice")); 
-		}		
-		
-		if(isService == "Y"){
-			defaultPrice = 0;
-		}
 
 		if(orderCount < 1){
 			selArea.remove();
 		} else {		
-			selArea.find("td:eq(1)").text(orderCount);
-			selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(defaultPrice * orderCount));
+			selArea.find("td:eq(1)").text(orderCount);			
+			setOrderDetailPriceSync(selArea);
 		}
 	}	
 	
@@ -247,6 +378,21 @@ window.bapdosa.order = (function() {
 						displayPrice = selMenuObj.STOREPRICE;
 					}
 					
+					var td1 = $("<td>").addClass("a_tl")
+					 				   .text(selMenuObj.NAME);
+					if(selCategoryIsService == "Y"){
+						
+						//<span class="ico s">서</span>
+						
+						td1.prepend(
+								$("<span>").addClass("ico")
+										   .addClass("s")
+										   .text("서")
+						);
+						
+						displayPrice = 0;
+					}
+					
 					$("<tr>", {
 						orderDetailId: 'temp_' + new Date().getTime(),
 						categoryId: categoryId,
@@ -260,18 +406,18 @@ window.bapdosa.order = (function() {
 						storeDiscount: selMenuObj.STOREDISCOUNT,
 						takeoutDiscount: selMenuObj.TAKEOUTDISCOUNT,
 						isService: selCategoryIsService,
+						isTakeout: "N",
 						newFlag: "Y"
-					}).append(
-						$("<td>").addClass("a_tl")
-								 .text(selMenuObj.NAME)
-					).append(
+					}).append(td1)
+					.append(
 						$("<td>").text("1")	
 					).append(
 						$("<td>").text(now_hm)
 					).append(
 						$("<td>").addClass("price")
-							 	 .text(window.bapdosa.util.setComma(displayPrice))	
-					).appendTo(orderArea);
+	 	 				   .text(window.bapdosa.util.setComma(displayPrice))
+					)
+					.appendTo(orderArea);
 				}
 			}
 		}
