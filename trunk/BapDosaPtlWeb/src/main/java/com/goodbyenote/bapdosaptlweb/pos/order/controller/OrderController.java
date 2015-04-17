@@ -111,7 +111,7 @@ public class OrderController {
 	}	
 	
 	@RequestMapping(value = "/pos/order/orderSave.json", method = RequestMethod.POST)
-	public ModelAndView insertAction(
+	public ModelAndView orderSave(
 			@RequestParam(required=true) Map parametaMap
 			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
 		
@@ -126,7 +126,12 @@ public class OrderController {
 		
 		String tableId = (String)orderObjMap.get("tableId");
 		String orderId = (String)orderObjMap.get("orderId");
+		String deviceId = (String)orderObjMap.get("deviceId");
 		List<Map> orderDataList = (List<Map>)orderObjMap.get("orderDataList");
+		
+		if("".equals(orderId)){
+			
+		}
 		
 		orderDataList.forEach( 
 			orderData -> {

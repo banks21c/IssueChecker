@@ -143,6 +143,7 @@ window.bapdosa.order = (function() {
 			
 			var orderDataList = [];
 			orderAreaList.each(function(i){	
+				var deviceId = $(this).attr("deviceId") || "";
 				var menuId = $(this).attr("menuId") || "";
 				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
 				var orderCount = parseInt($(this).find("td:eq(1)").text());
@@ -394,6 +395,7 @@ window.bapdosa.order = (function() {
 					}
 					
 					$("<tr>", {
+						deviceId: '',
 						orderDetailId: 'temp_' + new Date().getTime(),
 						categoryId: categoryId,
 						menuId: menuId,
