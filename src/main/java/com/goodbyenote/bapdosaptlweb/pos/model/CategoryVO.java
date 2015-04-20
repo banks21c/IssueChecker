@@ -43,6 +43,8 @@ public class CategoryVO extends PosCommonVO implements Serializable {
     private Character sortorder;
     @Column(name = "ISETC")
     private Character isetc;
+    @Column(name = "ISEDITABLE")
+    private Character iseditable;
     @Column(name = "ISSERVICE")
     private Character isservice;
     @Column(name = "CREATIONDATE")
@@ -79,7 +81,15 @@ public class CategoryVO extends PosCommonVO implements Serializable {
         this.isetc = isetc;
     }
 
-    public Character getIsservice() {
+    public Character getIseditable() {
+		return iseditable;
+	}
+
+	public void setIseditable(Character iseditable) {
+		this.iseditable = iseditable;
+	}
+
+	public Character getIsservice() {
         return isservice;
     }
 

@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="category">
-	<select id="getCategoryList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+	<select id="getCategoryList" resultType="map">
 	SELECT
 		MEMBERID,
 		DEVICEID,
@@ -98,7 +98,7 @@
 		AND    CATEGORYID       = #{categoryid}
 	</update>
 	
-	<select id="getCategoryMenuList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+	<select id="getCategoryMenuList" resultType="map">
 	SELECT
 		MEMBERID,
 		DEVICEID,
@@ -152,51 +152,22 @@
     ORDER BY SORTORDER 
 	</select>
 	
-	<insert id="insertCateMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+	<insert id="insertCateMenu" parameterType="map">
 		INSERT INTO MENU (MEMBERID,
 	            DEVICEID,
 	            CATEGORYID,
 	            MENUID,
 	            NAME,
 	            SORTORDER,
-	            DEFAULTPRICE,
-	            STOREPRICE,
-	            DELIVERYPRICE,
-	            TAKEOUTPRICE,
-	            DEFAULTPOINT,
-	            STOREPOINT,
-	            DELIVERYPOINT,
-	            TAKEOUTPOINT,
-	            DEFAULTDISCOUNT,
-	            STOREDISCOUNT,
-	            DELIVERYDISCOUNT,
-	            TAKEOUTDISCOUNT,
-	            ISHIDDEN,
-	            CREATIONDATE,
-	            MODIFICATIONDATE,	            
-	            ISDELETED)
+	            DEFAULTPRICE
+	           )
 		VALUES ( #{memberid},
 				#{deviceid},
 				#{categoryid},
 				#{menuid},
 				#{name},
 				#{sortorder},
-				#{defaultprice},
-				#{storeprice},
-				#{deliveryprice},
-				#{takeoutprice},
-				#{defaultpoint},
-				#{storepoint},
-				#{deliverypoint},
-				#{takeoutpoint},
-				#{defaultdiscount},
-				#{storediscount},
-				#{deliverydiscount},
-				#{takeoutdiscount},
-				#{ishidden},
-				sysdate,				
-				sysdate,
-				#{isdeleted}
+				#{defaultprice}				
 		)
 	</insert>
 	

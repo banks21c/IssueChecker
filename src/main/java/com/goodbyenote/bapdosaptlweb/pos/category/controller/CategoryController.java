@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
+import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.category.service.CategoryService;
 import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
 
@@ -63,19 +64,18 @@ public class CategoryController {
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
-		HashMap searchCondition = new HashMap();		
+		//HashMap searchCondition = new HashMap()	
 		
-		String isetc = (String)parametaMap.get("isetc");
-		String iseditable = (String)parametaMap.get("iseditable");
 		
-		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		searchCondition.put("isetc", isetc);
-		searchCondition.put("iseditable", "Y");
+		String iseditable = "Y";
 		
-		List<Map> categoryList = categoryService.getCategoryList(searchCondition);
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());		
+		parametaMap.put("iseditable", iseditable);		
+		
+		List<Map> categoryList = categoryService.getCategoryList(parametaMap);
 		logger.debug("categoryList: " + categoryList);
 		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
-		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryList", categoryList);		
 		model.addAttribute("parametaMap", parametaMap);	
 		
 		return "pos/category/categoryManage";
@@ -89,19 +89,17 @@ public class CategoryController {
 		
 		HashMap searchCondition = new HashMap();		
 		
-		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		
+		searchCondition.put("memberid", sessionUserInfo.getMemberId());		
 		List<Map> categoryJsonList = categoryService.getCategoryJsonList(searchCondition);		
-		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@categoryJsonList: " + categoryJsonList);
 		
 		for(int i=0; i<categoryJsonList.size();i++){
 			
 			Map  categoryMap = categoryJsonList.get(i);			
 			String categoryid = (String)categoryMap.get("CATEGORYID");			
-			String isdeleted = (String)parametaMap.get("isdeleted");
+			String isdeleted = "N";
 			
 			searchCondition.put("categoryid", categoryid);
-			searchCondition.put("isdeleted", "N");
+			searchCondition.put("isdeleted", isdeleted);
 			
 			List<Map> categoryMenuList = categoryService.getCategoryMenuJsonList(searchCondition);
 			for(Map categoryMenu : categoryMenuList){
@@ -174,21 +172,22 @@ public class CategoryController {
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
-		HashMap searchCondition = new HashMap();
+		//HashMap searchCondition = new HashMap();
 		String categoryid = (String)parametaMap.get("categoryid");
-		String iseditable = (String)parametaMap.get("iseditable");
+		String iseditable = "Y";
 		
-		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		searchCondition.put("categoryid", categoryid);
-		searchCondition.put("iseditable", "Y");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("categoryid", categoryid);
+		parametaMap.put("iseditable", iseditable);
 		
-		List<Map> categoryList = categoryService.getCategoryList(searchCondition);
-		List<Map> categoryMenuList = categoryService.getCategoryMenuList(searchCondition);
+		List<Map> categoryList = categoryService.getCategoryJsonList(parametaMap);
+		List<Map> categoryMenuList = categoryService.getCategoryMenuList(parametaMap);
 		logger.debug("categoryMenuList: " + categoryMenuList);
 		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("categoryMenuList", categoryMenuList);
-		model.addAttribute("parametaMap", parametaMap);	
+		model.addAttribute("parametaMap", parametaMap);
+		logger.debug("###########parametaMap: " + parametaMap);
 		
 		return "pos/category/categoryMenuManage";
 	}
@@ -199,16 +198,16 @@ public class CategoryController {
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
-		HashMap searchCondition = new HashMap();
+		//HashMap searchCondition = new HashMap();
 		
 		String categoryid = (String)parametaMap.get("categoryid");
 		String isdeleted = (String)parametaMap.get("isdeleted");
 		
-		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		searchCondition.put("categoryid", categoryid);
-		searchCondition.put("isdeleted", "N");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("categoryid", categoryid);
+		parametaMap.put("isdeleted", isdeleted);
 		
-		List<Map> categoryMenuJsonList = categoryService.getCategoryMenuJsonList(searchCondition);		
+		List<Map> categoryMenuJsonList = categoryService.getCategoryMenuJsonList(parametaMap);		
 		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
@@ -254,10 +253,16 @@ public class CategoryController {
 		
 		logger.debug(parametaMap.toString());
 		
-		parametaMap.put("memberId", sessionUserInfo.getMemberId());
-		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
+		parametaMap.put("menuid", SecurityUtils.getTimeFormatUnique());
+		parametaMap.put("categoryid", "20150420144440.115c265cb64c5329d2cb047f19503b45590");
+		parametaMap.put("name", "육회 대");
+		parametaMap.put("sortorder", 1);
+		parametaMap.put("defaultprice", 40000);
 		
-		categoryService.insertCateMenu(parametaMap);		
+		categoryService.insertCateMenu(parametaMap);
+		logger.debug("#################parametaMap=" + parametaMap);
 		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
