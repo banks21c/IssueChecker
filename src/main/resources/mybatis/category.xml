@@ -55,8 +55,8 @@
 		ISHIDDEN,
 		ISDELETED,
 		CREATIONDATE,
-		MODIFICATIONDATE,
-		SYNCDATE
+		MODIFICATIONDATE
+		
 	FROM  MENU
 	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid} AND ISDELETED = #{isdeleted}
     ORDER BY SORTORDER 
@@ -118,8 +118,8 @@
 		ISHIDDEN,
 		ISDELETED,
 		CREATIONDATE,
-		MODIFICATIONDATE,
-		SYNCDATE
+		MODIFICATIONDATE
+		
 	FROM MENU
 	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
     ORDER BY SORTORDER 
@@ -145,8 +145,8 @@
 		ISHIDDEN,
 		ISDELETED,
 		CREATIONDATE,
-		MODIFICATIONDATE,
-		SYNCDATE
+		MODIFICATIONDATE
+		
 	FROM MENU
 	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
     ORDER BY SORTORDER 
@@ -173,13 +173,12 @@
 	            TAKEOUTDISCOUNT,
 	            ISHIDDEN,
 	            CREATIONDATE,
-	            MODIFICATIONDATE,
-	            SYNCDATE,
+	            MODIFICATIONDATE,	            
 	            ISDELETED)
 		VALUES ( #{memberid},
 				#{deviceid},
 				#{categoryid},
-				SELECT To_Number('0' || Max(MENUID))+1 FROM MENU,
+				#{menuid},
 				#{name},
 				#{sortorder},
 				#{defaultprice},
@@ -195,11 +194,26 @@
 				#{deliverydiscount},
 				#{takeoutdiscount},
 				#{ishidden},
-				sysdate,
-				sysdate,
+				sysdate,				
 				sysdate,
 				#{isdeleted}
 		)
 	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateCateMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+		UPDATE MENU
+		SET    	
+		        MENUID              = #{menuid, jdbcType=NUMERIC},	        
+	            CATEGORYID          = #{categoryid , jdbcType=NUMERIC},
+	            NAME                = #{name , jdbcType=VARCHAR},
+	            SORTORDER           = #{sortorder , jdbcType=NUMERIC},
+	            DEFAULTPRICE        = #{defaultprice , jdbcType=NUMERIC}	         
+	       
+		       
+		WHERE  MEMBERID         = #{memberid , jdbcType=VARCHAR}
+		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
+		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
+	</update>
 	  
 </mapper>
