@@ -77,12 +77,12 @@ window.bapdosa.menu = (function() {
 			}else if($("#id_cate_main_3").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_3').addClass("on");
-			}else if($("#id_cate_main_4").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_4').addClass("on");
 			}else if($("#id_cate_main_5").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_5').addClass("on");
+			}else if($("#id_cate_main_6").is(":focus")){
+				$('a[id^=id_cate_main_]').removeClass("on");
+				$('#id_cate_main_6').addClass("on");
 			}
 		})	
 		
@@ -136,24 +136,27 @@ window.bapdosa.menu = (function() {
 		});
 		
 		$(".class_menu_pop").change(function(){
+			var etccateid= $(this).attr("etccateid");
+			var url = '/pos/category/categoryMenuManage.do?categoryid=' + etccateid ;
+			
 			if($("input[name=otherL]:checked").val() == 1){	
-				$(parent.location).attr('href','/pos/category/categoryMenuManage.do?categoryid=6');
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 2){	
-				$(parent.location).attr('href','/pos/category/categoryMenuManage.do?categoryid=7');
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 3){
-				$(parent.location).attr('href','/pos/category/categoryMenuManage.do?categoryid=8');
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 4){
-				$(parent.location).attr('href','/pos/category/categoryMenuManage.do?categoryid=9');
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 5){
-				$(parent.location).attr('href','/pos/category/categoryMenuManage.do?categoryid=10');
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}		
