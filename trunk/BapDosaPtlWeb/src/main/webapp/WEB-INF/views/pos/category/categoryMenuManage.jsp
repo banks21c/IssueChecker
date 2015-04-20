@@ -26,8 +26,8 @@
 		<div class="menu_tab">
 			<ul>
 				<li><a href="/pos/category/categoryManage.do" data-ajax="false">카테고리 편집</a></li>
-				<li><a href="/pos/category/categoryMenuManage.do?categoryid=1" data-ajax="false" class="on">메뉴추가</a></li>
-				<li><a href="/pos/category/categoryPointManage.do?categoryid=1" data-ajax="false">포인트/할인율 설정</a></li>
+				<li><a href="/pos/category/categoryMenuManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false" class="on">메뉴추가</a></li>
+				<li><a href="/pos/category/categoryPointManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">포인트/할인율 설정</a></li>
 			</ul>
 		</div>
 
@@ -35,9 +35,9 @@
 			<div class="tab">
 				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
-				    <c:if test="${category.isetc == 'N'}">
-					   <li><a href="/pos/category/categoryMenuManage.do?categoryid=${status.count}" data-ajax="false">${category.name}</a></li>
-					</c:if>
+				    <c:if test="${category.ISETC == 'N'}"><c:if test="${category.ISEDITABLE == 'Y'}">
+					   <li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false">${category.NAME}</a></li>
+					</c:if></c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
 					</c:forEach>
@@ -68,10 +68,10 @@
 					</thead>
 					<tbody>					
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
-							<tr class="class_menu_main" memberid="${categoryMenu.memberid}" categoryid="${categoryMenu.categoryid}" menuid="${categoryMenu.menuid}" sortorder="${categoryMenu.sortorder}" catemenuname="${categoryMenu.name}" defaultprice = "${categoryMenu.defaultprice}">
+							<tr class="class_menu_main" memberid="${categoryMenu.MEMBERID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}">
 								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
-								<td><input type="text" class="class_menu_name_${status.count}" data-role="none" value="${categoryMenu.name}" inputcatename="${categoryMenu.name}"/></td>
-								<td><input type="text" class="class_menu_storeprice_${status.count}" data-role="none" value="${categoryMenu.defaultprice}"/></td>
+								<td><input type="text" class="class_menu_name_${status.count}" data-role="none" value="${categoryMenu.NAME}" inputcatename="${categoryMenu.NAME}"/></td>
+								<td><input type="text" class="class_menu_storeprice_${status.count}" data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>
 								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
 							</tr>
 						</c:forEach>
@@ -104,12 +104,12 @@
 					<tbody >
 					<form id="menuform2">
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="longStatus">
-							<tr class="" categoryid="${categoryMenu.categoryid}" menuid="${categoryMenu.menuid}" sortorder="${categoryMenu.sortorder}" catemenuname="${categoryMenu.name}" defaultprice = "${categoryMenu.defaultprice}" storeprice = "${categoryMenu.storeprice}">
+							<tr class="" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}">
 								<td><label><input type="checkbox" class="class_menu_check_${longStatus.count}" /></label></td>
-								<td><input type="text" class="class_menu_name_${longStatus.count}" data-role="none" value="${categoryMenu.name}"/></td>
-								<td><input type="text" class="class_menu_storeprice_${longStatus.count}" data-role="none" value="${categoryMenu.storeprice}"/></td>
-								<td><input type="text" class="class_menu_deliveryprice_${longStatus.count}" data-role="none" value="${categoryMenu.deliveryprice}"/></td>
-								<td><input type="text" class="class_menu_takeoutprice_${longStatus.count}" data-role="none" value="${categoryMenu.takeoutprice}"/></td>
+								<td><input type="text" class="class_menu_name_${longStatus.count}" data-role="none" value="${categoryMenu.NAME}"/></td>
+								<td><input type="text" class="class_menu_storeprice_${longStatus.count}" data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
+								<td><input type="text" class="class_menu_deliveryprice_${longStatus.count}" data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
+								<td><input type="text" class="class_menu_takeoutprice_${longStatus.count}" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
 								<td><label><input type="checkbox" class="class_menu_hidden_${longStatus.count}" /></label></td>
 							</tr>
 						</c:forEach>
@@ -144,14 +144,12 @@
 		<div role="main" class="ui-content">
 			<div class="menu_list">
 				<ul>
-					<li><input type="radio" id="otherL_1" name="otherL" value="1" class="class_menu_pop"/><label for="otherL_1">점심특선</label></li>
 					<c:forEach var="category" items="${categoryList}" varStatus="status">
-				    <c:if test="${category.isetc == 'Y'}">
-						<li><input type="radio" id="otherL_${status.count-2}" name="otherL" value="${status.count-2}" class="class_menu_pop"/><label for="otherL_${status.count-2}">${category.name}</label></li>
+				    <c:if test="${category.ISETC == 'Y'}">
+						<li><input type="radio" id="otherL_${status.count-2}" name="otherL" etccateid="${category.CATEGORYID}" value="${status.count-2}" class="class_menu_pop"/><label for="otherL_${status.count-2}">${category.NAME}</label></li>
 						
 					</c:if>
 					</c:forEach>
-					<li><input type="radio" id="otherL_5" name="otherL" value="5" class="class_menu_pop"/><label for="otherL_5">서비스</label></li>
 				</ul>
 			</div>
 		</div>
