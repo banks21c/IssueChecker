@@ -27,8 +27,8 @@
 		<div class="menu_tab">
 			<ul>
 				<li><a href="/pos/category/categoryManage.do" data-ajax="false" class="on">카테고리 편집</a></li>
-				<li><a href="/pos/category/categoryMenuManage.do?categoryid=1" data-ajax="false">메뉴추가</a></li>
-				<li><a href="/pos/category/categoryPointManage.do?categoryid=1" data-ajax="false">포인트/할인율 설정</a></li>
+				<li><a href="/pos/category/categoryMenuManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">메뉴추가</a></li>
+				<li><a href="/pos/category/categoryPointManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">포인트/할인율 설정</a></li>
 			</ul>
 		</div>       
 		<div class="category_list">
@@ -37,12 +37,12 @@
 				<div class="cl class_cate_index">
 					<ul>
 					<c:forEach var="category" items="${categoryList}" varStatus="status">
-					    <c:if test="${category.isetc == 'N'}">
-						  <li><a href="#" class="class_cate_main" id="id_cate_main_${status.count}" catename="${category.name}" categoryid ="${category.categoryid}" sortorder ="${category.sortorder}">${category.name}</a></li>
+					    <c:if test="${category.ISETC == 'N'}">
+						  <li><a href="#" class="class_cate_main" id="id_cate_main_${status.count}" catename="${category.NAME}" categoryid ="${category.CATEGORYID}" sortorder ="${category.SORTORDER}">${category.NAME}</a></li>
 						</c:if>						
 					</c:forEach>
-					<li><a href="#" id="id_cate_main_4">음료류</a></li>
-					<li><a href="#" id="id_cate_main_5">기타</a></li>
+					<li><a href="#" id="id_cate_main_2">음료류</a></li>
+					<li><a href="#" id="id_cate_main_3">기타</a></li>
 					</ul>
 					<div class="btn_c">
 						<a href="#" class="btn_01" id="id_cate_up" title="위로"><i class="up"></i></a><a href="#" id="id_cate_down" class="btn_01" title="아래로"><i class="down"></i></a>
@@ -52,8 +52,8 @@
 					<ul>
 						<li><a href="#">점심특선</a></li>
 						<c:forEach var="category" items="${categoryList}">
-							<c:if test="${category.isetc == 'Y'}">
-							   <li><a href="#">${category.name}</a></li>	
+							<c:if test="${category.ISETC == 'Y'}">
+							   <li><a href="#">${category.NAME}</a></li>	
 							</c:if>					
 					    </c:forEach>
 						<li><a href="#">서비스</a></li>
@@ -66,8 +66,8 @@
 				<div class="cl">
 					<ul>
 					<c:forEach var="category" items="${categoryList}">
-					    <c:if test="${category.isetc == 'N'}">
-						<li><span><input type="text" data-role="none" class="class_cate" data-role="none" catename="${category.name}" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>						
+					    <c:if test="${category.ISETC == 'N'}">
+						<li><span><input type="text" data-role="none" class="class_cate" data-role="none" catename="${category.NAME}" memberid ="${category.MEMBERID}" deviceid ="${category.DEVICEID}" sortorder ="${category.SORTORDER}" categoryid ="${category.CATEGORYID}" name="cate_name_${category.CATEGORYID}"/></span></li>						
 						</c:if>
 						</c:forEach>
 						<li><span class="disable">음료류</span></li>
@@ -78,8 +78,8 @@
 					<ul>
 						<li><span class="disable">점심특선</span></li>
 						<c:forEach var="category" items="${categoryList}">
-					    <c:if test="${category.isetc == 'Y'}">
-						<li><span><input type="text" data-role="none" class="class_cate" catename="${category.name}" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>
+					    <c:if test="${category.ISETC == 'Y'}">
+						<li><span><input type="text" data-role="none" class="class_cate" catename="${category.NAME}" memberid ="${category.MEMBERID}" deviceid ="${category.DEVICEID}" sortorder ="${category.SORTORDER}" categoryid ="${category.CATEGORYID}" name="cate_name_${category.CATEGORYID}"/></span></li>
 						</c:if>
 						</c:forEach>						
 						<li><span class="disable">서비스</span></li>
