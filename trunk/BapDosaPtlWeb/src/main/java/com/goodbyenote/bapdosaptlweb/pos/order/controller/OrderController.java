@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
+import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.model.OrderVO;
 import com.goodbyenote.bapdosaptlweb.pos.order.service.OrderService;
 
@@ -115,6 +116,8 @@ public class OrderController {
 			@RequestParam(required=true) Map parametaMap
 			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
 		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
 		//logger.debug(parametaMap.toString());
 		
 		String orderObjJson = (String)parametaMap.get("orderObjJson");		
@@ -126,7 +129,15 @@ public class OrderController {
 		
 		String tableId = (String)orderObjMap.get("tableId");
 		String orderId = (String)orderObjMap.get("orderId");
-		String deviceId = (String)orderObjMap.get("deviceId");
+		
+		if("".equals(orderId)){
+			orderId = SecurityUtils.getTimeFormatUnique();
+			
+			Map orderMap = new HashMap();
+			orderMap.put("memberId", sessionUserInfo.getMemberId());
+		}
+		
+		
 		List<Map> orderDataList = (List<Map>)orderObjMap.get("orderDataList");
 		
 		if("".equals(orderId)){
