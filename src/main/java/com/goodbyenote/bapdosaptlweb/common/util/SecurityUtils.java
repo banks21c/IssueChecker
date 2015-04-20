@@ -2,6 +2,8 @@ package com.goodbyenote.bapdosaptlweb.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -43,5 +45,22 @@ public class SecurityUtils {
 	public static String make32UniqueId(){
 		return makeMD5(UUID.randomUUID().toString());
 	}
+	
+    /**
+     * 날짜를 주어진 방식으로 리턴한다. 예)201503121041.001
+     * @return 
+     */
+    public static String getTimeFormat() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss.SSS");
+        return formatter.format(new Date());
+    }	
+    
+    /**
+     * 날짜를 주어진 방식으로 리턴한다. 예)201503121041.001d3e644f05d06d882e5b92e330f1c9ce4
+     * @return 
+     */
+    public static String getTimeFormatUnique() {
+        return getTimeFormat() + make32UniqueId();
+    }	    
 
 }
