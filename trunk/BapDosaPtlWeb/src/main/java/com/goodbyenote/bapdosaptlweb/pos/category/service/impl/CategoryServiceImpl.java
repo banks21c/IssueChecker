@@ -37,14 +37,14 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List<Map> getCategoryList(Map searchCondition) {
-		return categoryDAO.getCategoryList(searchCondition);
+	public List<Map> getCategoryList(Map parametaMap) {
+		return categoryDAO.getCategoryList(parametaMap);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List<Map> getCategoryJsonList(Map searchCondition) {
-		return categoryDAO.getCategoryJsonList(searchCondition);
+	public List<Map> getCategoryJsonList(Map parametaMap) {
+		return categoryDAO.getCategoryJsonList(parametaMap);
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -23,13 +23,13 @@ public class CategoryDAO {
 		}
 	}
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryList(Map searchCondition) {
-		return sqlSession.selectList("category.getCategoryList", searchCondition);
+	public List<Map> getCategoryList(Map parametaMap) {
+		return sqlSession.selectList("category.getCategoryList", parametaMap);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryJsonList(Map searchCondition) {
-		return sqlSession.selectList("category.getCategoryJsonList", searchCondition);
+	public List<Map> getCategoryJsonList(Map parametaMap) {
+		return sqlSession.selectList("category.getCategoryJsonList", parametaMap);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -57,8 +57,8 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryMenuList(Map searchCondition) {
-		return sqlSession.selectList("category.getCategoryMenuList", searchCondition);
+	public List<Map> getCategoryMenuList(Map parametaMap) {
+		return sqlSession.selectList("category.getCategoryMenuList", parametaMap);
 	}
 	
 	@SuppressWarnings("rawtypes")

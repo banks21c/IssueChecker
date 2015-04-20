@@ -15,7 +15,7 @@ public interface CategoryService {
 	//public List<CategoryVO> getCategoryList(CategoryVO category);
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryList(Map searchCondition);
+	public List<Map> getCategoryList(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryJsonList(Map searchCondition);
@@ -29,10 +29,10 @@ public interface CategoryService {
 	public void updateCateMenu(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryMenuList(Map searchCondition);
+	public List<Map> getCategoryMenuList(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryMenuJsonList(Map searchCondition);
+	public List<Map> getCategoryMenuJsonList(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryPointList(Map searchCondition);
