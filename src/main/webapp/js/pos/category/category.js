@@ -2,57 +2,72 @@ $(document).ready(function() {
 	
 	var name;
 	var categoryid;
-	var sortorder;	
+	var sortorder;
 	
 	$("#id_cate_save").click(function(e){		
 			e.preventDefault();			
 			updateCate(sortorder,name,categoryid);
+			location.reload();
 	});	
 	
-	/*$("#id_menu_sub1").click(function(e){
-		alert('1');
+	$("#id_menu_save").click(function(e){		
+		e.preventDefault();			
+		insertMenu();
+		//location.reload();
+    });	
+	
+	$("#menu-page .class_category_area > li").click(function(e){
 		e.preventDefault();
-		
-		$("#id_menu_sub2,#id_menu_sub3,#id_menu_sub4,#id_menu_sub5").removeClass("on");
-		$(".class_menu_tab_top").text("요리류 메뉴");
-		$(location).attr('href','/pos/category/categoryMenuManage.do?categoryid=1');
-		$("#id_menu_sub1").addClass("on");
-		
-    });
-	$("#id_menu_sub2").click(function(e){
-		alert('2');
-		e.preventDefault();
-		
-		$("#id_menu_sub1").removeClass("on");
-		$(".class_menu_tab_top").text("식사류 메뉴");
-		$(location).attr('href','/pos/category/categoryMenuManage.do?categoryid=2');
-		$("#id_menu_sub2").addClass("on");
-    });
-	$("#id_menu_sub3").click(function(e){	
-		alert('3');
-		e.preventDefault();			
-		
-		$("#id_menu_sub1,#id_menu_sub2,#id_menu_sub4,#id_menu_sub5").removeClass("on");
-		$(".class_menu_tab_top").text("주류 메뉴");
-		$(location).attr('href','/pos/category/categoryMenuManage.do?categoryid=3');
-		$("#id_menu_sub3").addClass("on");
-    });
-	$("#id_menu_sub4").click(function(e){		
-		e.preventDefault();			
-		
-		$("#id_menu_sub1,#id_menu_sub2,#id_menu_sub3,#id_menu_sub5").removeClass("on");
-		$(".class_menu_tab_top").text("음료류 메뉴");
-		$(location).attr('href','/pos/category/categoryMenuManage.do?categoryid=4');
-		$("#id_menu_sub4").addClass("on");
-    });
-	$("#id_menu_sub5").click(function(e){		
-		e.preventDefault();			
-		
-		$("#id_menu_sub1,#id_menu_sub2,#id_menu_sub3,#id_menu_sub4").removeClass("on");
-		$(".class_menu_tab_top").text("기타 메뉴");
-		$("#id_menu_sub5").addClass("on");
-		//$(location).attr('href','/pos/category/categoryMenuManage.do?categoryid=5');
-    });*/
+		alert('11111');
+		$(this).addClass("on").siblings().removeClass("on");
+	});
+	
+	$("#id_cate_up").click(function(e){		
+		e.preventDefault();	
+		if($("#id_cate_main_1").hasClass("on")){
+			$("#id_cate_main_1").parent().prev("li").before($("#id_cate_main_1").parent());
+		}else if($("#id_cate_main_2").hasClass("on")){
+			$("#id_cate_main_2").parent().prev("li").before($("#id_cate_main_2").parent());
+		}else if($("#id_cate_main_3").hasClass("on")){
+			$("#id_cate_main_3").parent().prev("li").before($("#id_cate_main_3").parent());
+		}
+    });	
+	
+	$("#id_cate_down").click(function(e){
+		//var index = $(".class_cate_index > ul > li").index(this);
+		//$("#order-page .class-category-area > li:eq(" + index + ")");
+		//alert(index);
+		e.preventDefault();	
+		if($("#id_cate_main_1").hasClass("on")){
+		   $("#id_cate_main_1").parent().next("li").after($("#id_cate_main_1").parent());
+		   //$("li:eq(" + index + ")").attr("sortorder", index);
+		}else if($("#id_cate_main_2").hasClass("on")){
+			 $("#id_cate_main_2").parent().next("li").after($("#id_cate_main_2").parent());
+			 //$("li:eq(" + index + ")").attr("sortorder", index);
+		}else if($("#id_cate_main_3").hasClass("on")){
+			$("#id_cate_main_3").parent().next("li").after($("#id_cate_main_3").parent());
+			// $("li:eq(" + index + ")").attr("sortorder", index);
+		}
+    });	
+	
+	$('a[id^=id_cate_main_]').click(function(){
+		if($("#id_cate_main_1").is(":focus")){
+			$('a[id^=id_cate_main_]').removeClass("on");
+			$('#id_cate_main_1').addClass("on");			
+		}else if($("#id_cate_main_2").is(":focus")){
+			$('a[id^=id_cate_main_]').removeClass("on");
+			$('#id_cate_main_2').addClass("on");
+		}else if($("#id_cate_main_3").is(":focus")){
+			$('a[id^=id_cate_main_]').removeClass("on");
+			$('#id_cate_main_3').addClass("on");
+		}else if($("#id_cate_main_4").is(":focus")){
+			$('a[id^=id_cate_main_]').removeClass("on");
+			$('#id_cate_main_4').addClass("on");
+		}else if($("#id_cate_main_5").is(":focus")){
+			$('a[id^=id_cate_main_]').removeClass("on");
+			$('#id_cate_main_5').addClass("on");
+		}
+	})	
 	
 	$(".class_menu_check").change(function(e){
 		e.preventDefault();			
@@ -81,8 +96,8 @@ $(document).ready(function() {
 		}
 	})
 	
-	$("#id_menu_add_row").click(function(){
-		alert('1');
+	$("#id_menu_add_row").click(function(){		
+		
 		var data = "<tr>" + 
 					"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 					"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
@@ -151,10 +166,9 @@ $(document).ready(function() {
 	});
 });
 
-
 function updateCate(sortorder,name,categoryid){
 	
-	if(!confirm("save?")){
+	if(!confirm("저장하시겠습니까?")){
 		return false;
 	}
 	
@@ -192,6 +206,85 @@ function updateCate(sortorder,name,categoryid){
 				}
 			}
 		 });	
+	});	
+}
+
+function insertMenu(){
+	
+	if(!confirm("저장하시겠습니까?")){
+		return false;
+	}
+	
+	$(".class_menu_main").each(function() {
+		 var name = $('.class_menu_main input').eq(1).val();
+		 var sortorder = $(this).attr('sortorder');
+		 var categoryid = $(this).attr('categoryid');
+		 var storeprice = $('.class_menu_main input').eq(2).val();
+		 
+		 var param ="sortorder=" + sortorder + "&name=" + name+ "&categoryid=" + categoryid + "&storeprice=" + storeprice;
+		 	
+		 alert(param);
+		 
+		 var url = "MenuInsertOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+					//console.log(data);					
+				}
+				
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+					$("#id_cate_save").click();		
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+			}
+		 });	
 	});
-	location.reload();
+	
+	/* $(".class_cate").each(function() {
+		 
+		 var name = $(this).val();
+		 var sortorder = $(this).attr('sortorder');
+		 var categoryid = $(this).attr('categoryid');
+		 var memberid = $(this).attr('memberid');
+		 var deviceid = $(this).attr('deviceid');
+		 
+		 var param ="sortorder=" + sortorder + "&name=" + name+ "&categoryid=" + categoryid + "&memberid=" + memberid + "&deviceid=" + deviceid;		 
+		 var url = "MenuInsertOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+					//console.log(data);					
+				}
+				
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+					$("#id_cate_save").click();		
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+			}
+		 });	
+	});*/	
 }
