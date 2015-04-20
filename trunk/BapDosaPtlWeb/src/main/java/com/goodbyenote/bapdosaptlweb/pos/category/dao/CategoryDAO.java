@@ -51,6 +51,12 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("rawtypes")
+	public int updateCateMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateCateMenu", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map searchCondition) {
 		return sqlSession.selectList("category.getCategoryMenuList", searchCondition);
 	}
