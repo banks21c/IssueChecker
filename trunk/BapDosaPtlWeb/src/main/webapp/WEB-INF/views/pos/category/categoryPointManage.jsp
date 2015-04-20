@@ -12,10 +12,10 @@
 <script type="text/javascript" src="../../../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript" src="../../../../js/common/common.js"></script>
 <script type="text/javascript" src="../../../../js/common/util.js"></script>
-<script type="text/javascript" src="../../../../js/pos/category/category.js"></script>
+<script type="text/javascript" src="../../../../js/pos/menu/menu.js"></script>
 </head>
 <body>
-<div data-role="page" id="demo-page" data-url="demo-page">
+<div data-role="page" id="point-page" data-url="point-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>

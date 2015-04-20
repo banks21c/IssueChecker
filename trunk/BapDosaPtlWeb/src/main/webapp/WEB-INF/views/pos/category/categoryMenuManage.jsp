@@ -12,10 +12,10 @@
 <script type="text/javascript" src="../../../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript" src="../../../../js/common/common.js"></script>
 <script type="text/javascript" src="../../../../js/common/util.js"></script>
-<script type="text/javascript" src="../../../../js/pos/category/category.js"></script>
+<script type="text/javascript" src="../../../../js/pos/menu/menu.js"></script>
 </head>
 <body>
-<div data-role="page" id="demo-page" data-url="">
+<div data-role="page" id="menu-page" data-url="menu-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
@@ -33,10 +33,10 @@
 
 		<div class="food_list">
 			<div class="tab">
-				<ul>
+				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.isetc == 'N'}">
-					   <li id=""><a href="/pos/category/categoryMenuManage.do?categoryid=${status.count}" data-ajax="false">${category.name}</a></li>
+					   <li><a href="/pos/category/categoryMenuManage.do?categoryid=${status.count}" data-ajax="false">${category.name}</a></li>
 					</c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
@@ -66,15 +66,16 @@
 							<th scope="col">숨김</th>
 						</tr>
 					</thead>
-					<tbody>
-					    <c:forEach var="categoryMenu" items="${categoryMenuList}">
-							<tr>
-								<td><label><input type="checkbox" id="" /></label></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.name}"/></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.storeprice}"/></td>
-								<td><label><input type="checkbox" id="" /></label></td>
+					<tbody>					
+					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
+							<tr class="class_menu_main" memberid="${categoryMenu.memberid}" categoryid="${categoryMenu.categoryid}" menuid="${categoryMenu.menuid}" sortorder="${categoryMenu.sortorder}" catemenuname="${categoryMenu.name}" defaultprice = "${categoryMenu.defaultprice}">
+								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
+								<td><input type="text" class="class_menu_name_${status.count}" data-role="none" value="${categoryMenu.name}" inputcatename="${categoryMenu.name}"/></td>
+								<td><input type="text" class="class_menu_storeprice_${status.count}" data-role="none" value="${categoryMenu.defaultprice}"/></td>
+								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
 							</tr>
-						</c:forEach>						
+						</c:forEach>
+											
 					</tbody>
 				</table>
 			</div>
@@ -101,17 +102,18 @@
 						</tr>
 					</thead>
 					<tbody >
-					    <c:forEach var="categoryMenu" items="${categoryMenuList}">
-							<tr>
-								<td><label><input type="checkbox" id="" /></label></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.name}"/></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.storeprice}"/></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.deliveryprice}"/></td>
-								<td><input type="text" id="" data-role="none" value="${categoryMenu.takeoutprice}"/></td>
-								<td><label><input type="checkbox" id="" /></label></td>
+					<form id="menuform2">
+					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="longStatus">
+							<tr class="" categoryid="${categoryMenu.categoryid}" menuid="${categoryMenu.menuid}" sortorder="${categoryMenu.sortorder}" catemenuname="${categoryMenu.name}" defaultprice = "${categoryMenu.defaultprice}" storeprice = "${categoryMenu.storeprice}">
+								<td><label><input type="checkbox" class="class_menu_check_${longStatus.count}" /></label></td>
+								<td><input type="text" class="class_menu_name_${longStatus.count}" data-role="none" value="${categoryMenu.name}"/></td>
+								<td><input type="text" class="class_menu_storeprice_${longStatus.count}" data-role="none" value="${categoryMenu.storeprice}"/></td>
+								<td><input type="text" class="class_menu_deliveryprice_${longStatus.count}" data-role="none" value="${categoryMenu.deliveryprice}"/></td>
+								<td><input type="text" class="class_menu_takeoutprice_${longStatus.count}" data-role="none" value="${categoryMenu.takeoutprice}"/></td>
+								<td><label><input type="checkbox" class="class_menu_hidden_${longStatus.count}" /></label></td>
 							</tr>
 						</c:forEach>
-						
+						</form>
 					</tbody>
 				</table>
 			</div>
@@ -121,7 +123,7 @@
 				<span>ex) 12,000원 12/ 5백원 0.5</span>
 			</div>
 			<div class="btn_c tline">
-				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+				<a href="#" id="id_menu_save" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 			</div>
 		</div>
 	</div>
