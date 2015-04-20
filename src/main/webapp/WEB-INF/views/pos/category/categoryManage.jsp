@@ -12,11 +12,11 @@
 <script type="text/javascript" src="../../../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript" src="../../../../js/common/common.js"></script>
 <script type="text/javascript" src="../../../../js/common/util.js"></script>
-<script type="text/javascript" src="../../../../js/pos/category/category.js"></script>
+<script type="text/javascript" src="../../../../js/pos/menu/menu.js"></script>
 
 </head>
 <body>
-<div data-role="page" id="demo-page" data-url="demo-page">
+<div data-role="page" id="category-page" data-url="category-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
@@ -34,18 +34,18 @@
 		<div class="category_list">
 			<div class="cate before">
 				<h3>Before</h3>
-				<div class="cl">
+				<div class="cl class_cate_index">
 					<ul>
-					<c:forEach var="category" items="${categoryList}">
+					<c:forEach var="category" items="${categoryList}" varStatus="status">
 					    <c:if test="${category.isetc == 'N'}">
-						  <li ><a href="#">${category.name}</a></li>
+						  <li><a href="#" class="class_cate_main" id="id_cate_main_${status.count}" catename="${category.name}" categoryid ="${category.categoryid}" sortorder ="${category.sortorder}">${category.name}</a></li>
 						</c:if>						
 					</c:forEach>
-					<li><a href="#">음료류</a></li>
-					<li><a href="#">기타</a></li>
+					<li><a href="#" id="id_cate_main_4">음료류</a></li>
+					<li><a href="#" id="id_cate_main_5">기타</a></li>
 					</ul>
 					<div class="btn_c">
-						<a href="#" class="btn_01" title="위로"><i class="up"></i></a><a href="#" class="btn_01" title="아래로"><i class="down"></i></a>
+						<a href="#" class="btn_01" id="id_cate_up" title="위로"><i class="up"></i></a><a href="#" id="id_cate_down" class="btn_01" title="아래로"><i class="down"></i></a>
 					</div>
 				</div>
 				<div class="cr">
@@ -67,7 +67,7 @@
 					<ul>
 					<c:forEach var="category" items="${categoryList}">
 					    <c:if test="${category.isetc == 'N'}">
-						<li><span><input type="text" data-role="none" class="class_cate" data-role="none" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>						
+						<li><span><input type="text" data-role="none" class="class_cate" data-role="none" catename="${category.name}" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>						
 						</c:if>
 						</c:forEach>
 						<li><span class="disable">음료류</span></li>
@@ -79,7 +79,7 @@
 						<li><span class="disable">점심특선</span></li>
 						<c:forEach var="category" items="${categoryList}">
 					    <c:if test="${category.isetc == 'Y'}">
-						<li><span><input type="text" data-role="none" class="class_cate" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>
+						<li><span><input type="text" data-role="none" class="class_cate" catename="${category.name}" memberid ="${category.memberid}" deviceid ="${category.deviceid}" sortorder ="${category.sortorder}" categoryid ="${category.categoryid}" name="cate_name_${category.categoryid}"/></span></li>
 						</c:if>
 						</c:forEach>						
 						<li><span class="disable">서비스</span></li>
