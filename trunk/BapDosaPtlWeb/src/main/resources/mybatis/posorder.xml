@@ -34,5 +34,98 @@
 		</if>			  
     </select>
         
-    
+    <insert id="insertTableOrder">
+        /* posorder.insertTableOrder */
+		INSERT INTO TABLEORDER
+		(
+			MEMBERID
+			,DEVICEID
+			,ORDERID
+			,TABLEID
+			,STARTSALESDATE
+			,CUSTOMERID
+			,PRICE
+			,GIVEBACKCREDIT
+			,LOSS
+			,DISCOUNT
+			,BILLMONEY
+			,CASHPAYMENT
+			,CARDPAYMENT
+			,INTOCREDIT
+			,INTOLOSS
+			,INTODEPOSIT
+			,USEDTICKET
+			,SAVEDPOINT
+			,USEDDEPOSIT
+			,USEDPOINT
+			,ISCHANGEAFTERMERGE
+			,ISDELETED
+			,ISPAID
+			,ISTAKEOUTORDER
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			${memberId}
+			,${deviceId}
+			,${orderId}
+			,${tableId}
+			,${startsalesdate}
+			,${customerId}
+			,${price}
+			,${givebackcredit}
+			,${loss}
+			,${discount}
+			,${billmoney}
+			,${cashpayment}
+			,${cardpayment}
+			,${intocredit}
+			,${intoloss}
+			,${intodeposit}
+			,${usedticket}
+			,${savedpoint}
+			,${useddeposit}
+			,${usedpoint}
+			,${ischangeaftermerge}
+            <choose>                
+                <when test="isdeleted != null or isdeleted != '' ">
+                    ,${isdeleted}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="ispaid != null or ispaid != '' ">
+                    ,${ispaid}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose>   
+            <choose>                
+                <when test="istakeoutorder != null or istakeoutorder != '' ">
+                    ,${istakeoutorder}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose>  
+            <choose>                
+                <when test="creationdate != null or creationdate != '' ">
+                    ,${creationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
+            </choose>    
+            <choose>                
+                <when test="modificationdate != null or modificationdate != '' ">
+                    ,${modificationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
+            </choose> 
+		)     
+    </insert>
 </mapper>

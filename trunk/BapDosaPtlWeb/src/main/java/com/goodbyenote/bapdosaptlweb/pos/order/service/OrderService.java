@@ -3,6 +3,7 @@ package com.goodbyenote.bapdosaptlweb.pos.order.service;
 import java.util.List;
 import java.util.Map;
 
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.pos.model.OrderVO;
 
 /**
@@ -26,4 +27,7 @@ public interface OrderService {
 	public int updateOrderIsimportant(OrderVO order);
 
 	public List<Map> getOrderTablePresentList(Map parametaMap);
+
+	public int orderSave(Map<String, Object> orderObjMap,
+			SessionUserInfo sessionUserInfo);
 }

@@ -125,39 +125,9 @@ public class OrderController {
 		logger.debug(orderObjJson);
 		Map<String, Object> orderObjMap = new ObjectMapper().readValue(orderObjJson, HashMap.class) ;
 		
-		//System.out.println(orderObjMap);
+		//System.out.println(orderObjMap);		
+		int resultValue = orderService.orderSave(orderObjMap, sessionUserInfo);
 		
-		String tableId = (String)orderObjMap.get("tableId");
-		String orderId = (String)orderObjMap.get("orderId");
-		
-		if("".equals(orderId)){
-			orderId = SecurityUtils.getTimeFormatUnique();
-			
-			Map orderMap = new HashMap();
-			orderMap.put("memberId", sessionUserInfo.getMemberId());
-		}
-		
-		
-		List<Map> orderDataList = (List<Map>)orderObjMap.get("orderDataList");
-		
-		if("".equals(orderId)){
-			
-		}
-		
-		orderDataList.forEach( 
-			orderData -> {
-				System.out.println(orderData);
-				
-				//orderData.put
-				
-			}
-		);
-		
-		
-		
-		int resultValue = 1;
-
-		//int resultValue = orderService.insertAction(order);
 		System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		
 

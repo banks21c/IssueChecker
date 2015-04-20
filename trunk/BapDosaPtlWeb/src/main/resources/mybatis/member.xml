@@ -34,11 +34,11 @@
 		  (
 		  	SELECT DEVICEID FROM DEVICE 
 		  	WHERE MEMBERID = A.MEMBERID 
-			<if test="identifyNo != null">
-			AND IDENTIFYNO = #{identifyNo}
+			<if test="identifyUid != null">
+			AND IDENTIFYUID = #{identifyUid}
 			</if>	
-			<if test="identifyNo == null">
-			AND IDENTIFYNO = 'SERVER'
+			<if test="identifyUid == null">
+			AND IDENTIFYUID = 'SERVER'
 			</if>
 			) AS DEVICEID
 		FROM 
@@ -46,6 +46,39 @@
 		WHERE
 		  BUSINESSNUMBER = #{businessNumber}
     </select>
-        
+      
+    <insert id="insertMember">
+        INSERT INTO MEMBER
+        (
+		MEMBERID
+		,STARTBUSINESSDESIREYN
+		,FRANCHISEJOINYN
+		,ITEM
+		,PHONENUMBER
+		,PHONENUMBER2
+		,ADDRESS1
+		,ADDRESS2
+		,BIRTHDAY
+		,APPENGAGEDATE
+		,ESEROEXTRACT
+		,BEFORESALES
+		,LASTCONSULTDATE
+		,AVAILABLEMONEY
+		,BUSINESSTYPE
+		,MEMBERNAME
+		,BUSINESSNUMBER
+		,GENDER
+		,MEMBERTYPE
+		,ESEROJOINYN
+		,TAXACCOUNTACCEPTYN
+		,OPENDATE
+		,ISDELETED
+		,CREATIONDATE
+		,MODIFICATIONDATE   
+		)
+		VALUES
+		{
+		}     
+    </insert>
     
 </mapper>

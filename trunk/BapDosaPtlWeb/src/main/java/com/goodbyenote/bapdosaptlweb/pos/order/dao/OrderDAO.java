@@ -107,4 +107,9 @@ public class OrderDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("posorder.getOrderTablePresentList", parametaMap);
 	}
+
+	public void insertTableOrder(Map orderMap) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("posorder.insertTableOrder", orderMap);
+	}
 }

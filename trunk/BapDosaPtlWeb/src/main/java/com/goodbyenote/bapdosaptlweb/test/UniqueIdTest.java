@@ -16,8 +16,8 @@ public class UniqueIdTest {
 		System.out.println(timeUniqueId + ": " + timeUniqueId);
 		System.out.println(timeUniqueId + ": " + timeUniqueId.length());
 		
-		for(int i=0; i< 100; i++)
-		System.out.println(SecurityUtils.getTimeFormatUnique().length());
+		for(int i=0; i< 1; i++)
+		System.out.println(SecurityUtils.getTimeFormatUnique());
 	}
 
 }
