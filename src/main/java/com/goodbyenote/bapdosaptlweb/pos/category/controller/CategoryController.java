@@ -93,7 +93,7 @@ public class CategoryController {
 		for(int i=0; i<categoryJsonList.size();i++){
 			
 			Map  categoryMap = categoryJsonList.get(i);			
-			BigDecimal categoryid = (BigDecimal)categoryMap.get("CATEGORYID");			
+			String categoryid = (String)categoryMap.get("CATEGORYID");			
 			String isdeleted = (String)parametaMap.get("isdeleted");
 			
 			searchCondition.put("categoryid", categoryid);

@@ -1,5 +1,7 @@
 package com.goodbyenote.bapdosaptlweb.pos.order.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
+import com.goodbyenote.bapdosaptlweb.common.util.DateUtil;
+import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.model.OrderVO;
 import com.goodbyenote.bapdosaptlweb.pos.order.dao.OrderDAO;
 import com.goodbyenote.bapdosaptlweb.pos.order.service.OrderService;
@@ -70,6 +75,44 @@ public class OrderServiceImpl implements OrderService {
 	public List<Map> getOrderTablePresentList(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return orderDAO.getOrderTablePresentList(parametaMap);
+	}
+
+	@Override
+	public int orderSave(Map<String, Object> orderObjMap,
+			SessionUserInfo sessionUserInfo) {
+		// TODO Auto-generated method stub
+		
+		String tableId = (String)orderObjMap.get("tableId");
+		String orderId = (String)orderObjMap.get("orderId");
+		
+		if("".equals(orderId)){
+			orderId = SecurityUtils.getTimeFormatUnique();
+			Map orderMap = new HashMap();
+			orderMap.put("memberId", sessionUserInfo.getMemberId());
+			orderMap.put("deviceId", sessionUserInfo.getDeviceId());
+			orderMap.put("tableId", tableId);			
+			orderMap.put("orderId", orderId);
+			
+			String startsalesdate = DateUtil.getFormatStrFromDate(DateUtil.getDateAdd(new Date(), "h", -6), "YYYYMMDD");
+			orderMap.put("startsalesdate", startsalesdate);
+			
+			orderDAO.insertTableOrder(orderMap);
+			
+		}
+		
+		
+		List<Map> orderDataList = (List<Map>)orderObjMap.get("orderDataList");
+		
+		orderDataList.forEach( 
+			orderData -> {
+				System.out.println(orderData);
+				
+				//orderData.put
+				
+			}
+		);
+				
+		return 0;
 	}
 
 }
