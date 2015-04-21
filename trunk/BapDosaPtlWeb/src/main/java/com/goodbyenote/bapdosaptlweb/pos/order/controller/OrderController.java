@@ -141,6 +141,39 @@ public class OrderController {
 		return mav; 
 	}
 	
+	
+	
+	@RequestMapping(value = "/pos/order/getOrderInfoList.json")
+	public ModelAndView getOrderInfoList(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");		
+		//logger.debug(parametaMap.toString());
+		
+		int resultValue = 1;
+		String tableId = (String)parametaMap.get("tableId");	
+		String orderId = (String)parametaMap.get("orderId");
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		List<Map> orderDetailList = orderService.getOrderDetailList(parametaMap);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("orderDetailList", orderDetailList);
+		
+		//System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
+	
 	@RequestMapping(value = "/pos/order/modifyOrderIschecked.json", method = RequestMethod.POST)
 	public ModelAndView modifyOrderIschecked(
 			@Valid OrderVO order,

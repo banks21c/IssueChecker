@@ -71,6 +71,7 @@ window.bapdosa.order = (function() {
 			
 			var selOrderDetail = orderArea.children("tr.active");
 			if(selOrderDetail.length >= 1){
+				console.log(selOrderDetail);
 				countAddMenu(selOrderDetail.attr("orderDetailId"));
 				displayTotal();
 			} else {
@@ -147,7 +148,7 @@ window.bapdosa.order = (function() {
 				var menuId = $(this).attr("menuId") || "";
 				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
 				var orderCount = parseInt($(this).find("td:eq(1)").text());
-				var price =  parseInt($(this).attr("defaultPrice"));
+				var originalPrice =  parseInt($(this).attr("defaultPrice"));
 				var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
 				var storePrice =  parseInt($(this).attr("storePrice"));
 				var isService = $(this).attr("isService") || "";		
@@ -156,16 +157,16 @@ window.bapdosa.order = (function() {
 				
 				if(isPriceDiffer == "Y"){
 					if(isTakeout == "Y"){
-						price = parseInt($(this).attr("takeoutPrice")); 
+						originalPrice = parseInt($(this).attr("takeoutPrice")); 
 					} else {
-						price = parseInt($(this).attr("storePrice"));
+						originalPrice = parseInt($(this).attr("storePrice"));
 					}				
 				}			
 				
 				if(isService == "Y"){
-					price = 0;
+					originalPrice = 0;
 				}
-				price = price * orderCount;
+				originalPrice = originalPrice * orderCount;
 				
 				var data = {
 						orderDetailId : orderDetailId,
@@ -173,7 +174,8 @@ window.bapdosa.order = (function() {
 						quantity: orderCount,
 						isTakeout: isTakeout,
 						isService: isService,
-						price: price,
+						originalPrice: originalPrice,
+						discountPrice: originalPrice,
 						newFlag: newFlag
 				}
 				orderDataList.push(data);
@@ -318,14 +320,14 @@ window.bapdosa.order = (function() {
 	}
 	
 	function countAddMenu(orderDetailId){
-		var selArea = orderArea.find("tr[orderDetailId=" + orderDetailId + "]");		
+		var selArea = orderArea.find("tr[orderDetailId='" + orderDetailId + "']");		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text()) + 1;
 		selArea.find("td:eq(1)").text(orderCount);
 		setOrderDetailPriceSync(selArea);	
 	}
 	
 	function countDelMenu(orderDetailId){
-		var selArea = orderArea.find("tr[orderDetailId=" + orderDetailId + "]");		
+		var selArea = orderArea.find("tr[orderDetailId='" + orderDetailId + "']");		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text()) - 1;
 
 		if(orderCount < 1){
@@ -437,7 +439,7 @@ window.bapdosa.order = (function() {
 	}
 	
 	function getCategoryInfoList(){
-		
+		var dfd = new jQuery.Deferred();
 		var url="/pos/category/getCategoryJsonList.json";
 		var param="";
 		var success = function(returnJsonVO){
@@ -466,15 +468,132 @@ window.bapdosa.order = (function() {
 			//첫번째 카테고리 선택된 메뉴 뿌려주기
 			var firstCategoryId = $("#order-page .class-category-area > li:eq(0)").attr("categoryId");
 			displayMenu(firstCategoryId);
+			
+			 dfd.resolve( "complete.." );
 		};
 
-		commonAjaxCall(url, param, success);		
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+	
+	function getOrderInfoList(){
+		
+		if(!mOrderId){
+			return false;
+		}
+		
+		var url="/pos/order/getOrderInfoList.json";
+		var param="tableId" + mTableId + "&orderId=" + mOrderId;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			console.log(returnObj);
+			var orderDetailList = returnObj.orderDetailList;
+			$(orderDetailList).each(function(index,obj){
+				console.log(obj);
+				addOrder(obj);
+			});	
+			
+			displayTotal();
+		};
+		commonAjaxCall(url, param, success);
+	}
+	
+	function addOrder(orderObj){
+		var orderDetailId = orderObj.ORDERDETAILID;
+		var categoryId = orderObj.CATEGORYID;
+		var menuId = orderObj.MENUID;
+		var now_hm = orderObj.CREATIONDATE.hours + ":" + orderObj.CREATIONDATE.minutes;
+		var selMenuObj ;
+		var selCategoryIsService = orderObj.ISSERVICE;	
+		var isTakeout = orderObj.ISTAKEOUT;
+
+		$(categoryInfoList).each(function(index,categoryObj){
+			//console.log(categoryObj);
+			if(categoryObj.CATEGORYID == categoryId){
+				var categoryMenuList = categoryObj.categoryMenuList;
+				
+				$(categoryMenuList).each(function(c_index, menuObj){								
+					if(menuObj.MENUID == menuId){
+						selMenuObj = menuObj;
+						return false;
+					}							
+				});						
+				return false;
+			}
+		});		
+		
+		if(selMenuObj){	
+			
+			var displayPrice = selMenuObj.DEFAULTPRICE;
+			if(isPriceDiffer == "Y"){
+				displayPrice = selMenuObj.STOREPRICE;
+			}
+			
+			var td1 = $("<td>").addClass("a_tl")
+			 				   .text(selMenuObj.NAME);
+			
+			if(isTakeout == "Y"){
+				td1.prepend(
+						$("<span>").addClass("ico")
+						   .addClass("p")
+						   .text("포")
+				);		
+				if(isPriceDiffer == "Y"){
+					displayPrice = selMenuObj.TAKEOUTPRICE;
+				}				
+			}
+			
+			if(selCategoryIsService == "Y"){						
+				//<span class="ico s">서</span>						
+				td1.prepend(
+						$("<span>").addClass("ico")
+								   .addClass("s")
+								   .text("서")
+				);						
+				displayPrice = 0;
+			}
+			
+			var tr = $("<tr>", {
+				deviceId: '',
+				orderDetailId: orderDetailId,
+				categoryId: categoryId,
+				menuId: menuId,
+				defaultPrice: selMenuObj.DEFAULTPRICE,
+				storePrice: selMenuObj.STOREPRICE,
+				deliveryPrice: selMenuObj.DELIVERYPRICE,
+				takeoutPrice: selMenuObj.TAKEOUTPRICE,
+				defaultDiscount: selMenuObj.DEFAULTDISCOUNT,
+				deliveryDiscount: selMenuObj.DELIVERYDISCOUNT,
+				storeDiscount: selMenuObj.STOREDISCOUNT,
+				takeoutDiscount: selMenuObj.TAKEOUTDISCOUNT,
+				isService: selCategoryIsService,
+				isTakeout: isTakeout,
+				newFlag: "N"
+			}).append(td1)
+			.append(
+				$("<td>").text(orderObj.QUANTITY)	
+			).append(
+				$("<td>").text(now_hm)
+			).append(
+				$("<td>").addClass("price")
+ 				   .text(window.bapdosa.util.setComma(displayPrice*orderObj.QUANTITY))
+			);
+			tr.appendTo(orderArea);
+			
+			setOrderDetailPriceSync(tr);
+		}
 	}
 	
 	return {
 		init: function() {
 			eventReg();
-			getCategoryInfoList();
+			
+			$.when(getCategoryInfoList()).then (
+				function(status){
+					console.log("status: " + status);
+					getOrderInfoList();
+				}			
+			);			
 			
 
 		}

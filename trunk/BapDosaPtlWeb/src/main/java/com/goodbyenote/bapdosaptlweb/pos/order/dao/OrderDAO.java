@@ -112,4 +112,24 @@ public class OrderDAO {
 		// TODO Auto-generated method stub
 		sqlSession.insert("posorder.insertTableOrder", orderMap);
 	}
+
+	public void insertOrderDetail(Map orderData) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("posorder.insertOrderDetail", orderData);
+	}
+
+	public Map selectOrderDetail(Map orderData) {
+		// TODO Auto-generated method stub
+		return (Map) sqlSession.selectOne("posorder.selectOrderDetail", orderData);
+	}
+
+	public void updateOrderDetail(Map orderData) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("posorder.updateOrderDetail", orderData);
+	}
+
+	public List<Map> getOrderDetailList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("posorder.getOrderDetailList", parametaMap);
+	}
 }

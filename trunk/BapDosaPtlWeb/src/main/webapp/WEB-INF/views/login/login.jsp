@@ -43,7 +43,7 @@
 								alert(data.returnJsonVO.message);
 							} else if(data.returnJsonVO.returnObj == "1"){
 
-								alert("로그인되었습니다.");
+								//alert("로그인되었습니다.");
 								
 								var forwardUrl = $("input[name=forwardUrl]").val() || "";
 								if(forwardUrl){
