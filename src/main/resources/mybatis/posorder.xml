@@ -43,8 +43,8 @@
 			,ORDERID
 			,TABLEID
 			,STARTSALESDATE
-			,CUSTOMERID
 			,PRICE
+			,CUSTOMERID
 			,GIVEBACKCREDIT
 			,LOSS
 			,DISCOUNT
@@ -61,71 +61,317 @@
 			,ISCHANGEAFTERMERGE
 			,ISDELETED
 			,ISPAID
-			,ISTAKEOUTORDER
+			,ISTAKEOUTORDER		
 			,CREATIONDATE
 			,MODIFICATIONDATE
 		) VALUES (
-			${memberId}
-			,${deviceId}
-			,${orderId}
-			,${tableId}
-			,${startsalesdate}
-			,${customerId}
-			,${price}
-			,${givebackcredit}
-			,${loss}
-			,${discount}
-			,${billmoney}
-			,${cashpayment}
-			,${cardpayment}
-			,${intocredit}
-			,${intoloss}
-			,${intodeposit}
-			,${usedticket}
-			,${savedpoint}
-			,${useddeposit}
-			,${usedpoint}
-			,${ischangeaftermerge}
+			#{memberId}
+			,#{deviceId}
+			,#{orderId}
+			,#{tableId}
+			,#{startsalesdate}
+			,#{price}
             <choose>                
-                <when test="isdeleted != null or isdeleted != '' ">
-                    ,${isdeleted}
+                <when test="customerId != null and customerId != '' ">
+                    ,#{customerId}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="givebackcredit != null and givebackcredit != '' ">
+                    ,#{givebackcredit}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="loss != null and loss != '' ">
+                    ,#{customerId}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="discount != null and discount != '' ">
+                    ,#{discount}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="billmoney != null and billmoney != '' ">
+                    ,#{billmoney}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="cashpayment != null and cashpayment != '' ">
+                    ,#{cashpayment}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="cardpayment != null and cardpayment != '' ">
+                    ,#{cardpayment}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="intocredit != null and intocredit != '' ">
+                    ,#{intocredit}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="intoloss != null and intoloss != '' ">
+                    ,#{intoloss}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="intodeposit != null and intodeposit != '' ">
+                    ,#{intodeposit}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="usedticket != null and usedticket != '' ">
+                    ,#{usedticket}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="savedpoint != null and savedpoint != '' ">
+                    ,#{savedpoint}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="useddeposit != null and useddeposit != '' ">
+                    ,#{useddeposit}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="usedpoint != null and usedpoint != '' ">
+                    ,#{usedpoint}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>  
+            <choose>                
+                <when test="ischangeaftermerge != null and ischangeaftermerge != '' ">
+                    ,#{ischangeaftermerge}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>                                                          
+            <choose>                
+                <when test="isdeleted != null and isdeleted != '' ">
+                    ,#{isdeleted}
                 </when>                
                 <otherwise>
                     ,'N'
                 </otherwise>                
             </choose>
             <choose>                
-                <when test="ispaid != null or ispaid != '' ">
-                    ,${ispaid}
+                <when test="ispaid != null and ispaid != '' ">
+                    ,#{ispaid}
                 </when>                
                 <otherwise>
                     ,'N'
                 </otherwise>                
             </choose>   
             <choose>                
-                <when test="istakeoutorder != null or istakeoutorder != '' ">
-                    ,${istakeoutorder}
+                <when test="istakeoutorder != null and istakeoutorder != '' ">
+                    ,#{istakeoutorder}
                 </when>                
                 <otherwise>
                     ,'N'
                 </otherwise>                
+            </choose>              			
+            <choose>                
+                <when test="creationdate != null and creationdate != '' ">
+                    ,#{creationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
             </choose>  
             <choose>                
-                <when test="creationdate != null or creationdate != '' ">
-                    ,${creationdate}
+                <when test="modificationdate != null and modificationdate != '' ">
+                    ,#{modificationdate}
                 </when>                
                 <otherwise>
                     ,SYSDATE
                 </otherwise>                
-            </choose>    
-            <choose>                
-                <when test="modificationdate != null or modificationdate != '' ">
-                    ,${modificationdate}
-                </when>                
-                <otherwise>
-                    ,SYSDATE
-                </otherwise>                
-            </choose> 
+            </choose>              
+            
+
 		)     
     </insert>
+    
+    <insert id="insertOrderDetail">
+        INSERT INTO ORDERDETAIL
+        (
+			MEMBERID
+			,DEVICEID
+			,ORDERDETAILID
+			,ORDERID
+			,TABLEID
+			,MENUID
+			,QUANTITY
+			,ISTAKEOUT
+			,ORIGINALPRICE
+			,DISCOUNTPRICE
+			,ISSERVICE
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES(
+			#{memberId}
+			,#{deviceId}
+			,#{orderDetailId}
+			,#{orderId}
+			,#{tableId}	
+			,#{menuId}
+			,#{quantity}
+			,#{isTakeout}
+			,#{originalPrice}
+            ,#{discountPrice} 
+			,#{isService}
+			
+			
+            <choose>                
+                <when test="isdeleted != null and isdeleted != '' ">
+                    ,#{isdeleted}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="creationdate != null and creationdate != '' ">
+                    ,#{creationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
+            </choose>  
+            <choose>                
+                <when test="modificationdate != null and modificationdate != '' ">
+                    ,#{modificationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>
+         	</choose>    				
+		)     
+    </insert>    
+    
+    <select id="selectOrderDetail" resultType="map">
+    	/* posorder.selectOrderDetail */
+		SELECT
+			MEMBERID
+			,DEVICEID
+			,ORDERDETAILID
+			,ORDERID
+			,TABLEID
+			,MENUID
+			,QUANTITY
+			,ISTAKEOUT
+			,ORIGINALPRICE
+			,DISCOUNTPRICE
+			,ISSERVICE
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM 
+		  ORDERDETAIL
+		WHERE
+		  ORDERDETAILID = #{orderDetailId}
+    </select>    
+    
+    <insert id="updateOrderDetail">
+        UPDATE ORDERDETAIL
+		SET
+			QUANTITY = #{quantity}
+			,ISTAKEOUT = #{isTakeout}
+			,ORIGINALPRICE = #{originalPrice}
+            ,DISCOUNTPRICE = #{discountPrice} 
+			,ISSERVICE = #{isService}               
+            <if test="isdeleted != null and isdeleted != '' ">
+                ,ISDELETED = #{isdeleted}
+            </if>
+            ,MODIFICATIONDATE = SYSDATE
+		WHERE
+			ORDERDETAILID = #{orderDetailId}
+    </insert>      
+    
+    <select id="getOrderDetailList" resultType="map">
+    	/* posorder.getOrderDetailList */
+		SELECT
+			A.MEMBERID
+			,A.DEVICEID
+			,A.ORDERDETAILID
+			,A.ORDERID
+			,A.TABLEID
+			,A.MENUID
+			,A.QUANTITY
+			,A.ISTAKEOUT
+			,A.ORIGINALPRICE
+			,A.DISCOUNTPRICE
+			,A.ISSERVICE
+			,A.ISDELETED
+			,A.CREATIONDATE
+			,A.MODIFICATIONDATE
+			,B.CATEGORYID
+		FROM 
+		  ORDERDETAIL A
+		  JOIN MENU B ON A.MENUID = B.MENUID
+		WHERE
+		  A.MEMBERID = #{memberId}
+		  AND A.ORDERID = #{orderId}
+		  <choose>                
+		    <when test="isdeleted != null and isdeleted != '' ">
+		        AND A.ISDELETED = #{isDeleted}
+		    </when>                
+		    <otherwise>
+		        AND A.ISDELETED = 'N'
+		    </otherwise>                
+		  </choose>	
+		  <choose>                
+		    <when test="orderBy != null and orderOption != null">
+		        ORDER BY ${orderBy} ${orderOption}
+		    </when>                
+		    <otherwise>
+		        ORDER BY A.CREATIONDATE ASC
+		    </otherwise>                
+		  </choose>
+    </select>    
 </mapper>
