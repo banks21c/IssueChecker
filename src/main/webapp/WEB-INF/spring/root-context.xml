@@ -55,10 +55,17 @@
 			<tx:method name="*" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
-    
+    <!-- 
 	<aop:config>
 		<aop:pointcut id="requiredTx"
 			expression="execution(* com.goodbyenote.bapdosaptlweb..impl.*Impl.*(..))"/>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="requiredTx" />
+	</aop:config>	
+	 -->
+	<aop:config>
+		<aop:pointcut id="requiredTx"
+			expression="execution(* com.goodbyenote.bapdosaptlweb..service..*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice"
 			pointcut-ref="requiredTx" />
 	</aop:config>	

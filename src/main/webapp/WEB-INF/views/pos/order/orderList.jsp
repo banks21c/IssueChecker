@@ -290,7 +290,7 @@ jQuery(function($){ // on document load
 						<input type="number" id="" data-role="none" class="wp20" /> - 
 						<input type="number" id="" data-role="none" class="wp20" /> - 
 						<input type="number" id="" data-role="none" class="wp20" />
-						<a href="#" class="btn_sh" title="검색"></a>
+						<!-- <a href="#" class="btn_sh" title="검색"></a> -->
 					</dd>
 				</dl>
 				<dl style="display:none">

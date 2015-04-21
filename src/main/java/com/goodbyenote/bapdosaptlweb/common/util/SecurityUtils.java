@@ -61,6 +61,13 @@ public class SecurityUtils {
      */
     public static String getTimeFormatUnique() {
         return getTimeFormat() + make32UniqueId();
-    }	    
+    }	 
+    
+    
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//unique id 추출
+		System.out.println(SecurityUtils.getTimeFormatUnique());
+	}
 
 }

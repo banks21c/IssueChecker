@@ -30,4 +30,6 @@ public interface OrderService {
 
 	public int orderSave(Map<String, Object> orderObjMap,
 			SessionUserInfo sessionUserInfo);
+
+	public List<Map> getOrderDetailList(Map parametaMap);
 }
