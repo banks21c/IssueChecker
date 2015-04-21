@@ -256,10 +256,10 @@ public class CategoryController {
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
 		parametaMap.put("menuid", SecurityUtils.getTimeFormatUnique());
-		parametaMap.put("categoryid", "20150420144944.765f9a6d10fd124be4bc2c3006b1b5d1e06");
-		parametaMap.put("name", "서비스메뉴1");
-		parametaMap.put("sortorder", 0);
-		parametaMap.put("defaultprice", 10000);
+		parametaMap.put("categoryid", "20150420144944.765f9a6d10fd124be4bc2c3006b1b5d1e05");
+		parametaMap.put("name", "포장메뉴1");
+		parametaMap.put("sortorder", 1);
+		parametaMap.put("defaultprice", 13000);
 		
 		categoryService.insertCateMenu(parametaMap);
 		logger.debug("#################parametaMap=" + parametaMap);
@@ -284,12 +284,7 @@ public class CategoryController {
 		
 		parametaMap.put("memberId", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
-		//parametaMap.put("menuid", menuid);
-		
-		logger.debug("##################################memberId=" + sessionUserInfo.getMemberId());
-		logger.debug("##################################deviceid=" + sessionUserInfo.getDeviceId());
-		logger.debug("##################################menuid=" + menuid);
-		logger.debug("##################################parametaMap=" + parametaMap);
+		//parametaMap.put("menuid", menuid);		
 		
 		categoryService.updateCateMenu(parametaMap);		
 		
