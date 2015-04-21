@@ -35,13 +35,13 @@
 			<div class="tab">
 				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
-				    <c:if test="${category.ISETC == 'N'}"><c:if test="${category.ISEDITABLE == 'Y'}">
+				    <c:if test="${category.ISETC == 'N'}">
 					   <li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false">${category.NAME}</a></li>
-					</c:if></c:if>
+					</c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
 					</c:forEach>
-					    <li id="id_menu_sub4"><a href="/pos/category/categoryMenuManage.do?categoryid=4" data-ajax="false">음료류</a></li>
+					    <!-- <li id="id_menu_sub4"><a href="/pos/category/categoryMenuManage.do?categoryid=4" data-ajax="false">음료류</a></li>-->
 					    <li id="id_menu_sub5"><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
 				</ul>
 			</div>
@@ -146,7 +146,7 @@
 				<ul>
 					<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.ISETC == 'Y'}">
-						<li><input type="radio" id="otherL_${status.count-2}" name="otherL" etccateid="${category.CATEGORYID}" value="${status.count-2}" class="class_menu_pop"/><label for="otherL_${status.count-2}">${category.NAME}</label></li>
+						<li><input type="radio" id="otherL_${category.SORTORDER}" name="otherL" etccateid="${category.CATEGORYID}" value="${category.SORTORDER}" class="class_menu_pop"/><label for="otherL_${category.SORTORDER}">${category.NAME}</label></li>
 						
 					</c:if>
 					</c:forEach>
