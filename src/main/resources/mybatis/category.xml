@@ -33,6 +33,7 @@
 		MODIFICATIONDATE		
 	FROM CATEGORY
 	WHERE MEMBERID = #{memberid}
+	ORDER BY SORTORDER
 	</select>
 	
 	<select id="getCategoryMenuJsonList" resultType="map">
