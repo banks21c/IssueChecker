@@ -19,8 +19,8 @@ window.bapdosa.menu = (function() {
 	var catemenuname;
 	 var defaultprice;
 	
-    function eventReg(){
-		
+    function eventReg(){    	
+    	
 		$("#id_cate_save").click(function(e){		
 			e.preventDefault();			
 			updateCate(sortorder,name,categoryid);
@@ -40,7 +40,6 @@ window.bapdosa.menu = (function() {
 			}
 		})
 		$(".class_menu_save").click(function(e){
-			alert('1');
 			e.preventDefault();
 			if($(".class_menu_check").is(":checked")){
 				updateLongMenu();
@@ -48,6 +47,10 @@ window.bapdosa.menu = (function() {
 				updateShortMenu();
 			}			
 			location.reload();
+	    });
+		$("#id_menu_delete").click(function(e){
+			e.preventDefault();
+			$(this).remove();			
 	    });
 		
 		$("#menu-page .class_category_area > li").click(function(e){
@@ -114,7 +117,13 @@ window.bapdosa.menu = (function() {
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_6').addClass("on");
 			}
-		})		
+		})
+				
+			
+		$('tr.class_short_menu_main').find("input:eq(0)").change(function(e){
+			e.preventDefault();				
+			
+		})
 		
 		$(".class_point_check").change(function(e){
 			e.preventDefault();			
@@ -135,15 +144,17 @@ window.bapdosa.menu = (function() {
 			var memberid = $("tr.class_short_menu_main").attr('memberid');
 			var deviceid = $("tr.class_short_menu_main").attr('deviceid');
 			var categoryid = $("tr.class_short_menu_main").attr('categoryid');
+			var sortorder = parseInt($("tr.class_short_menu_main").last().attr('sortorder')) + 1;
+			var menuid = 'temp_' + new Date().getTime();
 			
-			var data = "<tr class=\"class_short_menu_main\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" categoryid=\""+categoryid +"\" >" + 
+			var data = "<tr class=\"class_short_menu_main class_menu_main_delete\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" >" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td><label>" + "<input type=\"checkbox\" />" + "</label></td>" +
 					     "</tr>"
 						
-			var data1 = "<tr class=\"class_long_menu_main\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" categoryid=\""+categoryid +"\" >" + 
+			var data1 = "<tr class=\"class_long_menu_main class_menu_main_delete\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" >" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
@@ -275,7 +286,8 @@ window.bapdosa.menu = (function() {
 			 //var catemenuname = $(this).attr('catemenuname');
 			 var sortorder = $(this).attr('sortorder');
 			 var categoryid = $(this).attr('categoryid');			 
-			 var menuid = $(this).attr('menuid');
+			 //var menuid = $(this).attr('menuid');
+			 var menuid = ($(this).attr("menuid") || "").startsWith("temp_") ? "" : $(this).attr("menuid");
 			 var memberid = $(this).attr('memberid');
 			
 			 var defaultprice = $(this).attr('defaultprice');
@@ -291,8 +303,11 @@ window.bapdosa.menu = (function() {
 			 var takeoutprice = defaultprice;			
 			// var defaultprice = $(this).attr('defaultprice');			 
 			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice;
-			 
-			 var url = "MenuUpdatetOk.json";			
+			 if(menuid){
+				 var url = "MenuUpdatetOk.json";
+			 }else{
+				 var url = "MenuInsertOk.json";
+			 }
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
