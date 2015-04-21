@@ -36,7 +36,7 @@
 				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.ISETC == 'N'}">
-					   <li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false">${category.NAME}</a></li>
+					   <li value="${status.count}" tabcateid=${category.CATEGORYID}><a href="#" data-ajax="false">${category.NAME}</a></li>
 					</c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
@@ -68,7 +68,7 @@
 					</thead>
 					<tbody>					
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
-							<tr class="class_menu_main" memberid="${categoryMenu.MEMBERID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}">
+							<tr class="class_short_menu_main" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}">
 								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
 								<td><input type="text" class="class_menu_name_${status.count}" data-role="none" value="${categoryMenu.NAME}" inputcatename="${categoryMenu.NAME}"/></td>
 								<td><input type="text" class="class_menu_storeprice_${status.count}" data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>
@@ -102,9 +102,8 @@
 						</tr>
 					</thead>
 					<tbody >
-					<form id="menuform2">
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="longStatus">
-							<tr class="" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}">
+							<tr class="class_long_menu_main" memberid="${categoryMenu.MEMBERID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}">
 								<td><label><input type="checkbox" class="class_menu_check_${longStatus.count}" /></label></td>
 								<td><input type="text" class="class_menu_name_${longStatus.count}" data-role="none" value="${categoryMenu.NAME}"/></td>
 								<td><input type="text" class="class_menu_storeprice_${longStatus.count}" data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
@@ -113,7 +112,6 @@
 								<td><label><input type="checkbox" class="class_menu_hidden_${longStatus.count}" /></label></td>
 							</tr>
 						</c:forEach>
-						</form>
 					</tbody>
 				</table>
 			</div>
@@ -123,7 +121,7 @@
 				<span>ex) 12,000원 12/ 5백원 0.5</span>
 			</div>
 			<div class="btn_c tline">
-				<a href="#" id="id_menu_save" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+				<a href="#" id="id_menu_save" class="btn_blue class_menu_save">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 			</div>
 		</div>
 	</div>
