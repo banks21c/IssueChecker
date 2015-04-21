@@ -139,23 +139,23 @@ window.bapdosa.menu = (function() {
 			var etccateid= $(this).attr("etccateid");
 			var url = '/pos/category/categoryMenuManage.do?categoryid=' + etccateid ;
 			
-			if($("input[name=otherL]:checked").val() == 1){	
+			if($("input[name=otherL]:checked").val() == 5){	
 				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
-			}else if($("input[name=otherL]:checked").val() == 2){	
+			}else if($("input[name=otherL]:checked").val() == 6){	
 				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
-			}else if($("input[name=otherL]:checked").val() == 3){
+			}else if($("input[name=otherL]:checked").val() == 7){
 				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
-			}else if($("input[name=otherL]:checked").val() == 4){
+			}else if($("input[name=otherL]:checked").val() == 8){
 				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
-			}else if($("input[name=otherL]:checked").val() == 5){
+			}else if($("input[name=otherL]:checked").val() == 9){
 				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
