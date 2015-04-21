@@ -51,9 +51,9 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public int updateCateMenu(Map parametaMap) {
+	public int updateCateMenu(Map menuData) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("category.updateCateMenu", parametaMap);
+		return sqlSession.update("category.updateCateMenu", menuData);
 	}
 	
 	@SuppressWarnings("rawtypes")

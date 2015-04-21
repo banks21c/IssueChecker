@@ -3,6 +3,7 @@ package com.goodbyenote.bapdosaptlweb.pos.category.service;
 import java.util.List;
 import java.util.Map;
 
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
 
 /**
@@ -36,6 +37,9 @@ public interface CategoryService {
 	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryPointList(Map searchCondition);
+	
+	public int menuSave(Map<String, Object> menuObjMap,
+			SessionUserInfo sessionUserInfo);
 
 	public List<CategoryVO> getList(CategoryVO menu);
 

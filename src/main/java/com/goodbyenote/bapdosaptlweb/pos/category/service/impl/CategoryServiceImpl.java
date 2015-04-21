@@ -1,5 +1,7 @@
 package com.goodbyenote.bapdosaptlweb.pos.category.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
+import com.goodbyenote.bapdosaptlweb.common.util.DateUtil;
+import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.category.dao.CategoryDAO;
 import com.goodbyenote.bapdosaptlweb.pos.category.service.CategoryService;
 import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
@@ -93,6 +98,81 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCategoryPointList(searchCondition);
 	}
 
+	@Override
+	public int menuSave(Map<String, Object> menuObjMap,
+			SessionUserInfo sessionUserInfo) {
+		// TODO Auto-generated method stub
+		
+		String categoryid = (String)menuObjMap.get("categoryid");
+		String menuid = (String)menuObjMap.get("menuid");
+		
+
+		
+		if("".equals(menuid)){
+			
+			menuid = SecurityUtils.getTimeFormatUnique();	
+			//String startsalesdate = DateUtil.getFormatStrFromDate(DateUtil.getDateAdd(new Date(), "h", -6), "YYYYMMdd");
+			
+			Map paramMap = new HashMap();
+			paramMap.put("memberid", sessionUserInfo.getMemberId());
+			paramMap.put("deviceid", sessionUserInfo.getDeviceId());
+			paramMap.put("categoryid", categoryid);	
+			paramMap.put("price", 0);
+//			paramMap.put("givebackcredit", null);
+//			paramMap.put("loss", null);
+//			paramMap.put("discount", null);
+//			paramMap.put("billmoney", null);
+//			paramMap.put("cashpayment", null);
+//			paramMap.put("cardpayment", null);
+//			paramMap.put("intocredit", null);
+//			paramMap.put("intoloss", null);
+//			paramMap.put("intodeposit", null);
+//			paramMap.put("usedticket", null);
+//			paramMap.put("savedpoint", null);
+//			paramMap.put("useddeposit", null);
+//			paramMap.put("usedpoint", null);
+//			paramMap.put("ischangeaftermerge", null);
+			
+			System.out.println(paramMap);
+			categoryDAO.insertCateMenu(paramMap);			
+		} 
+
+				
+		
+		List<Map> menuDataList = (List<Map>)menuObjMap.get("menuDataList");
+		menuDataList.forEach( 
+			menuData -> {
+				System.out.println(menuData);	
+				
+				menuData.put("memberid", sessionUserInfo.getMemberId());
+				menuData.put("deviceid", sessionUserInfo.getDeviceId());				
+				menuData.put("categoryid", (String)menuObjMap.get("categoryid"));
+				menuData.put("sortorder", (String)menuObjMap.get("sortorder"));
+				
+				categoryDAO.updateCateMenu(menuData);
+				
+				/*String orderDetailId = (String)orderData.get("orderDetailId");
+				String newFlag = (String)orderData.get("newFlag");
+				if("Y".equals(newFlag) && "".equals(orderDetailId)){
+					orderData.put("orderDetailId", SecurityUtils.getTimeFormatUnique());
+					
+					System.out.println(orderData);
+					orderDAO.insertOrderDetail(orderData);
+				}
+				else {
+					Map selMap = orderDAO.selectOrderDetail(orderData);
+					
+					if(selMap != null){
+						orderDAO.updateOrderDetail(orderData);
+					}
+					
+				}*/
+				
+			}
+		);
+				
+		return 1;
+	}
 	@Override
 	public List<CategoryVO> getList(CategoryVO category) {
 		return categoryDAO.getList(category);
