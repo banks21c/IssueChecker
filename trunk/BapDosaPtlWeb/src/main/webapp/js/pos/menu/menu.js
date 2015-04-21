@@ -26,17 +26,47 @@ window.bapdosa.menu = (function() {
 			updateCate(sortorder,name,categoryid);
 			location.reload();
 		});	
-		
-		$("#id_menu_save").click(function(e){		
+		$(".class_menu_check").change(function(e){
 			e.preventDefault();			
-			insertMenu();
+			
+			if($(this).is(":checked")) {
+				$("#id_long_menu").show();
+				$("#id_short_menu").hide();
+				$("#id_menu_save").addClass("class_long_save").removeClass("class_short_save");
+			}else{
+				$("#id_long_menu").hide();
+				$("#id_short_menu").show();
+				$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
+			}
+		})
+		$(".class_menu_save").click(function(e){
+			alert('1');
+			e.preventDefault();
+			if($(".class_menu_check").is(":checked")){
+				updateLongMenu();
+			}else{
+				updateShortMenu();
+			}			
 			location.reload();
-	    });	
+	    });
 		
 		$("#menu-page .class_category_area > li").click(function(e){
+			e.preventDefault();
+			var tabcateid= $(this).attr("tabcateid");
+			var url = '/pos/category/categoryMenuManage.do?categoryid=' + tabcateid ;
 			
-			alert('11111');
-			$(this).addClass("on").siblings().removeClass("on");			
+			if($(this).val() == 1){
+				$(location).attr('href',url);
+			}else if($(this).val() == 2){
+				$(location).attr('href',url);
+			}else if($(this).val() == 3){
+				$(location).attr('href',url);
+			}else if($(this).val() == 4){
+				$(location).attr('href',url);
+			}else{
+				$("#others_menu").popup( "open" );
+			}
+			$(this).addClass("on").siblings().removeClass("on");
 		});
 		
 		$("#id_cate_up").click(function(e){		
@@ -84,19 +114,7 @@ window.bapdosa.menu = (function() {
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_6').addClass("on");
 			}
-		})	
-		
-		$(".class_menu_check").change(function(e){
-			e.preventDefault();			
-			
-			if($(this).is(":checked")) {
-				$("#id_long_menu").show();
-				$("#id_short_menu").hide();
-			}else{
-				$("#id_long_menu").hide();
-				$("#id_short_menu").show();
-			}
-		})
+		})		
 		
 		$(".class_point_check").change(function(e){
 			e.preventDefault();			
@@ -113,16 +131,19 @@ window.bapdosa.menu = (function() {
 			}
 		})
 		
-		$("#id_menu_add_row").click(function(){		
+		$("#id_menu_add_row").click(function(){
+			var memberid = $("tr.class_short_menu_main").attr('memberid');
+			var deviceid = $("tr.class_short_menu_main").attr('deviceid');
+			var categoryid = $("tr.class_short_menu_main").attr('categoryid');
 			
-			var data = "<tr>" + 
+			var data = "<tr class=\"class_short_menu_main\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" categoryid=\""+categoryid +"\" >" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td><label>" + "<input type=\"checkbox\" />" + "</label></td>" +
 					     "</tr>"
 						
-			var data1 = "<tr>" + 
+			var data1 = "<tr class=\"class_long_menu_main\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" categoryid=\""+categoryid +"\" >" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
@@ -235,52 +256,120 @@ window.bapdosa.menu = (function() {
 		});	
 	}
 
-	function insertMenu(){
+	function updateShortMenu(){
 		
 		if(!confirm("저장하시겠습니까?")){
 			return false;
 		}
 		
-		$("tr.class_menu_main").each(function() {			
+		$("tr.class_short_menu_main").each(function() {			 
+			
+			 var catemenuname = $(this).attr('catemenuname');
+			 var catemenuname2 = $(this).find("input:eq(1)").val();
 			 
-			 var catemenuname1 = $(this).attr('catemenuname');
-			 var catemenuname2 = $('.class_menu_main td input').eq(1).val();
-			 
-			 if(catemenuname1 != catemenuname2){
-				 alert('1');
+			 if(catemenuname != catemenuname2){
 				 catemenuname = catemenuname2;
 			 }else {
-				 alert('2');
-				 catemenuname = catemenuname1;
-			 }
-			 //alert(catemenuname);
-			 alert(catemenuname1);
-			 alert(catemenuname2);
+				 catemenuname;
+			 }			
 			 //var catemenuname = $(this).attr('catemenuname');
 			 var sortorder = $(this).attr('sortorder');
 			 var categoryid = $(this).attr('categoryid');			 
 			 var menuid = $(this).attr('menuid');
 			 var memberid = $(this).attr('memberid');
 			
-			 var defaultprice1 = $(this).attr('defaultprice');
-			 var defaultprice2 = $('.class_menu_main td input').eq(2).val();
+			 var defaultprice = $(this).attr('defaultprice');
+			 var defaultprice2 = $(this).find("input:eq(2)").val();
 			 
-			 if(defaultprice1 != defaultprice2){			 
+			 if(defaultprice != defaultprice2){			 
 				 defaultprice = defaultprice2;
 			 }else {
-				 defaultprice = defaultprice1;
+				 defaultprice;
 			 }
-			 
+			 var storeprice = defaultprice;			 
+			 var deliveryprice = defaultprice;			 
+			 var takeoutprice = defaultprice;			
 			// var defaultprice = $(this).attr('defaultprice');			 
-			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice;
-			 	
-			 alert(param);
+			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice;
 			 
-			 //var url = "MenuInsertOk.json";
-			 var url = "MenuUpdatetOk.json";
-			 
+			 var url = "MenuUpdatetOk.json";			
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}
+					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });	
+		});		
+		
+	}
+	
+    function updateLongMenu(){
+		
+		if(!confirm("저장하시겠습니까?")){
+			return false;
+		}
+		
+		$("tr.class_long_menu_main").each(function() {			 
+			
 			 var catemenuname = $(this).attr('catemenuname');
+			 var catemenuname2 = $(this).find("input:eq(1)").val();
+			 
+			 if(catemenuname != catemenuname2){
+				 catemenuname = catemenuname2;
+			 }else {
+				 catemenuname;
+			 }			
+			 //var catemenuname = $(this).attr('catemenuname');
+			 var sortorder = $(this).attr('sortorder');
+			 var categoryid = $(this).attr('categoryid');			 
+			 var menuid = $(this).attr('menuid');
+			 var memberid = $(this).attr('memberid');				
 			 var defaultprice = $(this).attr('defaultprice');
+			 
+			 var storeprice = $(this).attr('storeprice');
+			 var storeprice2 = $(this).find("input:eq(2)").val();
+			 if(storeprice != storeprice2){			 
+				 storeprice = storeprice2;
+			 }else {
+				 storeprice;
+			 }	
+			 var deliveryprice = $(this).attr('deliveryprice');
+			 var deliveryprice2 = $(this).find("input:eq(3)").val();
+			 if(deliveryprice != deliveryprice2){			 
+				 deliveryprice = deliveryprice2;
+			 }else {
+				 deliveryprice;
+			 }
+			 var takeoutprice = $(this).attr('takeoutprice');
+			 var takeoutprice2 = $(this).find("input:eq(4)").val();
+			 if(takeoutprice != takeoutprice2){			 
+				 takeoutprice = takeoutprice2;
+			 }else {
+				 takeoutprice;
+			 }
+			// var defaultprice = $(this).attr('defaultprice');			 
+			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + "&storeprice=" + storeprice +"&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice;
+			 				 
+			 //var url = "MenuInsertOk.json";
+			 var url = "MenuUpdatetOk.json";			
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
