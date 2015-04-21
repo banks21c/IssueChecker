@@ -154,22 +154,30 @@
 	</select>
 	
 	<insert id="insertCateMenu" parameterType="map">
-		INSERT INTO MENU (MEMBERID,
+		INSERT INTO MENU (
+		        MEMBERID,
 	            DEVICEID,
 	            CATEGORYID,
 	            MENUID,
 	            NAME,
 	            SORTORDER,
-	            DEFAULTPRICE
+	            DEFAULTPRICE,
+	            STOREPRICE,
+	            DELIVERYPRICE,
+	            TAKEOUTPRICE	            
 	           )
-		VALUES ( #{memberid},
+		VALUES ( 
+		        #{memberid},
 				#{deviceid},
 				#{categoryid},
 				#{menuid},
 				#{name},
 				#{sortorder},
-				#{defaultprice}				
-		)
+				#{defaultprice},
+				#{storeprice},
+				#{deliveryprice},
+				#{takeoutprice}				
+		       )
 	</insert>
 	
 	<!-- 수정 -->
@@ -180,8 +188,10 @@
 	            CATEGORYID          = #{categoryid , jdbcType=NUMERIC},
 	            NAME                = #{name , jdbcType=VARCHAR},
 	            SORTORDER           = #{sortorder , jdbcType=NUMERIC},
-	            DEFAULTPRICE        = #{defaultprice , jdbcType=NUMERIC}	         
-	       
+	            DEFAULTPRICE        = #{defaultprice , jdbcType=NUMERIC},
+	            STOREPRICE          = #{storeprice , jdbcType=NUMERIC},
+	            DELIVERYPRICE	    = #{deliveryprice , jdbcType=NUMERIC},
+	            TAKEOUTPRICE        = #{takeoutprice , jdbcType=NUMERIC}	       
 		       
 		WHERE  MEMBERID         = #{memberid , jdbcType=VARCHAR}
 		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
