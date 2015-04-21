@@ -256,10 +256,10 @@ public class CategoryController {
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
 		parametaMap.put("menuid", SecurityUtils.getTimeFormatUnique());
-		parametaMap.put("categoryid", "20150420144440.115c265cb64c5329d2cb047f19503b45590");
-		parametaMap.put("name", "육회 대");
-		parametaMap.put("sortorder", 1);
-		parametaMap.put("defaultprice", 40000);
+		parametaMap.put("categoryid", "20150420144944.765f9a6d10fd124be4bc2c3006b1b5d1e06");
+		parametaMap.put("name", "서비스메뉴1");
+		parametaMap.put("sortorder", 0);
+		parametaMap.put("defaultprice", 10000);
 		
 		categoryService.insertCateMenu(parametaMap);
 		logger.debug("#################parametaMap=" + parametaMap);
