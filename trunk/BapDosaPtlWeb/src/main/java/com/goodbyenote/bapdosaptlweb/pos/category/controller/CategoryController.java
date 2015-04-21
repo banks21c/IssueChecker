@@ -255,11 +255,7 @@ public class CategoryController {
 		
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
-		parametaMap.put("menuid", SecurityUtils.getTimeFormatUnique());
-		parametaMap.put("categoryid", "20150420144944.765f9a6d10fd124be4bc2c3006b1b5d1e05");
-		parametaMap.put("name", "포장메뉴1");
-		parametaMap.put("sortorder", 1);
-		parametaMap.put("defaultprice", 13000);
+		parametaMap.put("menuid", SecurityUtils.getTimeFormatUnique());		
 		
 		categoryService.insertCateMenu(parametaMap);
 		logger.debug("#################parametaMap=" + parametaMap);
@@ -297,7 +293,7 @@ public class CategoryController {
 		return mav; 
 	}
 	
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/pos/category/menuSave.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(
 			@RequestParam(required=true) Map parametaMap
@@ -341,8 +337,38 @@ public class CategoryController {
 		mav.setViewName("jsonView");
 		
 		return mav; 
-	}
+	}*/
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/pos/category/menuSave.json", method = RequestMethod.POST)
+	public ModelAndView menuSave(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		//logger.debug(parametaMap.toString());
+		
+		String menuObjJson = (String)parametaMap.get("menuObjJson");		
+		
+		logger.debug(menuObjJson);
+		Map<String, Object> menuObjMap = new ObjectMapper().readValue(menuObjJson, HashMap.class) ;
+		
+		//System.out.println(orderObjMap);		
+		int resultValue = categoryService.menuSave(menuObjMap, sessionUserInfo);
+		
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(Integer.toString(resultValue));
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
 	
 	/*@RequestMapping(value = "/pos/category/categoryManage")
 	public String list( CategoryVO category
