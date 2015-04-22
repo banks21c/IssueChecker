@@ -14,6 +14,7 @@ $(document).on("mobileinit", function () {
 window.bapdosa.order = (function() {
 	var mTableId = ""; //테이블아이디
 	var mOrderId = ""; //주문번호
+	var mCustomerId = "";	//고객ID
 	
 	var isPriceDiffer;
 	var isDPdiffer;
@@ -184,6 +185,7 @@ window.bapdosa.order = (function() {
 			var orderObj = {
 					tableId: mTableId,
 					orderId: mOrderId,
+					customerId: mCustomerId,
 					orderDataList: orderDataList
 			};
 			
@@ -191,6 +193,193 @@ window.bapdosa.order = (function() {
 			//console.log(JSON.stringify(orderObj));
 			orderSave(orderObjJson);
 		});		
+		
+		//직접입력
+		$(".fre_pop .class-event-direct-input").click(function(e){
+			//e.preventDefault();
+			$("#add_fre #add_fre_form")[0].reset();
+		});
+		
+		//연락처입력 on/off
+		$("#add_fre_form input[name=isContact]").change(function(e){
+			e.preventDefault();
+			var checked = $(this).prop("checked");
+			console.log(checked);
+			
+			if(checked){
+				$("#add_fre .fre_addition dl:eq(0)").show();
+			} else {
+				$("#add_fre .fre_addition dl:eq(0)").hide();
+			}			
+		});
+		//외상잔액입력 on/off
+		$("#add_fre_form input[name=isCredit]").change(function(e){
+			e.preventDefault();
+			var checked = $(this).prop("checked");
+			console.log(checked);
+			
+			if(checked){
+				$("#add_fre .fre_addition dl:eq(1)").show();
+				$("#add_fre_form input[name=isDeposit]").prop("checked", false).checkboxradio('refresh').trigger("change");
+			} else {
+				$("#add_fre .fre_addition dl:eq(1)").hide();
+			}			
+		});
+		//예치금입력 on/off
+		$("#add_fre_form input[name=isDeposit]").change(function(e){
+			e.preventDefault();
+			var checked = $(this).prop("checked");
+			console.log(checked);
+			
+			if(checked){
+				$("#add_fre .fre_addition dl:eq(2)").show();
+				$("#add_fre_form input[name=isCredit]").prop("checked", false).checkboxradio('refresh').trigger("change");
+			} else {
+				$("#add_fre .fre_addition dl:eq(2)").hide();
+			}			
+		});		
+		
+		//단골저장
+		$("#add_fre .class-event-save").click(function(e){
+			e.preventDefault();
+			
+			
+			var name = $.trim($("#add_fre_form input[name=name]").val() || "");
+			var isContact = $("#add_fre_form input[name=isContact]").prop("checked");
+			var isCredit = $("#add_fre_form input[name=isCredit]").prop("checked");
+			var isDeposit = $("#add_fre_form input[name=isDeposit]").prop("checked");
+			var totalCredit = $("#add_fre_form input[name=totalCredit]").val();
+			var totalDeposit = $("#add_fre_form input[name=totalDeposit]").val();		
+			
+			var param = "";
+			
+			if(name == ""){
+				alert("이름을 입력해 주세요.");
+				return false;
+			}
+			param = "name=" + name;			
+			
+			if(isContact){
+				var phone1 = $.trim($("#add_fre_form input[name=phone1]").val() || "");
+				var phone2 = $.trim($("#add_fre_form input[name=phone2]").val() || "");
+				var phone3 = $.trim($("#add_fre_form input[name=phone3]").val() || "");
+				
+				if(!window.bapdosa.util.isNumeric(phone1) || !window.bapdosa.util.isNumeric(phone2) || !window.bapdosa.util.isNumeric(phone3)){
+					alert("연락처는 숫자만 입력가능합니다.");
+					return false;
+				} else {
+					if(phone1.length < 3 || phone1.length < 3 || phone3.length < 4){
+						alert("정확한 연락처를 입력해 주세요.");
+						return false;
+					}
+				}				
+				var phoneNumber = phone1 + phone2 + phone3; 
+				param += "&phoneNumber=" + phoneNumber;
+			}
+			
+			if(isCredit){	
+				
+				if(totalCredit){
+					if(!window.bapdosa.util.isNumeric(totalCredit)){
+						alert("외상잔액은 숫자만 입력가능합니다.");
+						return false;
+					} else {
+						param += "&totalCredit=" + totalCredit;
+					}
+				} else {
+					alert("외상잔액을 입력해 주세요.");
+					return false;
+				}
+			}
+			
+			if(isDeposit){	
+				
+				if(totalDeposit){
+					if(!window.bapdosa.util.isNumeric(totalDeposit)){
+						alert("예치금은 숫자만 입력가능합니다.");
+						return false;
+					} else {
+						param += "&totalDeposit=" + totalDeposit;
+					}				
+				} else {
+					alert("예치금을 입력해 주세요.");
+					return false;					
+				}
+			}
+			var url="/pos/customer/customerRegister.json";
+			
+			var success = function(returnJsonVO){
+				var returnObj = returnJsonVO.returnObj;
+				
+				console.log(returnObj);
+				
+				if(returnObj){
+					
+					displayCustomerInfo(returnObj);
+					
+					$("#add_fre").popup("close");
+					$(".fre_pop .ui-link").click();
+				}
+			};
+
+			commonAjaxCall(url, param, success);
+		});		
+	}
+	
+	function displayCustomerInfo(customerId){
+		var url="/pos/customer/getCustomerInfo.json";
+		var param = "customerId=" + customerId;
+		
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;			
+			console.log(returnObj);
+			
+			if(returnObj){				
+				mCustomerId = returnObj.CUSTOMERID;
+				
+				
+				// 이명필
+				//<span class="ico c">외</span> <span><em class="tc">117</em> / 1,256</span>
+				//<span class="ico y">예</span><span><em class="ty">117</em> / 1,256</span>	
+				
+				
+				var customerArea = $(".class-area-customer-info").empty().text(returnObj.NAME + " ");
+				var iconAdd;
+				var addInfo ;
+				
+				if(returnObj.TOTALCREDIT > 0){
+					iconAdd = $("<span>").addClass("ico").addClass("c");
+					addInfo = $("<span>").append(
+							  				$("<em>").addClass("tc").text(window.bapdosa.util.setComma(parseInt(returnObj.TOTALCREDIT/1000)))
+							  			).append(
+					  							" / " + window.bapdosa.util.setComma(parseInt(returnObj.TOTALSALES/1000))
+					  					);
+				} else if(returnObj.TOTALDEPOSIT > 0){
+					iconAdd = $("<span>").addClass("ico").addClass("y");
+					addInfo = $("<span>").append(
+					  						$("<em>").addClass("ty").text(window.bapdosa.util.setComma(parseInt(returnObj.TOTALDEPOSIT/1000)))
+					  					).append(
+					  							" / " + window.bapdosa.util.setComma(parseInt(returnObj.TOTALSALES/1000))
+					  					);					
+				} else {
+					addInfo = $("<span>").append(
+					  							window.bapdosa.util.setComma(parseInt(returnObj.TOTALDEPOSIT/1000))
+					  					).append(
+					  							" / " + window.bapdosa.util.setComma(parseInt(returnObj.TOTALSALES/1000))
+					  					);
+				}
+				if(iconAdd){
+					customerArea.append(iconAdd);
+				}
+				customerArea.append(addInfo);
+				
+				
+				console.log("ok");
+				
+			}
+		};
+
+		commonAjaxCall(url, param, success);		
 	}
 	
 	function orderSave(orderObjJson){
@@ -494,6 +683,8 @@ window.bapdosa.order = (function() {
 			});	
 			
 			displayTotal();
+			
+			
 		};
 		commonAjaxCall(url, param, success);
 	}
