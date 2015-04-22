@@ -32,4 +32,6 @@ public interface OrderService {
 			SessionUserInfo sessionUserInfo);
 
 	public List<Map> getOrderDetailList(Map parametaMap);
+
+	public Map getTableOrder(Map parametaMap);
 }

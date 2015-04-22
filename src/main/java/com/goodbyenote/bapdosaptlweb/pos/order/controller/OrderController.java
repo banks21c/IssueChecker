@@ -153,13 +153,15 @@ public class OrderController {
 		
 		int resultValue = 1;
 		String tableId = (String)parametaMap.get("tableId");	
-		String orderId = (String)parametaMap.get("orderId");
-		
+		String orderId = (String)parametaMap.get("orderId");		
 		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		
+		Map orderInfo = orderService.getTableOrder(parametaMap);
 		List<Map> orderDetailList = orderService.getOrderDetailList(parametaMap);
 		
 		Map returnMap = new HashMap();
 		returnMap.put("orderDetailList", orderDetailList);
+		returnMap.put("orderInfo", orderInfo);
 		
 		//System.out.println("resultValue:"+resultValue);
 		ModelAndView mav = new ModelAndView();		

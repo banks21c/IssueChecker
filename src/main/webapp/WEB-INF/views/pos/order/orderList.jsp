@@ -43,8 +43,8 @@ jQuery(function($){ // on document load
 				<div class="btn_fl">
 					<a href="#" class="btn_01">메모</a><a href="#reserve_check" class="btn_01" data-rel="popup" data-position-to="window" data-transition="pop">예약</a>
 					<!--s: 단골 고객(외상인경우 :c, tc  / 예치금인 경우:y, ty) -->
-					<span class="patron">이명필
-						<span class="ico c">외</span> <span><em class="tc">117</em> / 1,256</span>
+					<span class="patron class-area-customer-info"><!-- 이명필
+						<span class="ico c">외</span> <span><em class="tc">117</em> / 1,256</span> -->
 						<!-- <span class="ico y">예</span><span><em class="ty">117</em> / 1,256</span> -->
 					</span>
 					<!--e: 단골 고객(외상인경우 :c, tc  / 예치금인 경우:y, ty) -->
@@ -238,7 +238,7 @@ jQuery(function($){ // on document load
 				</div>
 				<div class="delivery_name">
 					<ul>
-						<li><a href="#add_fre" data-rel="popup" data-position-to="window" data-transition="pop">직접입력</a></li>
+						<li><a href="#add_fre" data-rel="popup" data-position-to="window" data-transition="pop" class="class-event-direct-input">직접입력</a></li>
 						<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
 						<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 예치금인 경우 -->
@@ -275,45 +275,47 @@ jQuery(function($){ // on document load
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
 		</div>
 		<div role="main" class="ui-content">
+			<form name="add_fre_form" id="add_fre_form">
 			<div class="fre_add_top">
-				<p>고객명 <input type="text" id="" data-role="none" class="wp60" /></p>
+				<p>고객명 <input type="text" name="name" data-role="none" class="wp60" maxLength="30"/></p>
 				<ul>
-					<li><input type="checkbox" id="fre_add01" name="" /><label for="fre_add01">연락처 입력</label></li>
-					<li><input type="checkbox" id="fre_add02" name="" /><label for="fre_add02">외상잔액 입력</label></li>
-					<li><input type="checkbox" id="fre_add03" name="" /><label for="fre_add03">예치금 입력</label></li>
+					<li><input type="checkbox" id="fre_add01" name="isContact" /><label for="fre_add01">연락처 입력</label></li>
+					<li><input type="checkbox" id="fre_add02" name="isCredit" /><label for="fre_add02">외상잔액 입력</label></li>
+					<li><input type="checkbox" id="fre_add03" name="isDeposit" /><label for="fre_add03">예치금 입력</label></li>
 				</ul>
 			</div>
 			<div class="fre_addition">
-				<dl>
+				<dl style="display:none">
 					<dt>연락처</dt>
 					<dd>
-						<input type="number" id="" data-role="none" class="wp20" /> - 
-						<input type="number" id="" data-role="none" class="wp20" /> - 
-						<input type="number" id="" data-role="none" class="wp20" />
+						<input type="tel" name="phone1" data-role="none" class="wp20" maxLength="3"/> - 
+						<input type="tel" name="phone2" data-role="none" class="wp20" maxLength="4"/> - 
+						<input type="tel" name="phone3" data-role="none" class="wp20" maxLength="4"/>
 						<!-- <a href="#" class="btn_sh" title="검색"></a> -->
 					</dd>
 				</dl>
 				<dl style="display:none">
 					<dt>외상잔액</dt>
-					<dd><input type="number" id="" data-role="none" /></dd>
+					<dd><input type="tel" name="totalCredit" data-role="none" /></dd>
 				</dl>
-				<dl>
+				<dl style="display:none">
 					<dt>예치금잔액</dt>
-					<dd><input type="number" id="" data-role="none" /></dd>
+					<dd><input type="tel" name="totalDeposit" data-role="none" /></dd>
 				</dl>
 			</div>
 			<div class="gray_box">
 				<p>입력 중에 아래 원하는 고객이 나타나면 선택하세요.</p>
 				<ul>
-					<li><input type="text" id="" data-role="none" /></li>
-					<li><input type="text" id="" data-role="none" /></li>
-					<li><input type="text" id="" data-role="none" /></li>
-					<li><input type="text" id="" data-role="none" /></li>
+					<li><input type="text" name="customerInfo" data-role="none" readonly/></li>
+					<li><input type="text" name="customerInfo" data-role="none" readonly/></li>
+					<li><input type="text" name="customerInfo" data-role="none" readonly/></li>
+					<li><input type="text" name="customerInfo" data-role="none" readonly/></li>
 				</ul>
 			</div>
 			<div class="btn_c">
-				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+				<a href="#" class="btn_blue class-event-save">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
 			</div>
+			</form>
 		</div>
 	</div>
 	<!--e: 단골 등록 팝업 -->

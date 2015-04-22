@@ -132,4 +132,14 @@ public class OrderDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("posorder.getOrderDetailList", parametaMap);
 	}
+
+	public void updateTableOrder(Map paramMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("posorder.updateTableOrder", paramMap);
+	}
+
+	public Map getTableOrder(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("posorder.getTableOrder", parametaMap);
+	}
 }

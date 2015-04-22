@@ -84,6 +84,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		String tableId = (String)orderObjMap.get("tableId");
 		String orderId = (String)orderObjMap.get("orderId");
+		String customerId = (String)orderObjMap.get("customerId");
 		
 
 		
@@ -98,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 			paramMap.put("tableId", tableId);	
 			paramMap.put("orderId", orderId);			
 			paramMap.put("startsalesdate", startsalesdate);		
-			paramMap.put("customerId", null);
+			paramMap.put("customerId", customerId);
 			paramMap.put("price", 0);
 //			paramMap.put("givebackcredit", null);
 //			paramMap.put("loss", null);
@@ -117,7 +118,14 @@ public class OrderServiceImpl implements OrderService {
 			
 			System.out.println(paramMap);
 			orderDAO.insertTableOrder(paramMap);			
-		} 
+		} else {
+			Map paramMap = new HashMap();
+			paramMap.put("memberId", sessionUserInfo.getMemberId());
+			paramMap.put("orderId", orderId);	
+			paramMap.put("customerId", customerId);
+			
+			orderDAO.updateTableOrder(paramMap);
+		}
 
 				
 		
@@ -166,6 +174,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<Map> getOrderDetailList(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return orderDAO.getOrderDetailList(parametaMap);
+	}
+
+	@Override
+	public Map getTableOrder(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return orderDAO.getTableOrder(parametaMap);
 	}
 
 }
