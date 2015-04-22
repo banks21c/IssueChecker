@@ -89,7 +89,7 @@
             </choose> 
             <choose>                
                 <when test="loss != null and loss != '' ">
-                    ,#{customerId}
+                    ,#{loss}
                 </when>                
                 <otherwise>
                     ,NULL
@@ -236,6 +236,72 @@
 		)     
     </insert>
     
+    <update id="updateTableOrder">
+        UPDATE TABLEORDER
+        SET
+        	MODIFICATIONDATE = SYSDATE      
+                <if test="customerId != null and customerId != '' ">
+                    ,CUSTOMERID = #{customerId}
+                </if>  
+                <if test="price != null and price != '' ">
+                    ,PRICE = #{price}
+                </if>                           
+                <if test="givebackcredit != null and givebackcredit != '' ">
+                    ,GIVEBACKCREDIT = #{givebackcredit}
+                </if>             
+                <if test="loss != null and loss != '' ">
+                    ,LOSS = #{loss}
+                </if>       
+                <if test="discount != null and discount != '' ">
+                    ,DISCOUNT = #{discount}
+                </if>      
+                <if test="billmoney != null and billmoney != '' ">
+                    ,BILLMONEY = #{billmoney}
+                </if>     
+                <if test="cashpayment != null and cashpayment != '' ">
+                    ,CASHPAYMENT = #{cashpayment}
+                </if>        
+                <if test="cardpayment != null and cardpayment != '' ">
+                    ,CARDPAYMENT = #{cardpayment}
+                </if>   
+                <if test="intocredit != null and intocredit != '' ">
+                    ,INTOCREDIT = #{intocredit}
+                </if>     
+                <if test="intoloss != null and intoloss != '' ">
+                    ,INTOLOSS = #{intoloss}
+                </if>    
+                <if test="intodeposit != null and intodeposit != '' ">
+                    ,INTODEPOSIT = #{intodeposit}
+                </if>     
+                <if test="usedticket != null and usedticket != '' ">
+                    ,USEDTICKET = #{usedticket}
+                </if>  
+                <if test="savedpoint != null and savedpoint != '' ">
+                    ,SAVEDPOINT = #{savedpoint}
+                </if>         
+                <if test="useddeposit != null and useddeposit != '' ">
+                    ,USEDDEPOSIT = #{useddeposit}
+                </if>          
+                <if test="usedpoint != null and usedpoint != '' ">
+                    ,USEDPOINT = #{usedpoint}
+                </if>  
+                <if test="ischangeaftermerge != null and ischangeaftermerge != '' ">
+                    ,ISCHANGEAFTERMERGE = #{ischangeaftermerge}
+                </if>     
+                <if test="isdeleted != null and isdeleted != '' ">
+                    ,ISDELETED = #{isdeleted}
+                </if>     
+                <if test="ispaid != null and ispaid != '' ">
+                    ,ISPAID = #{ispaid}
+                </if>  
+                <if test="istakeoutorder != null and istakeoutorder != '' ">
+                    ,ISTAKEOUTORDER = #{istakeoutorder}
+                </if>
+        WHERE
+        	ORDERID = #{orderId}
+        
+    </update>
+    
     <insert id="insertOrderDetail">
         INSERT INTO ORDERDETAIL
         (
@@ -292,7 +358,41 @@
                 </otherwise>
          	</choose>    				
 		)     
-    </insert>    
+    </insert>   
+    
+    <select id="getTableOrder">
+		SELECT
+			,MEMBERID
+			,DEVICEID
+			,ORDERID
+			,TABLEID
+			,STARTSALESDATE
+			,CUSTOMERID
+			,PRICE
+			,GIVEBACKCREDIT
+			,LOSS
+			,DISCOUNT
+			,BILLMONEY
+			,CASHPAYMENT
+			,CARDPAYMENT
+			,INTOCREDIT
+			,INTOLOSS
+			,INTODEPOSIT
+			,USEDTICKET
+			,SAVEDPOINT
+			,USEDDEPOSIT
+			,USEDPOINT
+			,ISCHANGEAFTERMERGE
+			,ISDELETED
+			,ISPAID
+			,ISTAKEOUTORDER
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			TABLEORDER
+		WHERE
+			ORDERID = #{orderId}        
+    </select>
     
     <select id="selectOrderDetail" resultType="map">
     	/* posorder.selectOrderDetail */

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "poscustomer" >	
+  
+    <insert id="insertCustomer">
+        /* poscustomer.insertCustomer */
+		INSERT INTO CUSTOMER
+		(
+			MEMBERID
+			,DEVICEID
+			,CUSTOMERID
+			,NAME
+			,PHONENUMBER
+			,TOTALSALES
+			,ISINSTANT
+			,TOTALCREDIT
+			,TOTALDEPOSIT
+			,ADDRESS
+			,ISBLACK
+			,ISDELIVER
+			,PHONENUMBER2
+			,BUILDINGID
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			#{memberId}
+			,#{deviceId}
+			,#{customerId}
+			,#{name}
+            <choose>                
+                <when test="phoneNumber != null and phoneNumber != '' ">
+                    ,#{phoneNumber}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="totalSales != null and totalSales != '' ">
+                    ,#{totalSales}
+                </when>                
+                <otherwise>
+                    ,0
+                </otherwise>                
+            </choose>                       
+            <choose>                
+                <when test="isInstant != null and isInstant != '' ">
+                    ,#{isInstant}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="totalCredit != null and totalCredit != '' ">
+                    ,#{totalCredit}
+                </when>                
+                <otherwise>
+                    ,0
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="totalDeposit != null and totalDeposit != '' ">
+                    ,#{totalDeposit}
+                </when>                
+                <otherwise>
+                    ,0
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="address != null and address != '' ">
+                    ,#{address}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="isBlack != null and isBlack != '' ">
+                    ,#{isBlack}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="isDeliver != null and isDeliver != '' ">
+                    ,#{isDeliver}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose> 
+            <choose>                
+                <when test="phoneNumber2 != null and phoneNumber2 != '' ">
+                    ,#{phoneNumber2}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="buildingId != null and buildingId != '' ">
+                    ,#{buildingId}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose>                                                        
+            <choose>                
+                <when test="isdeleted != null and isdeleted != '' ">
+                    ,#{isdeleted}
+                </when>                
+                <otherwise>
+                    ,'N'
+                </otherwise>                
+            </choose>
+            <choose>                
+                <when test="creationdate != null and creationdate != '' ">
+                    ,#{creationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
+            </choose>  
+            <choose>                
+                <when test="modificationdate != null and modificationdate != '' ">
+                    ,#{modificationdate}
+                </when>                
+                <otherwise>
+                    ,SYSDATE
+                </otherwise>                
+            </choose>              
+            
+
+		)     
+    </insert>
+    
+    <select id="getCustomer" resultType="map">
+        SELECT
+			MEMBERID
+			,DEVICEID
+			,CUSTOMERID
+			,NAME
+			,PHONENUMBER
+			,TOTALSALES
+			,ISINSTANT
+			,TOTALCREDIT
+			,TOTALDEPOSIT
+			,ADDRESS
+			,ISBLACK
+			,ISDELIVER
+			,PHONENUMBER2
+			,BUILDINGID
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE 
+		FROM
+			CUSTOMER
+		WHERE
+			CUSTOMERID = #{customerId}
+	 		<if test="isdeleted != null and isdeleted != ''">
+				AND	ISDELETED = #{isdeleted}
+			</if> 			    
+        
+    </select>
+    
+ 
+</mapper>
