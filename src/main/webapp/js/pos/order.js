@@ -435,7 +435,7 @@ window.bapdosa.order = (function() {
 			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
 			//$("#fre_pop_customer_search input[name=searchName]").val("");			
 		}else if(type == 2){
-			
+			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
 		}		
 		else{		
 			$(".class-event-search-select-button li:eq(0)").children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
@@ -512,6 +512,7 @@ window.bapdosa.order = (function() {
 			var returnObj = returnJsonVO.returnObj;
 			
 			console.log(returnObj);
+			history.back();
 		};
 
 		commonAjaxCall(url, param, success);		
@@ -902,23 +903,13 @@ window.bapdosa.order = (function() {
 	}
 	
 	function displayTableInfo(){
-		var url="/pos/order/getOrderInfoList.json";
-		var param="tableId=" + mTableId + "&orderId=" + mOrderId;
+		var url="/pos/setting/getTableInfo.json";
+		var param="tableId=" + mTableId;
 		var success = function(returnJsonVO){
-			var returnObj = returnJsonVO.returnObj;
-			console.log(returnObj);
-			var orderDetailList = returnObj.orderDetailList;
-			var orderInfoObj = returnObj.orderInfo;
-			$(orderDetailList).each(function(index,obj){
-				//console.log(obj);
-				addOrder(obj);
-			});	
+			var tableInfoObj = returnJsonVO.returnObj;
+			console.log(tableInfoObj);
 			
-			displayTotal();
-			
-			if(orderInfoObj.CUSTOMERID){
-				displayCustomerInfo(orderInfoObj.CUSTOMERID);
-			}
+			$("#order-page .class-area-table-name").text(tableInfoObj.TABLENAME)
 			
 		};
 		commonAjaxCall(url, param, success);		

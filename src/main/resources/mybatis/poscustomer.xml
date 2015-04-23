@@ -202,14 +202,56 @@
 			 		<if test="isDeliver != null and isDeliver != ''">
 						AND	ISDELIVER = #{isDeliver}
 					</if>
-			 		<if test="notNoName != null and notNoName.equals('Y')">
-						AND	NAME IS NOT NULL AND NAME != ''
+			 		<if test='notNoName != null and notNoName.equals("Y")'>
+						AND	NAME IS NOT NULL 
 					</if>					
 			 		<if test="isBlack != null and isBlack != ''">
 						AND	ISBLACK = #{isBlack}
 					</if>											
 			 		<if test="initialLetter != null and initialLetter != ''">
-						AND	NAME LIKE '${initialLetter}%'
+						<if test='initialLetter.equals("ㄱ")'>
+						AND NAME <![CDATA[<]]>= NCHR(45207)
+						</if>
+						<if test='initialLetter.equals("ㄴ")'>
+						AND NAME BETWEEN NCHR(45208) AND NCHR(45795)
+						</if>
+						<if test='initialLetter.equals("ㄷ")'>
+						AND NAME BETWEEN NCHR(45796) AND NCHR(46971)
+						</if>
+						<if test='initialLetter.equals("ㄹ")'>
+						AND NAME BETWEEN NCHR(46972) AND NCHR(47559)
+						</if>
+						<if test='initialLetter.equals("ㅁ")'>
+						AND NAME BETWEEN NCHR(47560) AND NCHR(48147)
+						</if>
+						<if test='initialLetter.equals("ㅂ")'>
+						AND NAME BETWEEN NCHR(48148) AND NCHR(49323)
+						</if>
+						<if test='initialLetter.equals("ㅅ")'>
+						AND NAME BETWEEN NCHR(49324) AND NCHR(50499)
+						</if>
+						<if test='initialLetter.equals("ㅇ")'>
+						AND NAME BETWEEN NCHR(50500) AND NCHR(51087)
+						</if>
+						<if test='initialLetter.equals("ㅈ")'>
+						AND NAME BETWEEN NCHR(51088) AND NCHR(52263)
+						</if>
+						<if test='initialLetter.equals("ㅊ")'>
+						AND NAME BETWEEN NCHR(52264) AND NCHR(52851)
+						</if>
+						<if test='initialLetter.equals("ㅋ")'>
+						AND NAME BETWEEN NCHR(52852) AND NCHR(53439)
+						</if>
+						<if test='initialLetter.equals("ㅌ")'>
+						AND NAME BETWEEN NCHR(53440) AND NCHR(54027)
+						</if>
+						<if test='initialLetter.equals("ㅍ")'>
+						AND NAME BETWEEN NCHR(54028) AND NCHR(54615)
+						</if>
+						<if test='initialLetter.equals("ㅎ")'>
+						AND NAME BETWEEN NCHR(54616) AND NCHR(55203)
+						</if>
+																								
 					</if>
 				ORDER BY ${orderBy} ${orderOption}	
 			) Z
@@ -238,13 +280,54 @@
 				AND	ISDELIVER = #{isDeliver}
 			</if>
 	 		<if test="notNoName != null and notNoName.equals('Y')">
-				AND	NAME IS NOT NULL AND NAME != ''
+				AND	NAME IS NOT NULL
 			</if>					
 	 		<if test="isBlack != null and isBlack != ''">
 				AND	ISBLACK = #{isBlack}
 			</if>				
 	 		<if test="initialLetter != null and initialLetter != ''">
-				AND	NAME LIKE '${initialLetter}%'
+				<if test='initialLetter.equals("ㄱ")'>
+				AND NAME <![CDATA[<]]>= NCHR(45207)
+				</if>
+				<if test='initialLetter.equals("ㄴ")'>
+				AND NAME BETWEEN NCHR(45208) AND NCHR(45795)
+				</if>
+				<if test='initialLetter.equals("ㄷ")'>
+				AND NAME BETWEEN NCHR(45796) AND NCHR(46971)
+				</if>
+				<if test='initialLetter.equals("ㄹ")'>
+				AND NAME BETWEEN NCHR(46972) AND NCHR(47559)
+				</if>
+				<if test='initialLetter.equals("ㅁ")'>
+				AND NAME BETWEEN NCHR(47560) AND NCHR(48147)
+				</if>
+				<if test='initialLetter.equals("ㅂ")'>
+				AND NAME BETWEEN NCHR(48148) AND NCHR(49323)
+				</if>
+				<if test='initialLetter.equals("ㅅ")'>
+				AND NAME BETWEEN NCHR(49324) AND NCHR(50499)
+				</if>
+				<if test='initialLetter.equals("ㅇ")'>
+				AND NAME BETWEEN NCHR(50500) AND NCHR(51087)
+				</if>
+				<if test='initialLetter.equals("ㅈ")'>
+				AND NAME BETWEEN NCHR(51088) AND NCHR(52263)
+				</if>
+				<if test='initialLetter.equals("ㅊ")'>
+				AND NAME BETWEEN NCHR(52264) AND NCHR(52851)
+				</if>
+				<if test='initialLetter.equals("ㅋ")'>
+				AND NAME BETWEEN NCHR(52852) AND NCHR(53439)
+				</if>
+				<if test='initialLetter.equals("ㅌ")'>
+				AND NAME BETWEEN NCHR(53440) AND NCHR(54027)
+				</if>
+				<if test='initialLetter.equals("ㅍ")'>
+				AND NAME BETWEEN NCHR(54028) AND NCHR(54615)
+				</if>
+				<if test='initialLetter.equals("ㅎ")'>
+				AND NAME BETWEEN NCHR(54616) AND NCHR(55203)
+				</if>
 			</if> 
     </select>    
     

@@ -32,7 +32,7 @@ jQuery(function($){ // on document load
 <body>
 <div data-role="page" id="order-page" data-url="order-page">
 	<div data-role="header" data-position="fixed">
-		<a href="/pos/main/posMain.do" class="topbtn btn_poshome" title="home" data-role="none" data-ajax="false"></a>
+		<a href="#" data-rel="back" class="topbtn btn_poshome" title="home" data-role="none" ></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
 		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>간편포스</h1>
@@ -49,7 +49,7 @@ jQuery(function($){ // on document load
 					</span>
 					<!--e: 단골 고객(외상인경우 :c, tc  / 예치금인 경우:y, ty) -->
 				</div>
-				<p>No. <span><em>14</em></span></p>
+				<p>No. <span><em class="class-area-table-name">14</em></span></p>
 			</div>
 			<div class="top02">
 				<div class="btn_fl">
