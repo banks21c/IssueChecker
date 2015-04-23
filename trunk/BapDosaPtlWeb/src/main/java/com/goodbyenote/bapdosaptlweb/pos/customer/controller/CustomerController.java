@@ -100,6 +100,9 @@ public class CustomerController {
 
 		parametaMap.put("memberId", sessionUserInfo.getMemberId());
 		parametaMap.put("isdeleted", "N");
+		
+		System.out.println(parametaMap);
+		
 		List<Map> customerMapList = customerService.getCustomerList(parametaMap);
 		int totalCount = customerService.getCustomerListCount(parametaMap);
 		
