@@ -167,5 +167,86 @@
         
     </select>
     
+    <select id="getCustomerList" resultType="map">
+        SELECT * FROM 
+        ( 
+			SELECT ROWNUM AS RNUM, Z.* FROM ( 
+		        SELECT
+					MEMBERID
+					,DEVICEID
+					,CUSTOMERID
+					,NAME
+					,PHONENUMBER
+					,TOTALSALES
+					,ISINSTANT
+					,TOTALCREDIT
+					,TOTALDEPOSIT
+					,ADDRESS
+					,ISBLACK
+					,ISDELIVER
+					,PHONENUMBER2
+					,BUILDINGID
+					,ISDELETED
+					,CREATIONDATE
+					,MODIFICATIONDATE 
+				FROM
+					CUSTOMER
+				WHERE
+					MEMBERID = #{memberId}
+			 		<if test="isdeleted != null and isdeleted != ''">
+						AND	ISDELETED = #{isdeleted}
+					</if> 
+			 		<if test="searchName != null and searchName != ''">
+						AND	NAME LIKE '%${searchName}%'
+					</if>
+			 		<if test="isDeliver != null and isDeliver != ''">
+						AND	ISDELIVER = #{isDeliver}
+					</if>
+			 		<if test="notNoName != null and notNoName.equals('Y')">
+						AND	NAME IS NOT NULL AND NAME != ''
+					</if>					
+			 		<if test="isBlack != null and isBlack != ''">
+						AND	ISBLACK = #{isBlack}
+					</if>											
+			 		<if test="initialLetter != null and initialLetter != ''">
+						AND	NAME LIKE '${initialLetter}%'
+					</if>
+				ORDER BY ${orderBy} ${orderOption}	
+			) Z
+			WHERE
+				ROWNUM <![CDATA[<]]>= (${page} * ${unitCount})	
+		) 
+		WHERE
+			RNUM <![CDATA[>]]> ((${page} -1) * ${unitCount})      
+    </select>
+    
+    <select id="getCustomerListCount" resultType="integer">
+       
+        SELECT
+			COUNT(*) 
+		FROM
+			CUSTOMER
+		WHERE
+			MEMBERID = #{memberId}
+	 		<if test="isdeleted != null and isdeleted != ''">
+				AND	ISDELETED = #{isdeleted}
+			</if> 
+	 		<if test="searchName != null and searchName != ''">
+				AND	NAME LIKE '%${searchName}%'
+			</if>	
+	 		<if test="isDeliver != null and isDeliver != ''">
+				AND	ISDELIVER = #{isDeliver}
+			</if>
+	 		<if test="notNoName != null and notNoName.equals('Y')">
+				AND	NAME IS NOT NULL AND NAME != ''
+			</if>					
+	 		<if test="isBlack != null and isBlack != ''">
+				AND	ISBLACK = #{isBlack}
+			</if>				
+	 		<if test="initialLetter != null and initialLetter != ''">
+				AND	NAME LIKE '${initialLetter}%'
+			</if> 
+    </select>    
+    
  
 </mapper>

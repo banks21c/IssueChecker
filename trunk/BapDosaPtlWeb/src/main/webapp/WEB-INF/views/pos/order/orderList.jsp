@@ -32,7 +32,7 @@ jQuery(function($){ // on document load
 <body>
 <div data-role="page" id="order-page" data-url="order-page">
 	<div data-role="header" data-position="fixed">
-		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
+		<a href="/pos/main/posMain.do" class="topbtn btn_poshome" title="home" data-role="none" data-ajax="false"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
 		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>간편포스</h1>
@@ -115,7 +115,7 @@ jQuery(function($){ // on document load
 		<!--e: 목록출력 -->
 		<div class="btn_btm">
 			<div class="btn_fl">
-				<a href="#" class="btn_01 class-event-order-takeout">포장</a><a href="#" class="btn_01 view_fre">단골</a>
+				<a href="#" class="btn_01 class-event-order-takeout">포장</a><a href="#" class="btn_01 view_fre class-event-customer-view">단골</a>
 			</div>
 			<div class="btn_fr">
 				<a href="#" class="btn_02 class-event-order-save">저장</a><a href="#" class="btn_02" data-rel="back">돌아가기</a><a href="#" class="btn_04">계산</a>
@@ -209,16 +209,17 @@ jQuery(function($){ // on document load
 
 	<!--s: 단골팝업 -->
 	<div class="fre_pop">
+		<form name="fre_pop_customer_search" id="fre_pop_customer_search">
 		<div class="fre_box">
 			<div class="fre_sh">
 				<strong>단골고객</strong>
-				<input type="radio" id="fre_sh01" name="fre_shL" /><label for="fre_sh01">가나다 순</label>
-				<input type="radio" id="fre_sh02" name="fre_shL" /><label for="fre_sh02">매상액 순</label>
+				<input type="radio" id="fre_sh01" name="orderBy" value="NAME" checked/><label for="fre_sh01">가나다 순</label>
+				<input type="radio" id="fre_sh02" name="orderBy" value="TOTALSALES" /><label for="fre_sh02">매상액 순</label>
 				<a href="#" class="btn_x" title="닫기"></a>
 			</div>
 			<div class="name_shw">
 				<div class="name_choice">
-					<ul>
+					<ul class="class-event-search-select-button">
 						<li><a href="#" class="active">모두</a></li>
 						<li><a href="#"><span class="icot t01" title="ㄱ"></span></a></li>
 						<li><a href="#"><span class="icot t02" title="ㄴ"></span></a></li>
@@ -237,7 +238,7 @@ jQuery(function($){ // on document load
 					</ul>
 				</div>
 				<div class="delivery_name">
-					<ul>
+					<ul class="class-event-search-select-customer">
 						<li><a href="#add_fre" data-rel="popup" data-position-to="window" data-transition="pop" class="class-event-direct-input">직접입력</a></li>
 						<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
@@ -261,10 +262,11 @@ jQuery(function($){ // on document load
 					</ul>
 				</div>
 				<div class="name_sh">
-					<p>검색 <input type="text" id="" data-role="none" /></p>
+					<p>검색 <input type="text" name="searchName" data-role="none" /></p>
 				</div>
 			</div>
 		</div>
+		</form>
 	</div>
 	<!--e: 단골팝업 -->
 

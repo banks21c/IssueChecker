@@ -1,5 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.customer.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,6 +21,16 @@ public class CustomerDAO {
 	public Map getCustomer(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("poscustomer.getCustomer", parametaMap);
+	}
+
+	public List<Map> getCustomerList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("poscustomer.getCustomerList", parametaMap);
+	}
+
+	public int getCustomerListCount(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("poscustomer.getCustomerListCount", parametaMap);
 	}
 
 }

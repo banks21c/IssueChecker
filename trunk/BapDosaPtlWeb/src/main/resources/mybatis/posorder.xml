@@ -360,9 +360,9 @@
 		)     
     </insert>   
     
-    <select id="getTableOrder">
+    <select id="getTableOrder" resultType="map">
 		SELECT
-			,MEMBERID
+			MEMBERID
 			,DEVICEID
 			,ORDERID
 			,TABLEID
