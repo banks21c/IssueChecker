@@ -1,5 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.customer.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -28,6 +29,18 @@ public class CustomerServiceImpl implements CustomerService {
 	public Map getCustomer(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return customerDAO.getCustomer(parametaMap);
+	}
+
+	@Override
+	public List<Map> getCustomerList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return customerDAO.getCustomerList(parametaMap);
+	}
+
+	@Override
+	public int getCustomerListCount(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return customerDAO.getCustomerListCount(parametaMap);
 	}
 
 }

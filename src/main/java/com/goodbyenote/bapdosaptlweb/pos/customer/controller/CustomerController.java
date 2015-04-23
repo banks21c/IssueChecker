@@ -2,6 +2,7 @@ package com.goodbyenote.bapdosaptlweb.pos.customer.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -87,5 +88,35 @@ public class CustomerController {
 		mav.setViewName("jsonView");
 		
 		return mav; 
-	}		
+	}
+	
+	@RequestMapping(value = "/pos/customer/getCustomerList.json")
+	public ModelAndView getCustomerList(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("isdeleted", "N");
+		List<Map> customerMapList = customerService.getCustomerList(parametaMap);
+		int totalCount = customerService.getCustomerListCount(parametaMap);
+		
+		Map returnObj = new HashMap();
+		returnObj.put("totalCount", totalCount);
+		returnObj.put("customerMapList", customerMapList);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnObj);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
 }

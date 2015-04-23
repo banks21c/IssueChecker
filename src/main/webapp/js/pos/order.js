@@ -22,6 +22,12 @@ window.bapdosa.order = (function() {
 	var selCategoryId;
 	var orderArea;
 	
+	var customerSearchInfo = {
+		currentPage: 1,
+		unitCount: 10,
+		totalCount: 0
+		
+	};	
 	function eventReg(){
 		
 		mTableId = window.bapdosa.urlParams["tableId"] || "";
@@ -323,9 +329,125 @@ window.bapdosa.order = (function() {
 			};
 
 			commonAjaxCall(url, param, success);
-		});		
+		});	
+		
+		//단골버튼클릭
+		$(".class-event-customer-view").click(function(e){
+			customerSearchInfoInit();
+			
+			searchCustomerList();
+			
+		});
+		
+		//ㄱㄴㄷㄹ 클릭
+		$(".class-event-search-select-button li").click(function(e){
+			e.preventDefault();
+			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+			customerSearchInfoInit(1);
+			searchCustomerList();
+		});
+		
+		//orderBy 변경시
+		$("#fre_pop_customer_search input[name=orderBy]").change(function(e){
+			customerSearchInfoInit(2);
+			searchCustomerList();
+		});
+		
+		//단골고객이름클릭시 
+		$(".class-event-search-select-customer").on("click", "a.class-event-customer-select", function(e){
+			e.preventDefault();
+			console.log($(this).attr("customerId"));
+			
+			displayCustomerInfo($(this).attr("customerId"));
+//			$(".fre_pop").hide();
+//			$("#add_fre").popup("close");
+			$(".fre_pop.shw .btn_x").click();
+//			$(".fre_box .ui-link").click();
+		});
 	}
 	
+	//단골고객정보를 가져와서 뿌린다.
+	function searchCustomerList(){
+		var orderBy = $("#fre_pop_customer_search input[name=orderBy]:checked").val() || "";
+		var orderOption = "ASC";
+		if(orderBy == "TOTALSALES"){
+			orderOption = "DESC";
+		}
+		var page = customerSearchInfo.currentPage;
+		var unitCount = customerSearchInfo.unitCount;
+		var notNoName = "Y";
+		var initialLetter =  $(".class-event-search-select-button li a.active > span").attr("title") || "";
+		var searchName = $.trim($("#fre_pop_customer_search input[name=searchName]").val() || "");
+		
+		console.log("orderBy: " + orderBy + ", initialLetter: " + initialLetter + ", searchName:" + searchName);
+
+		var url="/pos/customer/getCustomerList.json";
+		var param="searchName=" + searchName + "&orderBy=" + orderBy + "&initialLetter=" + initialLetter + "&page=" + page + "&unitCount=" + unitCount + "&notNoName=" + notNoName;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			console.log(returnObj);
+			var customerMapList = returnObj.customerMapList;
+			var customerArea = $(".class-event-search-select-customer");
+			$(customerMapList).each(function(i,obj){
+				console.log(obj);
+				//<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
+				//<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
+				//<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 예치금인 경우 -->
+				var li = $("<li>");
+				var a1 = $("<a>", {
+					href: '#',
+					customerId: obj.CUSTOMERID
+				}).addClass("class-event-customer-select").text(obj.NAME);
+				//외상이 있는경우
+				if(obj.TOTALCREDIT > 0){
+					a1.append($("<strong>").addClass("tc").text(window.bapdosa.util.setComma(parseInt(obj.TOTALCREDIT/1000))))
+				}
+				//예치금이 있는경우
+				if(obj.TOTALDEPOSIT > 0){
+					a1.append($("<strong>").addClass("ty").text(window.bapdosa.util.setComma(parseInt(obj.TOTALDEPOSIT/1000))))
+				}	
+				var a2 = $("<a>",{
+					href: '#guest_detail',
+					title: '자세히보기',
+					customerId: obj.CUSTOMERID
+						
+				}).addClass("btn_go2").attr("data-rel", "popup").attr("data-position-to", "window").attr("data-transition", "pop");
+				
+				li.append(a1)
+							.append(a2);
+				customerArea.append(li);
+			});
+			
+		};
+		commonAjaxCall(url, param, success);		
+		
+	}
+	
+	//단골검색관련 초기화
+	function customerSearchInfoInit(type){
+		customerSearchInfo = {
+				currentPage: 1,
+				unitCount: 10,
+				totalCount: 0				
+			};
+		
+		if(type == 1){
+			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
+			//$("#fre_pop_customer_search input[name=searchName]").val("");			
+		}else if(type == 2){
+			
+		}		
+		else{		
+			$(".class-event-search-select-button li:eq(0)").children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
+			$("#fre_pop_customer_search input[name=searchName]").val("");
+			$("#fre_pop_customer_search input[name=orderBy][value='NAME']").prop("checked", true);	
+			$("#fre_pop_customer_search input[name=orderBy]").checkboxradio("refresh");
+		}
+		
+	}	
+	
+	//해당 customerId 로 고객정보를 가져와 뿌려준다.
 	function displayCustomerInfo(customerId){
 		var url="/pos/customer/getCustomerInfo.json";
 		var param = "customerId=" + customerId;
@@ -672,18 +794,22 @@ window.bapdosa.order = (function() {
 		}
 		
 		var url="/pos/order/getOrderInfoList.json";
-		var param="tableId" + mTableId + "&orderId=" + mOrderId;
+		var param="tableId=" + mTableId + "&orderId=" + mOrderId;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			console.log(returnObj);
 			var orderDetailList = returnObj.orderDetailList;
+			var orderInfoObj = returnObj.orderInfo;
 			$(orderDetailList).each(function(index,obj){
-				console.log(obj);
+				//console.log(obj);
 				addOrder(obj);
 			});	
 			
 			displayTotal();
 			
+			if(orderInfoObj.CUSTOMERID){
+				displayCustomerInfo(orderInfoObj.CUSTOMERID);
+			}
 			
 		};
 		commonAjaxCall(url, param, success);
@@ -775,6 +901,29 @@ window.bapdosa.order = (function() {
 		}
 	}
 	
+	function displayTableInfo(){
+		var url="/pos/order/getOrderInfoList.json";
+		var param="tableId=" + mTableId + "&orderId=" + mOrderId;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			console.log(returnObj);
+			var orderDetailList = returnObj.orderDetailList;
+			var orderInfoObj = returnObj.orderInfo;
+			$(orderDetailList).each(function(index,obj){
+				//console.log(obj);
+				addOrder(obj);
+			});	
+			
+			displayTotal();
+			
+			if(orderInfoObj.CUSTOMERID){
+				displayCustomerInfo(orderInfoObj.CUSTOMERID);
+			}
+			
+		};
+		commonAjaxCall(url, param, success);		
+	}
+	
 	return {
 		init: function() {
 			eventReg();
@@ -786,7 +935,7 @@ window.bapdosa.order = (function() {
 				}			
 			);			
 			
-
+			displayTableInfo();
 		}
 	}   
 })();
