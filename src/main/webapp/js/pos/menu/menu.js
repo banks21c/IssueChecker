@@ -14,12 +14,27 @@ $(document).on("mobileinit", function () {
 window.bapdosa.menu = (function() {	
 	
 	var name;
-	var categoryid;
 	var sortorder;
 	var catemenuname;
-	 var defaultprice;
+	var defaultprice;
+	var memberid = $("tr.class_menu_main_view").attr('memberid');
+	var deviceid = $("tr.class_menu_main_view").attr('deviceid');
+	var categoryid = $("tr.class_menu_main_view").attr('categoryid');
+	var sortorder = parseInt($("tr.class_menu_main_view").last().attr('sortorder')) + 1;
+	var menuid = 'temp_' + new Date().getTime();
 	
-    function eventReg(){    	
+    function eventReg(){  
+    	
+    	$("#id_menu_tab_top2").hide();
+    	$("#id_menu_tab_top3").hide();
+    	$("#id_menu_tab_top4").hide();
+    	$("#id_menu_col_top1").show();
+    	$("#id_menu_col_top2").hide();
+    	$("#id_menu_col_top3").hide();
+    	$("#id_menu_col_top4").hide();
+    	$(".class_menu_storeprice").hide();
+    	$(".class_menu_deliveryprice").hide();
+    	$(".class_menu_takeoutprice").hide();
     	
 		$("#id_cate_save").click(function(e){		
 			e.preventDefault();			
@@ -30,27 +45,56 @@ window.bapdosa.menu = (function() {
 			e.preventDefault();			
 			
 			if($(this).is(":checked")) {
-				$("#id_long_menu").show();
-				$("#id_short_menu").hide();
+				
+				$("#id_menu_tab_top1").hide();
+				$("#id_menu_tab_top2").show();
+		    	$("#id_menu_tab_top3").show();
+		    	$("#id_menu_tab_top4").show();
+		    	$("#id_menu_col_top1").hide();
+		    	$("#id_menu_col_top2").show();
+		    	$("#id_menu_col_top3").show();
+		    	$("#id_menu_col_top4").show();
+		    	$(".class_menu_defaultprice").hide();
+		    	$(".class_menu_storeprice").show();
+		    	$(".class_menu_deliveryprice").show();
+		    	$(".class_menu_takeoutprice").show();
 				$("#id_menu_save").addClass("class_long_save").removeClass("class_short_save");
+				
 			}else{
-				$("#id_long_menu").hide();
-				$("#id_short_menu").show();
+				
+				$("#id_menu_tab_top1").show();
+				$("#id_menu_tab_top2").hide();
+		    	$("#id_menu_tab_top3").hide();
+		    	$("#id_menu_tab_top4").hide();
+		    	$("#id_menu_col_top1").show();
+		    	$("#id_menu_col_top2").hide();
+		    	$("#id_menu_col_top3").hide();
+		    	$("#id_menu_col_top4").hide();
+		    	$(".class_menu_defaultprice").show();
+		    	$(".class_menu_storeprice").hide();
+		    	$(".class_menu_deliveryprice").hide();
+		    	$(".class_menu_takeoutprice").hide();
 				$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
+				
 			}
 		})
 		$(".class_menu_save").click(function(e){
-			e.preventDefault();
-			if($(".class_menu_check").is(":checked")){
-				updateLongMenu();
-			}else{
-				updateShortMenu();
-			}			
+			e.preventDefault();			
+				updateShortMenu();						
 			location.reload();
 	    });
 		$("#id_menu_delete").click(function(e){
 			e.preventDefault();
-			$(this).remove();			
+			if(!confirm("delete??")){
+				return false;
+			}			
+			$('tr.class_menu_main_view').each(function(){
+				if($(this).find("input:eq(0)").is(":checked")){
+					$(this).attr("isdeleted", "Y");
+					menuSave();
+				}
+			})
+			location.reload();						
 	    });
 		
 		$("#menu-page .class_category_area > li").click(function(e){
@@ -119,11 +163,6 @@ window.bapdosa.menu = (function() {
 			}
 		})
 				
-			
-		$('tr.class_short_menu_main').find("input:eq(0)").change(function(e){
-			e.preventDefault();				
-			
-		})
 		
 		$(".class_point_check").change(function(e){
 			e.preventDefault();			
@@ -141,30 +180,42 @@ window.bapdosa.menu = (function() {
 		})
 		
 		$("#id_menu_add_row").click(function(){
-			var memberid = $("tr.class_short_menu_main").attr('memberid');
-			var deviceid = $("tr.class_short_menu_main").attr('deviceid');
-			var categoryid = $("tr.class_short_menu_main").attr('categoryid');
-			var sortorder = parseInt($("tr.class_short_menu_main").last().attr('sortorder')) + 1;
+			var memberid = $("tr.class_menu_main_view").attr('memberid');
+			var deviceid = $("tr.class_menu_main_view").attr('deviceid');
+			var categoryid = $("tr.class_menu_main_view").attr('categoryid');
+			var sortorder = parseInt($("tr.class_menu_main_view").last().attr('sortorder')) + 1;
 			var menuid = 'temp_' + new Date().getTime();
+			var storeprice;
+			var deliveryprice;
+			var takeoutprice;
+			var ishidden = $("tr.class_menu_main_view").attr('ishidden');
+			var isdeleted = $("tr.class_menu_main_view").attr('isdeleted');
 			
-			var data = "<tr class=\"class_short_menu_main class_menu_main_delete\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" >" + 
+			var data =  "<tr class=\"class_menu_main_view\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" storeprice=\""+storeprice +"\" deliveryprice=\""+deliveryprice +"\" takeoutprice=\""+takeoutprice +"\" ishidden=\""+ishidden +"\" isdeleted=\""+isdeleted +"\">" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_defaultprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_storeprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_deliveryprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_takeoutprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td><label>" + "<input type=\"checkbox\" />" + "</label></td>" +
-					     "</tr>"
-						
-			var data1 = "<tr class=\"class_long_menu_main class_menu_main_delete\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" >" + 
-						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td><label>" + "<input type=\"checkbox\" />" + "</label></td>" +
-					     "</tr>"
+					     "</tr>"			
 			
 			$("#id_tbodylist > tbody:last").append(data);
-			$("#id_tbodylist2 > tbody:last").append(data1);
+			
+			if($(".class_menu_check").is(":checked")){
+				$(".class_menu_defaultprice").hide();
+		    	$(".class_menu_storeprice").show();
+		    	$(".class_menu_deliveryprice").show();
+		    	$(".class_menu_takeoutprice").show();				
+				
+			}else{
+				$(".class_menu_defaultprice").show();
+		    	$(".class_menu_storeprice").hide();
+		    	$(".class_menu_deliveryprice").hide();
+		    	$(".class_menu_takeoutprice").hide();								
+				
+			}
 		});
 		
 		$(".class_menu_pop").change(function(){
@@ -272,8 +323,11 @@ window.bapdosa.menu = (function() {
 		if(!confirm("저장하시겠습니까?")){
 			return false;
 		}
+		menuSave();			
 		
-		$("tr.class_short_menu_main").each(function() {			 
+	}
+	function menuSave(){
+		$("tr.class_menu_main_view").each(function() {			 
 			
 			 var catemenuname = $(this).attr('catemenuname');
 			 var catemenuname2 = $(this).find("input:eq(1)").val();
@@ -298,11 +352,50 @@ window.bapdosa.menu = (function() {
 			 }else {
 				 defaultprice;
 			 }
-			 var storeprice = defaultprice;			 
-			 var deliveryprice = defaultprice;			 
-			 var takeoutprice = defaultprice;			
+			 var storeprice = $(this).attr('storeprice');
+			 if(storeprice == "" || storeprice == "undefined"){
+			     storeprice =  defaultprice2;
+			 }else{
+				 var storeprice2 = $(this).find("input:eq(3)").val();
+				 if(storeprice != storeprice2){	
+					 storeprice = storeprice2;
+				 }else {
+					 storeprice;
+				 }
+			 }
+			
+			 var deliveryprice = $(this).attr('deliveryprice');
+			 if(deliveryprice == "" || deliveryprice == "undefined"){
+				 deliveryprice = defaultprice;
+			 }else{
+				 deliveryprice = $(this).attr('deliveryprice');
+				 var deliveryprice2 = $(this).find("input:eq(4)").val();
+				 if(deliveryprice != deliveryprice2){	
+					 deliveryprice = deliveryprice2;
+				 }else {
+					 deliveryprice;
+				 }
+			 }
+			 var takeoutprice = $(this).attr('takeoutprice');
+			 if(takeoutprice == "" || takeoutprice == "undefined"){
+				 takeoutprice = defaultprice;
+			 }else{
+				 takeoutprice = $(this).attr('takeoutprice');
+				 var takeoutprice2 = $(this).find("input:eq(5)").val();
+				 if(takeoutprice != takeoutprice2){	
+					 takeoutprice = takeoutprice2;
+				 }else {
+					 takeoutprice;
+				 }
+			 }
+			 
+			 var ishidden = $(this).attr('ishidden');
+			 var isdeleted = $(this).attr('isdeleted');
+			 
 			// var defaultprice = $(this).attr('defaultprice');			 
-			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice;
+			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + 
+			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted;
+			 //alert(param);
 			 if(menuid){
 				 var url = "MenuUpdatetOk.json";
 			 }else{
@@ -332,8 +425,7 @@ window.bapdosa.menu = (function() {
 					}
 				}
 			 });	
-		});		
-		
+		});	
 	}
 	
     function updateLongMenu(){
@@ -342,7 +434,7 @@ window.bapdosa.menu = (function() {
 			return false;
 		}
 		
-		$("tr.class_long_menu_main").each(function() {			 
+		$("tr.class_menu_main_view").each(function() {			 
 			
 			 var catemenuname = $(this).attr('catemenuname');
 			 var catemenuname2 = $(this).find("input:eq(1)").val();
@@ -360,21 +452,21 @@ window.bapdosa.menu = (function() {
 			 var defaultprice = $(this).attr('defaultprice');
 			 
 			 var storeprice = $(this).attr('storeprice');
-			 var storeprice2 = $(this).find("input:eq(2)").val();
-			 if(storeprice != storeprice2){			 
+			 var storeprice2 = $(this).find("input:eq(3)").val();
+			 if(storeprice != storeprice2){	
 				 storeprice = storeprice2;
 			 }else {
 				 storeprice;
-			 }	
+			 }
 			 var deliveryprice = $(this).attr('deliveryprice');
-			 var deliveryprice2 = $(this).find("input:eq(3)").val();
+			 var deliveryprice2 = $(this).find("input:eq(4)").val();
 			 if(deliveryprice != deliveryprice2){			 
 				 deliveryprice = deliveryprice2;
 			 }else {
 				 deliveryprice;
 			 }
 			 var takeoutprice = $(this).attr('takeoutprice');
-			 var takeoutprice2 = $(this).find("input:eq(4)").val();
+			 var takeoutprice2 = $(this).find("input:eq(5)").val();
 			 if(takeoutprice != takeoutprice2){			 
 				 takeoutprice = takeoutprice2;
 			 }else {
