@@ -26,7 +26,11 @@
 		<div class="menu_tab">
 			<ul>
 				<li><a href="/pos/category/categoryManage.do" data-ajax="false">카테고리 편집</a></li>
-				<li><a href="/pos/category/categoryMenuManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false" class="on">메뉴추가</a></li>
+				<c:forEach var="category" items="${categoryList}" varStatus="status">
+				<c:if test="${status.first}">
+				<li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false" class="on">메뉴추가</a></li>
+				</c:if>
+				</c:forEach>
 				<li><a href="/pos/category/categoryPointManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">포인트/할인율 설정</a></li>
 			</ul>
 		</div>
@@ -36,7 +40,7 @@
 				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.ISETC == 'N'}">
-					   <li value="${status.count}" tabcateid=${category.CATEGORYID}><a href="#" data-ajax="false">${category.NAME}</a></li>
+					   <li value="${status.count}" tabcateid="${category.CATEGORYID}" ><a href="#" data-ajax="false">${category.NAME}</a></li>
 					</c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
@@ -48,68 +52,41 @@
 			<div class="price_other">
 				<input type="checkbox" id="pr_other" class="class_menu_check" name="name_memu_add"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
 				<span class="ps">금액(천단위)</span>
-			</div>
-			<!--s: 입력목록 -->
-			<div class="write" id="id_short_menu">
+			</div>		
+			<!--s: 입력목록(매장/배달/포장 금액 다를경우) -->
+			<div class="write" id="id_long_menu">
 				<table id="id_tbodylist" class="class_tbodylist">
 					<colgroup>
 						<col width="10%" />
 						<col width="*" />
-						<col width="30%" />
+						<col id="id_menu_col_top1" width="30%" />
+						<col id="id_menu_col_top2" width="12%" />
+						<col id="id_menu_col_top3" width="12%" />
+						<col id="id_menu_col_top4" width="12%" />
 						<col width="10%" />
 					</colgroup>
 					<thead>
 						<tr>
 							<th scope="col"></th>
 							<th class="class_menu_tab_top" scope="col">요리류 메뉴</th>
-							<th scope="col">금액</th>
-							<th scope="col">숨김</th>
-						</tr>
-					</thead>
-					<tbody>					
-					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
-							<tr class="class_short_menu_main class_menu_main_delete" totalcount= "${status.count}" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}">
-								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
-								<td><input type="text" class="class_menu_name_${status.count}" data-role="none" value="${categoryMenu.NAME}" inputcatename="${categoryMenu.NAME}"/></td>
-								<td><input type="text" class="class_menu_storeprice_${status.count}" data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>
-								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
-							</tr>
-						</c:forEach>
-											
-					</tbody>
-				</table>
-			</div>
-			<!--e: 입력목록 -->
-			<!--s: 입력목록(매장/배달/포장 금액 다를경우) -->
-			<div class="write" id="id_long_menu" style="display:none">
-				<table id="id_tbodylist2" class="class_tbodylist">
-					<colgroup>
-						<col width="10%" />
-						<col width="*" />
-						<col width="12%" />
-						<col width="12%" />
-						<col width="12%" />
-						<col width="10%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th class="class_menu_tab_top" scope="col">요리류 메뉴</th>
-							<th scope="col">매장</th>
-							<th scope="col">배달</th>
-							<th scope="col">포장</th>
+							<th scope="col" id="id_menu_tab_top1">금액</th>
+							<th scope="col" id="id_menu_tab_top2">매장</th>
+							<th scope="col" id="id_menu_tab_top3">배달</th>
+							<th scope="col" id="id_menu_tab_top4">포장</th>
 							<th scope="col">숨김</th>
 						</tr>
 					</thead>
 					<tbody >
-					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="longStatus">
-							<tr class="class_long_menu_main class_menu_main_delete" memberid="${categoryMenu.MEMBERID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}">
-								<td><label><input type="checkbox" class="class_menu_check_${longStatus.count}" /></label></td>
-								<td><input type="text" class="class_menu_name_${longStatus.count}" data-role="none" value="${categoryMenu.NAME}"/></td>
-								<td><input type="text" class="class_menu_storeprice_${longStatus.count}" data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
-								<td><input type="text" class="class_menu_deliveryprice_${longStatus.count}" data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
-								<td><input type="text" class="class_menu_takeoutprice_${longStatus.count}" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
-								<td><label><input type="checkbox" class="class_menu_hidden_${longStatus.count}" /></label></td>
+					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
+							<tr class="class_menu_main_view" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" 
+							defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}" ishidden="${categoryMenu.ISHIDDEN}" isdeleted="${categoryMenu.ISDELETED}">
+								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
+								<td><input type="text" class="class_menu_name" data-role="none" value="${categoryMenu.NAME}"/></td>
+								<td class="class_menu_defaultprice"><input type="text"  data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>
+								<td class="class_menu_storeprice"><input type="text"  data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
+								<td class="class_menu_deliveryprice"><input type="text"  data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
+								<td class="class_menu_takeoutprice" ><input type="text" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
+								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
 							</tr>
 						</c:forEach>
 					</tbody>

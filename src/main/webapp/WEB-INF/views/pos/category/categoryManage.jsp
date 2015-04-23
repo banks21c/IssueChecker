@@ -27,7 +27,11 @@
 		<div class="menu_tab">
 			<ul>
 				<li><a href="/pos/category/categoryManage.do" data-ajax="false" class="on">카테고리 편집</a></li>
-				<li><a href="/pos/category/categoryMenuManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">메뉴추가</a></li>
+				<c:forEach var="category" items="${categoryList}" varStatus="status">
+				<c:if test="${status.first}">
+				<li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false">메뉴추가</a></li>
+				</c:if>
+				</c:forEach>
 				<li><a href="/pos/category/categoryPointManage.do?categoryid=20150420144440.115c265cb64c5329d2cb047f19503b45590" data-ajax="false">포인트/할인율 설정</a></li>
 			</ul>
 		</div>       
