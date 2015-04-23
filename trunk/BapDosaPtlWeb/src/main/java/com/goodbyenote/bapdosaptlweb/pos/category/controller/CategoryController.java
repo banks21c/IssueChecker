@@ -175,10 +175,12 @@ public class CategoryController {
 		//HashMap searchCondition = new HashMap();
 		String categoryid = (String)parametaMap.get("categoryid");
 		String iseditable = "Y";
+		String isdeleted = "N";
 		
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("categoryid", categoryid);
 		parametaMap.put("iseditable", iseditable);
+		parametaMap.put("isdeleted", isdeleted);
 		
 		List<Map> categoryList = categoryService.getCategoryJsonList(parametaMap);
 		List<Map> categoryMenuList = categoryService.getCategoryMenuList(parametaMap);

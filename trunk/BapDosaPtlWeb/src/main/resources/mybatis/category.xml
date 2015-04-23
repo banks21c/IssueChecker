@@ -122,7 +122,7 @@
 		MODIFICATIONDATE
 		
 	FROM MENU
-	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid} AND ISDELETED = #{isdeleted}
     ORDER BY SORTORDER 
 	</select>
 	
@@ -176,7 +176,8 @@
 				#{defaultprice},
 				#{storeprice},
 				#{deliveryprice},
-				#{takeoutprice}				
+				#{takeoutprice}
+									
 		       )
 	</insert>
 	
@@ -191,7 +192,9 @@
 	            DEFAULTPRICE        = #{defaultprice , jdbcType=NUMERIC},
 	            STOREPRICE          = #{storeprice , jdbcType=NUMERIC},
 	            DELIVERYPRICE	    = #{deliveryprice , jdbcType=NUMERIC},
-	            TAKEOUTPRICE        = #{takeoutprice , jdbcType=NUMERIC}	       
+	            TAKEOUTPRICE        = #{takeoutprice , jdbcType=NUMERIC},
+	            ISHIDDEN            = #{ishidden , jdbcType=VARCHAR},
+	            ISDELETED           = #{isdeleted , jdbcType=VARCHAR}	       
 		       
 		WHERE  MEMBERID         = #{memberid , jdbcType=VARCHAR}
 		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
