@@ -26,8 +26,16 @@
 		<div class="menu_tab">
 			<ul>
 				<li><a href="/pos/category/categoryManage.do" data-ajax="false">카테고리 편집</a></li>
-				<li><a href="/pos/category/categoryMenuManage.do?categoryid=1" data-ajax="false">메뉴추가</a></li>
-				<li><a href="/pos/category/categoryPointManage.do?categoryid=1" data-ajax="false" class="on">포인트/할인율 설정</a></li>
+				<c:forEach var="category" items="${categoryList}" varStatus="status">
+				<c:if test="${status.first}">
+				<li><a href="/pos/category/categoryMenuManage.do?categoryid=${category.CATEGORYID}" data-ajax="false">메뉴추가</a></li>
+				</c:if>
+				</c:forEach>
+				<c:forEach var="category" items="${categoryList}" varStatus="status">
+				<c:if test="${status.first}">
+				<li><a href="/pos/category/categoryPointManage.do?categoryid=${category.CATEGORYID}" data-ajax="false" class="on">포인트/할인율 설정</a></li>
+				</c:if>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="discount_time">
@@ -35,12 +43,15 @@
 		</div>
 		<div class="food_list">
 			<div class="tab">
-				<ul>
-					<li id=""><a href="/pos/category/categoryPointManage.do?categoryid=1" data-ajax="false">요리류</a></li>
-					<li id=""><a href="/pos/category/categoryPointManage.do?categoryid=2" data-ajax="false">식사류</a></li>
-					<li id="" ><a href="/pos/category/categoryPointManage.do?categoryid=3" data-ajax="false">주류</a></li>
-					<li id=""><a href="/pos/category/categoryPointManage.do?categoryid=4" data-ajax="false">음료류</a></li>
-					<li id=""><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
+				<ul class="class_category_area">
+					<c:forEach var="category" items="${categoryList}" varStatus="status">
+				    <c:if test="${category.ISETC == 'N'}">
+					   <li value="${status.count}" tabpointid="${category.CATEGORYID}" ><a href="#" data-ajax="false">${category.NAME}</a></li>
+					</c:if>
+					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
+					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
+				</c:forEach>
+					<li id=""><a href="#others_menu1" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
 				</ul>
 			</div>
 			<div class="price_other">
@@ -54,57 +65,41 @@
 				</div>
 				<!--e: 매장/배달/포장 금액 다를경우 나타남 -->
 			</div>
-			<!--s: 입력목록 -->
-			<div class="write bnone" id="id_short_point_menu">
-				<table>
-					<colgroup>
-						<col width="*" />
-						<col width="20%" />
-						<col width="20%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th scope="col">요리류 메뉴</th>
-							<th scope="col">포인트</th>
-							<th scope="col">할인율</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="categoryPoint" items="${categoryPointList}">
-							<tr>								
-								<td><input type="text" id="" data-role="none" value="${categoryPoint.name}"/></td>
-								<td><input type="text" id="" data-role="none" value=""/></td>
-								<td><input type="text" id="" data-role="none" value=""/></td>							
-							</tr>
-						</c:forEach>	
-					</tbody>
-				</table>
-			</div>
-			<!--e: 입력목록 -->
 			<!--s: 입력목록(매장/배달/포장 금액 다를경우) -->
-			<div class="write bnone" id="id_long_point_menu" style="display:none">
-				<table>
+			<div class="write" id="id_long_menu">
+				<table id="id_tbodylist" class="class_tbodylist">
 					<colgroup>
 						<col width="*" />
-						<col width="14%" />
-						<col width="14%" />
-						<col width="14%" />
+						<col id="id_point_col_top1" width="20%" />
+						<col id="id_point_col_top2" width="20%" />
+						<col id="id_point_col_top3" width="14%" />
+						<col id="id_point_col_top4" width="14%" />
+						<col id="id_point_col_top5" width="14%" />
 					</colgroup>
 					<thead>
 						<tr>
-							<th scope="col">요리류 메뉴</th>
-							<th scope="col">매장</th>
-							<th scope="col">배달</th>
-							<th scope="col">포장</th>
+							<th class="class_point_tab_top" scope="col">요리류 메뉴</th>
+							<th scope="col" id="id_point_tab_top1">포인트</th>
+							<th scope="col" id="id_point_tab_top2">할인율</th>
+							<th scope="col" id="id_point_tab_top3">매장</th>
+							<th scope="col" id="id_point_tab_top4">배달</th>
+							<th scope="col" id="id_point_tab_top5">포장</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="categoryPoint" items="${categoryPointList}">
-							<tr>								
-								<td><input type="text" id="" data-role="none" value="${categoryPoint.name}"/></td>
-								<td><input type="text" id="" data-role="none" value=""/></td>
-								<td><input type="text" id="" data-role="none" value=""/></td>
-								<td><input type="text" id="" data-role="none" value=""/></td>							
+					<tbody >
+					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
+							<tr class="class_point_main_view" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" 
+							defaultpoint = "${categoryMenu.DEFAULTPOINT}" storepoint = "${categoryMenu.STOREPOINT}" deliverypoint="${categoryMenu.DELIVERYPOINT}" takeoutpoint="${categoryMenu.TAKEOUTPOINT}" 
+							defaultdiscount = "${categoryMenu.DEFAULTDISCOUNT}" storediscount = "${categoryMenu.STOREDISCOUNT}" deliverydiscount="${categoryMenu.DELIVERYDISCOUNT}" takeoutdiscount="${categoryMenu.TAKEOUTDISCOUNT}" menuFlag="false">
+								<td><input type="text" class="class_point_name" data-role="none" value="${categoryMenu.NAME}"/></td>
+								<td class="class_point_point"><input type="text"  data-role="none" value="${categoryMenu.STOREPOINT}"/></td>
+								<td class="class_point_storediscount"><input type="text"  data-role="none" value="${categoryMenu.STOREDISCOUNT}"/></td>
+								<td class="class_point_storepoint"><input type="text"  data-role="none" value="${categoryMenu.STOREPOINT}"/></td>
+								<td class="class_point_deliverypoint"><input type="text"  data-role="none" value="${categoryMenu.DELIVERYPOINT}"/></td>
+								<td class="class_point_takeoutpoint" ><input type="text" data-role="none" value="${categoryMenu.TAKEOUTPOINT}"/></td>
+								<td class="class_point_storediscount1"><input type="text"  data-role="none" value="${categoryMenu.STOREDISCOUNT}"/></td>								
+								<td class="class_point_deliverydiscount"><input type="text"  data-role="none" value="${categoryMenu.DELIVERYDISCOUNT}"/></td>
+								<td class="class_point_takeoutdiscount" ><input type="text" data-role="none" value="${categoryMenu.TAKEOUTDISCOUNT}"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -208,19 +203,20 @@
 	<!--e: 할인시간대 설정 팝업 -->
 
 	<!-- s: 기타 팝업 -->
-	<div data-role="popup" id="others_menu" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+	<div data-role="popup" id="others_menu1" data-overlay-theme="b" data-theme="a" data-dismissible="false">
 		<div data-role="header" data-theme="a">
 			<h1>기타메뉴 입력, 편집</h1>
-			<a href="#" data-rel="back" data-role="none" id="id_etc_point_close" class="close ui-btn-right"></a>
+			<a href="#" data-rel="back" data-role="none" id="id_etc_menu_close" class="close ui-btn-right"></a>
 		</div>
 		<div role="main" class="ui-content">
 			<div class="menu_list">
 				<ul>
-					<li><input type="radio" id="po_otherL_01" name="po_otherL" class="class_point_pop" data-role="none" /><label for="otherL_01">점심특선</label></li>
-					<li><input type="radio" id="po_otherL_02" name="po_otherL" class="class_point_pop" data-role="none" /><label for="otherL_02">셋트메뉴</label></li>
-					<li><input type="radio" id="po_otherL_03" name="po_otherL" class="class_point_pop" data-role="none" /><label for="otherL_03">할인메뉴</label></li>
-					<li><input type="radio" id="po_otherL_04" name="po_otherL" class="class_point_pop" data-role="none" /><label for="otherL_04">포장메뉴</label></li>
-					<li><input type="radio" id="po_otherL_05" name="po_otherL" class="class_point_pop" data-role="none" /><label for="otherL_05">서비스</label></li>
+					<c:forEach var="category" items="${categoryList}" varStatus="status">
+				    <c:if test="${category.ISETC == 'Y'}">
+						<li><input type="radio" id="otherL_${category.SORTORDER}" name="otherL_point" etcpointid="${category.CATEGORYID}" value="${category.SORTORDER}" class="class_point_pop"/><label for="otherL_${category.SORTORDER}">${category.NAME}</label></li>
+						
+					</c:if>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
