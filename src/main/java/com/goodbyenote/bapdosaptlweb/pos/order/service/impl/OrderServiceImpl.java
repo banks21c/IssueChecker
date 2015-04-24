@@ -166,6 +166,12 @@ public class OrderServiceImpl implements OrderService {
 				
 			}
 		);
+		
+		//orderDataList 에 없는 orderdetail id 리스트 삭제
+		Map delMap = new HashMap();
+		delMap.put("orderId", orderId);
+		delMap.put("orderDataList", orderDataList);
+		orderDAO.deleteOrderDetailList(delMap);
 				
 		return 1;
 	}

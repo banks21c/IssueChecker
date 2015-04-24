@@ -23,6 +23,8 @@ $(document).on("mobileinit", function () {
 
 window.bapdosa.posmain = (function() {	
 	
+	var timeoutVar;
+	
 	function eventReg(){
 
 	}
@@ -36,6 +38,8 @@ window.bapdosa.posmain = (function() {
 
 			console.log(returnObj);
 			
+
+			
 			//기존 리스트 삭제
 			var ulList = $("#pos-main .table_map ul");
 			ulList.empty();
@@ -44,7 +48,7 @@ window.bapdosa.posmain = (function() {
 				console.log(obj);
 				
 				var div = $("<div>").addClass("table_info");
-				var a = $("<a>");	
+				var a = $("<a>", { href: "#"});	
 				//현재 주문이 있는경우 
 				if(obj.ORDERID){
 					div.addClass("active");
@@ -55,36 +59,66 @@ window.bapdosa.posmain = (function() {
 //					</span>
 //					<span class="connect">연결(+9)</span>
 //					<span class="sales">999</span>	
-					
+//					console.log(moment().valueOf());
+//					console.log(new Date().getTime());
+
+//					var usedHours = moment(obj.CREATIONDATE_STR, "YYYYMMDD HH:mm:ss").fromNow();
 					a.append(
 							//사용시간넣기
-							$("<span>").addClass("in_time").text("1:02")
+							$("<span>", {
+								creationDate: obj.CREATIONDATE_STR
+							}).addClass("in_time").text(window.bapdosa.util.getUsedDateFromNow(obj.CREATIONDATE_STR))
 					);
-					a.append(
-							$("<span>").addClass("ico_list")
-									   .append( $("<span>").addClass("ico")
-											   			   .addClass("m")
-											   			   .text("M")											   
-									   )
-									   .append( $("<span>").addClass("ico")
-											   			   .addClass("p")
-											   			   .text("포")
-											   
-									   )
-									   .append( $("<span>").addClass("ico")
-											   			   .addClass("s")
-											   			   .text("서")
-											   
-									   )
-									   .append( $("<span>").addClass("ico")
-											   			   .addClass("b")
-											   			   .text("대")
-											   
-									   )
-					);
+					
+					if(obj.TAKEOUTCOUNT > 0 || obj.SERVICECOUNT > 0){
+						
+						var pspan = $("<span>").addClass("ico_list");
+						//포장이있을시
+						if(obj.TAKEOUTCOUNT > 0){
+							pspan.append(
+									$("<span>").addClass("ico")
+						   			   .addClass("p")
+						   			   .text("포")									
+							);
+						}
+						//서비스가 있을시
+						if(obj.SERVICECOUNT > 0){
+							pspan.append(
+									$("<span>").addClass("ico")
+						   			   .addClass("s")
+						   			   .text("서")									
+							);
+						}						
+					
+//						a.append(
+//								$("<span>").addClass("ico_list")
+//										   .append( $("<span>").addClass("ico")
+//												   			   .addClass("m")
+//												   			   .text("M")											   
+//										   )
+//										   .append( $("<span>").addClass("ico")
+//												   			   .addClass("p")
+//												   			   .text("포")
+//												   
+//										   )
+//										   .append( $("<span>").addClass("ico")
+//												   			   .addClass("s")
+//												   			   .text("서")
+//												   
+//										   )
+//										   .append( $("<span>").addClass("ico")
+//												   			   .addClass("b")
+//												   			   .text("대")
+//												   
+//										   )
+//						);
+						
+						a.append(pspan);
+					
+					}
 					a.append(
 							//사용금액
-							$("<span>").addClass("sales").text(obj.SUM_PRICE)
+							$("<span>").addClass("sales").text(window.bapdosa.util.setComma(parseInt(obj.SUM_PRICE/1000)))
 					);
 					
 				}
@@ -99,6 +133,8 @@ window.bapdosa.posmain = (function() {
 					  .append(div));
 				
 			});
+			
+			timeoutVar = setTimeout(refreshUsedDate, 60000);
 			
 			$("#pos-main .table_map ul > li").click(function(e){
 				e.preventDefault();
@@ -117,6 +153,17 @@ window.bapdosa.posmain = (function() {
 		};
 
 		commonAjaxCall(url, param, success);		
+	}
+	
+	function refreshUsedDate(){
+		
+		if(timeoutVar){
+			$("#pos-main .table_map ul .in_time").each(function(){
+				$(this).text(window.bapdosa.util.getUsedDateFromNow($(this).attr("creationDate")));
+			});
+			
+			timeoutVar = setTimeout(refreshUsedDate, 60000);
+		}
 	}
 	
 	return {
