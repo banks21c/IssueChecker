@@ -228,21 +228,26 @@ public class CategoryController {
 	@RequestMapping("/pos/category/categoryPointManage")
 	public String getCategoryPointList( Model model, @RequestParam Map parametaMap, HttpServletRequest request, HttpSession httpSession) {
 		
-		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+        SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
-		HashMap searchCondition = new HashMap();
+		//HashMap searchCondition = new HashMap();
 		String categoryid = (String)parametaMap.get("categoryid");
-		String iseditable = (String)parametaMap.get("iseditable");
+		String iseditable = "Y";
+		String isdeleted = "N";
 		
-		searchCondition.put("memberid", sessionUserInfo.getMemberId());
-		searchCondition.put("categoryid", categoryid);
-		searchCondition.put("iseditable", "Y");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("categoryid", categoryid);
+		parametaMap.put("iseditable", iseditable);
+		parametaMap.put("isdeleted", isdeleted);
 		
-		List<Map> categoryPointList = categoryService.getCategoryPointList(searchCondition);
-		logger.debug("categoryPointList: " + categoryPointList);
+		List<Map> categoryList = categoryService.getCategoryJsonList(parametaMap);
+		List<Map> categoryMenuList = categoryService.getCategoryMenuList(parametaMap);
+		logger.debug("categoryMenuList: " + categoryMenuList);
 		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
-		model.addAttribute("categoryPointList", categoryPointList);
-		model.addAttribute("parametaMap", parametaMap);	
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("categoryMenuList", categoryMenuList);
+		model.addAttribute("parametaMap", parametaMap);
+		logger.debug("###########parametaMap: " + parametaMap);
 		
 		return "pos/category/categoryPointManage";
 	}

@@ -43,11 +43,13 @@
 		CATEGORYID,
 		MENUID,
 		NAME,
-		SORTORDER,
-		DEFAULTPRICE,
+		SORTORDER,		
 		STOREPRICE,
 		DELIVERYPRICE,
 		TAKEOUTPRICE,
+		DEFAULTPOINT,
+		STOREPOINT,
+		DELIVERYPOINT,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -106,11 +108,13 @@
 		CATEGORYID,
 		MENUID,
 		NAME,
-		SORTORDER,
-		DEFAULTPRICE,
+		SORTORDER,		
 		STOREPRICE,
 		DELIVERYPRICE,
 		TAKEOUTPRICE,
+		DEFAULTPOINT,
+		STOREPOINT,
+		DELIVERYPOINT,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -133,11 +137,13 @@
 		CATEGORYID,
 		MENUID,
 		NAME,
-		SORTORDER,
-		DEFAULTPRICE,
+		SORTORDER,		
 		STOREPRICE,
 		DELIVERYPRICE,
 		TAKEOUTPRICE,
+		DEFAULTPOINT,
+		STOREPOINT,
+		DELIVERYPOINT,
 		TAKEOUTPOINT,
 		DEFAULTDISCOUNT,
 		STOREDISCOUNT,
@@ -149,7 +155,7 @@
 		MODIFICATIONDATE
 		
 	FROM MENU
-	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid}
+	WHERE MEMBERID = #{memberid} AND CATEGORYID= #{categoryid} AND ISDELETED = #{isdeleted}
     ORDER BY SORTORDER 
 	</select>
 	
@@ -160,8 +166,7 @@
 	            CATEGORYID,
 	            MENUID,
 	            NAME,
-	            SORTORDER,
-	            DEFAULTPRICE,
+	            SORTORDER,	            
 	            STOREPRICE,
 	            DELIVERYPRICE,
 	            TAKEOUTPRICE	            
@@ -172,8 +177,7 @@
 				#{categoryid},
 				#{menuid},
 				#{name},
-				#{sortorder},
-				#{defaultprice},
+				#{sortorder},				
 				#{storeprice},
 				#{deliveryprice},
 				#{takeoutprice}
@@ -188,8 +192,7 @@
 		        MENUID              = #{menuid, jdbcType=NUMERIC},	        
 	            CATEGORYID          = #{categoryid , jdbcType=NUMERIC},
 	            NAME                = #{name , jdbcType=VARCHAR},
-	            SORTORDER           = #{sortorder , jdbcType=NUMERIC},
-	            DEFAULTPRICE        = #{defaultprice , jdbcType=NUMERIC},
+	            SORTORDER           = #{sortorder , jdbcType=NUMERIC},	           
 	            STOREPRICE          = #{storeprice , jdbcType=NUMERIC},
 	            DELIVERYPRICE	    = #{deliveryprice , jdbcType=NUMERIC},
 	            TAKEOUTPRICE        = #{takeoutprice , jdbcType=NUMERIC},
