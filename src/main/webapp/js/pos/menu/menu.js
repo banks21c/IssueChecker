@@ -23,18 +23,31 @@ window.bapdosa.menu = (function() {
 	var sortorder = parseInt($("tr.class_menu_main_view").last().attr('sortorder')) + 1;
 	var menuid = 'temp_' + new Date().getTime();
 	
-    function eventReg(){  
+	
+    function eventReg(){      	
     	
-    	$("#id_menu_tab_top2").hide();
     	$("#id_menu_tab_top3").hide();
     	$("#id_menu_tab_top4").hide();
-    	$("#id_menu_col_top1").show();
-    	$("#id_menu_col_top2").hide();
+    	//$("#id_menu_col_top1").show();
     	$("#id_menu_col_top3").hide();
     	$("#id_menu_col_top4").hide();
-    	$(".class_menu_storeprice").hide();
     	$(".class_menu_deliveryprice").hide();
     	$(".class_menu_takeoutprice").hide();
+    	
+    	$("#id_point_tab_top3").hide();
+    	$("#id_point_tab_top4").hide();
+    	$("#id_point_tab_top5").hide();
+    	$("#id_point_col_top1").show();
+    	$("#id_point_col_top2").show();
+    	$("#id_point_col_top3").hide();
+    	$("#id_point_col_top4").hide();
+    	$("#id_point_col_top5").hide();
+    	$(".class_point_storepoint").hide();    	
+    	$(".class_point_deliverypoint").hide();
+    	$(".class_point_takeoutpoint").hide();
+    	$(".class_point_deliverydiscount").hide();
+    	$(".class_point_takeoutdiscount").hide();
+    	$(".class_point_storediscount1").hide(); 
     	
 		$("#id_cate_save").click(function(e){		
 			e.preventDefault();			
@@ -46,41 +59,100 @@ window.bapdosa.menu = (function() {
 			
 			if($(this).is(":checked")) {
 				
-				$("#id_menu_tab_top1").hide();
-				$("#id_menu_tab_top2").show();
+				//$("#id_menu_tab_top1").hide();
 		    	$("#id_menu_tab_top3").show();
 		    	$("#id_menu_tab_top4").show();
-		    	$("#id_menu_col_top1").hide();
-		    	$("#id_menu_col_top2").show();
 		    	$("#id_menu_col_top3").show();
 		    	$("#id_menu_col_top4").show();
-		    	$(".class_menu_defaultprice").hide();
-		    	$(".class_menu_storeprice").show();
+		    	
 		    	$(".class_menu_deliveryprice").show();
 		    	$(".class_menu_takeoutprice").show();
-				$("#id_menu_save").addClass("class_long_save").removeClass("class_short_save");
+				//$("#id_menu_save").addClass("class_long_save").removeClass("class_short_save");
+		    	$("tr.class_menu_main_view").attr("menuFlag" , "true");
 				
 			}else{
 				
-				$("#id_menu_tab_top1").show();
-				$("#id_menu_tab_top2").hide();
+				//$("#id_menu_tab_top1").show();
 		    	$("#id_menu_tab_top3").hide();
 		    	$("#id_menu_tab_top4").hide();
-		    	$("#id_menu_col_top1").show();
-		    	$("#id_menu_col_top2").hide();
 		    	$("#id_menu_col_top3").hide();
 		    	$("#id_menu_col_top4").hide();
-		    	$(".class_menu_defaultprice").show();
-		    	$(".class_menu_storeprice").hide();
 		    	$(".class_menu_deliveryprice").hide();
 		    	$(".class_menu_takeoutprice").hide();
-				$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
-				
+				//$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
+		    	$("tr.class_menu_main_view").attr("menuFlag" , "false");
 			}
 		})
+		
+		$(".class_point_check").change(function(e){
+			e.preventDefault();			
+			
+			if($(this).is(":checked")) {
+				
+				$("#id_point_tab_top1").hide();
+				$("#id_point_tab_top2").hide();
+		    	$("#id_point_tab_top3").show();
+		    	$("#id_point_tab_top4").show();
+		    	$("#id_point_tab_top5").show();
+		    	$("#id_point_col_top1").hide();
+		    	$("#id_point_col_top2").hide();
+		    	$("#id_point_col_top3").show();
+		    	$("#id_point_col_top4").show();
+		    	$("#id_point_col_top5").show();
+		    	$("#id_check_point_dc").show();
+				
+				if($("#id_dc_check_sub").hasClass("active")){
+					$(".class_point_storediscount1").show();
+					$(".class_point_deliverydiscount").show();
+					$(".class_point_takeoutdiscount").show();
+					$(".class_point_storepoint").hide();
+					$(".class_point_deliverypoint").hide();
+					$(".class_point_takeoutpoint").hide();
+					$(".class_point_point").hide();
+					$(".class_point_storediscount").hide();
+					
+				}else{				
+		    	
+			    	$(".class_point_storepoint").show();
+			    	$(".class_point_deliverypoint").show();
+			    	$(".class_point_takeoutpoint").show();
+			    	$(".class_point_storediscount").hide();
+			    	$(".class_point_point").hide();
+			    	$(".class_point_deliverydiscount").hide();
+			    	$(".class_point_takeoutdiscount").hide(); 
+				}		    	
+		    
+			}else{
+				
+				$("#id_point_tab_top1").show();
+				$("#id_point_tab_top2").show();
+		    	$("#id_point_tab_top3").hide();
+		    	$("#id_point_tab_top4").hide();
+		    	$("#id_point_tab_top5").hide();
+		    	$("#id_point_col_top1").show();
+		    	$("#id_point_col_top2").show();
+		    	$("#id_point_col_top3").hide();
+		    	$("#id_point_col_top4").hide();
+		    	$("#id_point_col_top5").hide();
+		    	
+		    	$(".class_point_point").show();
+		    	$(".class_point_storediscount").show();
+		    	$(".class_point_storepoint").hide();		    	
+		    	$(".class_point_deliverypoint").hide();
+		    	$(".class_point_takeoutpoint").hide();
+		    	$(".class_point_deliverydiscount").hide();
+		    	$(".class_point_takeoutdiscount").hide();
+		    	$(".class_point_storediscount1").hide();
+		    	
+		    	$("#id_check_point_dc").hide();
+				//$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
+		    	//$("tr.class_menu_main_view").attr("menuFlag" , "false");
+			}
+		})
+		
 		$(".class_menu_save").click(function(e){
 			e.preventDefault();			
-				updateShortMenu();						
+			updateShortMenu();						
 			location.reload();
 	    });
 		$("#id_menu_delete").click(function(e){
@@ -96,12 +168,33 @@ window.bapdosa.menu = (function() {
 			})
 			location.reload();						
 	    });
+		$("#id_dc_check_sub").click(function(e){
+			e.preventDefault();
+			$(this).addClass("active");
+			$("#id_point_check_sub").removeClass("active");
+			$(".class_point_storediscount1").show();
+			$(".class_point_deliverydiscount").show();
+			$(".class_point_takeoutdiscount").show();
+			$(".class_point_storepoint").hide();
+			$(".class_point_deliverypoint").hide();
+			$(".class_point_takeoutpoint").hide();
+	    });
+		$("#id_point_check_sub").click(function(e){
+			e.preventDefault();
+			$(this).addClass("active");
+			$("#id_dc_check_sub").removeClass("active");
+			$(".class_point_storediscount1").hide();
+			$(".class_point_deliverydiscount").hide();
+			$(".class_point_takeoutdiscount").hide();
+			$(".class_point_storepoint").show();
+			$(".class_point_deliverypoint").show();
+			$(".class_point_takeoutpoint").show();
+	    });
 		
 		$("#menu-page .class_category_area > li").click(function(e){
 			e.preventDefault();
 			var tabcateid= $(this).attr("tabcateid");
 			var url = '/pos/category/categoryMenuManage.do?categoryid=' + tabcateid ;
-			
 			if($(this).val() == 1){
 				$(location).attr('href',url);
 			}else if($(this).val() == 2){
@@ -112,6 +205,24 @@ window.bapdosa.menu = (function() {
 				$(location).attr('href',url);
 			}else{
 				$("#others_menu").popup( "open" );
+			}
+			$(this).addClass("on").siblings().removeClass("on");
+		});
+		
+		$("#point-page .class_category_area > li").click(function(e){
+			e.preventDefault();
+			var tabpointid= $(this).attr("tabpointid");
+			var url = '/pos/category/categoryPointManage.do?categoryid=' + tabpointid ;
+			if($(this).val() == 1){
+				$(location).attr('href',url);
+			}else if($(this).val() == 2){
+				$(location).attr('href',url);
+			}else if($(this).val() == 3){
+				$(location).attr('href',url);
+			}else if($(this).val() == 4){
+				$(location).attr('href',url);
+			}else{
+				$("#others_menu1").popup( "open" );
 			}
 			$(this).addClass("on").siblings().removeClass("on");
 		});
@@ -161,23 +272,7 @@ window.bapdosa.menu = (function() {
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_6').addClass("on");
 			}
-		})
-				
-		
-		$(".class_point_check").change(function(e){
-			e.preventDefault();			
-			
-			if($(this).is(":checked")) {
-				$("#id_long_point_menu").show();
-				$("#id_short_point_menu").hide();
-				$("#id_check_point_dc").show();
-				
-			}else{
-				$("#id_long_point_menu").hide();
-				$("#id_short_point_menu").show();
-				$("#id_check_point_dc").hide();
-			}
-		})
+		})	
 		
 		$("#id_menu_add_row").click(function(){
 			var memberid = $("tr.class_menu_main_view").attr('memberid');
@@ -193,8 +288,7 @@ window.bapdosa.menu = (function() {
 			
 			var data =  "<tr class=\"class_menu_main_view\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" storeprice=\""+storeprice +"\" deliveryprice=\""+deliveryprice +"\" takeoutprice=\""+takeoutprice +"\" ishidden=\""+ishidden +"\" isdeleted=\""+isdeleted +"\">" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
-						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td class=\"class_menu_defaultprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +						
 						"<td class=\"class_menu_storeprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td class=\"class_menu_deliveryprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
 						"<td class=\"class_menu_takeoutprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
@@ -204,14 +298,10 @@ window.bapdosa.menu = (function() {
 			$("#id_tbodylist > tbody:last").append(data);
 			
 			if($(".class_menu_check").is(":checked")){
-				$(".class_menu_defaultprice").hide();
-		    	$(".class_menu_storeprice").show();
 		    	$(".class_menu_deliveryprice").show();
 		    	$(".class_menu_takeoutprice").show();				
 				
 			}else{
-				$(".class_menu_defaultprice").show();
-		    	$(".class_menu_storeprice").hide();
 		    	$(".class_menu_deliveryprice").hide();
 		    	$(".class_menu_takeoutprice").hide();								
 				
@@ -245,27 +335,40 @@ window.bapdosa.menu = (function() {
 			}		
 		});
 		$(".class_point_pop").change(function(){
-			if($("#po_otherL_01").is(":checked")){	
-				$(parent.location).attr('href','/pos/category/categoryPointManage.do?categoryid=6');
+			var etcpointid= $(this).attr("etcpointid");
+			var url = '/pos/category/categoryPointManage.do?categoryid=' + etcpointid ;
+			
+			if($("input[name=otherL_point]:checked").val() == 5){	
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
-				$("#id_etc_point_close").click();
-			}else if($("#po_otherL_02").is(":checked")){			
-				$(parent.location).attr('href','/pos/category/categoryPointManage.do?categoryid=7');
+				//$("#id_etc_menu_close").click();
+			}else if($("input[name=otherL_point]:checked").val() == 6){	
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
-				$("#id_etc_point_close").click();
-			}else if($("#po_otherL_03").is(":checked")){
-				$(parent.location).attr('href','/pos/category/categoryPointManage.do?categoryid=8');
+				//$("#id_etc_menu_close").click();
+			}else if($("input[name=otherL_point]:checked").val() == 7){
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
-				$("#id_etc_point_close").click();
-			}else if($("#po_otherL_04").is(":checked")){
-				$(parent.location).attr('href','/pos/category/categoryPointManage.do?categoryid=9');
+				//$("#id_etc_menu_close").click();
+			}else if($("input[name=otherL_point]:checked").val() == 8){
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
-				$("#id_etc_point_close").click();
-			}else{
-				$(parent.location).attr('href','/pos/category/categoryPointManage.do?categoryid=10');
+				//$("#id_etc_menu_close").click();
+			}else if($("input[name=otherL_point]:checked").val() == 9){
+				$(parent.location).attr('href',url);
 				window.opener.parent.location.reload();
-				$("#id_etc_point_close").click();
+				//$("#id_etc_menu_close").click();
 			}		
+		});
+		
+		$("tr.class_menu_main_view").each(function() {
+			if( $(this).attr("ishidden") == "Y"){
+				$(this).find("label:eq(1)").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+				$(this).find("input:eq(6)").prop("checked", true).attr("data-cacheval" , false);
+			}else{
+				$(this).find("label:eq(1)").addClass("ui-checkbox-off").removeClass("ui-checkbox-on");
+				$(this).find("input:eq(6)").prop("checked", false).attr("data-cacheval" , true);
+			}
 		});
 		
 	}
@@ -344,15 +447,15 @@ window.bapdosa.menu = (function() {
 			 var menuid = ($(this).attr("menuid") || "").startsWith("temp_") ? "" : $(this).attr("menuid");
 			 var memberid = $(this).attr('memberid');
 			
-			 var defaultprice = $(this).attr('defaultprice');
-			 var defaultprice2 = $(this).find("input:eq(2)").val();
-			 
-			 if(defaultprice != defaultprice2){			 
-				 defaultprice = defaultprice2;
-			 }else {
-				 defaultprice;
-			 }
 			 var storeprice = $(this).attr('storeprice');
+			 var storeprice2 = $(this).find("input:eq(2)").val();
+			 
+			 if(storeprice != storeprice2){			 
+				 storeprice = storeprice2;
+			 }else {
+				 storeprice;
+			 }
+			 /*var storeprice = $(this).attr('storeprice');
 			 if(storeprice == "" || storeprice == "undefined"){
 			     storeprice =  defaultprice2;
 			 }else{
@@ -362,14 +465,14 @@ window.bapdosa.menu = (function() {
 				 }else {
 					 storeprice;
 				 }
-			 }
+			 }*/
 			
 			 var deliveryprice = $(this).attr('deliveryprice');
 			 if(deliveryprice == "" || deliveryprice == "undefined"){
-				 deliveryprice = defaultprice;
+				 deliveryprice = storeprice;
 			 }else{
 				 deliveryprice = $(this).attr('deliveryprice');
-				 var deliveryprice2 = $(this).find("input:eq(4)").val();
+				 var deliveryprice2 = $(this).find("input:eq(3)").val();
 				 if(deliveryprice != deliveryprice2){	
 					 deliveryprice = deliveryprice2;
 				 }else {
@@ -378,24 +481,35 @@ window.bapdosa.menu = (function() {
 			 }
 			 var takeoutprice = $(this).attr('takeoutprice');
 			 if(takeoutprice == "" || takeoutprice == "undefined"){
-				 takeoutprice = defaultprice;
+				 takeoutprice = storeprice;
 			 }else{
 				 takeoutprice = $(this).attr('takeoutprice');
-				 var takeoutprice2 = $(this).find("input:eq(5)").val();
+				 var takeoutprice2 = $(this).find("input:eq(4)").val();
 				 if(takeoutprice != takeoutprice2){	
 					 takeoutprice = takeoutprice2;
 				 }else {
 					 takeoutprice;
 				 }
 			 }
-			 
 			 var ishidden = $(this).attr('ishidden');
+			 if(ishidden == "" || ishidden == "undefined" ){
+				 ishidden = "N";
+			 }else{
+				 if($(this).find("input:last").is(":checked")){
+					 $(this).attr("ishidden", "Y");
+					 ishidden = "Y";
+				 }else{
+					 $(this).attr("ishidden", "N");
+					 ishidden = "N";
+				 }
+			 }
 			 var isdeleted = $(this).attr('isdeleted');
+			 var menuFlag = $(this).attr('menuFlag');
 			 
 			// var defaultprice = $(this).attr('defaultprice');			 
-			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + 
-			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted;
-			 //alert(param);
+			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
+			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted + "&menuFlag=" + menuFlag;
+			 alert(param);
 			 if(menuid){
 				 var url = "MenuUpdatetOk.json";
 			 }else{
@@ -428,7 +542,7 @@ window.bapdosa.menu = (function() {
 		});	
 	}
 	
-    function updateLongMenu(){
+    /*function updateLongMenu(){
 		
 		if(!confirm("저장하시겠습니까?")){
 			return false;
@@ -503,7 +617,7 @@ window.bapdosa.menu = (function() {
 			 });	
 		});		
 		
-	}
+	}*/
 	
 	return {
 		init: function() {
