@@ -570,4 +570,15 @@
 		}
 	    
 	    return returnVal;
+	}
+	
+	/*
+	 * param ㄱ
+	 * return boolean
+	 */
+	window.bapdosa.util.isInitialLetter = function(str)
+	{
+		var pattern = /[^ㄱ-ㅎ]/i;
+	    
+	    return !pattern.test(str);
 	}	

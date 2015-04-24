@@ -365,15 +365,53 @@ window.bapdosa.order = (function() {
 //			$(".fre_box .ui-link").click();
 		});
 		
-		//oninput="myFunction()"
+		//검색어 입력시
 		$("#fre_pop_customer_search input[name=searchName]").on("input", function(e){
 			
 			console.log($(this).val());
+			
+			var search = $.trim($(this).val());
+			
+			//console.log(window.bapdosa.util.isInitialLetter(search));
+			
+			if(search.length == 1){
+				
+				
+				if(window.bapdosa.util.isInitialLetter(search)){
+					//초성검색 (구현 애매, 위에 초성검색버튼으로 해결바람)
+					//searchCustomerList(search);
+					return false;
+				} else {
+					customerSearchInfoInit(3);
+					searchCustomerList();
+				}
+			} else {
+				if(search.length > 1){
+					console.log(search.substring(search.length-1));
+					
+					var lastLetter = search.substring(search.length-1);
+					
+					//마지막이 한글초성이면 검색하지 않는다.
+					if(window.bapdosa.util.isInitialLetter(lastLetter)){
+						return false;
+					} else {
+						customerSearchInfoInit(3);
+						searchCustomerList();						
+					}
+					
+					console.log(window.bapdosa.util.isInitialLetter(lastLetter));
+				} else {
+					customerSearchInfoInit(3);
+					searchCustomerList();
+				}
+			}
+			
+			
 		});
 	}
 	
 	//단골고객정보를 가져와서 뿌린다.
-	function searchCustomerList(){
+	function searchCustomerList(searchInitialLetter){
 		var orderBy = $("#fre_pop_customer_search input[name=orderBy]:checked").val() || "";
 		var orderOption = "ASC";
 		if(orderBy == "TOTALSALES"){
@@ -437,10 +475,17 @@ window.bapdosa.order = (function() {
 				totalCount: 0				
 			};
 		
+		//ㄱㄴㄷㄹ 검색시
 		if(type == 1){
 			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
 			//$("#fre_pop_customer_search input[name=searchName]").val("");			
-		}else if(type == 2){
+		}
+		//orderby 클릭시
+		else if(type == 2){
+			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
+		}
+		//검색어 검색시
+		else if(type ==3){
 			$(".class-event-search-select-customer li:eq(0)").siblings("li").remove();
 		}		
 		else{		
