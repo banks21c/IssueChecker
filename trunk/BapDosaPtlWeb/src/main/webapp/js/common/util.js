@@ -529,3 +529,45 @@
 	    
 	    return val;
 	}	
+	
+	
+	/*
+	 * param YYYYMMDD HH:mm:ss 형식
+	 * return 01:14  (1시14분)
+	 */
+	window.bapdosa.util.getUsedDateFromNow = function(YYYYMMDDHHmmss)
+	{
+		var returnVal = "";
+		var msecPerMinute = 1000 * 60;
+		var msecPerHour = msecPerMinute * 60;
+		var msecPerDay = msecPerHour * 24;
+		var nowTime = new Date().getTime();
+		
+		var thatTime = moment(YYYYMMDDHHmmss, "YYYYMMDD HH:mm:ss").valueOf();
+		var interval = nowTime - thatTime;
+		var days = Math.floor(interval / msecPerDay );
+		interval = interval - (days * msecPerDay );
+
+		// Calculate the hours, minutes, and seconds.
+		var hours = Math.floor(interval / msecPerHour );
+		interval = interval - (hours * msecPerHour );
+
+		var minutes = Math.floor(interval / msecPerMinute );
+		interval = interval - (minutes * msecPerMinute );
+		var seconds = Math.floor(interval / 1000 );
+		console.log(days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds.");
+		
+		if(days < 0){
+			returnVal = 0;
+		} else {
+			if(days > 0){
+				returnVal = days+" day " + window.bapdosa.util.leadingZeros(hours,2) + ":" + window.bapdosa.util.leadingZeros(minutes, 2);
+			} else if(hours > 0){
+				returnVal = window.bapdosa.util.leadingZeros(hours,2) + ":" + window.bapdosa.util.leadingZeros(minutes, 2);
+			} else {
+				returnVal = window.bapdosa.util.leadingZeros(minutes, 2);
+			}
+		}
+	    
+	    return returnVal;
+	}	

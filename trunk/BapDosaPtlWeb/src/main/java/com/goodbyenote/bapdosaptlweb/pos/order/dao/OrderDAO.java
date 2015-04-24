@@ -142,4 +142,9 @@ public class OrderDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("posorder.getTableOrder", parametaMap);
 	}
+
+	public void deleteOrderDetailList(Map delMap) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("posorder.deleteOrderDetailList", delMap);
+	}
 }

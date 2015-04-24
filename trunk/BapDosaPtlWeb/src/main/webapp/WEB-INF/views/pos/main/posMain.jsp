@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../css/style.css" />
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../../js/moment.min.js"></script>
 <script type="text/javascript" src="../../js/common/common.js"></script>
 <script type="text/javascript" src="../../js/common/util.js"></script>
 <script type="text/javascript" src="../../js/pos/posMain.js"></script>

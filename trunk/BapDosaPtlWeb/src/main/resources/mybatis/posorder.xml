@@ -16,7 +16,9 @@
 			,B.CREATIONDATE
 			,to_char(B.CREATIONDATE,'yyyymmdd hh24:mi:ss') CREATIONDATE_STR
 			,B.MODIFICATIONDATE
-			,(SELECT NVL(SUM(NVL(PRICE, 0)*NVL(QUANTITY, 0)), 0) FROM ORDERDETAIL WHERE ISDELETED = 'N' AND ISSERVICE != 'Y' AND MEMBERID = #{memberId} AND TABLEID = A.TABLEID) AS SUM_PRICE
+			,(SELECT NVL(SUM(NVL(DISCOUNTPRICE, 0)), 0) FROM ORDERDETAIL WHERE TABLEID = A.TABLEID AND ORDERID = B.ORDERID) AS SUM_PRICE
+			,(SELECT COUNT(*) FROM ORDERDETAIL WHERE TABLEID = A.TABLEID AND ORDERID = B.ORDERID AND ISTAKEOUT = 'Y') AS TAKEOUTCOUNT
+			,(SELECT COUNT(*) FROM ORDERDETAIL WHERE TABLEID = A.TABLEID AND ORDERID = B.ORDERID AND ISSERVICE = 'Y') AS SERVICECOUNT
 		FROM 
 		  ORDERTABLE A
 		  LEFT OUTER JOIN TABLEORDER B ON A.TABLEID = B.TABLEID AND A.MEMBERID = B.MEMBERID AND B.ISPAID = 'N' AND B.ISDELETED = 'N'
@@ -473,5 +475,15 @@
 		        ORDER BY A.CREATIONDATE ASC
 		    </otherwise>                
 		  </choose>
-    </select>    
+    </select>  
+    
+    <delete id="deleteOrderDetailList">
+        DELETE FROM ORDERDETAIL
+        WHERE
+        	ORDERID = #{orderId}
+        	AND ORDERDETAILID NOT IN
+	        <foreach collection="orderDataList" item="item" index="index" separator="," open="(" close=")">
+	            #{item.orderDetailId}
+	        </foreach>        	
+    </delete>
 </mapper>

@@ -155,7 +155,7 @@ window.bapdosa.order = (function() {
 				var menuId = $(this).attr("menuId") || "";
 				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
 				var orderCount = parseInt($(this).find("td:eq(1)").text());
-				var originalPrice =  parseInt($(this).attr("defaultPrice"));
+				var originalPrice =  parseInt($(this).attr("storePrice"));
 				var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
 				var storePrice =  parseInt($(this).attr("storePrice"));
 				var isService = $(this).attr("isService") || "";		
@@ -364,6 +364,12 @@ window.bapdosa.order = (function() {
 			$(".fre_pop.shw .btn_x").click();
 //			$(".fre_box .ui-link").click();
 		});
+		
+		//oninput="myFunction()"
+		$("#fre_pop_customer_search input[name=searchName]").on("input", function(e){
+			
+			console.log($(this).val());
+		});
 	}
 	
 	//단골고객정보를 가져와서 뿌린다.
@@ -552,7 +558,7 @@ window.bapdosa.order = (function() {
 	
 	function setOrderDetailPriceSync(selArea){		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text());
-		var defaultPrice =  parseInt(selArea.attr("defaultPrice"));
+		var defaultPrice =  parseInt(selArea.attr("storePrice"));
 		var isService = selArea.attr("isService") || "";
 		var isTakeout = selArea.attr("isTakeout") || "";
 		
@@ -577,7 +583,7 @@ window.bapdosa.order = (function() {
 		var sumPrice = 0;
 		orderAreaList.each(function(i){				
 			var orderCount = parseInt($(this).find("td:eq(1)").text());
-			var defaultPrice =  parseInt($(this).attr("defaultPrice"));			
+			var defaultPrice =  parseInt($(this).attr("storePrice"));			
 			var isService = $(this).attr("isService") || "";		
 			var isTakeout = $(this).attr("isTakeout") || "";
 			if(isPriceDiffer == "Y"){
@@ -688,10 +694,10 @@ window.bapdosa.order = (function() {
 				
 				if(selMenuObj){	
 					
-					var displayPrice = selMenuObj.DEFAULTPRICE;
-					if(isPriceDiffer == "Y"){
-						displayPrice = selMenuObj.STOREPRICE;
-					}
+					var displayPrice = selMenuObj.STOREPRICE;
+//					if(isPriceDiffer == "Y"){
+//						displayPrice = selMenuObj.STOREPRICE;
+//					}
 					
 					var td1 = $("<td>").addClass("a_tl")
 					 				   .text(selMenuObj.NAME);
@@ -713,7 +719,6 @@ window.bapdosa.order = (function() {
 						orderDetailId: 'temp_' + new Date().getTime(),
 						categoryId: categoryId,
 						menuId: menuId,
-						defaultPrice: selMenuObj.DEFAULTPRICE,
 						storePrice: selMenuObj.STOREPRICE,
 						deliveryPrice: selMenuObj.DELIVERYPRICE,
 						takeoutPrice: selMenuObj.TAKEOUTPRICE,
@@ -842,10 +847,10 @@ window.bapdosa.order = (function() {
 		
 		if(selMenuObj){	
 			
-			var displayPrice = selMenuObj.DEFAULTPRICE;
-			if(isPriceDiffer == "Y"){
-				displayPrice = selMenuObj.STOREPRICE;
-			}
+			var displayPrice = selMenuObj.STOREPRICE;
+//			if(isPriceDiffer == "Y"){
+//				displayPrice = selMenuObj.STOREPRICE;
+//			}
 			
 			var td1 = $("<td>").addClass("a_tl")
 			 				   .text(selMenuObj.NAME);
@@ -876,7 +881,6 @@ window.bapdosa.order = (function() {
 				orderDetailId: orderDetailId,
 				categoryId: categoryId,
 				menuId: menuId,
-				defaultPrice: selMenuObj.DEFAULTPRICE,
 				storePrice: selMenuObj.STOREPRICE,
 				deliveryPrice: selMenuObj.DELIVERYPRICE,
 				takeoutPrice: selMenuObj.TAKEOUTPRICE,
