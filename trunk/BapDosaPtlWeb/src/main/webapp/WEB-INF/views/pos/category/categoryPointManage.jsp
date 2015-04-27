@@ -57,10 +57,10 @@
 			<div class="price_other">
 				<input type="checkbox" id="pr_other" class="class_point_check" /><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
 				<!-- s: 매장/배달/포장 금액 다를경우 나타남 -->
-				<div class="p_type" id="id_check_point_dc" style="display:none">
+				<div class="p_type" id="id_check_point_dc" style="display:none" >
 					<ul>
-						<li><a href="#" id="id_point_check_sub" class="active">포인트</a></li>
-						<li><a href="#" id="id_dc_check_sub">할인율</a></li>
+						<li><a href="#" id="id_point_check_sub" class="active" style="font-size:15px; margin-top:15px">포인트</a></li>
+						<li><a href="#" id="id_dc_check_sub" style="font-size:15px; margin-top:15px">할인율</a></li>
 					</ul>
 				</div>
 				<!--e: 매장/배달/포장 금액 다를경우 나타남 -->
@@ -88,9 +88,9 @@
 					</thead>
 					<tbody >
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
-							<tr class="class_point_main_view" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" 
-							defaultpoint = "${categoryMenu.DEFAULTPOINT}" storepoint = "${categoryMenu.STOREPOINT}" deliverypoint="${categoryMenu.DELIVERYPOINT}" takeoutpoint="${categoryMenu.TAKEOUTPOINT}" 
-							defaultdiscount = "${categoryMenu.DEFAULTDISCOUNT}" storediscount = "${categoryMenu.STOREDISCOUNT}" deliverydiscount="${categoryMenu.DELIVERYDISCOUNT}" takeoutdiscount="${categoryMenu.TAKEOUTDISCOUNT}" menuFlag="false">
+							<tr class="class_point_main_view" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catepointname="${categoryMenu.NAME}" 
+							storepoint = "${categoryMenu.STOREPOINT}" deliverypoint="${categoryMenu.DELIVERYPOINT}" takeoutpoint="${categoryMenu.TAKEOUTPOINT}" 
+							storediscount = "${categoryMenu.STOREDISCOUNT}" deliverydiscount="${categoryMenu.DELIVERYDISCOUNT}" takeoutdiscount="${categoryMenu.TAKEOUTDISCOUNT}" menuFlag="false">
 								<td><input type="text" class="class_point_name" data-role="none" value="${categoryMenu.NAME}"/></td>
 								<td class="class_point_point"><input type="text"  data-role="none" value="${categoryMenu.STOREPOINT}"/></td>
 								<td class="class_point_storediscount"><input type="text"  data-role="none" value="${categoryMenu.STOREDISCOUNT}"/></td>
@@ -107,7 +107,7 @@
 			</div>
 			<!--e: 입력목록(매장/배달/포장 금액 다를경우) -->
 			<div class="btn_c tline">
-				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+				<a href="#" id="id_point_save"  class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 			</div>
 		</div>
 	</div>

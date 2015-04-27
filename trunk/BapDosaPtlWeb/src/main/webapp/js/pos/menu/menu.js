@@ -168,6 +168,13 @@ window.bapdosa.menu = (function() {
 			})
 			location.reload();						
 	    });
+		
+		$("#id_point_save").click(function(e){
+			alert('1');
+			e.preventDefault();			
+			pointSave();						
+			location.reload();
+	    });
 		$("#id_dc_check_sub").click(function(e){
 			e.preventDefault();
 			$(this).addClass("active");
@@ -509,7 +516,7 @@ window.bapdosa.menu = (function() {
 			// var defaultprice = $(this).attr('defaultprice');			 
 			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
 			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted + "&menuFlag=" + menuFlag;
-			 alert(param);
+			 //alert(param);
 			 if(menuid){
 				 var url = "MenuUpdatetOk.json";
 			 }else{
@@ -542,55 +549,99 @@ window.bapdosa.menu = (function() {
 		});	
 	}
 	
-    /*function updateLongMenu(){
-		
-		if(!confirm("저장하시겠습니까?")){
-			return false;
-		}
-		
-		$("tr.class_menu_main_view").each(function() {			 
+	function pointSave(){
+		$("tr.class_point_main_view").each(function() {			 
 			
-			 var catemenuname = $(this).attr('catemenuname');
-			 var catemenuname2 = $(this).find("input:eq(1)").val();
+			 var catepointname = $(this).attr('catepointname');
+			 var catepointname2 = $(this).find("input:eq(0)").val();
 			 
-			 if(catemenuname != catemenuname2){
-				 catemenuname = catemenuname2;
+			 if(catepointname != catepointname2){
+				 catepointname = catepointname2;
 			 }else {
-				 catemenuname;
+				 catepointname;
 			 }			
 			 //var catemenuname = $(this).attr('catemenuname');
 			 var sortorder = $(this).attr('sortorder');
 			 var categoryid = $(this).attr('categoryid');			 
-			 var menuid = $(this).attr('menuid');
-			 var memberid = $(this).attr('memberid');				
-			 var defaultprice = $(this).attr('defaultprice');
+			 //var menuid = $(this).attr('menuid');
+			 var menuid = ($(this).attr("menuid") || "").startsWith("temp_") ? "" : $(this).attr("menuid");
+			 var memberid = $(this).attr('memberid');
+			
+			 var storepoint = $(this).attr('storepoint');
+			 var storepoint2 = $(this).find("input:eq(1)").val();
 			 
-			 var storeprice = $(this).attr('storeprice');
-			 var storeprice2 = $(this).find("input:eq(3)").val();
-			 if(storeprice != storeprice2){	
-				 storeprice = storeprice2;
+			 if(storepoint != storepoint2){			 
+				 storepoint = storepoint2;
 			 }else {
-				 storeprice;
+				 storepoint;
 			 }
-			 var deliveryprice = $(this).attr('deliveryprice');
-			 var deliveryprice2 = $(this).find("input:eq(4)").val();
-			 if(deliveryprice != deliveryprice2){			 
-				 deliveryprice = deliveryprice2;
+			
+			 var deliverypoint = $(this).attr('deliverypoint');
+			 if(deliverypoint == "" || deliverypoint == "undefined"){
+				 deliverypoint = storepoint;
+			 }else{
+				 deliverypoint = $(this).attr('deliverypoint');
+				 var deliverypoint2 = $(this).find("input:eq(4)").val();
+				 if(deliverypoint != deliverypoint2){	
+					 deliverypoint = deliverypoint2;
+				 }else {
+					 deliverypoint;
+				 }
+			 }
+			 var takeoutpoint = $(this).attr('takeoutpoint');
+			 if(takeoutpoint == "" || takeoutpoint == "undefined"){
+				 takeoutpoint = storepoint;
+			 }else{
+				 takeoutpoint = $(this).attr('takeoutpoint');
+				 var takeoutpoint2 = $(this).find("input:eq(5)").val();
+				 if(takeoutpoint != takeoutpoint2){	
+					 takeoutpoint = takeoutpoint2;
+				 }else {
+					 takeoutpoint;
+				 }
+			 }
+			 
+			 var storediscount = $(this).attr('storediscount');
+			 var storediscount2 = $(this).find("input:eq(2)").val();
+			 
+			 if(storediscount != storediscount2){			 
+				 storediscount = storediscount2;
 			 }else {
-				 deliveryprice;
+				 storediscount;
 			 }
-			 var takeoutprice = $(this).attr('takeoutprice');
-			 var takeoutprice2 = $(this).find("input:eq(5)").val();
-			 if(takeoutprice != takeoutprice2){			 
-				 takeoutprice = takeoutprice2;
-			 }else {
-				 takeoutprice;
+			
+			 var deliverydiscount = $(this).attr('deliverydiscount');
+			 if(deliverydiscount == "" || deliverydiscount == "undefined"){
+				 deliverydiscount = storediscount;
+			 }else{
+				 deliverydiscount = $(this).attr('deliverydiscount');
+				 var deliverydiscount2 = $(this).find("input:eq(7)").val();
+				 if(deliverydiscount != deliverydiscount2){	
+					 deliverydiscount = deliverydiscount2;
+				 }else {
+					 deliverydiscount;
+				 }
 			 }
+			 var takeoutdiscount = $(this).attr('takeoutdiscount');
+			 if(takeoutdiscount == "" || takeoutdiscount == "undefined"){
+				 takeoutdiscount = storediscount;
+			 }else{
+				 takeoutdiscount = $(this).attr('takeoutdiscount');
+				 var takeoutdiscount2 = $(this).find("input:eq(8)").val();
+				 if(takeoutdiscount != takeoutdiscount2){	
+					 takeoutdiscount = takeoutdiscount2;
+				 }else {
+					 takeoutdiscount;
+				 }
+			 }	
+			 
 			// var defaultprice = $(this).attr('defaultprice');			 
-			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + "&defaultprice=" + defaultprice + "&storeprice=" + storeprice +"&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice;
-			 				 
-			 //var url = "MenuInsertOk.json";
-			 var url = "MenuUpdatetOk.json";			
+			 var param ="sortorder=" + sortorder + "&name=" + catepointname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
+			 "&storepoint=" + storepoint + "&deliverypoint=" + deliverypoint + "&takeoutpoint=" + takeoutpoint + "&storediscount=" + storediscount + "&deliverydiscount=" + deliverydiscount + "&takeoutdiscount=" + takeoutdiscount;
+			 //alert(param);
+			 if(menuid){
+				 var url = "PointUpdatetOk.json";
+			 }
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
@@ -609,15 +660,14 @@ window.bapdosa.menu = (function() {
 					}
 					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						$("#id_cate_save").click();		
+						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
 				}
 			 });	
-		});		
-		
-	}*/
+		});	
+	}    
 	
 	return {
 		init: function() {
