@@ -197,5 +197,24 @@
 		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
 		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
 	</update>
+	
+	<update id="updateCatePoint" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+		UPDATE MENU
+		SET    	
+		        MENUID              = #{menuid, jdbcType=NUMERIC},	        
+	            CATEGORYID          = #{categoryid , jdbcType=NUMERIC},
+	            NAME                = #{name , jdbcType=VARCHAR},
+	            SORTORDER           = #{sortorder , jdbcType=NUMERIC},	           
+	            STOREPOINT          = #{storepoint , jdbcType=NUMERIC},
+	            DELIVERYPOINT	    = #{deliverypoint , jdbcType=NUMERIC},
+	            TAKEOUTPOINT        = #{takeoutpoint , jdbcType=NUMERIC},
+	            STOREDISCOUNT       = #{storediscount , jdbcType=NUMERIC},
+	            DELIVERYDISCOUNT    = #{deliverydiscount , jdbcType=NUMERIC},
+	            TAKEOUTDISCOUNT     = #{takeoutdiscount , jdbcType=NUMERIC}	       
+		       
+		WHERE  MEMBERID         = #{memberid , jdbcType=VARCHAR}
+		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
+		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
+	</update>
 	  
 </mapper>

@@ -82,6 +82,13 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
+	public void updateCatePoint(Map parametaMap) {
+		// TODO Auto-generated method stub
+		categoryDAO.updateCatePoint(parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
 	public List<Map> getCategoryMenuList(Map searchCondition) {
 		return categoryDAO.getCategoryMenuList(searchCondition);
 	}
