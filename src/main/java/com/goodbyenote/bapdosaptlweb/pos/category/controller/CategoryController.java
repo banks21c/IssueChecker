@@ -300,6 +300,30 @@ public class CategoryController {
 		return mav; 
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/PointUpdatetOk.json")
+	public ModelAndView categoryPointUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		String menuid = (String)parametaMap.get("menuid");
+		
+		logger.debug(parametaMap.toString());
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());	
+		parametaMap.put("menuid", menuid);		
+		
+		categoryService.updateCatePoint(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
 	/*@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/pos/category/menuSave.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(

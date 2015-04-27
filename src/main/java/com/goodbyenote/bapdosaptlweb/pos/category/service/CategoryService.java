@@ -29,6 +29,8 @@ public interface CategoryService {
 	
 	public void updateCateMenu(Map parametaMap);
 	
+	public void updateCatePoint(Map parametaMap);
+	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map parametaMap);
 	
