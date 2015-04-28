@@ -232,30 +232,28 @@ window.bapdosa.menu = (function() {
 		});
 		
 		$("#id_cate_up").click(function(e){		
-			e.preventDefault();	
-			if($("#id_cate_main_1").hasClass("on")){
-				$("#id_cate_main_1").parent().prev("li").before($("#id_cate_main_1").parent());
-			}else if($("#id_cate_main_2").hasClass("on")){
-				$("#id_cate_main_2").parent().prev("li").before($("#id_cate_main_2").parent());
-			}else if($("#id_cate_main_3").hasClass("on")){
-				$("#id_cate_main_3").parent().prev("li").before($("#id_cate_main_3").parent());
+			e.preventDefault();				
+			if($(".class_cate_index li a:eq(0)").hasClass("on")){
+				
+			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){
+				$(".class_cate_index li a:eq(1)").parent().prev("li").before($(".class_cate_index li a:eq(1)").parent());
+				$(".class_cate_index_sub li span:eq(1)").parent().prev("li").before($(".class_cate_index_sub li span:eq(1)").parent());
+			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
+				$(".class_cate_index li a:eq(2)").parent().prev("li").before($(".class_cate_index li a:eq(2)").parent());
+				$(".class_cate_index_sub li span:eq(2)").parent().prev("li").before($(".class_cate_index_sub li span:eq(2)").parent());
 			}
 	    });	
 		
 		$("#id_cate_down").click(function(e){
-			//var index = $(".class_cate_index > ul > li").index(this);
-			//$("#order-page .class-category-area > li:eq(" + index + ")");
-			//alert(index);
 			e.preventDefault();	
-			if($("#id_cate_main_1").hasClass("on")){
-			   $("#id_cate_main_1").parent().next("li").after($("#id_cate_main_1").parent());
-			   //$("li:eq(" + index + ")").attr("sortorder", index);
-			}else if($("#id_cate_main_2").hasClass("on")){
-				 $("#id_cate_main_2").parent().next("li").after($("#id_cate_main_2").parent());
-				 //$("li:eq(" + index + ")").attr("sortorder", index);
-			}else if($("#id_cate_main_3").hasClass("on")){
-				$("#id_cate_main_3").parent().next("li").after($("#id_cate_main_3").parent());
-				// $("li:eq(" + index + ")").attr("sortorder", index);
+			if($(".class_cate_index li a:eq(0)").hasClass("on")){
+				$(".class_cate_index li a:eq(0)").parent().next("li").after($(".class_cate_index li a:eq(0)").parent());
+				$(".class_cate_index_sub li span:eq(0)").parent().next("li").after($(".class_cate_index_sub li span:eq(0)").parent());
+			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){
+				$(".class_cate_index li a:eq(1)").parent().next("li").after($(".class_cate_index li a:eq(1)").parent());
+				$(".class_cate_index_sub li span:eq(1)").parent().next("li").after($(".class_cate_index_sub li span:eq(1)").parent());
+			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
+				
 			}
 	    });	
 		
@@ -377,20 +375,22 @@ window.bapdosa.menu = (function() {
 			return false;
 		}
 		
-		 $(".class_cate").each(function() {
-			 var name = $(this).val();
+		 $(".class_cate").each(function(index ) {
+			 
+			 var name = $(this).find("input").val();
 			 
 			 if(name){			 
-				  name = $(this).val();
+				  name = $(this).find("input").val();
 			 }else {
 				  name = $(this).attr('catename');
 			 }
-			 var sortorder = $(this).attr('sortorder');
+			 var sortorder = index+1;
+			 
 			 var categoryid = $(this).attr('categoryid');
 			 var memberid = $(this).attr('memberid');
 			 var deviceid = $(this).attr('deviceid');
 			 
-			 var param ="sortorder=" + sortorder + "&name=" + name+ "&categoryid=" + categoryid + "&memberid=" + memberid + "&deviceid=" + deviceid;		 
+			 var param ="sortorder=" + sortorder + "&name=" + name+ "&categoryid=" + categoryid + "&memberid=" + memberid + "&deviceid=" + deviceid;	
 			 var url = "update_ok.json";
 				
 			 if(typeof console != 'undefined'){
@@ -453,18 +453,7 @@ window.bapdosa.menu = (function() {
 			 }else {
 				 storeprice;
 			 }
-			 /*var storeprice = $(this).attr('storeprice');
-			 if(storeprice == "" || storeprice == "undefined"){
-			     storeprice =  defaultprice2;
-			 }else{
-				 var storeprice2 = $(this).find("input:eq(3)").val();
-				 if(storeprice != storeprice2){	
-					 storeprice = storeprice2;
-				 }else {
-					 storeprice;
-				 }
-			 }*/
-			
+			 
 			 var deliveryprice = $(this).attr('deliveryprice');
 			 if(deliveryprice == "" || deliveryprice == "undefined"){
 				 deliveryprice = storeprice;
@@ -504,7 +493,6 @@ window.bapdosa.menu = (function() {
 			 var isdeleted = $(this).attr('isdeleted');
 			 var menuFlag = $(this).attr('menuFlag');
 			 
-			// var defaultprice = $(this).attr('defaultprice');			 
 			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
 			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted + "&menuFlag=" + menuFlag;
 			 //alert(param);
