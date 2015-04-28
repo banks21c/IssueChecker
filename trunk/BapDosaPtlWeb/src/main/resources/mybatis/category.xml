@@ -17,6 +17,7 @@
 		MODIFICATIONDATE		
 	FROM CATEGORY
 	WHERE MEMBERID = #{memberid} AND ISEDITABLE = #{iseditable}
+	ORDER BY SORTORDER
 	</select>
 	
 	<select id="getCategoryJsonList" resultType="map">
