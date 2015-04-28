@@ -49,7 +49,7 @@ jQuery(function($){ // on document load
 					</span>
 					<!--e: 단골 고객(외상인경우 :c, tc  / 예치금인 경우:y, ty) -->
 				</div>
-				<p>No. <span><em class="class-area-table-name">14</em></span></p>
+				<p>No. <span><em class="class-area-table-name"></em></span></p>
 			</div>
 			<div class="top02">
 				<div class="btn_fl">
@@ -118,7 +118,7 @@ jQuery(function($){ // on document load
 				<a href="#" class="btn_01 class-event-order-takeout">포장</a><a href="#" class="btn_01 view_fre class-event-customer-view">단골</a>
 			</div>
 			<div class="btn_fr">
-				<a href="#" class="btn_02 class-event-order-save">저장</a><a href="#" class="btn_02" data-rel="back">돌아가기</a><a href="#" class="btn_04">계산</a>
+				<a href="#" class="btn_02 class-event-order-save">저장</a><a href="#" class="btn_02" data-rel="back">돌아가기</a><a href="#" class="btn_04 class-event-account-go">계산</a>
 			</div>
 		</div>
 		<div class="food_list">
@@ -209,8 +209,9 @@ jQuery(function($){ // on document load
 
 	<!--s: 단골팝업 -->
 	<div class="fre_pop">
-		<form name="fre_pop_customer_search" id="fre_pop_customer_search">
+		
 		<div class="fre_box">
+			<form name="fre_pop_customer_search" id="fre_pop_customer_search">
 			<div class="fre_sh">
 				<strong>단골고객</strong>
 				<input type="radio" id="fre_sh01" name="orderBy" value="NAME" checked/><label for="fre_sh01">가나다 순</label>
@@ -218,6 +219,7 @@ jQuery(function($){ // on document load
 				<a href="#" class="btn_x" title="닫기"></a>
 			</div>
 			<div class="name_shw">
+				
 				<div class="name_choice">
 					<ul class="class-event-search-select-button">
 						<li><a href="#" class="active">모두</a></li>
@@ -240,9 +242,10 @@ jQuery(function($){ // on document load
 				<div class="delivery_name">
 					<ul class="class-event-search-select-customer">
 						<li><a href="#add_fre" data-rel="popup" data-position-to="window" data-transition="pop" class="class-event-direct-input">직접입력</a></li>
+						<!-- 
 						<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
-						<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
-						<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 예치금인 경우 -->
+						<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>외상인 경우
+						<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>예치금인 경우
 						<li><a href="#">세무그룹정명</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹정명</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
@@ -259,14 +262,17 @@ jQuery(function($){ // on document load
 						<li><a href="#">세무그룹</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹정명</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 						<li><a href="#">세무그룹</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
+						 -->
 					</ul>
 				</div>
 				<div class="name_sh">
 					<p>검색 <input type="text" name="searchName" data-role="none" /></p>
 				</div>
+				
 			</div>
+			</form>
 		</div>
-		</form>
+		
 	</div>
 	<!--e: 단골팝업 -->
 
