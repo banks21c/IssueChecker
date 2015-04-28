@@ -59,7 +59,6 @@ window.bapdosa.menu = (function() {
 			
 			if($(this).is(":checked")) {
 				
-				//$("#id_menu_tab_top1").hide();
 		    	$("#id_menu_tab_top3").show();
 		    	$("#id_menu_tab_top4").show();
 		    	$("#id_menu_col_top3").show();
@@ -72,7 +71,6 @@ window.bapdosa.menu = (function() {
 				
 			}else{
 				
-				//$("#id_menu_tab_top1").show();
 		    	$("#id_menu_tab_top3").hide();
 		    	$("#id_menu_tab_top4").hide();
 		    	$("#id_menu_col_top3").hide();
@@ -170,7 +168,6 @@ window.bapdosa.menu = (function() {
 	    });
 		
 		$("#id_point_save").click(function(e){
-			alert('1');
 			e.preventDefault();			
 			pointSave();						
 			location.reload();
@@ -216,7 +213,7 @@ window.bapdosa.menu = (function() {
 			$(this).addClass("on").siblings().removeClass("on");
 		});
 		
-		$("#point-page .class_category_area > li").click(function(e){
+		$("#point-page .class_category_point_area > li").click(function(e){
 			e.preventDefault();
 			var tabpointid= $(this).attr("tabpointid");
 			var url = '/pos/category/categoryPointManage.do?categoryid=' + tabpointid ;
@@ -296,9 +293,9 @@ window.bapdosa.menu = (function() {
 			var data =  "<tr class=\"class_menu_main_view\" memberid=\""+ memberid +"\" deviceid=\""+ deviceid +"\" sortorder=\""+ sortorder +"\" menuid=\""+ menuid +"\" categoryid=\""+categoryid +"\" storeprice=\""+storeprice +"\" deliveryprice=\""+deliveryprice +"\" takeoutprice=\""+takeoutprice +"\" ishidden=\""+ishidden +"\" isdeleted=\""+isdeleted +"\">" + 
 						"<td><label>" + "<input type=\"checkbox\"/>" + "</label></td>" +
 						"<td>" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +						
-						"<td class=\"class_menu_storeprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td class=\"class_menu_deliveryprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
-						"<td class=\"class_menu_takeoutprice\">" + "<input type=\"text\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_storeprice\">" + "<input type=\"tel\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_deliveryprice\">" + "<input type=\"tel\" data-role=\"none\" />" + "</td>" +
+						"<td class=\"class_menu_takeoutprice\">" + "<input type=\"tel\" data-role=\"none\" />" + "</td>" +
 						"<td><label>" + "<input type=\"checkbox\" />" + "</label></td>" +
 					     "</tr>"			
 			
@@ -315,31 +312,25 @@ window.bapdosa.menu = (function() {
 			}
 		});
 		
-		$(".class_menu_pop").change(function(){
+		$(".class_menu_pop").change(function(e){
+			e.preventDefault();
 			var etccateid= $(this).attr("etccateid");
 			var url = '/pos/category/categoryMenuManage.do?categoryid=' + etccateid ;
 			
 			if($("input[name=otherL]:checked").val() == 5){	
 				$(parent.location).attr('href',url);
-				window.opener.parent.location.reload();
-				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 6){	
 				$(parent.location).attr('href',url);
-				window.opener.parent.location.reload();
-				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 7){
 				$(parent.location).attr('href',url);
-				window.opener.parent.location.reload();
-				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 8){
 				$(parent.location).attr('href',url);
-				window.opener.parent.location.reload();
-				//$("#id_etc_menu_close").click();
 			}else if($("input[name=otherL]:checked").val() == 9){
 				$(parent.location).attr('href',url);
-				window.opener.parent.location.reload();
+				//window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
-			}		
+			}	
+			$("#menu-page .class_category_area > li").addClass("on").siblings().removeClass("on");
 		});
 		$(".class_point_pop").change(function(){
 			var etcpointid= $(this).attr("etcpointid");
@@ -366,7 +357,7 @@ window.bapdosa.menu = (function() {
 				window.opener.parent.location.reload();
 				//$("#id_etc_menu_close").click();
 			}		
-		});
+		});		
 		
 		$("tr.class_menu_main_view").each(function() {
 			if( $(this).attr("ishidden") == "Y"){
@@ -376,8 +367,8 @@ window.bapdosa.menu = (function() {
 				$(this).find("label:eq(1)").addClass("ui-checkbox-off").removeClass("ui-checkbox-on");
 				$(this).find("input:eq(6)").prop("checked", false).attr("data-cacheval" , true);
 			}
-		});
-		
+		});		
+	
 	}
 	
 	function updateCate(sortorder,name,categoryid){
@@ -550,6 +541,10 @@ window.bapdosa.menu = (function() {
 	}
 	
 	function pointSave(){
+		if(!confirm("저장하시겠습니까?")){
+			return false;
+		}
+		
 		$("tr.class_point_main_view").each(function() {			 
 			
 			 var catepointname = $(this).attr('catepointname');
@@ -667,12 +662,48 @@ window.bapdosa.menu = (function() {
 				}
 			 });	
 		});	
-	}    
+	} 
+	
+	function displayCategoryMenu(){
+		categoryid = window.bapdosa.urlParams["categoryid"] || "";
+		console.log("categoryid: " + categoryid);
+		var name = $(".class_category_area li[tabcateid='" + categoryid + "']").attr("catename");
+		var isetc = $(".class_category_area li[tabcateid='" + categoryid + "']").attr("isetc");
+		$(".class_menu_tab_top").text(name);
+		
+		if(isetc == "N"){
+		    $(".class_category_area li[tabcateid='" + categoryid + "']").addClass("on");
+		}else{
+			$(".class_category_area li[tabcateid=tabcateid5]").addClass("on");
+			var popname = $(".class_menu_pop_tap li input[etccateid='" + categoryid + "']").attr("popname");
+			$(".class_menu_tab_top").text(popname);
+		}	
+		
+	}
+	
+	function displayCategoryPoint(){
+		categoryid = window.bapdosa.urlParams["categoryid"] || "";
+		console.log("categoryid: " + categoryid);
+		
+		var name = $(".class_category_point_area li[tabpointid='" + categoryid + "']").attr("pointname");
+		var isetc = $(".class_category_point_area li[tabpointid='" + categoryid + "']").attr("isetc");
+		$(".class_point_tab_top").text(name);
+		
+		if(isetc == "N"){
+		    $(".class_category_point_area li[tabpointid='" + categoryid + "']").addClass("on");
+		}else{
+			$(".class_category_point_area li[tabpointid=tabpointid5]").addClass("on");
+			var pointname = $(".class_point_pop_tap li input[etcpointid='" + categoryid + "']").attr("pointname");
+			$(".class_point_tab_top").text(pointname);
+		}			
+		
+	}
 	
 	return {
 		init: function() {
-			eventReg();			
-
+			eventReg();				
+			displayCategoryMenu();
+			displayCategoryPoint();
 		}
 	}   
 })();
