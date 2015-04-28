@@ -72,7 +72,7 @@ public class CategoryController {
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());		
 		parametaMap.put("iseditable", iseditable);		
 		
-		List<Map> categoryList = categoryService.getCategoryList(parametaMap);
+		List<Map> categoryList = categoryService.getCategoryJsonList(parametaMap);
 		logger.debug("categoryList: " + categoryList);
 		//model.addAttribute("adminType", sessionAdminInfo.getAdminTypeCmCode());
 		model.addAttribute("categoryList", categoryList);		
