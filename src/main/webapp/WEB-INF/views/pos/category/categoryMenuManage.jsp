@@ -38,23 +38,24 @@
 				</c:forEach>
 			</ul>
 		</div>
-
+        <p class="ck_other">
+			<input type="checkbox" id="pr_other" class="class_menu_check" name="name_memu_add"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
+		</p>
 		<div class="food_list">
 			<div class="tab">
 				<ul class="class_category_area">
 				<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.ISETC == 'N'}">
-					   <li value="${status.count}" tabcateid="${category.CATEGORYID}" ><a href="#" data-ajax="false">${category.NAME}</a></li>
+					   <li value="${status.count}" tabcateid="${category.CATEGORYID}" isetc="${category.ISETC}" catename="${category.NAME}" ><a href="#" data-ajax="false">${category.NAME}</a></li>
 					</c:if>
 					<!-- <li id="id_menu_sub2"><a href="/pos/category/categoryMenuManage.do?categoryid=2" data-ajax="false">식사류</a></li>
 					<li id="id_menu_sub3" ><a href="/pos/category/categoryMenuManage.do?categoryid=3" data-ajax="false">주류</a></li>-->
 				</c:forEach>
 					    <!-- <li id="id_menu_sub4"><a href="/pos/category/categoryMenuManage.do?categoryid=4" data-ajax="false">음료류</a></li>-->
-					    <li id="id_menu_sub5"><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
+					    <li class="class_cate_main_tab" tabcateid="tabcateid5" isetc="Y" id="id_menu_sub5"><a href="#others_menu" data-rel="popup" data-position-to="window" data-transition="pop">기타</a></li>
 				</ul>
 			</div>
 			<div class="price_other">
-				<input type="checkbox" id="pr_other" class="class_menu_check" name="name_memu_add"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
 				<span class="ps">금액(천단위)</span>
 			</div>		
 			<!--s: 입력목록(매장/배달/포장 금액 다를경우) -->
@@ -72,7 +73,7 @@
 					<thead>
 						<tr>
 							<th scope="col"></th>
-							<th class="class_menu_tab_top" scope="col">요리류 메뉴</th>
+							<th class="class_menu_tab_top" scope="col">요리류</th>
 							<th scope="col" id="id_menu_tab_top1">금액</th>
 							<!-- <th scope="col" id="id_menu_tab_top2">매장</th>-->
 							<th scope="col" id="id_menu_tab_top3">배달</th>
@@ -87,9 +88,9 @@
 								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
 								<td><input type="text" class="class_menu_name" data-role="none" value="${categoryMenu.NAME}"/></td>
 								<!-- <td class="class_menu_defaultprice"><input type="text"  data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>-->
-								<td class="class_menu_storeprice"><input type="text"  data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
-								<td class="class_menu_deliveryprice"><input type="text"  data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
-								<td class="class_menu_takeoutprice" ><input type="text" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
+								<td class="class_menu_storeprice"><input type="tel"  data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
+								<td class="class_menu_deliveryprice"><input type="tel"  data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
+								<td class="class_menu_takeoutprice" ><input type="tel" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
 								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
 							</tr>
 						</c:forEach>
@@ -122,10 +123,10 @@
 		</div>
 		<div role="main" class="ui-content">
 			<div class="menu_list">
-				<ul>
+				<ul class="class_menu_pop_tap">
 					<c:forEach var="category" items="${categoryList}" varStatus="status">
 				    <c:if test="${category.ISETC == 'Y'}">
-						<li><input type="radio" id="otherL_${category.SORTORDER}" name="otherL" etccateid="${category.CATEGORYID}" value="${category.SORTORDER}" class="class_menu_pop"/><label for="otherL_${category.SORTORDER}">${category.NAME}</label></li>
+						<li><input type="radio" id="otherL_${category.SORTORDER}" popname="${category.NAME}" name="otherL" etccateid="${category.CATEGORYID}" isetc="${category.ISETC}" value="${category.SORTORDER}" class="class_menu_pop"/><label for="otherL_${category.SORTORDER}">${category.NAME}</label></li>
 						
 					</c:if>
 					</c:forEach>
