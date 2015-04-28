@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 function commonAjaxCall(url, param, success, fail){
 	if(typeof console != 'undefined'){
-		console.log("param: " + param);
+		console.log("url: " + url + ", param: " + param);
 	}
 	return $.ajax({
 		url: url,

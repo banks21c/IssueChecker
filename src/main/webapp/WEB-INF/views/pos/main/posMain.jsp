@@ -18,7 +18,7 @@
 <div data-role="page" id="pos-main" data-url="pos-main">
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_home" title="home" data-role="none"></a>
-		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
+		<a href="#admin_panel" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>간편포스</h1>
 	</div>
 	<div data-role="content">
@@ -237,7 +237,6 @@
 					<li><input type="radio" id="specialM_07" name="specialM" /><label for="specialM_07">외상수금</label></li>
 					<li><input type="radio" id="specialM_08" name="specialM" /><label for="specialM_08">테이블 이름 변경</label></li>
 					<li><input type="radio" id="specialM_09" name="specialM" /><label for="specialM_09">식권판매</label></li>
-					<li><input type="radio" id="specialM_10" name="specialM" /><label for="specialM_10">설정(프로그램 셋팅)</label></li>
 				</ul>
 			</div>
 		</div>
@@ -286,6 +285,150 @@
 		</div>
 	</div>
 	<!--e: 식권 팝업 -->	
+	
+	<!--s: 우측 설정 panel -->
+	<div data-role="panel" id="admin_panel" data-position="right" data-display="overlay" data-theme="a">
+		<div class="ui-panel-inner">
+			<div class="admin_list">
+				<dl>
+					<dt>테이블 개수 조절</dt>
+					<dd>
+						<p class="tb_ad">
+							<span class="stb">60</span>
+							<input type="number" id="" data-role="none" class="wp20" />
+						</p>
+					</dd>
+					<dt>점심시간 점심특선메뉴 앞으로</dt>
+					<dd>
+						<div class="time_set">
+							<p class="time_yn">
+								<input type="radio" id="timeY" name="timeYN" /><label for="timeY">예</label>
+								<input type="radio" id="timeN" name="timeYN" /><label for="timeN">아니오</label>
+							</p>
+							<div class="time_admin">
+								<div class="btn_ud bup">
+									<ul>
+										<li><a href="#" title="오전오후"></a></li>
+										<li><a href="#" title="시간"></a></li>
+										<li><a href="#" title="분"></a></li>
+									</ul>
+									<ul>
+										<li><a href="#" title="오전오후"></a></li>
+										<li><a href="#" title="시간"></a></li>
+										<li><a href="#" title="분"></a></li>
+									</ul>
+								</div>
+								<div class="time_line">
+									<ul>
+										<li><span>오전</span> <span>12</span> : <span>00</span></li>
+										<li><span>오후</span> <span>12</span> : <span>00</span></li>
+									</ul>
+								</div>
+								<div class="btn_ud bdown">
+									<ul>
+										<li><a href="#" title="시간"></a></li>
+									</ul>
+									<ul>
+										<li><a href="#" title="시간"></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="week_choice">
+								<ul>
+									<li><input type="checkbox" id="week_01" /><label for="week_01">월</label></li>
+									<li><input type="checkbox" id="week_02" /><label for="week_02">화</label></li>
+									<li><input type="checkbox" id="week_03" /><label for="week_03">수</label></li>
+									<li><input type="checkbox" id="week_04" /><label for="week_04">목</label></li>
+									<li><input type="checkbox" id="week_05" /><label for="week_05">금</label></li>
+									<li><input type="checkbox" id="week_06" /><label for="week_06" class="week_blue">토</label></li>
+									<li><input type="checkbox" id="week_07" /><label for="week_07" class="week_red">일</label></li>
+								</ul>
+							</div>
+						</div>
+					</dd>
+					<dt>할인율 편집</dt>
+					<dd>
+						<div class="discount_admin">
+							<ul>
+								<li><input type="number" data-role="none" id="" value="3" /> %</li>
+								<li><input type="number" data-role="none" id="" value="5" /> %</li>
+								<li><input type="number" data-role="none" id="" value="7" /> %</li>
+								<li><input type="number" data-role="none" id="" value="10" /> %</li>
+							</ul>
+						</div>
+					</dd>
+					<dt>전국랭킹-임차료,평수 수정</dt>
+					<dd>
+						<div class="ranking_set">
+							<h4>평수 기준</h4>
+							<ul>
+								<li><input type="radio" id="pshL01" name="pshL1" /><label for="pshL01">3평이하</label></li>
+								<li><input type="radio" id="pshL02" name="pshL1" /><label for="pshL02">4~5</label></li>
+								<li><input type="radio" id="pshL03" name="pshL1" /><label for="pshL03">6~10</label></li>
+								<li><input type="radio" id="pshL04" name="pshL1" /><label for="pshL04">11~15</label></li>
+								<li><input type="radio" id="pshL05" name="pshL1" /><label for="pshL05">16~20</label></li>
+								<li><input type="radio" id="pshL06" name="pshL1" /><label for="pshL06">20~25</label></li>
+								<li><input type="radio" id="pshL07" name="pshL1" /><label for="pshL07">26~30</label></li>
+								<li><input type="radio" id="pshL08" name="pshL1" /><label for="pshL08">31~40</label></li>
+								<li><input type="radio" id="pshL09" name="pshL1" /><label for="pshL09">41~50</label></li>
+								<li><input type="radio" id="pshL10" name="pshL1" /><label for="pshL10">51~70</label></li>
+								<li><input type="radio" id="pshL11" name="pshL1" /><label for="pshL11">71~100</label></li>
+								<li><input type="radio" id="pshL12" name="pshL1" /><label for="pshL12">초대형</label></li>
+							</ul>
+							<h4>임차료 기준</h4>
+							<ul>
+								<li><input type="radio" id="pshL201" name="pshL2" /><label for="pshL201">30만이하</label></li>
+								<li><input type="radio" id="pshL202" name="pshL2" /><label for="pshL202">40~50</label></li>
+								<li><input type="radio" id="pshL203" name="pshL2" /><label for="pshL203">60~70</label></li>
+								<li><input type="radio" id="pshL204" name="pshL2" /><label for="pshL204">80~100</label></li>
+								<li><input type="radio" id="pshL205" name="pshL2" /><label for="pshL205">110~150</label></li>
+								<li><input type="radio" id="pshL206" name="pshL2" /><label for="pshL206">160~200</label></li>
+								<li><input type="radio" id="pshL207" name="pshL2" /><label for="pshL207">210~300</label></li>
+								<li><input type="radio" id="pshL208" name="pshL2" /><label for="pshL208">310~400</label></li>
+								<li><input type="radio" id="pshL209" name="pshL2" /><label for="pshL209">410~500</label></li>
+								<li><input type="radio" id="pshL210" name="pshL2" /><label for="pshL210">510~700</label></li>
+								<li><input type="radio" id="pshL211" name="pshL2" /><label for="pshL211">710~900</label></li>
+								<li><input type="radio" id="pshL212" name="pshL2" /><label for="pshL212">초대형</label></li>
+							</ul>
+						</div>
+					</dd>
+					<dt>고객요구사항 내용 편집</dt>
+					<dd>
+						<div class="memo_set">
+							<!--s: 고객 요구사항 등록되어 있는 목록들이 보여짐 -->
+							<ul>
+								<li><input type="text" id="" data-role="none" class="wp80" /></li>
+								<li><input type="text" id="" data-role="none" class="wp80" /></li>
+								<li><input type="text" id="" data-role="none" class="wp80" /></li>
+							</ul>
+							<!--e: 고객 요구사항 등록되어 있는 목록들이 보여짐 -->
+						</div>
+					</dd>
+					<dt>배달-집합건물 수정/삭제</dt>
+					<dd>
+						<div class="structure_set">
+							<ul>
+								<li>
+									<input type="text" id="" data-role="none" class="wp60" /> <span class="ico a">아</span>
+									<a href="#" class="del">삭제</a>
+								</li>
+								<li>
+									<input type="text" id="" data-role="none" class="wp60" /> <span class="ico bd">빌</span>
+									<a href="#" class="del">삭제</a>
+								</li>
+							</ul>
+						</div>
+					</dd>
+					<dt>배달관리-수거 메뉴 보이기 여부</dt>
+					<dd>
+						<p><input type="checkbox" id="delivery_view" name="delivery_view" /><label for="delivery_view">수거메뉴 보이기</label></p>
+					</dd>
+				</dl>
+			</div>
+			 <!-- <a href="#" data-rel="close" class="sel_panel_close">X</a> -->
+		</div>
+	</div>
+	<!--e: 우측 설정 panel -->	
 </div>
 </body>
 </html>

@@ -408,6 +408,14 @@ window.bapdosa.order = (function() {
 			
 			
 		});
+		
+		//계산화면으로 가기
+		$(".class-event-account-go").click(function(e){
+			e.preventDefault();
+			var url="/pos/order/account.do?tableId=" + mTableId + "&orderId=" + mOrderId;
+			
+			document.location.href = url;
+		});
 	}
 	
 	//단골고객정보를 가져와서 뿌린다.
