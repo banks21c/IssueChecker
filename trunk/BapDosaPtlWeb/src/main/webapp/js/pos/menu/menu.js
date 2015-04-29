@@ -148,6 +148,21 @@ window.bapdosa.menu = (function() {
 			}
 		})
 		
+		$(".class_point_time_differ").change(function(e){
+			e.preventDefault();			
+			
+			if($(this).is(":checked")) {
+				
+		    	$("#id_point_set_time_differ").show();
+		    	$("#id_point_time_same").hide();
+		    	
+			}else{
+				
+				$("#id_point_set_time_differ").hide();
+		    	$("#id_point_time_same").show();		    
+			}
+		})
+		
 		$(".class_menu_save").click(function(e){
 			e.preventDefault();			
 			updateShortMenu();						

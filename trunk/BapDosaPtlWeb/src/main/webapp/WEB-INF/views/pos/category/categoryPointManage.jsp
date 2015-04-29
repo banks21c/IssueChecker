@@ -128,13 +128,13 @@
 		</div>
 		<div role="main" class="ui-content">
 			<div class="time_wrap">
-				<p class="diferente"><input type="checkbox" id="timec" /><label for="timec">할인시간대 요일마다 다르게 설정</label></p>
+				<p class="diferente"><input type="checkbox" id="timec" class="class_point_time_differ"/><label for="timec">할인시간대 요일마다 다르게 설정</label></p>
 				<div class="time_box">
 					<!--s: 할인시간대 요일마다 다르게 설정 경우 -->
-					<div class="week_choice tab" style="display:none">
+					<div class="week_choice tab" id="id_point_set_time_differ" style="display:none">
 						<ul>
-							<li><a href="#">월</a></li>
-							<li><a href="#" class="active">화</a></li>
+							<li><a href="#" class="active" >월</a></li>
+							<li><a href="#">화</a></li>
 							<li><a href="#">수</a></li>
 							<li><a href="#">목</a></li>
 							<li><a href="#">금</a></li>
@@ -183,7 +183,7 @@
 							<span><a href="#" class="up"></a>00</span>
 						</div> -->
 					</div>
-					<div class="week_choice">
+					<div class="week_choice" id="id_point_time_same">
 						<ul>
 							<li><input type="checkbox" id="week_01" /><label for="week_01">월</label></li>
 							<li><input type="checkbox" id="week_02" /><label for="week_02">화</label></li>
