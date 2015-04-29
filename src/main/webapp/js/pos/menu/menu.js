@@ -276,28 +276,17 @@ window.bapdosa.menu = (function() {
 				alert("고정된 항목입니다");
 			}
 	    });	
-		//카테고리 포커스 이벤트
-		$('a[id^=id_cate_main_]').click(function(){
-			if($("#id_cate_main_1").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_1').addClass("on");			
-			}else if($("#id_cate_main_2").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_2').addClass("on");
-			}else if($("#id_cate_main_3").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_3').addClass("on");
-			}else if($("#id_cate_main_4").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_4').addClass("on");
-			}else if($("#id_cate_main_4").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_4').addClass("on");
-			}else if($("#id_cate_main_5").is(":focus")){
-				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_5').addClass("on");
-			}
-		})	
+		//카테고리 포커스 이벤트		
+		$(".class_cate_index li").click(function(e){
+			e.preventDefault();
+			alert("1");
+			$(this).children("a").addClass("on").end().siblings("li").children("a").removeClass("on");
+		});
+		//포인트/할인율 할인시간대 설정	
+		$("#id_point_set_time_differ li").click(function(e){
+			e.preventDefault();
+			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+		});
 		
 		//메뉴 위아래 이벤트 처리
 		$("#id_menu_up").click(function(e){	
