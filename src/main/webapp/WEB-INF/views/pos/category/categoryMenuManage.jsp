@@ -81,11 +81,11 @@
 							<th scope="col">숨김</th>
 						</tr>
 					</thead>
-					<tbody >
+					<tbody class="class_menu_main_top" >
 					    <c:forEach var="categoryMenu" items="${categoryMenuList}" varStatus="status">
 							<tr class="class_menu_main_view" memberid="${categoryMenu.MEMBERID}" deviceid="${categoryMenu.DEVICEID}" categoryid="${categoryMenu.CATEGORYID}" menuid="${categoryMenu.MENUID}" sortorder="${categoryMenu.SORTORDER}" catemenuname="${categoryMenu.NAME}" 
 							defaultprice = "${categoryMenu.DEFAULTPRICE}" storeprice = "${categoryMenu.STOREPRICE}" deliveryprice="${categoryMenu.DELIVERYPRICE}" takeoutprice="${categoryMenu.TAKEOUTPRICE}" ishidden="${categoryMenu.ISHIDDEN}" isdeleted="${categoryMenu.ISDELETED}" menuFlag="false">
-								<td><label><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
+								<td><label sortorder="${categoryMenu.SORTORDER}"><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
 								<td><input type="text" class="class_menu_name" data-role="none" value="${categoryMenu.NAME}"/></td>
 								<!-- <td class="class_menu_defaultprice"><input type="text"  data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>-->
 								<td class="class_menu_storeprice"><input type="tel"  data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
@@ -99,7 +99,7 @@
 			</div>
 			<!--e: 입력목록(매장/배달/포장 금액 다를경우) -->
 			<div class="control">
-				<a href="#" class="btn_01" title="위로"><i class="up"></i></a><a href="#" class="btn_01" title="아래로"><i class="down"></i></a><a href="#" id="id_menu_add_row" class="btn_02">추가</a><a href="#" id="id_menu_delete" class="btn_02">삭제</a>
+				<a href="#" class="btn_01" id="id_menu_up" title="위로"><i class="up"></i></a><a href="#" class="btn_01" id="id_menu_down" title="아래로"><i class="down"></i></a><a href="#" id="id_menu_add_row" class="btn_02">추가</a><a href="#" id="id_menu_delete" class="btn_02">삭제</a>
 				<span>ex) 12,000원 12/ 5백원 0.5</span>
 			</div>
 			<div class="btn_c tline">

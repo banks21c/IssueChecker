@@ -231,6 +231,7 @@ window.bapdosa.menu = (function() {
 			$(this).addClass("on").siblings().removeClass("on");
 		});
 		
+		//카테고리 위아래 이벤트 처리
 		$("#id_cate_up").click(function(e){		
 			e.preventDefault();				
 			if($(".class_cate_index li a:eq(0)").hasClass("on")){
@@ -256,7 +257,7 @@ window.bapdosa.menu = (function() {
 				
 			}
 	    });	
-		
+		//카테고리 포커스 이벤트
 		$('a[id^=id_cate_main_]').click(function(){
 			if($("#id_cate_main_1").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
@@ -267,14 +268,54 @@ window.bapdosa.menu = (function() {
 			}else if($("#id_cate_main_3").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_3').addClass("on");
-			}else if($("#id_cate_main_5").is(":focus")){
+			}else if($("#id_cate_main_4").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_5').addClass("on");
-			}else if($("#id_cate_main_6").is(":focus")){
+				$('#id_cate_main_4').addClass("on");
+			}else if($("#id_cate_main_4").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
-				$('#id_cate_main_6').addClass("on");
+				$('#id_cate_main_4').addClass("on");
 			}
 		})	
+		
+		//메뉴 위아래 이벤트 처리
+		$("#id_menu_up").click(function(e){	
+			
+			e.preventDefault();
+			//var index = $(".class_menu_main_top tr label:eq(0)").attr("sortorder");
+			$('tr.class_menu_main_view').each(function(index){
+				if($(this).find("input:eq(0)").is(":checked")){					
+					index = index -1 ;
+					
+					if(index >=0 ){
+					   $(".class_menu_main_top tr td").parent().prev("tr:eq("+index+")").before($(".class_menu_main_top tr td").parent());
+					}
+				}
+			})
+			
+			/*if($(".class_menu_main_top tr td").find("input:eq(0)").is(":checked")){
+				alert('11111');
+				
+				
+			}else{
+				alert('66666');
+			}*//*else if($(".class_cate_index li a:eq(1)").hasClass("on")){
+				$(".class_cate_index li a:eq(1)").parent().prev("li").before($(".class_cate_index li a:eq(1)").parent());
+				$(".class_cate_index_sub li span:eq(1)").parent().prev("li").before($(".class_cate_index_sub li span:eq(1)").parent());
+			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
+				$(".class_cate_index li a:eq(2)").parent().prev("li").before($(".class_cate_index li a:eq(2)").parent());
+				$(".class_cate_index_sub li span:eq(2)").parent().prev("li").before($(".class_cate_index_sub li span:eq(2)").parent());
+			}*/
+	    });	
+		
+		$("#id_menu_down").click(function(e){
+			e.preventDefault();	
+			$('tr.class_menu_main_view').each(function(index){
+				if($(this).find("input:eq(0)").is(":checked")){					
+					index = index;				
+					$(".class_menu_main_top tr td").parent().next("tr:eq("+index+")").after($(".class_menu_main_top tr td").parent());					
+				}
+			})
+	    });	
 		
 		$("#id_menu_add_row").click(function(){
 			var memberid = $("tr.class_menu_main_view").attr('memberid');
@@ -428,7 +469,7 @@ window.bapdosa.menu = (function() {
 		
 	}
 	function menuSave(){
-		$("tr.class_menu_main_view").each(function() {			 
+		$("tr.class_menu_main_view").each(function(index) {			 
 			
 			 var catemenuname = $(this).attr('catemenuname');
 			 var catemenuname2 = $(this).find("input:eq(1)").val();
@@ -439,7 +480,7 @@ window.bapdosa.menu = (function() {
 				 catemenuname;
 			 }			
 			 //var catemenuname = $(this).attr('catemenuname');
-			 var sortorder = $(this).attr('sortorder');
+			 var sortorder = index+1;
 			 var categoryid = $(this).attr('categoryid');			 
 			 //var menuid = $(this).attr('menuid');
 			 var menuid = ($(this).attr("menuid") || "").startsWith("temp_") ? "" : $(this).attr("menuid");
