@@ -170,7 +170,7 @@ window.bapdosa.menu = (function() {
 	    });
 		$("#id_menu_delete").click(function(e){
 			e.preventDefault();
-			if(!confirm("delete??")){
+			if(!confirm("정말로 삭제하시겠습니까?")){
 				return false;
 			}			
 			$('tr.class_menu_main_view').each(function(){
@@ -251,12 +251,14 @@ window.bapdosa.menu = (function() {
 			e.preventDefault();				
 			if($(".class_cate_index li a:eq(0)").hasClass("on")){
 				
-			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){
+			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){				
 				$(".class_cate_index li a:eq(1)").parent().prev("li").before($(".class_cate_index li a:eq(1)").parent());
 				$(".class_cate_index_sub li span:eq(1)").parent().prev("li").before($(".class_cate_index_sub li span:eq(1)").parent());
 			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
 				$(".class_cate_index li a:eq(2)").parent().prev("li").before($(".class_cate_index li a:eq(2)").parent());
 				$(".class_cate_index_sub li span:eq(2)").parent().prev("li").before($(".class_cate_index_sub li span:eq(2)").parent());
+			}else{
+				alert("고정된 항목입니다");
 			}
 	    });	
 		
@@ -270,6 +272,8 @@ window.bapdosa.menu = (function() {
 				$(".class_cate_index_sub li span:eq(1)").parent().next("li").after($(".class_cate_index_sub li span:eq(1)").parent());
 			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
 				
+			}else{
+				alert("고정된 항목입니다");
 			}
 	    });	
 		//카테고리 포커스 이벤트
@@ -289,6 +293,9 @@ window.bapdosa.menu = (function() {
 			}else if($("#id_cate_main_4").is(":focus")){
 				$('a[id^=id_cate_main_]').removeClass("on");
 				$('#id_cate_main_4').addClass("on");
+			}else if($("#id_cate_main_5").is(":focus")){
+				$('a[id^=id_cate_main_]').removeClass("on");
+				$('#id_cate_main_5').addClass("on");
 			}
 		})	
 		
@@ -721,8 +728,7 @@ window.bapdosa.menu = (function() {
 			$(".class_category_area li[tabcateid=tabcateid5]").addClass("on");
 			var popname = $(".class_menu_pop_tap li input[etccateid='" + categoryid + "']").attr("popname");
 			$(".class_menu_tab_top").text(popname);
-		}	
-		
+		}			
 	}
 	
 	function displayCategoryPoint(){
@@ -739,8 +745,7 @@ window.bapdosa.menu = (function() {
 			$(".class_category_point_area li[tabpointid=tabpointid5]").addClass("on");
 			var pointname = $(".class_point_pop_tap li input[etcpointid='" + categoryid + "']").attr("pointname");
 			$(".class_point_tab_top").text(pointname);
-		}			
-		
+		}		
 	}
 	
 	return {
