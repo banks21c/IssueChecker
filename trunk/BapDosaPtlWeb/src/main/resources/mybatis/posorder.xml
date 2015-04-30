@@ -299,6 +299,12 @@
                 <if test="istakeoutorder != null and istakeoutorder != '' ">
                     ,ISTAKEOUTORDER = #{istakeoutorder}
                 </if>
+                <if test="exchange != null and exchange != '' ">
+                	,EXCHANGE = #{exchange}
+                </if>
+                <if test="iscashreceipt != null and iscashreceipt != '' ">
+                	,ISCASHRECEIPT = #{iscashreceipt}
+                </if>
         WHERE
         	ORDERID = #{orderId}
         

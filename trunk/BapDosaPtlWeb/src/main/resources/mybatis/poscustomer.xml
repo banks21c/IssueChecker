@@ -138,6 +138,89 @@
 		)     
     </insert>
     
+    <insert id="insertCustomerTrade">
+        /* poscustomer.insertCustomerTrade */
+		INSERT INTO CUSTOMERTRADE
+		(
+			MEMBERID
+			,DEVICEID
+			,CUSTOMERTRADEID
+			,STARTSALESDATE
+			,CUSTOMERID
+			,TRADETYPE
+			,TRADEID
+			,CONTENTS
+			,BILL
+			,PAYMENT
+			,CREDIT
+			,TOTALCREDIT
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			#{memberId}
+			,#{deviceId}
+			,#{customerTradeId}
+			,#{startSalesDate}
+			,#{customerId}
+			,#{tradeType}
+			,#{tradeId}
+			,#{contents}
+			,#{bill}
+			,#{payment}
+			,#{credit}
+			,#{totalCredit}
+			,#{isDeleted}
+			,SYSDATE
+			,SYSDATE
+		)     
+    </insert>    
+    
+    <update id="updateCustomer">
+        /* poscustomer.updateCustomer */
+		UPDATE CUSTOMER
+		SET 
+ 			MODIFICATIONDATE = SYSDATE
+            <if test="name != null and name != '' ">
+                ,NAME = #{name}
+            </if>                                 
+            <if test="phoneNumber != null and phoneNumber != '' ">
+                ,PHONENUMBER = #{phoneNumber}
+            </if>                
+            <if test="totalSales != null and totalSales != '' ">
+                ,TOTALSALES = #{totalSales}
+            </if>            
+            <if test="isInstant != null and isInstant != '' ">
+                ,ISINSTANT = #{isInstant}
+            </if>               
+            <if test="totalCredit != null and totalCredit != '' ">
+                ,TOTALCREDIT = #{totalCredit}
+            </if>               
+            <if test="totalDeposit != null and totalDeposit != '' ">
+                ,TOTALDEPOSIT = #{totalDeposit}
+            </if>     
+            <if test="address != null and address != '' ">
+                ,ADDRESS = #{address}
+            </if>             
+            <if test="isBlack != null and isBlack != '' ">
+                ,ISBLACK = #{isBlack}
+            </if>              
+            <if test="isDeliver != null and isDeliver != '' ">
+                ,ISDELIVER = #{isDeliver}
+            </if>             
+            <if test="phoneNumber2 != null and phoneNumber2 != '' ">
+                ,PHONENUMBER2 = #{phoneNumber2}
+            </if>               
+            <if test="buildingId != null and buildingId != '' ">
+                ,BUILDINGID = #{buildingId}
+            </if>             
+            <if test="isdeleted != null and isdeleted != '' ">
+                ,ISDELETED = #{isdeleted}
+            </if>  
+		WHERE
+			CUSTOMERID = #{customerId}     
+    </update>    
+    
     <select id="getCustomer" resultType="map">
         SELECT
 			MEMBERID
@@ -329,7 +412,55 @@
 				AND NAME BETWEEN NCHR(54616) AND NCHR(55203)
 				</if>
 			</if> 
-    </select>    
+    </select>   
     
- 
+    <insert id="insertPoint">
+        /* poscustomer.insertPoint */
+		INSERT INTO POINT
+		(
+			 MEMBERID
+			,DEVICEID
+			,POINTID
+			,CUSTOMERID
+			,POINTTYPE
+			,ORDERID
+			,DELIVERYMASTERID
+			,ADDPOINT
+			,USEDPOINT
+			,REMAINPOINT
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			#{memberId}
+			,#{deviceId}
+			,#{pointId}
+			,#{customerId}
+			,#{pointType}
+			,#{orderId}
+			,#{deliverymasterId}
+			,#{addPoint}
+			,#{usedPoint}
+			,#{remainPoint}
+			,'N'
+			,SYSDATE
+			,SYSDATE
+		)     
+    </insert>     
+    
+    <select id="getSumPoint" resultType="map">
+        /* poscustomer.sumPoint */
+		SELECT 
+			NVL(SUM(ADDPOINT),0) AS ADDSUMPOINT 
+			,NVL(SUM(USEDPOINT), 0) AS USEDSUMPOINT 
+			,NVL(SUM(ADDPOINT), 0) - NVL(SUM(USEDPOINT),0) AS REMAINPOINT 
+			
+		FROM
+			POINT
+		WHERE
+			CUSTOMERID = #{customerId}
+			AND ISDELETED = 'N'
+			
+    </select>     
+
 </mapper>

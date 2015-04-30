@@ -14,7 +14,12 @@ $(document).on("mobileinit", function () {
 window.bapdosa.account = (function() {
 	var mTableId = ""; //테이블아이디
 	var mOrderId = ""; //주문번호
-	var mFoodPrice = 0;	//고객ID
+	var mFoodPrice = 0;	//음식가격
+	var mCreditProcessPrice = 0;	//외상처리금액
+	var mCreditPayPrice = 0;		//외상갚기금액
+	var mDepositProcessPrice = 0;		//예치하기금액	
+	var mStartSalesDate;
+	var mOrderName = "";		//주문명(불고기 외)
 	
 	//고객정보
 	var mCustomerInfo = {
@@ -66,31 +71,26 @@ window.bapdosa.account = (function() {
 			}
 		});
 		
-		$("#form_account input[name=creditAmount],#form_account input[name=lossAmount],#form_account input[name=discountAmount], #form_account input[name=creditAmount]").on("input", function(e){
+		$("#form_account input[name=creditAmount],#form_account input[name=lossAmount],#form_account input[name=discountAmount]").on("input", function(e){
 			e.preventDefault();
 			var creditAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=creditAmount]").val() || "0"));
 			var lossAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=lossAmount]").val() || "0"));
 			var discountAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=discountAmount]").val() || "0"));	
 			
 			if(creditAmount > mCustomerInfo.totalCredit){
-				$("#form_account input[name=creditAmount]").val(window.bapdosa.util.setComma(mCustomerInfo.totalCredit)).attr("beforeAmount", mCustomerInfo.totalCredit);
-				return false;
-			}
+				creditAmount = mCustomerInfo.totalCredit;
+			} 
 			
 			if( (lossAmount+discountAmount) >  mFoodPrice){
 				lossAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=lossAmount]").attr("beforeAmount") || "0"));
 				discountAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=discountAmount]").attr("beforeAmount") || "0"));
-				$("#form_account input[name=lossAmount]").val(window.bapdosa.util.setComma(lossAmount)).attr("beforeAmount", lossAmount);
-				$("#form_account input[name=discountAmount]").val(window.bapdosa.util.setComma(discountAmount)).attr("beforeAmount", discountAmount);	
-				
-				return false;
-			}			
+			}		
 			
 			$("#form_account input[name=creditAmount]").val(window.bapdosa.util.setComma(creditAmount)).attr("beforeAmount", creditAmount);
 			$("#form_account input[name=lossAmount]").val(window.bapdosa.util.setComma(lossAmount)).attr("beforeAmount", lossAmount);
 			$("#form_account input[name=discountAmount]").val(window.bapdosa.util.setComma(discountAmount)).attr("beforeAmount", discountAmount);			
 			
-			initForm();			
+			initForm();	
 		});
 		
 		//현금이 입력되면 카드금액은 0으로 한다.
@@ -98,54 +98,211 @@ window.bapdosa.account = (function() {
 			e.preventDefault();
 			var cash = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cash]").val() || "0"));
 			var cardAmount = 0;
-			
+			//현금 콤마처리
 			$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(cash)).attr("beforeAmount", cash);
+			//카드초기화
 			$("#form_account input[name=cardAmount]").val(window.bapdosa.util.setComma(cardAmount)).attr("beforeAmount", cardAmount);	
+	
+			//옵션초기화
+			$("#form_account input[name=creditProcess]").prop("checked", false).checkboxradio("refresh");
+			$("#form_account input[name=creditPay]").prop("checked", false).checkboxradio("refresh");	//외상갚기
+			$("#form_account input[name=depositProcess]").prop("checked", false).checkboxradio("refresh");				
 			balanceAccounts();
 		});	
 		
 		//카드금액변경시
 		$("#form_account input[name=cardAmount]").on("input", function(e){
 			e.preventDefault();
-			var cardAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cardAmount]").val() || "0"));
+			
+			//청구금액
+			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));	
+			//예치금사용금액
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			//카드금액
+			var cardAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cardAmount]").val() || "0"));	
+			//카드금액이 (청구금액+예치금사용금액)보다 높으면 청구금액까지 한다. (제한없음으로 바꿈)
+//			if(cardAmount > (chargeAmount + depositAmount)){
+//				cardAmount = chargeAmount + depositAmount;
+//			}
 			
 			$("#form_account input[name=cardAmount]").val(window.bapdosa.util.setComma(cardAmount)).attr("beforeAmount", cardAmount);
+			
+			//예치금초기화
+			//$("#form_account input[name=depositAmount]").val("0").attr("beforeAmount", "0");
+			//옵션초기화
+			$("#form_account input[name=creditProcess]").prop("checked", false).checkboxradio("refresh");
+			$("#form_account input[name=creditPay]").prop("checked", false).checkboxradio("refresh");	//외상갚기
+			$("#form_account input[name=depositProcess]").prop("checked", false).checkboxradio("refresh");			
+		
 			balanceAccounts();
 		});	
 		
 		//카드 all 버튼클릭 (현금 0으로 세팅)
 		$(".class-event-card-all").click(function(e){
-			e.preventDefault();		
+			e.preventDefault();	
+			
 			//청구금액
 			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));	
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			
+			var cardAmount = chargeAmount - depositAmount;
+			
 			$("#form_account input[name=cash]").val("0").attr("beforeAmount", 0);
-			$("#form_account input[name=cardAmount]").val(chargeAmount).trigger("input");
+			$("#form_account input[name=cardAmount]").val(cardAmount).trigger("input");
+			
 		});		
 		
-		//카드 나머지 버튼클릭 (더받을돈으로)
+		//카드 나머지 버튼클릭 : 청구금액 - (예치금 + 현금), 현금은 많이 낼수 있으므로 청구금액보다 많으면 0
 		$(".class-event-card-left").click(function(e){
-			e.preventDefault();		
-			//청구금액
-			var addAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=addAmount]").val() || "0"));	
-			$("#form_account input[name=cardAmount]").val(addAmount).trigger("input");
+			e.preventDefault();	
+			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));
+			var cash = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cash]").val() || "0"));
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			
+			var cardAmount = (chargeAmount - (cash+depositAmount)) < 0 ? 0 : (chargeAmount - (cash+depositAmount)); 
+			$("#form_account input[name=cardAmount]").val(cardAmount).trigger("input");
 		});	
+		
+		//예치금사용 금액변경시
+		$("#form_account input[name=depositAmount]").on("input", function(e){
+			e.preventDefault();
+			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			
+			//예치금사용은 청구금액까지만 가능
+			if(depositAmount > chargeAmount || depositAmount > mCustomerInfo.totalDeposit){
+				depositAmount = chargeAmount > mCustomerInfo.totalDeposit ? mCustomerInfo.totalDeposit : chargeAmount; 
+			}
+						
+			$("#form_account input[name=depositAmount]").val(window.bapdosa.util.setComma(depositAmount)).attr("beforeAmount", depositAmount);
+			
+			//옵션초기화
+			$("#form_account input[name=creditProcess]").prop("checked", false).checkboxradio("refresh");
+			$("#form_account input[name=creditPay]").prop("checked", false).checkboxradio("refresh");	//외상갚기
+			$("#form_account input[name=depositProcess]").prop("checked", false).checkboxradio("refresh");
+			
+			balanceAccounts();
+		});			
 		
 		
 		//예치금사용 all 버튼클릭 (현금 0으로 세팅)
-		$(".class-event-deposit-all").click(function(e){
-			e.preventDefault();		
-			//청구금액
-			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));	
-			var cashAmount = 0;
+		$("#form_account input[name=depositUse]").change(function(e){
+			e.preventDefault();	
+			var checked = $(this).prop("checked");
 			
-			if(mCustomerInfo.totalDeposit < chargeAmount){
-				cashAmount = chargeAmount - mCustomerInfo.totalDeposit; 
-				chargeAmount = mCustomerInfo.totalDeposit; 
+			if(checked){
+				$(this).prop("readonly", false);
+				$("#form_account input[name=depositAmount]").prop("readonly", false);
+			} else {
+				$("#form_account input[name=depositAmount]").prop("readonly", true);
+			}
+			initForm();
+			
+//			if(checked){
+//				//청구금액
+//				var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));	
+//				var cashAmount = 0;
+//				
+//				//청구금액이 예치금보다 클경우는 예치금 최대금액으로
+//				if(chargeAmount > mCustomerInfo.totalDeposit){
+//					chargeAmount = mCustomerInfo.totalDeposit;
+//				}
+//				
+//				
+//				//initForm();
+//				//$("#form_account input[name=cash]").val(cashAmount).attr("beforeAmount", cashAmount);
+//				//$("#form_account input[name=chargeAmount]").val(chargeAmount).trigger("input");
+//			} else {
+//				
+//			}
+		});	
+		
+//		var creditProcess = $("#form_account input[name=creditProcess]").prop("checked");	//외상처리
+//		var creditPay = $("#form_account input[name=creditPay]").prop("checked");			//외상갚기
+//		var depositProcess = $("#form_account input[name=depositProcess]").prop("checked");	//예치하기	
+		
+		//외상처리
+		$("#form_account input[name=creditProcess]").change(function(e){
+			e.preventDefault();
+			var creditProcess = $("#form_account input[name=creditProcess]").prop("checked");	//외상처리
+			var addAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=addAmount]").val() || "0"));		//더받을돈
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			var creditAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=creditAmount]").val() || "0"));	//기존외상값갚기처리금액
+			if(creditProcess){
+				if(mCustomerInfo.totalDeposit > 0){
+					var leftDeposit = mCustomerInfo.totalDeposit - depositAmount;
+					if(leftDeposit > 0){
+						alert("남아있는 예치금이 있습니다.");
+						$("#form_account input[name=creditProcess]").prop("checked", false);
+					}					
+				} 
+				
+				if(creditAmount > 0){
+					alert("외상값 갚기처리시 외상처리할수 없습니다.");
+					$("#form_account input[name=creditProcess]").prop("checked", false);
+				}
 			}
 			
-			initForm();
-			$("#form_account input[name=cash]").val(cashAmount).attr("beforeAmount", cashAmount);
-			$("#form_account input[name=depositAmount]").val(chargeAmount).trigger("input");
+			balanceAccounts();
+		});
+		
+		//외상갚기
+		$("#form_account input[name=creditPay]").change(function(e){
+			e.preventDefault();
+			var creditPay = $("#form_account input[name=creditPay]").prop("checked");			//외상갚기
+			var depositProcess = $("#form_account input[name=depositProcess]").prop("checked");	//예치하기				
+
+			var changeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=changeAmount]").val() || "0"));	//거스름돈
+			var addAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=addAmount]").val() || "0"));		//더받을돈		
+			
+			if(creditPay){						
+				if(changeAmount > 0) {				
+					if(mCustomerInfo.totalCredit <= 0 ) {
+						
+						alert("남아있는 외상값이 없습니다.");
+						$("#form_account input[name=creditPay]").prop("checked", false);
+					}			
+				} else {
+					alert("거스름돈이 없습니다.");
+					$("#form_account input[name=creditPay]").prop("checked", false);					
+				}
+			}
+			
+			balanceAccounts();
+		});	
+		
+		//예치하기
+		$("#form_account input[name=depositProcess]").change(function(e){
+			e.preventDefault();
+			var creditPay = $("#form_account input[name=creditPay]").prop("checked");			//외상갚기
+			var depositProcess = $("#form_account input[name=depositProcess]").prop("checked");	//예치하기				
+
+			var changeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=changeAmount]").val() || "0"));	//거스름돈
+			var addAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=addAmount]").val() || "0"));		//더받을돈					
+						
+			if(depositProcess){
+				
+				if(creditPay){
+					if(changeAmount > 0) {				
+						if(mCustomerInfo.totalCredit > 0 ) {
+							changeAmount = changeAmount - mCustomerInfo.totalCredit;
+						}				
+					}
+				}
+				
+				if(changeAmount <= 0){
+					if(creditPay){
+						alert("예치할 금액이 없습니다.");
+						$("#form_account input[name=depositProcess]").prop("checked", false);
+					} else {
+						alert("외상값이 남아 있습니다.\n외상갚기를 선택해 주세요.");
+						$("#form_account input[name=depositProcess]").prop("checked", false);
+					}
+					
+				}
+			}			
+			
+			balanceAccounts();
 		});			
 		
 		$("#account-page .cash_list ul").on("click", "li", function(e){
@@ -155,6 +312,75 @@ window.bapdosa.account = (function() {
 			$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(recommendPrice)).trigger("input");	
 			
 		});
+		
+		//결재완료
+		$(".class-event-account-go").click(function(e){
+			e.preventDefault();
+			var param = $("#form_account").serialize();			
+			
+			var foodPrice = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=foodPrice]").val() || "0"));
+			var creditAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=creditAmount]").val() || "0"));
+			var lossAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=lossAmount]").val() || "0"));
+			var discountAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=discountAmount]").val() || "0"));
+			var point = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=point]").val() || "0"));
+			var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));
+			var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+			var depositUse = $("#form_account input[name=depositUse]:checked").val() || "N";	//예치금사용여부
+			var cashReceipt = $("#form_account input[name=cashReceipt]:checked").val() || "N";	//현금영수증 여부
+			var cash = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cash]").val() || "0"));
+			var cardAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cardAmount]").val() || "0"));
+			
+			var creditProcess = $("#form_account input[name=creditProcess]:checked").val() || "N";		//외상처리
+			var creditPay = $("#form_account input[name=creditPay]:checked").val() || "N";				//외상갚기
+			var depositProcess = $("#form_account input[name=depositProcess]:checked").val() || "N";	//예치하기		
+			
+			var customPoint = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=customPoint]").val() || "0"));
+			var changeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=changeAmount]").val() || "0"));	//거스름돈
+			var addAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=addAmount]").val() || "0"));			//더받을돈		
+			
+			if(addAmount > 0){
+				alert("더받을돈이 있습니다.");
+				return false;
+			}
+			
+			console.log(param);
+			
+			param = "tableId=" + mTableId + "&orderId=" + mOrderId + "&customerId=" + mCustomerInfo.customerId;
+			
+			var givebackcredit = creditAmount + mCreditPayPrice;	//외상상환금액(거스름돈외상갚기금액포함)
+			var savedpoint = point + customPoint;
+			chargeAmount += mCreditPayPrice;	//(거스름돈외상갚기금액포함)
+			
+			
+			param += "&price=" + foodPrice					//음식금액
+					+ "&givebackcredit=" + givebackcredit	//외상상환금액
+					+ "&loss=" + lossAmount				//손실
+					+ "&discount=" + discountAmount		//할인
+					+ "&billmoney=" + chargeAmount		//청구금액
+					+ "&cashpayment=" + cash			//현금결재금액
+					+ "&cardpayment=" + cardAmount		//카드결재금액
+					+ "&intocredit=" + mCreditProcessPrice	//외상처리금액
+					+ "&intodeposit=" + mDepositProcessPrice	//예치금정립금액	
+					+ "&savedpoint=" + savedpoint				//적립포인트
+					+ "&useddeposit=" + depositAmount	//예치금사용금액					
+					+ "&exchange=" + changeAmount				//거스름돈					
+					+ "&iscashreceipt=" + cashReceipt			//현금영수증 발급여부		
+					+ "&startSalesDate=" + mStartSalesDate
+					+ "&contents=" + mOrderName;
+					//+ "&creditPayPrice=" + mCreditPayPrice;	//거스름돈외상상환금액
+			
+			console.log(param);
+			
+			var url="/pos/account/setAccountComplete.json";
+			var success = function(returnJsonVO){
+				var returnObj = returnJsonVO.returnObj;
+				console.log(returnObj);	
+				
+				document.location.href="/pos/main/posMain.do";
+				
+			};
+			commonAjaxCall(url, param, success);			
+		});
 
 	}
 	
@@ -162,17 +388,79 @@ window.bapdosa.account = (function() {
 	function balanceAccounts(){
 		var cash = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cash]").val() || "0"));
 		var cardAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=cardAmount]").val() || "0"));
+		var depositAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=depositAmount]").val() || "0"));
+		var creditAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=creditAmount]").val() || "0"));
+		//남은외상값
+		var leftCreditAmount = mCustomerInfo.totalCredit - creditAmount;
 		//청구금액
 		var chargeAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=chargeAmount]").val() || "0"));	
 		var changeAmount = 0;	//거스름돈
-		var addAmount = 0;		//더받을돈			
-		var cashCardAmount = cash + cardAmount;
+		var addAmount = 0;		//더받을돈	
+		var creditProcessPrice = 0;	//외상처리금액
+		var creditPayPrice = 0;		//외상갚기금액
+		var depositProcessPrice = 0;		//예치하기금액
+		var cashCardDepositAmount = cash + cardAmount + depositAmount;	//총 투입금액
 		
-		if(cashCardAmount > chargeAmount){
-			changeAmount = cashCardAmount - chargeAmount;
+		//거스름돈, 더받을돈 계산
+		if(cashCardDepositAmount > chargeAmount){
+			changeAmount = cashCardDepositAmount - chargeAmount;
 		} else {
-			addAmount = chargeAmount - cashCardAmount;
+			addAmount = chargeAmount - cashCardDepositAmount;
 		}
+		
+		if(mCustomerInfo.customerId){
+			if(changeAmount > 0){
+				$("#form_account input[name=creditPay]").parent("div.ui-checkbox").show();
+				$("#form_account input[name=depositProcess]").parent("div.ui-checkbox").show();
+				$("#form_account input[name=creditProcess]").prop("checked", false).checkboxradio("refresh").parent("div.ui-checkbox").hide();
+			} else if(addAmount > 0) {
+				$("#form_account input[name=creditProcess]").parent("div.ui-checkbox").show();
+				$("#form_account input[name=creditPay]").prop("checked", false).checkboxradio("refresh").parent("div.ui-checkbox").hide();
+				$("#form_account input[name=depositProcess]").prop("checked", false).checkboxradio("refresh").parent("div.ui-checkbox").hide();				
+			}
+		}	
+		
+		var creditProcess = $("#form_account input[name=creditProcess]").prop("checked");	//외상처리
+		var creditPay = $("#form_account input[name=creditPay]").prop("checked");			//외상갚기
+		var depositProcess = $("#form_account input[name=depositProcess]").prop("checked");	//예치하기	
+		
+		if(creditProcess){			
+			if(addAmount > 0) {
+				creditProcessPrice = addAmount;
+				addAmount = 0;
+			}			
+		}
+		
+		if(creditPay){			
+			if(changeAmount > 0) {				
+				if(leftCreditAmount > 0 ) {					
+					if(leftCreditAmount >= changeAmount){
+						creditPayPrice = changeAmount;
+						leftCreditAmount -= changeAmount;
+						changeAmount = 0;
+					} else {
+						creditPayPrice = leftCreditAmount;
+						changeAmount = changeAmount - leftCreditAmount;
+						leftCreditAmount = 0;
+					}					
+				}				
+			}		
+		}	
+		
+		if(mCustomerInfo.customerId){
+			if(depositProcess){
+				depositProcessPrice = changeAmount;
+				changeAmount = 0;
+			}
+		}		
+		
+		mCreditProcessPrice = creditProcessPrice;	//외상처리금액
+		mCreditPayPrice = creditPayPrice;		//외상갚기금액
+		mDepositProcessPrice = depositProcessPrice;		//예치하기금액	
+		
+		console.log("mCreditProcessPrice: " + mCreditProcessPrice);
+		console.log("mCreditPayPrice: " + mCreditPayPrice);
+		console.log("mDepositProcessPrice: " + mDepositProcessPrice);
 		
 		$("#form_account input[name=changeAmount]").val(window.bapdosa.util.setComma(changeAmount)).attr("beforeAmount", changeAmount);
 		$("#form_account input[name=addAmount]").val(window.bapdosa.util.setComma(addAmount)).attr("beforeAmount", addAmount);		
@@ -187,16 +475,32 @@ window.bapdosa.account = (function() {
 		var lossAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=lossAmount]").val() || "0"));
 		var discountAmount = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=discountAmount]").val() || "0"));		
 		var chargeAmount = totalPrice + creditAmount - lossAmount - discountAmount;
+		var depositAmount = 0;
+		
+		var depositUse = $("#form_account input[name=depositUse]").prop("checked");	
+		
+		if(depositUse){
+			//청구금액이 예치금보다 클경우는 예치금 최대금액으로
+			if(chargeAmount > mCustomerInfo.totalDeposit){
+				depositAmount = mCustomerInfo.totalDeposit;
+			} else {
+				depositAmount = chargeAmount;
+			}
+		}
+		
 		$("#form_account input[name=chargeAmount]").val(window.bapdosa.util.setComma(chargeAmount));
-		$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(chargeAmount));	
+		$("#form_account input[name=depositAmount]").val(window.bapdosa.util.setComma(depositAmount));	//예치금
+		$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(chargeAmount - depositAmount));	//현금
 		$("#form_account input[name=cashReceipt]").prop("checked", false).checkboxradio("refresh");
 		$("#form_account input[name=cardAmount]").val("0");
 		$("#form_account input[name=customPoint]").val("0");
 		$("#form_account input[name=creditProcess]").prop("checked", false).checkboxradio("refresh");
-		$("#form_account input[name=creditProcess]").prop("creditPay", false).checkboxradio("refresh");
-		$("#form_account input[name=creditProcess]").prop("depositProcess", false).checkboxradio("refresh");
+		$("#form_account input[name=creditPay]").prop("checked", false).checkboxradio("refresh");	//외상갚기
+		$("#form_account input[name=depositProcess]").prop("checked", false).checkboxradio("refresh");
 		$("#form_account input[name=changeAmount]").val("0");
-		$("#form_account input[name=addAmount]").val("0");
+		$("#form_account input[name=addAmount]").val("0");	
+		
+		console.log("initForm()");
 		
 //		if($(".opn01").hasClass("closed")){
 //			//$(this).click();			
@@ -208,9 +512,21 @@ window.bapdosa.account = (function() {
 //			//$(this).click();			
 //			$('.tb02').toggleClass('shv');
 //			$('.tb02 .op_blt').toggleClass('closed');		
-//		}		
+//		}	
+		
+		//예치금이 청구금액보다 크면 예치금row 보여주기
+//		if(mCustomerInfo.totalDeposit >= chargeAmount){
+//			$("#account-page .class-area-deposit").show();
+//		} else {
+//			$("#account-page .class-area-deposit").hide();
+//		}				
 		
 		recommendCash();
+		
+		//옵션hide()
+		$("#form_account input[name=creditProcess]").parent("div.ui-checkbox").hide();
+		$("#form_account input[name=creditPay]").parent("div.ui-checkbox").hide();
+		$("#form_account input[name=depositProcess]").parent("div.ui-checkbox").hide();
 	}
 	
 	//현금추천
@@ -274,8 +590,7 @@ window.bapdosa.account = (function() {
 				//외상값이 있으면 외상값row 보여주기
 				if(mCustomerInfo.totalCredit > 0){
 					$("#account-page .class-area-credit").show();
-				}
-				
+				}			
 				
 				var customerArea = $(".class-area-customer-info").empty().text(returnObj.NAME + " ");
 				var iconAdd;
@@ -305,7 +620,16 @@ window.bapdosa.account = (function() {
 				if(iconAdd){
 					customerArea.append(iconAdd);
 				}
-				customerArea.append(addInfo);							
+				customerArea.append(addInfo);
+				
+				//예치금이 있으면 예치금row show, 예치금 사용 체크
+				if(mCustomerInfo.totalDeposit > 0){
+					$("#account-page .class-area-deposit").show();
+					$("#form_account input[name=depositUse]").prop("checked", true).checkboxradio("refresh");
+					$("#form_account input[name=depositAmount]").prop("readonly", false);
+				}
+				
+				initForm();				
 			}
 		};	
 		commonAjaxCall(url, param, success);		
@@ -324,9 +648,11 @@ window.bapdosa.account = (function() {
 			console.log(returnObj);
 			mOrderDetailList = returnObj.orderDetailList;
 			var orderInfoObj = returnObj.orderInfo;
+			mStartSalesDate = orderInfoObj.STARTSALESDATE;
 			var orderListArea = $(".class-area-order-list");
 			var orderListStr = "";
 			var totalPrice = 0;
+			
 			$(mOrderDetailList).each(function(index,obj){
 				var preStr = "";
 				if(obj.ISTAKEOUT == "Y"){
@@ -337,8 +663,12 @@ window.bapdosa.account = (function() {
 				}	
 				
 				if(index == 0){
+					mOrderName = obj.MENU_NAME;
 					orderListStr = preStr + obj.MENU_NAME + "(" + obj.QUANTITY + ")";
 				} else {
+					if(index == 1){
+						mOrderName += " 외";
+					}
 					orderListStr += " " + preStr + obj.MENU_NAME + "(" + obj.QUANTITY + ")"
 				}
 				
@@ -350,11 +680,12 @@ window.bapdosa.account = (function() {
 			orderListArea.text(orderListStr);
 			$("#form_account input[name=foodPrice]").val(window.bapdosa.util.setComma(totalPrice));
 			$("#form_account input[name=chargeAmount]").val(window.bapdosa.util.setComma(totalPrice));
-			//$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(totalPrice));	
-			initForm();
+			//$("#form_account input[name=cash]").val(window.bapdosa.util.setComma(totalPrice));			
 			
 			if(orderInfoObj.CUSTOMERID){
 				displayCustomerInfo(orderInfoObj.CUSTOMERID);
+			} else {
+				initForm();
 			}
 			
 		};
