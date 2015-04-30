@@ -146,28 +146,28 @@
 					<div class="time_admin">
 						<div class="btn_ud bup">
 							<ul>
-								<li><a href="#" title="오전오후"></a></li>
-								<li><a href="#" title="시간"></a></li>
-								<li><a href="#" title="분"></a></li>
+								<li><a href="#" id="id_point_am_btn" class="class_point_am_pm" title="오전오후"></a></li>
+								<li><a href="#" id="id_point_hour_plus_btn" title="시간"></a></li>
+								<li><a href="#" id="id_point_minute_btn" title="분"></a></li>
 							</ul>
 							<ul>
-								<li><a href="#" title="오전오후"></a></li>
-								<li><a href="#" title="시간"></a></li>
-								<li><a href="#" title="분"></a></li>
+								<li><a href="#" id="id_point_pm_btn" class="class_point_am_pm" title="오전오후"></a></li>
+								<li><a href="#" id="id_point_hour2_plus_btn" title="시간"></a></li>
+								<li><a href="#" id="id_point_minute2_btn"title="분"></a></li>
 							</ul>
 						</div>
 						<div class="time_line">
 							<ul>
-								<li><span>오전</span> <span>12</span> : <span>00</span></li>
-								<li><span>오후</span> <span>12</span> : <span>00</span></li>
+								<li><span id="id_point_am_text">오전</span> <span id="id_point_hour_text" >12</span> : <span id="id_point_minute_text">00</span></li>
+								<li><span id="id_point_pm_text">오후</span> <span id="id_point_hour2_text">12</span> : <span id="id_point_minute2_text">00</span></li>
 							</ul>
 						</div>
 						<div class="btn_ud bdown">
 							<ul>
-								<li><a href="#" title="시간"></a></li>
+								<li><a href="#" id="id_point_hour_minus_btn" title="시간"></a></li>
 							</ul>
 							<ul>
-								<li><a href="#" title="시간"></a></li>
+								<li><a href="#" id="id_point_hour2_minus_btn" title="시간"></a></li>
 							</ul>
 						</div>
 						<!-- <div class="times start">
