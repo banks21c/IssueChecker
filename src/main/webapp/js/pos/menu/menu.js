@@ -146,22 +146,7 @@ window.bapdosa.menu = (function() {
 				//$("#id_menu_save").addClass("class_short_save").removeClass("class_long_save");
 		    	//$("tr.class_menu_main_view").attr("menuFlag" , "false");
 			}
-		})
-		
-		$(".class_point_time_differ").change(function(e){
-			e.preventDefault();			
-			
-			if($(this).is(":checked")) {
-				
-		    	$("#id_point_set_time_differ").show();
-		    	$("#id_point_time_same").hide();
-		    	
-			}else{
-				
-				$("#id_point_set_time_differ").hide();
-		    	$("#id_point_time_same").show();		    
-			}
-		})
+		})				
 		
 		$(".class_menu_save").click(function(e){
 			e.preventDefault();			
@@ -249,7 +234,7 @@ window.bapdosa.menu = (function() {
 		//카테고리 위아래 이벤트 처리
 		$("#id_cate_up").click(function(e){		
 			e.preventDefault();				
-			if($(".class_cate_index li a:eq(0)").hasClass("on")){
+			if($(".class_cate_index li a:eq(0)").hasClass("on") || !$(".class_cate_index li a").hasClass("on")){
 				
 			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){				
 				$(".class_cate_index li a:eq(1)").parent().prev("li").before($(".class_cate_index li a:eq(1)").parent());
@@ -270,7 +255,7 @@ window.bapdosa.menu = (function() {
 			}else if($(".class_cate_index li a:eq(1)").hasClass("on")){
 				$(".class_cate_index li a:eq(1)").parent().next("li").after($(".class_cate_index li a:eq(1)").parent());
 				$(".class_cate_index_sub li span:eq(1)").parent().next("li").after($(".class_cate_index_sub li span:eq(1)").parent());
-			}else if($(".class_cate_index li a:eq(2)").hasClass("on")){
+			}else if($(".class_cate_index li a:eq(2)").hasClass("on") || !$(".class_cate_index li a").hasClass("on")){
 				
 			}else{
 				alert("고정된 항목입니다");
@@ -280,12 +265,7 @@ window.bapdosa.menu = (function() {
 		$(".class_cate_index li").click(function(e){
 			e.preventDefault();
 			$(this).children("a").addClass("on").end().siblings("li").children("a").removeClass("on");
-		});
-		//포인트/할인율 할인시간대 설정	
-		$("#id_point_set_time_differ li").click(function(e){
-			e.preventDefault();
-			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
-		});
+		});		
 		
 		//메뉴 위아래 이벤트 처리
 		$("#id_menu_up").click(function(e){	
@@ -398,7 +378,29 @@ window.bapdosa.menu = (function() {
 				$(this).find("input:eq(6)").prop("checked", false).attr("data-cacheval" , true);
 			}
 		});
-		//할인 시간대 설정 이벤트 처리
+		
+		/*포인트|할인율 */
+		//할인 시간대 설정 이벤트 처리	
+		$("#id_point_set_time_differ li").click(function(e){
+			e.preventDefault();
+			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+		});
+		
+		$(".class_point_time_differ").change(function(e){
+			e.preventDefault();			
+			
+			if($(this).is(":checked")) {
+				
+		    	$("#id_point_set_time_differ").show();
+		    	$("#id_point_time_same").hide();
+		    	
+			}else{
+				
+				$("#id_point_set_time_differ").hide();
+		    	$("#id_point_time_same").show();		    
+			}
+		})
+		
 		$("#id_point_am_btn").click(function(e){
 			e.preventDefault();	
 			if($("#id_point_am_text").text() == '오후'){
@@ -484,7 +486,128 @@ window.bapdosa.menu = (function() {
 					$("#id_point_hour2_text").text(parseInt(hour) - 1);					
 				}
 			}			
+		});
+		
+		/*세팅 */
+		//점심시간 점심메뉴 앞으로	
+		$("#id_setting_set_time_differ li").click(function(e){
+			e.preventDefault();
+			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+		});
+		
+		$(".class_setting_time_differ").change(function(e){
+			e.preventDefault();			
+			
+			if($(this).is(":checked")) {
+				
+		    	$("#id_setting_set_time_differ").show();
+		    	$("#id_setting_time_same").hide();
+		    	
+			}else{
+				
+				$("#id_setting_set_time_differ").hide();
+		    	$("#id_setting_time_same").show();		    
+			}
+		})
+		
+		$("#id_setting_am_btn").click(function(e){
+			e.preventDefault();	
+			if($("#id_setting_am_text").text() == '오후'){
+			     $("#id_setting_am_text").text("오전");
+			}else{
+			     $("#id_setting_am_text").text("오후");
+			}
+		});
+		$("#id_setting_pm_btn").click(function(e){
+			e.preventDefault();	
+			if($("#id_setting_pm_text").text() == '오후'){
+			     $("#id_setting_pm_text").text("오전");
+			}else{
+			     $("#id_setting_pm_text").text("오후");
+			}
+		});
+		
+		$("#id_setting_minute_btn").click(function(e){
+			e.preventDefault();	
+			if($("#id_setting_minute_text").text() == '00'){
+			     $("#id_setting_minute_text").text("30");
+			}else{
+			     $("#id_setting_minute_text").text("00");
+			}
+		});
+		$("#id_setting_minute2_btn").click(function(e){
+			e.preventDefault();	
+			if($("#id_setting_minute2_text").text() == '00'){
+			     $("#id_setting_minute2_text").text("30");
+			}else{
+			     $("#id_setting_minute2_text").text("00");
+			}
+		});
+		
+		$("#id_setting_hour_plus_btn").click(function(e){
+			e.preventDefault();
+			var hour = $("#id_setting_hour_text").text();
+			if(hour == '12'){
+				$("#id_setting_hour_text").text("01");
+			}else{
+				if(10 > parseInt(hour.substring(1,2)) && hour != "09" && hour != "10" && hour != "11"){
+				    $("#id_setting_hour_text").text("0" + (parseInt(hour)+ 1));
+				}else{
+					$("#id_setting_hour_text").text(parseInt(hour)+ 1);					
+				}
+			}			
+		});
+		$("#id_setting_hour_minus_btn").click(function(e){
+			e.preventDefault();	
+			var hour = $("#id_setting_hour_text").text();
+			if(hour == '01'){
+				$("#id_setting_hour_text").text("12");
+			}else{
+				if( hour != "11" && hour != "12"){
+				    $("#id_setting_hour_text").text("0" + (parseInt(hour) - 1));
+				}else{
+					$("#id_setting_hour_text").text(parseInt(hour) - 1);					
+				}
+			}			
+		});
+		$("#id_setting_hour2_plus_btn").click(function(e){
+			e.preventDefault();
+			var hour = $("#id_setting_hour2_text").text();
+			if(hour == '12'){
+				$("#id_setting_hour2_text").text("01");
+			}else{
+				if(10 > parseInt(hour.substring(1,2)) && hour != "09" && hour != "10" && hour != "11"){
+				    $("#id_setting_hour2_text").text("0" + (parseInt(hour)+ 1));
+				}else{
+					$("#id_setting_hour2_text").text(parseInt(hour)+ 1);					
+				}
+			}			
+		});
+		$("#id_setting_hour2_minus_btn").click(function(e){
+			e.preventDefault();	
+			var hour = $("#id_setting_hour2_text").text();
+			if(hour == '01'){
+				$("#id_setting_hour2_text").text("12");
+			}else{
+				if( hour != "11" && hour != "12"){
+				    $("#id_setting_hour2_text").text("0" + (parseInt(hour) - 1));
+				}else{
+					$("#id_setting_hour2_text").text(parseInt(hour) - 1);					
+				}
+			}			
 		});	
+		$(".admin_list dt").click(function(){
+			if($(this).next().is(":hidden")){
+				$(".admin_list dt").next().hide();
+				$(".admin_list dt").removeClass("on");
+				$(this).next().show();
+				$(this).addClass("on");
+
+			}else if($(this).next().is(":visible")){
+				$(this).next().hide();
+				$(this).removeClass("on");
+			}
+		})	
 	}
 	
 	function updateCate(sortorder,name,categoryid){
