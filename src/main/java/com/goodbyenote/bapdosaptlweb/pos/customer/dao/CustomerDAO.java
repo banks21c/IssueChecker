@@ -33,4 +33,24 @@ public class CustomerDAO {
 		return sqlSession.selectOne("poscustomer.getCustomerListCount", parametaMap);
 	}
 
+	public void updateCustomer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("poscustomer.updateCustomer", parametaMap);
+	}
+
+	public void insertCustomerTrade(Map customerTradeMap) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("poscustomer.insertCustomerTrade", customerTradeMap);
+	}
+
+	public Map getSumPoint(Map customerParamMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("poscustomer.getSumPoint", customerParamMap);
+	}
+
+	public void insertPoint(Map pointMap) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("poscustomer.insertPoint", pointMap);
+	}
+
 }

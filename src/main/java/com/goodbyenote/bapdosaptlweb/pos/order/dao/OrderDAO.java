@@ -147,4 +147,6 @@ public class OrderDAO {
 		// TODO Auto-generated method stub
 		sqlSession.delete("posorder.deleteOrderDetailList", delMap);
 	}
+
+
 }

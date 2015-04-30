@@ -15,6 +15,7 @@ window.bapdosa.order = (function() {
 	var mTableId = ""; //테이블아이디
 	var mOrderId = ""; //주문번호
 	var mCustomerId = "";	//고객ID
+	var mIsFirstCustomer = false;
 	
 	var isPriceDiffer;
 	var isDPdiffer;
@@ -25,8 +26,7 @@ window.bapdosa.order = (function() {
 	var customerSearchInfo = {
 		currentPage: 1,
 		unitCount: 10,
-		totalCount: 0
-		
+		totalCount: 0		
 	};	
 	function eventReg(){
 		
@@ -147,57 +147,7 @@ window.bapdosa.order = (function() {
 		//저장
 		$(".class-event-order-save").click(function(e){
 			e.preventDefault();
-			var orderAreaList = orderArea.children("tr");
-			
-			var orderDataList = [];
-			orderAreaList.each(function(i){	
-				var deviceId = $(this).attr("deviceId") || "";
-				var menuId = $(this).attr("menuId") || "";
-				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
-				var orderCount = parseInt($(this).find("td:eq(1)").text());
-				var originalPrice =  parseInt($(this).attr("storePrice"));
-				var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
-				var storePrice =  parseInt($(this).attr("storePrice"));
-				var isService = $(this).attr("isService") || "";		
-				var isTakeout = $(this).attr("isTakeout") || "";
-				var newFlag = $(this).attr("newFlag") || "N";			
-				
-				if(isPriceDiffer == "Y"){
-					if(isTakeout == "Y"){
-						originalPrice = parseInt($(this).attr("takeoutPrice")); 
-					} else {
-						originalPrice = parseInt($(this).attr("storePrice"));
-					}				
-				}			
-				
-				if(isService == "Y"){
-					originalPrice = 0;
-				}
-				originalPrice = originalPrice * orderCount;
-				
-				var data = {
-						orderDetailId : orderDetailId,
-						menuId: menuId,
-						quantity: orderCount,
-						isTakeout: isTakeout,
-						isService: isService,
-						originalPrice: originalPrice,
-						discountPrice: originalPrice,
-						newFlag: newFlag
-				}
-				orderDataList.push(data);
-			});	
-			
-			var orderObj = {
-					tableId: mTableId,
-					orderId: mOrderId,
-					customerId: mCustomerId,
-					orderDataList: orderDataList
-			};
-			
-			orderObjJson = JSON.stringify(orderObj);			
-			//console.log(JSON.stringify(orderObj));
-			orderSave(orderObjJson);
+			beforeOrderSave();
 		});		
 		
 		//직접입력
@@ -412,9 +362,30 @@ window.bapdosa.order = (function() {
 		//계산화면으로 가기
 		$(".class-event-account-go").click(function(e){
 			e.preventDefault();
+			var saveFlag = false;
+			var orderAreaList = orderArea.children("tr");
+			
+			orderAreaList.each(function(i){					
+				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
+				if(!orderDetailId){
+					saveFlag = true;
+					return false;
+				}
+			});	
 			var url="/pos/order/account.do?tableId=" + mTableId + "&orderId=" + mOrderId;
 			
-			document.location.href = url;
+			if(saveFlag){				
+				var afterurl = "/pos/order/account.do?tableId=" + mTableId;
+				beforeOrderSave(afterurl);				
+			} else {
+				
+				if(!mIsFirstCustomer && mCustomerId){
+					var afterurl = "/pos/order/account.do?tableId=" + mTableId;
+					beforeOrderSave(afterurl);						
+				} else {
+					document.location.href = url;
+				}
+			}				
 		});
 	}
 	
@@ -529,14 +500,14 @@ window.bapdosa.order = (function() {
 				var addInfo ;
 				
 				if(returnObj.TOTALCREDIT > 0){
-					iconAdd = $("<span>").addClass("ico").addClass("c");
+					iconAdd = $("<span>").addClass("ico").addClass("c").text("외");
 					addInfo = $("<span>").append(
 							  				$("<em>").addClass("tc").text(window.bapdosa.util.setComma(parseInt(returnObj.TOTALCREDIT/1000)))
 							  			).append(
 					  							" / " + window.bapdosa.util.setComma(parseInt(returnObj.TOTALSALES/1000))
 					  					);
 				} else if(returnObj.TOTALDEPOSIT > 0){
-					iconAdd = $("<span>").addClass("ico").addClass("y");
+					iconAdd = $("<span>").addClass("ico").addClass("y").text("예");
 					addInfo = $("<span>").append(
 					  						$("<em>").addClass("ty").text(window.bapdosa.util.setComma(parseInt(returnObj.TOTALDEPOSIT/1000)))
 					  					).append(
@@ -563,7 +534,61 @@ window.bapdosa.order = (function() {
 		commonAjaxCall(url, param, success);		
 	}
 	
-	function orderSave(orderObjJson){
+	function beforeOrderSave(afterurl){
+		var orderAreaList = orderArea.children("tr");
+		
+		var orderDataList = [];
+		orderAreaList.each(function(i){	
+			var deviceId = $(this).attr("deviceId") || "";
+			var menuId = $(this).attr("menuId") || "";
+			var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
+			var orderCount = parseInt($(this).find("td:eq(1)").text());
+			var originalPrice =  parseInt($(this).attr("storePrice"));
+			var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
+			var storePrice =  parseInt($(this).attr("storePrice"));
+			var isService = $(this).attr("isService") || "";		
+			var isTakeout = $(this).attr("isTakeout") || "";
+			var newFlag = $(this).attr("newFlag") || "N";			
+			
+			if(isPriceDiffer == "Y"){
+				if(isTakeout == "Y"){
+					originalPrice = parseInt($(this).attr("takeoutPrice")); 
+				} else {
+					originalPrice = parseInt($(this).attr("storePrice"));
+				}				
+			}			
+			
+			if(isService == "Y"){
+				originalPrice = 0;
+			}
+			originalPrice = originalPrice * orderCount;
+			
+			var data = {
+					orderDetailId : orderDetailId,
+					menuId: menuId,
+					quantity: orderCount,
+					isTakeout: isTakeout,
+					isService: isService,
+					originalPrice: originalPrice,
+					discountPrice: originalPrice,
+					newFlag: newFlag
+			}
+			orderDataList.push(data);
+		});	
+		
+		var orderObj = {
+				tableId: mTableId,
+				orderId: mOrderId,
+				customerId: mCustomerId,
+				orderDataList: orderDataList
+		};
+		
+		orderObjJson = JSON.stringify(orderObj);			
+		//console.log(JSON.stringify(orderObj));
+		orderSave(orderObjJson, afterurl);		
+	}
+	
+	function orderSave(orderObjJson, afterurl){
 		
 		var url="/pos/order/orderSave.json";
 		var param="orderObjJson=" + orderObjJson;
@@ -571,7 +596,12 @@ window.bapdosa.order = (function() {
 			var returnObj = returnJsonVO.returnObj;
 			
 			console.log(returnObj);
-			history.back();
+			
+			if(afterurl){
+				document.location.href = afterurl + "&orderId=" + returnObj;
+			} else {
+				history.back();
+			}
 		};
 
 		commonAjaxCall(url, param, success);		
@@ -867,6 +897,7 @@ window.bapdosa.order = (function() {
 			displayTotal();
 			
 			if(orderInfoObj.CUSTOMERID){
+				mIsFirstCustomer = true;
 				displayCustomerInfo(orderInfoObj.CUSTOMERID);
 			}
 			

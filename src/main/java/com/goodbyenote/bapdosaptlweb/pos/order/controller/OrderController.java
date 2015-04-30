@@ -126,15 +126,15 @@ public class OrderController {
 		Map<String, Object> orderObjMap = new ObjectMapper().readValue(orderObjJson, HashMap.class) ;
 		
 		//System.out.println(orderObjMap);		
-		int resultValue = orderService.orderSave(orderObjMap, sessionUserInfo);
+		String orderId = orderService.orderSave(orderObjMap, sessionUserInfo);
 		
-		System.out.println("resultValue:"+resultValue);
+		System.out.println("orderId:"+orderId);
 		ModelAndView mav = new ModelAndView();		
 
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 		returnJsonVO.setMessage("OK");
-		returnJsonVO.setReturnObj(Integer.toString(resultValue));
+		returnJsonVO.setReturnObj(orderId);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		

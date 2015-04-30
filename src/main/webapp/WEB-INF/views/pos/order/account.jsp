@@ -127,9 +127,14 @@ $(document).ready(function() {
 					<col width="*" />
 				</colgroup>
 				<tbody>
+					<tr class="class-area-deposit" style="display:none">
+						<th scope="row">예치금</th>
+						<td><input type="checkbox" name="depositUse" id="id_deposit_use" value="Y"/><label for="id_deposit_use" class="brown">사용</label></td>
+						<td class="a_tr"><input type="tel" name="depositAmount" data-role="none" value="0" readonly/></td>
+					</tr>				
 					<tr>
 						<th scope="row">현금</th>
-						<td class="take_out"><input type="checkbox" name="cashReceipt" id="id_cashReceipt" /><label for="id_cashReceipt" class="brown">현금영수증</label></td>
+						<td class="take_out"><input type="checkbox" name="cashReceipt" id="id_cashReceipt" value="Y"/><label for="id_cashReceipt" class="brown">현금영수증</label></td>
 						<td class="a_tr"><input type="tel" name="cash" data-role="none" /></td>
 					</tr>
 					<tr>
@@ -147,20 +152,16 @@ $(document).ready(function() {
 						<td><a href="#" class="btn_01 class-event-card-all">all</a> <a href="#" class="btn_01 class-event-card-left">나머지</a></td>
 						<td class="a_tr"><input type="tel" name="cardAmount" data-role="none" value="0"/></td>
 					</tr>
-					<tr>
-						<th scope="row">예치금</th>
-						<td><a href="#" class="btn_01 class-event-deposit-all">all</a></td>
-						<td class="a_tr"><input type="tel" name="depositAmount" data-role="none" value="0"/></td>
-					</tr>					
+					
 					<tr>
 						<td colspan="3" class="a_tc">옵션없음
 							<div class="tb_option tb02">
 								<p class="blt">
 									<span class="op_blt opn02"></span>
 									<span class="btn_fl">
-										<input type="checkbox" id="op03" name="creditProcess" /><label for="op03" class="brown">외상처리</label>
-										<input type="checkbox" id="op03_1" name="creditPay"/><label for="op03_1" class="brown">외상갚기</label>
-										<input type="checkbox" id="op03_2" name="depositProcess"/><label for="op03_2" class="brown">예치</label>
+										<input type="checkbox" id="op03" name="creditProcess" value="Y"/><label for="op03" class="brown">외상처리</label>
+										<input type="checkbox" id="op03_1" name="creditPay" value="Y"/><label for="op03_1" class="brown">외상갚기</label>
+										<input type="checkbox" id="op03_2" name="depositProcess" value="Y"/><label for="op03_2" class="brown">예치</label>
 									</span>
 									<span>
 										<label for="op04">적립P</label>
@@ -184,7 +185,7 @@ $(document).ready(function() {
 			</table>
 		</div>
 		<div class="btn_c tline">
-			<a href="#" class="btn_white class-event-order-inquery">주문조회</a><a href="#" class="btn_white">취소</a><a href="#message_pop" class="btn_blue" data-rel="popup" data-position-to="window" data-transition="pop">완료</a>
+			<a href="#" class="btn_white class-event-order-inquery">주문조회</a><a href="#" class="btn_white">취소</a><a href="#message_pop" class="btn_blue class-event-account-go" data-rel="popup" data-position-to="window" data-transition="pop">완료</a>
 		</div>
 		</form>
 	</div>

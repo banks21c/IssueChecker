@@ -28,10 +28,12 @@ public interface OrderService {
 
 	public List<Map> getOrderTablePresentList(Map parametaMap);
 
-	public int orderSave(Map<String, Object> orderObjMap,
+	public String orderSave(Map<String, Object> orderObjMap,
 			SessionUserInfo sessionUserInfo);
 
 	public List<Map> getOrderDetailList(Map parametaMap);
 
 	public Map getTableOrder(Map parametaMap);
+
+	public void setAccountComplete(Map parametaMap);
 }
