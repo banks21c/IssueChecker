@@ -30,6 +30,13 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 .ui-page-theme-a {background-color:#e3e2dd}
 .ui-content {padding:0}
 
+/* id 조절 */
+#surtax .ui-header {background-image:url('../images/common/top_bg2.jpg')}
+#surtax .topbtn.btn_home2 {background-position:-134px -29px}
+#surtax .menu_tab ul li a.on {border-color:#629047}
+#surtax input[type="text"], #surtax input[type="password"], #surtax input[type="tel"] {border-color:#a09f9a;-webkit-border-radius:.2em;border-radius:.2em}
+#surtax input[type="date"], #surtax input[type="time"], #surtax input[type="number"] {border-color:#a09f9a;-webkit-border-radius:.2em;border-radius:.2em}
+
 /* head */
 .ui-header {background:url('../images/common/top_bg.jpg') repeat-x 0 0;background-size:auto 44px;height:44px;border:none}
 .ui-header:after {overflow:hidden;content:'';display:block;clear:both}
@@ -38,7 +45,7 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 .ui-header-fixed .ui-btn-left, .ui-header-fixed .ui-btn-right {margin-top:0}
 .ui-header-fixed .ui-btn {background:none !important;border:none !important;box-shadow:none !important}
 
-.topbtn {background-image:url('../images/btn/btn_top.png');background-repeat:no-repeat;background-size:auto 29px;display:inline-block;height:29px;top:7px !important}
+.topbtn {background-image:url('../images/btn/btn_top.png');background-repeat:no-repeat;background-size:192px auto;display:inline-block;height:29px;top:7px !important}
 .topbtn.btn_poshome {width:70px}
 .topbtn.btn_prev {width:43px;left:6px !important}
 .topbtn.btn_home {width:64px;background-position:-70px 0;left:6px !important}
@@ -104,10 +111,11 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 /*.pos_top .top02 .btn_fr.txtonly .ui-btn.ui-checkbox-off:after {margin-top:-9px}*/
 .pos_top .top02 .year_write {display:inline-block;margin-top:1px}
 .pos_top .top02 .year_write * {vertical-align:middle}
-.pos_top .top02 .year_write a {display:inline-block;background-image:url('../images/btn/btn_year.jpg');background-repeat:no-repeat;background-size:auto 19px;width:19px;height:19px}
+.pos_top .top02 .year_write a {display:inline-block;background-image:url('../images/btn/btn_year.png');background-repeat:no-repeat;background-size:auto 19px;width:19px;height:19px;margin:0}
 .pos_top .top02 .year_write a.next {background-position:-19px 0}
 input[type="text"].year {width:60px !important;padding:0 !important}
 .pos_top .top02 .dv02 {display:none}
+.pos_top .top02 .btn_fr .text {padding-top:.5em}
 
 .pos_top .top03 {overflow:hidden;padding:.3em;border-top:1px solid #9c9b96;background-color:#f3f3f3}
 .pos_top .top03 .btn_fl  * {vertical-align:middle}
@@ -151,6 +159,8 @@ input[type="text"].year {width:60px !important;padding:0 !important}
 .menu_tab.type6_2 {padding:0}
 .menu_tab.type6_2 ul li {width:16%}
 .menu_tab.type6_2 ul li:nth-child(6) {width:20%}
+.menu_tab.type4 {padding:0}
+.menu_tab.type4 ul li {width:25%}
 
 .nav_btn {background-color:#e3e2dd}
 .nav_btn ul {overflow:hidden;border-bottom:1px solid #888787}
@@ -158,7 +168,7 @@ input[type="text"].year {width:60px !important;padding:0 !important}
 .nav_btn ul li:nth-child(1), .nav_btn ul li:nth-child(6) {width:17%}
 .nav_btn ul li a {width:90%;padding:0}
 
-.table_map {background-color:#9d9c99;padding:.3em 0 .2em 0}
+.table_map {background-color:#9d9c99;padding:.3em 0 .2em 0;max-height:200px;overflow-y:auto;overflow-x:hidden}
 .table_map  ul {overflow:hidden}
 .table_map  ul li {float:left;width:32%;margin:0 0 1% 1%}
 .table_map .table_info {position:relative;background-color:#fff;-webkit-border-radius:.3em;border-radius:.3em;border:1px solid #fff}
@@ -324,6 +334,13 @@ span.del_ico {background-image:url('../images/ico/ico_waste.png');background-rep
 .write2 table td * {vertical-align:middle}
 .write2 label {margin:1px 5px 0 2px !important}
 .write2 table input[type="text"], .write2 table input[type="date"], .write2 table input[type="number"], .write2 table input[type="tel"] {text-align:center;font-size:13px}
+.write2 .timeset {width:31%;height:27px;line-height:27px;border:1px solid #e6e6e6;display:inline-block}
+.write2 .timeset a {display:block;height:27px;line-height:27px;text-align:center}
+.month_head .day {font-weight:normal;padding:.5em;background-color:#cbcbcb;border-bottom:1px solid #bcbcbc}
+.month_head .day * {vertical-align:middle}
+.month_head .day a.btnd {display:inline-block;background:url('../images/btn/btn_prev2.png') no-repeat 0 0;background-size:auto 17px;height:17px;width:17px}
+.month_head .day a.daynex {background-position:-17px 0}
+.month_head .day strong {font-family:'arial';font-size:18px}
 
 .write3 {background-color:#fff}
 .write3 table th {background-color:#f9f8f8;text-align:left;padding-left:.6em;height:34px;border-bottom:1px solid #e6e6e6;font-weight:bold}
@@ -336,6 +353,9 @@ span.del_ico {background-image:url('../images/ico/ico_waste.png');background-rep
 .write3 table td.a_tc {position:relative}
 .double {margin-top:5px;border-top:1px solid #9c9b96}
 .double  table tr:last-child th, .double  table tr:last-child td {border-bottom:none}
+.write3 .point_use {text-align:left}
+.write3 .point_use label {width:23.5%;padding-bottom:.3em}
+.write3 .point_use input[type="tel"] {width:30%}
 
 .write_guest {background-color:#fff;padding:.2em 0}
 .write_guest table th {vertical-align:top;padding:.5em 0 .3em .2em;text-align:left}
@@ -665,6 +685,8 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .data_box .time_list ul li:nth-last-child(4) div.gb {-webkit-border-radius:0 0 0 .4em;border-radius:0 0 0 .4em}
 .data_box .time_list ul li:last-child div.gb {-webkit-border-radius:0 0 .4em 0;border-radius:0 0 .4em 0}
 
+.data_box .box_head.monly .day {position:static}
+
 .comparison {overflow:hidden;padding:.5em 0}
 .comparison .mon {float:left;width:10%;font-weight:bold;text-align:left;letter-spacing:-1px}
 .comparison .cdata {overflow:hidden}
@@ -964,6 +986,11 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 .time_admin .time_line ul {overflow:hidden}
 .time_admin .time_line ul li {float:left;width:50%;text-align:center;font-weight:bold;font-size:22px}
 
+.time_box.one .time_admin .btn_ud ul {float:none;margin:0 auto;width:55%}
+.time_box.one .time_admin .time_line ul li {float:none;margin:0 auto;width:55%}
+.time_box.one .time_admin .btn_ud ul {float:none;margin:0 auto;width:55%}
+.time_box.one .time_admin .btn_ud.bdown ul li a {left:45%;margin-left:-2px}
+
 .week_choice ul {overflow:hidden;padding-top:.8em}
 .week_choice ul li {float:left;width:14.2%}
 .week_choice ul li label {margin:0px !important}
@@ -1139,11 +1166,12 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	table {font-size:24px}
 	.ui-header {background-size:auto 70px;height:70px}
 	.ui-header .ui-title {font-size:40px;padding-top:.2em}
-	.topbtn {background-size:auto 58px;height:58px;top:5px !important}
+	.topbtn {background-size:384px auto;height:58px;top:5px !important}
 	.topbtn.btn_poshome {width:140px}
 	.topbtn.btn_prev {width:86px;left:12px !important}
 	.topbtn.btn_home {width:128px;background-position:-140px 0;left:12px !important}
 	.topbtn.btn_home2 {width:116px;background-position:-268px 0;right:72px !important}
+	#surtax .topbtn.btn_home2 {background-position:-268px -58px}
 	.btn_admin {background-size:auto 40px;height:40px;width:40px;top:15px;right:16px}
 	.list_total.list_open .btn_01 {height:80px;line-height:80px;min-width:96px}
 	.btn_delivery {background-size:40px auto;height:60px;width:60px;top:12px;right:12px}
@@ -1229,8 +1257,10 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.write table thead th {height:60px}
 	.write table td.a_tl {padding-left:20px}
 	.write table td.a_tr {padding-right:20px}
+	.write2 .timeset, .write2 .timeset a {height:52px;line-height:52px}
 	.write3 table th, .write3 table td {height:60px}
 	.write3 table td a.tover {padding-right:40px;background-size:auto 28px}
+	.write3 .point_use label {width:24%}
 	.write_guest .auto_txt {height:54px;line-height:54px}
 	.double {margin-top:10px}
 	.cash_list ul li a {height:48px;line-height:48px;margin:0 4px}
@@ -1411,6 +1441,10 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.admin_list .tb_ad {background-size:16px auto}
 	.admin_list .tb_ad .stb {height:52px;line-height:52px}
 	.admin_list .structure_set ul li a.del {top:.6em}
+
+	.month_head .day a.btnd {background-size:auto 34px;height:34px;width:34px}
+	.month_head .day a.daynex {background-position:-34px 0}
+	.month_head .day strong {font-size:36px}
 }
 
 /* 임시 */
