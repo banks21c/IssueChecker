@@ -53,10 +53,13 @@ jQuery(function($){ // on document load
 			</div>
 			<div class="top02">
 				<div class="btn_fl">
-					<a href="#" class="btn_01 pds class-event-order-add"><i title="추가" class="plus"></i></a><a href="#" class="btn_01 pds class-event-order-del"><i title="삭제" class="minus"></i></a><a href="#" class="btn_02 class-event-order-delete">삭제</a><a href="#" class="btn_02 class-event-order-delete-all">전체삭제</a>
+					<a href="#" class="btn_01 pds class-event-order-add"><i title="추가" class="plus"></i></a>
+					<a href="#" class="btn_01 pds class-event-order-del"><i title="삭제" class="minus"></i></a>
+					<a href="#" class="btn_02 class-event-order-delete">삭제</a>
+					<a href="#" class="btn_02 class-event-order-delete-all">전체삭제</a>
 				</div>
 				<div class="btn_fr">
-					<a href="#" class="btn_03">고객주문</a><a href="#" class="btn_03 class-event-order-service">서비스</a>
+					<a href="#" class="btn_03 class-event-customer-request">고객주문</a><a href="#" class="btn_03 class-event-order-service">서비스</a>
 				</div>
 			</div>
 		</div>

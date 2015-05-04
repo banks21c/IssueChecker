@@ -22,6 +22,7 @@ window.bapdosa.order = (function() {
 	var categoryInfoList;
 	var selCategoryId;
 	var orderArea;
+	var mOrderAreaFirst;
 	
 	var customerSearchInfo = {
 		currentPage: 1,
@@ -390,6 +391,71 @@ window.bapdosa.order = (function() {
 					document.location.href = url;
 				}
 			}				
+		});
+		
+		//고객주문 버튼클릭
+		$(".class-event-customer-request").click(function(e){
+			e.preventDefault();
+			
+			
+			
+			var orderAreaList = orderArea.children("tr");
+			console.log("orderAreaList.size(): " + orderAreaList.size());
+			if(orderAreaList.size() == 0){
+				alert("선택한 메뉴가 없습니다.");
+				return false;
+			}			
+			
+			if(!mOrderId){
+				if(confirm("추가된 메뉴가 있습니다. 저장하시겠습니까?")){
+					
+				} else {
+					return false;
+				}
+			} else {
+				
+				var isDiffFlag = false;
+				var orderAreaFirstList = mOrderAreaFirst.children("tr");
+				$.each(orderAreaFirstList, function(i,obj){	
+					//console.log(obj);
+					var flag = true;
+					$.each(orderAreaList, function(i2,obj2){	
+						//console.log(obj2);
+						console.log($(obj).attr("orderDetailId") + " : " + $(obj2).attr("orderDetailId"));
+						//console.log(($(obj).attr("orderDetailId") || "").startsWith("temp_"));
+						if( ($(obj2).attr("orderDetailId") || "").startsWith("temp_") ){
+							console.log("startsWith(temp_) ");
+							flag = true;
+							return true;							
+						} else if($(obj).attr("orderDetailId") == $(obj2).attr("orderDetailId")){		
+							console.log($(obj).children("td:eq(1)").text() + " : " + $(obj2).children("td:eq(1)").text());
+							if($(obj).children("td:eq(1)").text() == $(obj2).children("td:eq(1)").text()){
+								flag = false;
+								//return false;
+							} else {
+								flag = true;
+								return false;
+							}
+						}				
+					});	
+					
+					console.log("flag: " + flag);
+					if(flag){
+						isDiffFlag = true;
+						return false;
+					}					
+				});	
+				
+				console.log("isDiffFlag:" + isDiffFlag);
+				
+				if(isDiffFlag){					
+					var afterurl = "/pos/memo/customerRequest.do?tableId=" + mTableId;
+					beforeOrderSave(afterurl);	
+					return false;
+				}				
+			}
+			
+			document.location.href="/pos/memo/customerRequest.do?tableId=" + mTableId + "&orderId=" + mOrderId;
 		});
 	}
 	
@@ -873,7 +939,7 @@ window.bapdosa.order = (function() {
 			var firstCategoryId = $("#order-page .class-category-area > li:eq(0)").attr("categoryId");
 			displayMenu(firstCategoryId);
 			
-			 dfd.resolve( "complete.." );
+			dfd.resolve( "complete.." );
 		};
 
 		commonAjaxCall(url, param, success);	
@@ -904,6 +970,8 @@ window.bapdosa.order = (function() {
 				mIsFirstCustomer = true;
 				displayCustomerInfo(orderInfoObj.CUSTOMERID);
 			}
+			
+			mOrderAreaFirst = orderArea.clone();
 			
 		};
 		commonAjaxCall(url, param, success);
