@@ -364,6 +364,10 @@ window.bapdosa.order = (function() {
 			e.preventDefault();
 			var saveFlag = false;
 			var orderAreaList = orderArea.children("tr");
+			if(orderAreaList.size() == 0){
+				alert("선택한 메뉴가 없습니다.");
+				return false;
+			}
 			
 			orderAreaList.each(function(i){					
 				var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
