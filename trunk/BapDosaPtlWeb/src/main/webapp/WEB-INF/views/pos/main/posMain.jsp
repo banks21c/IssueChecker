@@ -35,8 +35,9 @@
 		<!--s: 테이블 목록 -->
 		<div class="table_map">
 			<ul>
+			<!-- 
 				<li>
-					<!--s: 테이블 주문이 들어간 경우 active 추가 -->
+					s: 테이블 주문이 들어간 경우 active 추가
 					<div class="table_info active">
 						<a href="#">
 							<span class="number">1</span>
@@ -48,7 +49,7 @@
 							<span class="sales">999</span>
 						</a>
 					</div>
-					<!--e: 테이블 주문이 들어간 경우 active 추가 -->
+					e: 테이블 주문이 들어간 경우 active 추가
 				</li>
 				<li>
 					<div class="table_info">
@@ -58,7 +59,7 @@
 					</div>
 				</li>
 				<li>
-					<!--s: 예약 테이블인 경우 reserve 추가 -->
+					s: 예약 테이블인 경우 reserve 추가
 					<div class="table_info reserve">
 						<a href="#">
 							<span class="number">매난국죽</span>
@@ -67,10 +68,10 @@
 							<span class="re_time">7:30</span>
 						</a>
 					</div>
-					<!--e: 예약 테이블인 경우 reserve 추가 -->
+					e: 예약 테이블인 경우 reserve 추가
 				</li>
 				<li>
-					<!--s: 테이블을 선택한 경우 choice 추가 -->
+					s: 테이블을 선택한 경우 choice 추가
 					<div class="table_info choice">
 						<a href="#">
 							<span class="number">4</span>
@@ -78,7 +79,7 @@
 							<span class="sales"></span>
 						</a>
 					</div>
-					<!--e: 테이블을 선택한 경우 choice 추가 -->
+					e: 테이블을 선택한 경우 choice 추가
 				</li>
 				<li>
 					<div class="table_info">
@@ -205,7 +206,7 @@
 							<span class="sales"></span>
 						</a>
 					</div>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		<!--e: 테이블 목록 -->

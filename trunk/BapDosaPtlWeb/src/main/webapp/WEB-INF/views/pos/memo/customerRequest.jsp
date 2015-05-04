@@ -1,20 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 <title>가게노트</title>
-<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="../../css/jquery.mobile-1.4.5.css" />
 <link rel="stylesheet" href="../../css/style.css" />
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="../../js/moment.min.js"></script>
+<script type="text/javascript" src="../../js/json2.js"></script>
+<script type="text/javascript" src="../../js/base64.js"></script>
+<script type="text/javascript" src="../../js/common/common.js"></script>
+<script type="text/javascript" src="../../js/common/util.js"></script>
+<script type="text/javascript" src="../../js/pos/customerRequest.js"></script>
 </head>
 <body>
-<div data-role="page" id="demo-page" data-url="demo-page">
+<div data-role="page" id="customerRequest-page" data-url="customerRequest-page">
 	<div data-role="header" data-position="fixed">
-		<a href="${ContextPath}/pos/main/posMain.ui" class="topbtn btn_poshome" title="home" data-role="none"></a>
-		<a href="${ContextPath}/pos/list.ui" class="topbtn btn_home2" title="home" data-role="none"></a>
+		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
+		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
 		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
 		<h1>고객요구</h1>
 	</div>
@@ -22,6 +28,7 @@
 		<!--s: 테이블 목록 -->
 		<div class="table_map list6">
 			<ul>
+			<!-- 
 				<li>
 					<div class="table_info active">
 						<a href="#">
@@ -216,22 +223,20 @@
 						</a>
 					</div>
 				</li>
+				 -->
 			</ul>
 		</div>
 		<!--e: 테이블 목록 -->
 		<p class="memo_tip">고객주문 사항을 선택하거나 직접 입력하세요.</p>
 		<div class="ask_write">
 			<ul>
-				<li><a href="#ask_self" data-rel="popup" data-position-to="window" data-transition="pop">직접입력</a></li>
+				<li><a href="#" data-rel="popup" data-position-to="window" data-transition="pop" class="class-event-direct-insert">직접입력</a></li>
 				<li><a href="#" class="choice">맵지 않게 해 주세요</a></li>
 				<li><a href="#" class="choice">짜지 않게 해 주세요</a></li>
 				<li><a href="#">달지 않게 해 주세요</a></li>
 				<li><a href="#">나갈 때 대리운전 콜 부탁</a></li>
 				<li><a href="#">남으면 포장해 주세요</a></li>
 				<li><a href="#">오늘은 외상으로 해주세요 오늘은 외상으로 해주세요</a></li>
-				<li></li>
-				<li></li>
-				<li></li>
 			</ul>
 		</div>
 		<div class="btn_c tline">
@@ -240,7 +245,9 @@
 	</div>
 	<div data-role="footer" data-position="fixed">
 		<div class="help">
+			<a href="pos_reserve.html" class="pnprev" data-ajax="false"><span>&lt;</span></a><!-- 개발에선 지워주세요 -->
 			<p><span>먼저 고객의 좌석을 선택하세요.</span></p>
+			<a href="pos_memo.html" class="pnnext" data-ajax="false"><span>&gt;</span></a><!-- 개발에선 지워주세요 -->
 		</div>
 	</div>
 
@@ -251,13 +258,15 @@
 			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
 		</div>
 		<div role="main" class="ui-content">
-			<p class="mm_write"><input type="text" id="" data-role="none" /></p>
+			<form name="form_ask_self" id="form_ask_self">
+			<p class="mm_write"><input type="text" name="contents" data-role="none" /></p>
 			<p class="point_memo">
-				<input type="checkbox" id="memos" data-role="none" /><label for="memos">고객요구 리스트에 추가하기</label>
+				<input type="checkbox" id="memos" name="isDefault"/><label for="memos">고객요구 리스트에 추가하기</label>
 			</p>
 			<div class="btn_c">
-				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+				<a href="#" class="btn_blue class-event-save">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
 			</div>
+			</form>
 		</div>
 	</div>
 	<!--e: 고객요구 작성 팝업 -->

@@ -1,6 +1,5 @@
 @charset "utf-8";
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
-@import url('kh.css');
 
 /* common */
 body {font-family:'Nanum Gothic','나눔고딕', sans-serif;font-size:14px;color:#3b3e44;min-width:320px}
@@ -34,8 +33,9 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 #surtax .ui-header {background-image:url('../images/common/top_bg2.jpg')}
 #surtax .topbtn.btn_home2 {background-position:-134px -29px}
 #surtax .menu_tab ul li a.on {border-color:#629047}
-#surtax input[type="text"], #surtax input[type="password"], #surtax input[type="tel"] {border-color:#a09f9a;-webkit-border-radius:.2em;border-radius:.2em}
-#surtax input[type="date"], #surtax input[type="time"], #surtax input[type="number"] {border-color:#a09f9a;-webkit-border-radius:.2em;border-radius:.2em}
+#surtax input[type="text"], #surtax input[type="password"], #surtax input[type="tel"] {border-color:#a09f9a;-webkit-border-radius:.25em;border-radius:.25em}
+#surtax input[type="date"], #surtax input[type="time"], #surtax input[type="number"] {border-color:#a09f9a;-webkit-border-radius:.25em;border-radius:.25em}
+#surtax input[type="text"].year {width:80px !important;text-align:center}
 
 /* head */
 .ui-header {background:url('../images/common/top_bg.jpg') repeat-x 0 0;background-size:auto 44px;height:44px;border:none}
@@ -168,7 +168,7 @@ input[type="text"].year {width:60px !important;padding:0 !important}
 .nav_btn ul li:nth-child(1), .nav_btn ul li:nth-child(6) {width:17%}
 .nav_btn ul li a {width:90%;padding:0}
 
-.table_map {background-color:#9d9c99;padding:.3em 0 .2em 0;max-height:200px;overflow-y:auto;overflow-x:hidden}
+.table_map {background-color:#9d9c99;padding:.3em 0 .2em 0}
 .table_map  ul {overflow:hidden}
 .table_map  ul li {float:left;width:32%;margin:0 0 1% 1%}
 .table_map .table_info {position:relative;background-color:#fff;-webkit-border-radius:.3em;border-radius:.3em;border:1px solid #fff}
@@ -247,6 +247,7 @@ span.icot.t14 {background-position:0 -130px} /* ㅎ */
 span.del_ico {background-image:url('../images/ico/ico_waste.png');background-repeat:no-repeat;background-size:auto 19px;width:14px;height:19px;overflow:hidden;display:inline-block;vertical-align:middle}
 
 /*.table_map.list6 {padding-bottom:5px}*/
+.table_map.list6 {max-height:200px;overflow-y:auto;overflow-x:hidden}
 .table_map.list6 .table_info a {height:55px}
 .table_map.list6 ul li {margin:0 0 1% 1%;width:15.64%}
 /*.table_map.list6 ul li:nth-child(6n+2) {margin-left:.8%}*/
@@ -459,6 +460,9 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list2 table td:first-child {border-left:none}
 
 .list3{background-color:#fff}
+.list3.syear.ele {background:none;position:relative;top:-34px;margin-bottom:-34px}
+.list3.syear.ele table td {background-color:#fff;font-weight:bold}
+.list3.syear.ele table td.a_tl {font-weight:normal}
 .list3 table thead th {background-color:#f3f3f3;text-align:center;height:32px;border-bottom:1px solid #e6e6e6;font-weight:bold}
 .list3 table tbody td {border-bottom:1px solid #e6e6e6;text-align:center;height:32px;padding:0 .2em}
 .list3 table tbody td span.ico {margin-right:.1em}
@@ -469,17 +473,20 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list3.tb_total table thead th {border-color:#9c9b96}
 .list3.tb_total table tbody tr:first-child td {background-color:#faffe9;color:#d05004;font-weight:bold}
 .list3.syear table thead th {border-color:#9c9b96}
+.list3.syear.ele table thead th {background:none;color:#fff;border-bottom:none}
 .list3.syear table thead td {background-color:#faffe9;color:#d05004;font-weight:bold;border-bottom:1px solid #e6e6e6;text-align:center;height:32px;padding:0 .2em}
 .list3.syear table tbody tr.mon {cursor:pointer}
 .list3.syear table tbody tr.mon td:last-child {background-image:url('../images/blt/blt_open.png');background-position:95% 50%;background-repeat:no-repeat;background-size:19px auto;padding-right:1.7em;text-align:right}
 .list3.syear table tbody tr.mon.this td:last-child {background-image:url('../images/blt/blt_close.png')}
 .list3.syear table tbody tr.day {display:none}
 .list3.syear table tbody tr.day td {background-color:#edf4f5;text-shadow:none;box-shadow:0 3px 3px 0px #a6b0b1 inset}
+.list3.syear.ele table tbody tr.day td {background-color:#f3f3f3;box-shadow:0 3px 3px 0px #bbbaba inset}
 .list3.syear table tbody tr.day dl {display:table;table-layout:fixed;width:100%;border-bottom:1px solid #d9d9d9}
 .list3.syear table tbody tr.day dl:last-child {border-bottom:none}
 .list3.syear table tbody tr.day dl dt {display:table-cell;text-align:center;padding:.4em 0}
 .list3.syear table tbody tr.day dl dd {display:table-cell;width:21%;text-align:center}
 .list3.syear table tbody tr.day dl dd:last-child {width:19%;padding:.4em 1.5em .4em 0;text-align:right}
+.list3.syear.ele table tbody tr.day dl dd:last-child {width:25%}
 .list3.area table thead th {font-weight:normal;color:#cacaca}
 .list3.area table thead th span {color:#3b3e44;font-weight:bold;display:inline-block;text-align:center;width:93%}
 
@@ -596,6 +603,22 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .sell_count ul li span {display:table-cell;vertical-align:middle}
 .sell_count ul li span.sell_name {width:30px;font-weight:bold}
 .sell_count ul li span.sell_num {background-color:#ededed;border:1px solid #b1b1b0;-webkit-border-radius:.3em;border-radius:.3em;padding-right:.5em;color:#cf5105;font-weight:bold;font-family:'arial';text-align:right;height:24px;line-height:24px}
+
+/* view */
+.view {background-color:#fff;border-top:1px solid #9c9b96}
+.view table {border-bottom:1px solid #9c9b96}
+.view table th {background-color:#faffe9;text-align:center;border-bottom:1px solid #cacaca;font-weight:bold}
+.view table td {border-bottom:1px solid #cacaca;border-left:1px solid #cacaca;text-align:center;font-weight:bold;padding:.35em .5em}
+.view table tr:last-child th, .view table tr:last-child td {border-bottom:none}
+
+/* 부가세 */
+.h3_wrap {height:34px}
+.h3_wrap.co01 {background-color:#72b5b1}
+.h3_wrap.co02 {background-color:#5f8ab2}
+.h3_wrap h3 {padding:.2em 0 0 .3em}
+.h3_wrap h3 span {-webkit-border-radius:.3em;border-radius:.3em;display:inline-block;color:#fff;font-size:15px;font-weight:bold;padding:.1em .6em .2em .6em;border:1px solid #337c78}
+.h3_wrap.co01 h3 span {background-color:#3e948f}
+.h3_wrap.co02 h3 span {background-color:#3f6991;border-color:#375674}
 
 /* 배달 */
 .delivery_map .btn_c {margin-top:1em}
@@ -833,6 +856,10 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .btn_white {border:1px solid #bcbcbc;color:#555552 !important;display:inline-block;-webkit-border-radius:.3em;border-radius:.3em;height:30px;line-height:30px;padding:0 10px;text-shadow:none;min-width:50px;text-align:center
 	background-image: -moz-linear-gradient(top, #fff, #ecebe9);
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #ecebe9));
+}
+.btn_gray {border:1px solid #6f6f6f;color:#fff !important;display:inline-block;-webkit-border-radius:.3em;border-radius:.3em;height:30px;line-height:30px;padding:0 10px;text-shadow:none;min-width:50px;text-align:center
+	background-image: -moz-linear-gradient(top, #a6a6a6, #868686);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #a6a6a6),color-stop(1, #868686));
 }
 .btn_arr {background:url('../images/blt/blt_a.png') no-repeat 100% 0;background-size:auto 14px;display:inline-block;height:14px;width:15px}
 .btn_arr2 {background:url('../images/blt/blt_arr.png') no-repeat 100% 50%;background-size:auto 17px;display:inline-block;padding-right:22px}
@@ -1161,6 +1188,9 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.admin_list .discount_admin ul li input[type="number"] {width:60%}
 }
 @media screen and (min-width:760px){
+	#surtax .topbtn.btn_home2 {background-position:-268px -58px}
+	#surtax input[type="text"].year {width:160px !important;text-align:center}
+	
 	body {font-size:24px}
 	body label {font-size:24px !important}
 	table {font-size:24px}
@@ -1171,7 +1201,6 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.topbtn.btn_prev {width:86px;left:12px !important}
 	.topbtn.btn_home {width:128px;background-position:-140px 0;left:12px !important}
 	.topbtn.btn_home2 {width:116px;background-position:-268px 0;right:72px !important}
-	#surtax .topbtn.btn_home2 {background-position:-268px -58px}
 	.btn_admin {background-size:auto 40px;height:40px;width:40px;top:15px;right:16px}
 	.list_total.list_open .btn_01 {height:80px;line-height:80px;min-width:96px}
 	.btn_delivery {background-size:40px auto;height:60px;width:60px;top:12px;right:12px}
@@ -1207,6 +1236,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.reserve_list dl dt {width:72px;padding-top:14px;background-size:12px auto}
 	.reserve_list dl dd ul li a {margin-left:10px;padding:16px 0;}
 
+	.table_map.list6 {max-height:500px}
 	.table_map .table_info a {height:132px}
 	.table_map .table_info .number {left:10px;top:6px;min-width:24px;padding:0 6px;height:36px;line-height:36px;-webkit-border-radius:18px;border-radius:18px}
 	.table_map .table_info .in_time {top:8px;right:12px}
@@ -1252,6 +1282,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.list3.syear table thead td {height:60px}
 	.list3.syear table tbody tr.mon td:last-child {background-size:38px auto;padding-right:2.2em}
 	.list3.syear table tbody tr.day dl dd:last-child {padding-right:2em}
+	.list3.syear.ele {top:-62px;margin-bottom:-62px}
 	.memo_list table td, .list4 table thead th {height:60px}
 	.write {padding-bottom:6px}
 	.write table thead th {height:60px}
@@ -1329,7 +1360,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.btn_01.mins {padding:0 4px}
 	.btn_02, .btn_03, .btn_04 {height:54px;line-height:54px;padding:0 12px}
 	.btn_02.big, .btn_04.big {height:80px;line-height:80px;min-width:96px}
-	.btn_blue, .btn_white {height:54px;line-height:54px;padding:0 20px;min-width:100px}
+	.btn_blue, .btn_white, .btn_gray {height:54px;line-height:54px;padding:0 20px;min-width:100px}
 	.btn_arr {background-size:auto 28px;height:28px;width:30px}
 	.btn_go {background-size:auto 20px;height:64px;width:40px}
 	.btn_go2 {background-position:-38px 0;background-size:auto 38px;width:38px;height:38px}
@@ -1445,6 +1476,9 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.month_head .day a.btnd {background-size:auto 34px;height:34px;width:34px}
 	.month_head .day a.daynex {background-position:-34px 0}
 	.month_head .day strong {font-size:36px}
+
+	.h3_wrap {height:62px}
+	.h3_wrap h3 span {font-size:30px}
 }
 
 /* 임시 */
