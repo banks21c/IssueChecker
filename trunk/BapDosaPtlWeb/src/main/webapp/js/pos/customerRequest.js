@@ -23,11 +23,13 @@ window.bapdosa.customerRequest = (function() {
 		$("#customerRequest-page .table_map ul").on("click","li",function(e){
 			e.preventDefault();
 			
-			var tableId = $(this).data("tableId");
-			var orderId = $(this).data("orderId") || "";
+			mTableId = $(this).data("tableId");
+			mOrderId = $(this).data("orderId") || "";
 			
-			console.log("tableId: " + tableId);
-			console.log("orderId: " + orderId);
+			$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
+			
+			console.log("tableId: " + mTableId);
+			console.log("orderId: " + mOrderId);
 			
 			//주문에서 온경우 선택변경을 지원하지 않음
 //			if(mOrderId){
@@ -35,9 +37,7 @@ window.bapdosa.customerRequest = (function() {
 //				return false;
 //			} 
 			
-			if(orderId){
-				
-			}
+			getSelCustomerRequestList(mTableId,mOrderId);
 			
 //			var url = "/pos/order/orderList.do?tableId=" + tableId + "&orderId=" + orderId;
 //			//$.mobile.changePage(url);
@@ -148,6 +148,15 @@ window.bapdosa.customerRequest = (function() {
 				var returnObj = returnJsonVO.returnObj;
 
 				console.log(returnObj);
+				
+				var tableId = window.bapdosa.urlParams["tableId"] || "";
+				var orderId = window.bapdosa.urlParams["orderId"] || "";
+				
+				if(tableId && orderId){
+					document.location.href="/pos/order/orderList.do?tableId=" + tableId + "&orderId=" + orderId;
+				} else {
+					document.location.href="/pos/main/posMain.do";;
+				}
 			};
 
 			commonAjaxCall(url, param, success);			
@@ -169,9 +178,9 @@ window.bapdosa.customerRequest = (function() {
 			
 			$(returnObj).each(function(index,obj){
 				var div = $("<div>").addClass("table_info");				
-//				if(obj.ORDERID == mOrderId){
-//					div.addClass("choice");
-//				}				
+				if(obj.ORDERID == mOrderId){
+					div.addClass("choice");
+				}				
 				var a = $("<a>", { href: "#"});	
 				//현재 주문이 있는경우 
 				if(obj.ORDERID){
@@ -231,13 +240,69 @@ window.bapdosa.customerRequest = (function() {
 		return dfd.promise();		
 	}
 	
+	function getSelCustomerRequestList(tableId, orderId){
+		var url="/pos/memo/getSelCustomerRequestList.json";
+		var param="tableId=" + tableId + "&orderId=" + orderId;
+		var ulArea = $("#customerRequest-page .ask_write ul");
+		var success = function(returnJsonVO){
+			var selCustomerRequestList= returnJsonVO.returnObj;
+
+			//console.log(returnObj);
+			//<li><a href="#">달지 않게 해 주세요</a></li>		
+			
+			//ulList.empty();
+			
+			$(selCustomerRequestList).each(function(index,obj){
+				
+				console.log(obj);	
+				
+				if(obj.REQUESTID){
+					ulArea.find("a[requestId='" + obj.REQUESTID + "']").attr("memoId", obj.memoId)
+																	   .attr("contentsText", obj.CONTENTS)	
+																	   .addClass("choice")
+				
+				} 
+				//직접입력케이스
+				else {
+					ulArea.find(".class-event-direct-insert").attr("memoId", obj.memoId)
+					   .attr("contentsText", obj.CONTENTS)	
+					   .addClass("choice")
+					   .text(obj.CONTENTS);
+				}
+				
+//				var li = $("<li>");				
+//				var a = $("<a>", { 
+//							href: "#",
+//							contentsText: obj.CONTENTS,
+//							requestId: obj.REQUESTID								
+//						}).text(obj.CONTENTS);	
+//				li.append(a);				
+//				ulList.append(li);				
+			});	
+		};
+
+		//초기화
+		var liList = ulArea.children("li");
+		liList.each(function(i,objl){
+			console.log(objl);
+			$(this).children("a").removeClass("choice").removeAttr("memoId");
+			
+			if(i == 0){
+				$(this).children("a").text("직접입력");
+			}
+		});
+		commonAjaxCall(url, param, success);
+	}
+	
 	return {
 		init: function() {
 			eventReg();
 			$.when(getOrderTablePresentList(), getDefaultCustomerRequestList()).then (
 				function(status){
 					console.log("status: " + status);
-					//getOrderInfoList();
+					if(mOrderId){
+						getSelCustomerRequestList(mTableId,mOrderId);
+					}
 				}					
 			);
 		}
