@@ -13,6 +13,7 @@ window.bapdosa.customerRequest = (function() {
 	
 	var mTableId = ""; //테이블아이디
 	var mOrderId = ""; //주문번호
+	var mDefaultCustomerRequestList;	//기본 고객요구사항리스트
 	
 	function eventReg(){
 		
@@ -57,7 +58,7 @@ window.bapdosa.customerRequest = (function() {
 			
 		});
 		
-		$("#customerRequest-page .class-event-save").click(function(e){
+		$("#ask_self .class-event-direct-save").click(function(e){
 			e.preventDefault();
 			
 			var ask_write_area = $("#customerRequest-page .ask_write ul");
@@ -79,13 +80,22 @@ window.bapdosa.customerRequest = (function() {
 							var returnObj = returnJsonVO.returnObj;
 
 							console.log(returnObj);
+							var ulList = $("#customerRequest-page .ask_write ul");		
+							var li = $("<li>");				
+							var a = $("<a>", { 
+										href: "#",
+										contentsText: contents,
+										requestId: returnObj								
+									}).addClass("choice").text(contents);	
+							li.append(a);				
+							ulList.append(li);			
 						};
 
 						commonAjaxCall(url, param, success);	
 						
 					}
 				} else {
-					$("#customerRequest-page .class-event-direct-insert").addClass("choice").text(contents);
+					$("#customerRequest-page .class-event-direct-insert").addClass("choice").attr("contentsText", contents).text(contents);
 				}
 				
 			} else {
@@ -93,6 +103,54 @@ window.bapdosa.customerRequest = (function() {
 				return false;
 			}
 			$("#ask_self").popup("close");
+		});
+		
+		//고객주문사항 선택시
+		$("#customerRequest-page .ask_write ul").on("click", "li", function(e){
+			e.preventDefault();
+			if($(this).children("a").hasClass("class-event-direct-insert")){
+				return;
+			} else {
+				$(this).children("a").toggleClass("choice");
+			}
+		});
+		
+		//고객주문사항 저장
+		$("#customerRequest-page .class-event-request-save").click(function(e){
+			e.preventDefault();
+			var choiceList = $("#customerRequest-page .ask_write ul li a.choice");
+			
+			var selCustomerRequestList = [];
+			choiceList.each(function(i){
+				console.log($(this).attr("contentsText"));
+				
+				//if(!$(this).attr("memoId")){
+					var data = {
+						requestId: $(this).attr("requestId") || "",
+						memoId: $(this).attr("memoId") || "",
+						contents: $(this).attr("contentsText")
+					};
+					selCustomerRequestList.push(data);
+				//}
+			});
+			console.log(selCustomerRequestList);
+						
+			var sendData = {
+					tableId: mTableId, 
+					orderId: mOrderId,	
+					selCustomerRequestList: selCustomerRequestList
+			};
+			var selCustomerRequestJson = JSON.stringify(sendData);
+	
+			var url="/pos/memo/setSelCustomerRequest.json";
+			var param="selCustomerRequestJson=" + selCustomerRequestJson;
+			var success = function(returnJsonVO){
+				var returnObj = returnJsonVO.returnObj;
+
+				console.log(returnObj);
+			};
+
+			commonAjaxCall(url, param, success);			
 		});
 	}
 	
@@ -103,30 +161,17 @@ window.bapdosa.customerRequest = (function() {
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 
-			console.log(returnObj);
+			//console.log(returnObj);
 			
 			//기존 리스트 삭제
 			var ulList = $("#customerRequest-page .table_map ul");
 			ulList.empty();
 			
 			$(returnObj).each(function(index,obj){
-				console.log(obj);
-				
-//				<li>
-//					<div class="table_info active">
-//						<a href="#">
-//							<span class="number">1</span>
-//							<span class="sales">999</span>
-//						</a>
-//					</div>
-//				</li>				
-				
-				var div = $("<div>").addClass("table_info");
-				
-				if(obj.ORDERID == mOrderId){
-					div.addClass("choice");
-				}
-				
+				var div = $("<div>").addClass("table_info");				
+//				if(obj.ORDERID == mOrderId){
+//					div.addClass("choice");
+//				}				
 				var a = $("<a>", { href: "#"});	
 				//현재 주문이 있는경우 
 				if(obj.ORDERID){
@@ -156,10 +201,45 @@ window.bapdosa.customerRequest = (function() {
 		return dfd.promise();
 	}
 	
+	function getDefaultCustomerRequestList(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/setting/getCustomerRequestList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			mDefaultCustomerRequestList = returnJsonVO.returnObj;
+
+			//console.log(returnObj);
+			//<li><a href="#">달지 않게 해 주세요</a></li>		
+			var ulList = $("#customerRequest-page .ask_write ul");
+			//ulList.empty();
+			
+			$(mDefaultCustomerRequestList).each(function(index,obj){
+				console.log(obj);			
+				var li = $("<li>");				
+				var a = $("<a>", { 
+							href: "#",
+							contentsText: obj.CONTENTS,
+							requestId: obj.REQUESTID								
+						}).text(obj.CONTENTS);	
+				li.append(a);				
+				ulList.append(li);				
+			});			
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);
+		return dfd.promise();		
+	}
+	
 	return {
 		init: function() {
 			eventReg();
-			getOrderTablePresentList();
+			$.when(getOrderTablePresentList(), getDefaultCustomerRequestList()).then (
+				function(status){
+					console.log("status: " + status);
+					//getOrderInfoList();
+				}					
+			);
 		}
 	}   
 })();

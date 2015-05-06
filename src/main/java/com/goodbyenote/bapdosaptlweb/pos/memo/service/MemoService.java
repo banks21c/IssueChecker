@@ -1,6 +1,11 @@
 package com.goodbyenote.bapdosaptlweb.pos.memo.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 
 import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
 
@@ -10,21 +15,9 @@ import com.goodbyenote.bapdosaptlweb.pos.model.MemoVO;
  * 
  */
 public interface MemoService {
-	public void insertTestData();
 
-	public List<MemoVO> getList(MemoVO menu);
+	void setSelCustomerRequest(Map parametaMap) throws JsonParseException, JsonMappingException, IOException;
 
-	public int count(MemoVO menu);
 
-	public MemoVO getDetail(MemoVO menu);
 
-	public int insertAction(MemoVO menu);
-
-	public int updateMemoIschecked(MemoVO memo);
-
-	public int updateMemoIsimportant(MemoVO memo);
-
-	public List<MemoVO> getReservationList(MemoVO memo);
-
-	public List<MemoVO> getCustomerRequestList(MemoVO memo);
 }

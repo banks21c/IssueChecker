@@ -9,7 +9,7 @@
 			MEMBERID
 			,DEVICEID
 			,TABLEID
-			,TABLENUMBER
+			,TABLENO
 			,TABLENAME
 			,LINKEDTABLEID
 			,ISDELETED
@@ -22,7 +22,7 @@
 	 		<if test="isdeleted != null and isdeleted != ''">
 				AND	ISDELETED = #{isdeleted}
 			</if> 			    
-        
+        ORDER BY TABLENO ASC
     </select>
     
 

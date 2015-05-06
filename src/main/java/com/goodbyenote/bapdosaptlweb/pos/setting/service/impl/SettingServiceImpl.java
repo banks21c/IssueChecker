@@ -1,5 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.setting.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public class SettingServiceImpl implements SettingService {
 	public void setCustomerRequest(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.insertCustomerRequest(parametaMap);
+	}
+
+	@Override
+	public List<Map> getCustomerRequestList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getCustomerRequestList(parametaMap);
 	}
 
 }
