@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.goodbyenote.bapdosaptlweb.common.model.GlobalStatic;
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
@@ -55,6 +56,33 @@ public class MemoController {
 		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 		returnJsonVO.setMessage("OK");
 		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
+	
+	
+	@RequestMapping(value = "/pos/memo/getSelCustomerRequestList.json")
+	public ModelAndView getSelCustomerRequestList(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("memoType", GlobalStatic.MEMO_TYPE_CUSTOMER_REQUEST);
+		
+		List<Map> memoList = memoService.getMemoList(parametaMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(memoList);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		

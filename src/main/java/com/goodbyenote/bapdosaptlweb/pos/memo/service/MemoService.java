@@ -18,6 +18,8 @@ public interface MemoService {
 
 	void setSelCustomerRequest(Map parametaMap) throws JsonParseException, JsonMappingException, IOException;
 
+	List<Map> getMemoList(Map parametaMap);
+
 
 
 }
