@@ -20,6 +20,11 @@ $(document).ready(function(){
 			return false;
 		}			  
 	});	
+	
+	$("a.topbtn.btn_poshome").click(function(e){
+		e.preventDefault();
+		document.location.href="/pos/main/posMain.do";
+	});
 });
 
 
