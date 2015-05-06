@@ -231,16 +231,18 @@
 		<div class="ask_write">
 			<ul>
 				<li><a href="#" data-rel="popup" data-position-to="window" data-transition="pop" class="class-event-direct-insert">직접입력</a></li>
+				<!-- 
 				<li><a href="#" class="choice">맵지 않게 해 주세요</a></li>
 				<li><a href="#" class="choice">짜지 않게 해 주세요</a></li>
 				<li><a href="#">달지 않게 해 주세요</a></li>
 				<li><a href="#">나갈 때 대리운전 콜 부탁</a></li>
 				<li><a href="#">남으면 포장해 주세요</a></li>
 				<li><a href="#">오늘은 외상으로 해주세요 오늘은 외상으로 해주세요</a></li>
+			 	-->
 			</ul>
 		</div>
 		<div class="btn_c tline">
-			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+			<a href="#" class="btn_blue class-event-request-save">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 	<div data-role="footer" data-position="fixed">
@@ -264,7 +266,7 @@
 				<input type="checkbox" id="memos" name="isDefault"/><label for="memos">고객요구 리스트에 추가하기</label>
 			</p>
 			<div class="btn_c">
-				<a href="#" class="btn_blue class-event-save">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+				<a href="#" class="btn_blue class-event-direct-save">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
 			</div>
 			</form>
 		</div>

@@ -15,99 +15,17 @@ public class MemoDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public void insertTestData() {
-		List<MemoVO> menus = new ArrayList<MemoVO>(13);
-
-		for (MemoVO m : menus) {
-			sqlSession.insert("pos.insertMemo", m);
-		}
-	}
-
-	public List<MemoVO> getList(MemoVO memo) {
-		return sqlSession.selectList("MemoMapper.getList", memo);
-	}
-
-	public int count(MemoVO memo) {
-		return (Integer) sqlSession.selectOne("MemoMapper.count", memo);
-	}
-
-	public List<Map<String, ?>> listExcel(MemoVO memo) {
+	public void insertMemo(Map customerRequestMap) {
 		// TODO Auto-generated method stub
-		return null;
+		sqlSession.insert("posmemo.insertMemo", customerRequestMap);
 	}
 
-	public List<Map> listExcel2(MemoVO memo) {
+	public void deleteMemo(Map delMap) {
 		// TODO Auto-generated method stub
-		return null;
+		sqlSession.update("posmemo.deleteMemo", delMap);
 	}
 
-	public List<MemoVO> detailList(MemoVO memo) {
-		return null;
-	}
 
-	public MemoVO getDetailSum(MemoVO memo) {
-		return (MemoVO) sqlSession.selectOne("MemoMapper.getViewData", memo);
-	}
 
-	public MemoVO view(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public List<MemoVO> viewDtl(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int insertAction(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int insertDtlAction(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int updateAction(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int deleteDtlAction(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return 0;
-
-	}
-
-	public int deleteAction(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public MemoVO viewDtlSum(MemoVO memo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public MemoVO getDetail(MemoVO memo) {
-		return (MemoVO) sqlSession.selectOne("MemoMapper.getDetail", memo);
-
-	}
-
-	public int updateMemoIschecked(MemoVO memo) {
-		return sqlSession.update("MemoMapper.updateMemoIschecked", memo);
-	}
-
-	public int updateMemoIsimportant(MemoVO memo) {
-		return sqlSession.update("MemoMapper.updateMemoIsimportant", memo);
-	}
-
-	public List<MemoVO> getReservationList(MemoVO memo) {
-		return sqlSession.selectList("MemoMapper.getReservationList", memo);
-	}
-
-	public List<MemoVO> getCustomerRequestList(MemoVO memo) {
-		return sqlSession.selectList("MemoMapper.getCustomerRequestList", memo);
-	}
 }

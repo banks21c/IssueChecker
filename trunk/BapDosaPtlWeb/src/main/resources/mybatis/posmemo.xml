@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "posmemo" >	
+  
+
+    <select id="selectMemoList">
+        /* posmemo.selectMemoList */
+		SELECT
+			A.MEMBERID
+			,A.DEVICEID
+			,A.MEMOID
+			,A.DELIVERYMASTERID
+			,A.ORDERID
+			,A.STARTSALESDATE
+			,A.MEMOTYPE
+			,A.RESERVATIONID
+			,A.REQUESTID
+			,A.TABLEID
+			,A.CONTENTS
+			,A.ISIMPORTANT
+			,A.ISCHECKED
+			,A.ISDELETED
+			,A.CREATIONDATE
+			,A.MODIFICATIONDATE  
+		FROM
+			MEMO A
+		WHERE
+			A.MEMBERID = #{memberId}
+			<if test="isDeleted != null">
+			AND A.ISDELETED = #{isDeleted}
+			</if>
+    </select>
+    
+    <insert id="insertMemo">
+        /* posmemo.insertMemo */
+		INSERT INTO MEMO
+		(
+			MEMBERID
+			,DEVICEID
+			,MEMOID
+			,DELIVERYMASTERID
+			,ORDERID
+			,STARTSALESDATE
+			,MEMOTYPE
+			,RESERVATIONID
+			,REQUESTID
+			,TABLEID
+			,CONTENTS
+			,ISIMPORTANT
+			,ISCHECKED
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			#{memberId}
+			,#{deviceId}
+			,#{memoId}
+			,#{deliveryMasterId}
+			,#{orderId}
+			,#{startSalesDate}
+			,#{memoType}
+			,#{reservationId}
+			,#{requestId}
+			,#{tableId}
+			,#{contents}
+			,#{isImportant}
+			,#{isChecked}
+			,#{isDeleted}
+			,SYSDATE
+			,SYSDATE
+		)     
+    </insert>
+    
+    <update id="deleteMemo">
+        /* posmemo.deleteMemo */
+		UPDATE MEMO
+		
+		SET 
+			ISDELETED = 'Y',
+			MODIFICATIONDATE = SYSDATE
+		WHERE
+			MEMBERID = #{memberId}
+			<if test="tableId != null">
+			AND TABLEID = #{tableId}
+			</if>			
+			<if test="orderId != null">
+			AND ORDERID = #{orderId}
+			</if>
+			<if test="tableId != null">
+			AND TABLEID = #{tableId}
+			</if>
+			<if test='notDelList != null and notDelList.size() > 0'>
+			AND MEMOID NOT IN
+		        <foreach collection="notDelList" item="item" index="index" separator="," open="(" close=")">
+		            #{item}
+		        </foreach>	
+	        </if>	
+    </update>    
+    
+
+</mapper>

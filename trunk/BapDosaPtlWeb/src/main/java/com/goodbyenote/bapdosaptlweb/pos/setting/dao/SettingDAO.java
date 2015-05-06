@@ -1,5 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.pos.setting.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,6 +15,11 @@ public class SettingDAO {
 	public void insertCustomerRequest(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.insert("possetting.insertCustomerRequest", parametaMap);
+	}
+
+	public List<Map> getCustomerRequestList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("possetting.getCustomerRequestList", parametaMap);
 	}
 
 }

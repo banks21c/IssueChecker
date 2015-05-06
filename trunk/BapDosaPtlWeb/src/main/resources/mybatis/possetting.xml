@@ -24,5 +24,24 @@
 		)     
     </insert>
     
+    <select id="getCustomerRequestList" resultType="map">
+        /* possetting.getCustomerRequestList */
+		SELECT
+			MEMBERID
+			,DEVICEID
+			,REQUESTID
+			,CONTENTS
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			CUSTOMERREQUEST
+		WHERE
+			MEMBERID = #{memberId}
+			<if test="isDeleted != null">
+			AND ISDELETED = #{isDeleted}
+			</if>
+    </select>        
+    
 
 </mapper>
