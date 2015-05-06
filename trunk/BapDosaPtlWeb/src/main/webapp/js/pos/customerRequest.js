@@ -26,7 +26,18 @@ window.bapdosa.customerRequest = (function() {
 			mTableId = $(this).data("tableId");
 			mOrderId = $(this).data("orderId") || "";
 			
+//			if($(this).children("div").hasClass("choice")){
+//				$(this).children("div").removeClass("choice");
+//				mTableId = "";
+//				mOrderId = "";				
+//			} else {
+//			
+//				$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
+//				getSelCustomerRequestList(mTableId,mOrderId);
+//			}
+			
 			$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
+			getSelCustomerRequestList(mTableId,mOrderId);
 			
 			console.log("tableId: " + mTableId);
 			console.log("orderId: " + mOrderId);
@@ -37,7 +48,7 @@ window.bapdosa.customerRequest = (function() {
 //				return false;
 //			} 
 			
-			getSelCustomerRequestList(mTableId,mOrderId);
+			
 			
 //			var url = "/pos/order/orderList.do?tableId=" + tableId + "&orderId=" + orderId;
 //			//$.mobile.changePage(url);

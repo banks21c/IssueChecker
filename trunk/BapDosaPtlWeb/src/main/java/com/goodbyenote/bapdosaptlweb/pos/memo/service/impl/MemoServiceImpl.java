@@ -96,6 +96,14 @@ public class MemoServiceImpl implements MemoService {
 		return memoDAO.getMemoList(parametaMap);
 	}
 
+	@Override
+	public void setMemoRegister(Map parametaMap) {
+		// TODO Auto-generated method stub
+
+							
+		memoDAO.insertMemo(parametaMap);		
+	}
+
 
 
 

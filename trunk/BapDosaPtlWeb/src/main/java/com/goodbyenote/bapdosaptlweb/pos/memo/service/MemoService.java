@@ -20,6 +20,8 @@ public interface MemoService {
 
 	List<Map> getMemoList(Map parametaMap);
 
+	void setMemoRegister(Map parametaMap);
+
 
 
 }

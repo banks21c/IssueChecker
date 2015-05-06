@@ -41,7 +41,7 @@ jQuery(function($){ // on document load
 		<div class="pos_top">
 			<div class="top01">
 				<div class="btn_fl">
-					<a href="#" class="btn_01">메모</a><a href="#reserve_check" class="btn_01" data-rel="popup" data-position-to="window" data-transition="pop">예약</a>
+					<a href="#" class="btn_01 class-event-memo-register">메모</a><a href="#reserve_check" class="btn_01" data-rel="popup" data-position-to="window" data-transition="pop">예약</a>
 					<!--s: 단골 고객(외상인경우 :c, tc  / 예치금인 경우:y, ty) -->
 					<span class="patron class-area-customer-info"><!-- 이명필
 						<span class="ico c">외</span> <span><em class="tc">117</em> / 1,256</span> -->
