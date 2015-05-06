@@ -71,6 +71,8 @@ public class MemoServiceImpl implements MemoService {
 					customerRequestMap.put("isChecked", "N");
 					customerRequestMap.put("isDeleted", "N");
 					
+//					memoDAO.selectMemo(customerRequestMap);
+										
 					memoDAO.insertMemo(customerRequestMap);
 				}
 				
@@ -86,6 +88,12 @@ public class MemoServiceImpl implements MemoService {
 		delMap.put("notDelList", notDelList);
 		
 		memoDAO.deleteMemo(delMap);
+	}
+
+	@Override
+	public List<Map> getMemoList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return memoDAO.getMemoList(parametaMap);
 	}
 
 

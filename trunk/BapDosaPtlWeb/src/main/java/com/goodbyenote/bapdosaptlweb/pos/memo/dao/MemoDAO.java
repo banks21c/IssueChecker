@@ -25,6 +25,11 @@ public class MemoDAO {
 		sqlSession.update("posmemo.deleteMemo", delMap);
 	}
 
+	public List<Map> getMemoList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("posmemo.getMemoList", parametaMap);
+	}
+
 
 
 

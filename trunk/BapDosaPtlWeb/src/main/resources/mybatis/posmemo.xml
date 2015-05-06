@@ -4,32 +4,37 @@
 <mapper namespace= "posmemo" >	
   
 
-    <select id="selectMemoList">
-        /* posmemo.selectMemoList */
+    <select id="getMemoList" resultType="map">
+        /* posmemo.getMemoList */
 		SELECT
-			A.MEMBERID
-			,A.DEVICEID
-			,A.MEMOID
-			,A.DELIVERYMASTERID
-			,A.ORDERID
-			,A.STARTSALESDATE
-			,A.MEMOTYPE
-			,A.RESERVATIONID
-			,A.REQUESTID
-			,A.TABLEID
-			,A.CONTENTS
-			,A.ISIMPORTANT
-			,A.ISCHECKED
-			,A.ISDELETED
-			,A.CREATIONDATE
-			,A.MODIFICATIONDATE  
+			MEMBERID
+			,DEVICEID
+			,MEMOID
+			,DELIVERYMASTERID
+			,ORDERID
+			,STARTSALESDATE
+			,MEMOTYPE
+			,RESERVATIONID
+			,REQUESTID
+			,TABLEID
+			,CONTENTS
+			,ISIMPORTANT
+			,ISCHECKED
+			,CREATIONDATE
+			,MODIFICATIONDATE  
 		FROM
-			MEMO A
+			MEMO
 		WHERE
-			A.MEMBERID = #{memberId}
-			<if test="isDeleted != null">
-			AND A.ISDELETED = #{isDeleted}
-			</if>
+			MEMBERID = #{memberId}
+			<if test="tableId != null">
+			AND TABLEID = #{tableId}
+			</if>			
+			<if test="orderId != null">
+			AND ORDERID = #{orderId}
+			</if>	
+			<if test="memoType != null">
+			AND MEMOTYPE = #{memoType}
+			</if>					
     </select>
     
     <insert id="insertMemo">
@@ -49,7 +54,6 @@
 			,CONTENTS
 			,ISIMPORTANT
 			,ISCHECKED
-			,ISDELETED
 			,CREATIONDATE
 			,MODIFICATIONDATE
 		) VALUES (
@@ -66,19 +70,15 @@
 			,#{contents}
 			,#{isImportant}
 			,#{isChecked}
-			,#{isDeleted}
 			,SYSDATE
 			,SYSDATE
 		)     
     </insert>
     
-    <update id="deleteMemo">
+    <delete id="deleteMemo">
         /* posmemo.deleteMemo */
-		UPDATE MEMO
+		DELETE FROM MEMO
 		
-		SET 
-			ISDELETED = 'Y',
-			MODIFICATIONDATE = SYSDATE
 		WHERE
 			MEMBERID = #{memberId}
 			<if test="tableId != null">
@@ -87,16 +87,13 @@
 			<if test="orderId != null">
 			AND ORDERID = #{orderId}
 			</if>
-			<if test="tableId != null">
-			AND TABLEID = #{tableId}
-			</if>
 			<if test='notDelList != null and notDelList.size() > 0'>
 			AND MEMOID NOT IN
 		        <foreach collection="notDelList" item="item" index="index" separator="," open="(" close=")">
 		            #{item}
 		        </foreach>	
 	        </if>	
-    </update>    
+    </delete>    
     
 
 </mapper>
