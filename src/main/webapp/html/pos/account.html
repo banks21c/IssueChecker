@@ -70,7 +70,14 @@ $(document).ready(function() {
 						<td class="a_tr"><input type="tel" id="" data-role="none" /></td>
 					</tr>
 					<tr>
-						<td colspan="3" class="a_tc">옵션없음
+						<td colspan="3" class="a_tc">
+							<p style="display:none">옵션없음</p>
+							<!--s: 적립포인트가 있는경우 -->
+							<div class="point_use">
+								<label for="op04">적립P</label>
+								<input type="tel" id="op04" data-role="none" />
+							</div>
+							<!--e: 적립포인트가 있는경우 -->
 							<div class="tb_option tb01">
 								<p class="blt">
 									<span class="op_blt opn01"></span>
@@ -104,7 +111,7 @@ $(document).ready(function() {
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row">포장금액</th>
+						<th scope="row">현금</th>
 						<td class="take_out"><input type="checkbox" id="cash" /><label for="cash" class="brown">현금영수증</label></td>
 						<td class="a_tr"><input type="tel" id="" data-role="none" /></td>
 					</tr>
