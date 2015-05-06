@@ -1,6 +1,7 @@
 package com.goodbyenote.bapdosaptlweb.pos.memo.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodbyenote.bapdosaptlweb.common.model.GlobalStatic;
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
+import com.goodbyenote.bapdosaptlweb.common.util.DateUtil;
 import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.memo.service.MemoService;
 
@@ -62,7 +64,6 @@ public class MemoController {
 		return mav; 
 	}	
 	
-	
 	@RequestMapping(value = "/pos/memo/getSelCustomerRequestList.json")
 	public ModelAndView getSelCustomerRequestList(
 			@RequestParam(required=true) Map parametaMap
@@ -89,5 +90,46 @@ public class MemoController {
 		return mav; 
 	}		
 	
+	@RequestMapping(value = "/pos/memo/memoRegister.do")
+	public String memoRegister() {
+
+		return "pos/memo/memoRegister";
+	}	
+	
+	@RequestMapping(value = "/pos/memo/setMemoRegisterOk.json")
+	public ModelAndView setMemoRegisterOk(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceId", sessionUserInfo.getDeviceId());
+		String memoId = SecurityUtils.getTimeFormatUnique();
+		String startsalesdate = DateUtil.getFormatStrFromDate(DateUtil.getDateAdd(new Date(), "h", -6), "YYYYMMdd");
+		parametaMap.put("memoId", memoId);		
+		parametaMap.put("deliveryMasterId", "");
+		parametaMap.put("startSalesDate", startsalesdate);
+		parametaMap.put("memoType", GlobalStatic.MEMO_TYPE_MEMO);		
+		parametaMap.put("reservationId", "");
+		parametaMap.put("requestId", "");
+		parametaMap.put("isChecked", "N");
+		parametaMap.put("isDeleted", "N");		
+		
+		memoService.setMemoRegister(parametaMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
 	
 }

@@ -457,7 +457,17 @@ window.bapdosa.order = (function() {
 			
 			document.location.href="/pos/memo/customerRequest.do?tableId=" + mTableId + "&orderId=" + mOrderId;
 		});
+		
+		
+		//메모 버튼클릭
+		$(".class-event-memo-register").click(function(e){
+			e.preventDefault();		
+			
+			document.location.href="/pos/memo/memoRegister.do?tableId=" + mTableId + "&orderId=" + mOrderId;
+		});		
 	}
+	
+	
 	
 	//단골고객정보를 가져와서 뿌린다.
 	function searchCustomerList(searchInitialLetter){
