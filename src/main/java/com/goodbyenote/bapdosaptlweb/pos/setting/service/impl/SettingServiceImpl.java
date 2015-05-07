@@ -26,5 +26,17 @@ public class SettingServiceImpl implements SettingService {
 		// TODO Auto-generated method stub
 		return settingDAO.getCustomerRequestList(parametaMap);
 	}
+	
+	@Override
+	public void updateTableCount(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateTableCount(parametaMap);
+	}
+	
+	@Override
+	public void updateTableCount2(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateTableCount2(parametaMap);
+	}
 
 }
