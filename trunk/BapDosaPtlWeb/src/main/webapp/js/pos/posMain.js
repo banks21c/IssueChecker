@@ -48,6 +48,10 @@ window.bapdosa.posmain = (function() {
 			//테이블이동
 			if(selVal == 1){
 				url = "/pos/special/tableMove.do";
+			} 
+			//테이블합석
+			else if(selVal == 2){
+				url = "/pos/special/tableShare.do";
 			}
 			
 			if(url){

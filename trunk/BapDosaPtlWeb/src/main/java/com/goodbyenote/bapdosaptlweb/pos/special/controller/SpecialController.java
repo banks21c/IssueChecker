@@ -57,5 +57,11 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		mav.setViewName("jsonView");
 		
 		return mav; 
+	}	
+	
+	@RequestMapping(value = "/pos/special/tableShare.do")
+	public String tableShare() {
+
+		return "pos/special/tableShare";
 	}		
 }
