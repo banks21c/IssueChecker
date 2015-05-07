@@ -31,5 +31,10 @@ public class SettingDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateTableCount2", parametaMap);
 	}
+	
+	public void updateCustomerRequest(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateCustomerRequest", parametaMap);
+	}
 
 }

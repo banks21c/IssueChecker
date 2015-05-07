@@ -63,6 +63,17 @@
 		WHERE  MEMBERID         = #{memberid}
 		AND    DEVICEID         = #{deviceid}
 		AND    TABLENO  <![CDATA[ <= ]]>  #{tableno} 
+    </update>
+    
+    <update id="updateCustomerRequest">
+        /* possetting.updateCustomerRequest */
+        
+		UPDATE CUSTOMERREQUEST
+		SET    		       
+		       CONTENTS         = #{contents}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}
+		AND    REQUESTID        = #{requestid} 
     </update>    
 
 </mapper>

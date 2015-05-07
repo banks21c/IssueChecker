@@ -12,5 +12,7 @@ public interface SettingService {
 	void updateTableCount(Map parametaMap);
 	
 	void updateTableCount2(Map parametaMap);
+	
+	void updateCustomerRequest(Map parametaMap);
 
 }
