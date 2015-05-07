@@ -51,6 +51,7 @@
         <mapper resource="mybatis/postable.xml" />
         <mapper resource="mybatis/possetting.xml" />
         <mapper resource="mybatis/posmemo.xml" />
+        <mapper resource="mybatis/posspecial.xml" />
     </mappers >
     
 </configuration>

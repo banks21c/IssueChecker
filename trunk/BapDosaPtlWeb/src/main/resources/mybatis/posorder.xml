@@ -309,6 +309,9 @@
                 <if test="iscashreceipt != null and iscashreceipt != '' ">
                 	,ISCASHRECEIPT = #{iscashreceipt}
                 </if>
+                <if test="tableId != null and tableId != '' ">
+                	,TABLEID = #{tableId}
+                </if>                
         WHERE
         	ORDERID = #{orderId}
         
@@ -432,17 +435,38 @@
     <insert id="updateOrderDetail">
         UPDATE ORDERDETAIL
 		SET
-			QUANTITY = #{quantity}
+			MODIFICATIONDATE = SYSDATE
+			<if test="quantity != null and quantity != '' ">
+			,QUANTITY = #{quantity}
+			</if>
+			<if test="isTakeout != null and isTakeout != '' ">
 			,ISTAKEOUT = #{isTakeout}
+			</if>
+			<if test="originalPrice != null and originalPrice != '' ">
 			,ORIGINALPRICE = #{originalPrice}
+			</if>
+			<if test="discountPrice != null and discountPrice != '' ">
             ,DISCOUNTPRICE = #{discountPrice} 
+            </if>
+            <if test="isService != null and isService != '' ">
 			,ISSERVICE = #{isService}               
+			</if>
             <if test="isdeleted != null and isdeleted != '' ">
                 ,ISDELETED = #{isdeleted}
             </if>
-            ,MODIFICATIONDATE = SYSDATE
+            <if test="tableId != null and tableId != '' ">
+                ,TABLEID = #{tableId}
+            </if>            
 		WHERE
-			ORDERDETAILID = #{orderDetailId}
+		
+		  	<choose>                
+			    <when test="orderDetailId != null and orderDetailId != null">		
+					ORDERDETAILID = #{orderDetailId}
+				</when>
+			    <when test="orderId != null and orderId != null">		
+					ORDERID = #{orderId}
+				</when>	
+			</choose>
     </insert>      
     
     <select id="getOrderDetailList" resultType="map">
