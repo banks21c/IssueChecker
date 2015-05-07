@@ -26,7 +26,19 @@ window.bapdosa.posmain = (function() {
 	var timeoutVar;
 	
 	function eventReg(){
-
+		$("#pos-main .table_map ul").on("click", "li", function(e){
+			e.preventDefault();
+			
+			var tableId = $(this).data("tableId");
+			var orderId = $(this).data("orderId") || "";
+			
+			console.log("tableId: " + tableId);
+			console.log("orderId: " + orderId);
+			var url = "/pos/order/orderList.do?tableId=" + tableId + "&orderId=" + orderId;
+			//$.mobile.changePage(url);
+			location.href = url;  
+			
+		});
 	}
 	
 	function getOrderTablePresentList(){
@@ -70,9 +82,24 @@ window.bapdosa.posmain = (function() {
 							}).addClass("in_time").text(window.bapdosa.util.getUsedDateFromNow(obj.CREATIONDATE_STR))
 					);
 					
-					if(obj.TAKEOUTCOUNT > 0 || obj.SERVICECOUNT > 0){
+					a.append(
+							//사용금액
+							$("<span>").addClass("sales").text(window.bapdosa.util.setComma(parseInt(obj.SUM_PRICE/1000)))
+					);					
+				}
+				
+					
+					if(obj.TAKEOUTCOUNT > 0 || obj.SERVICECOUNT > 0 || obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0 || obj.DAERI_COUNT > 0){
 						
 						var pspan = $("<span>").addClass("ico_list");
+						//메모가 있을경우
+						if(obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0){
+							pspan.append(
+									$("<span>").addClass("ico")
+						   			   .addClass("m")
+						   			   .text("M")									
+							);
+						}						
 						//포장이있을시
 						if(obj.TAKEOUTCOUNT > 0){
 							pspan.append(
@@ -88,7 +115,17 @@ window.bapdosa.posmain = (function() {
 						   			   .addClass("s")
 						   			   .text("서")									
 							);
+						}
+						//대리가 있을시
+						if(obj.DAERI_COUNT > 0){
+							pspan.append(
+									$("<span>").addClass("ico")
+						   			   .addClass("b")
+						   			   .text("대")									
+							);
 						}						
+						
+							
 					
 //						a.append(
 //								$("<span>").addClass("ico_list")
@@ -116,12 +153,9 @@ window.bapdosa.posmain = (function() {
 						a.append(pspan);
 					
 					}
-					a.append(
-							//사용금액
-							$("<span>").addClass("sales").text(window.bapdosa.util.setComma(parseInt(obj.SUM_PRICE/1000)))
-					);
+
 					
-				}
+
 				
 				a.append( 
 				  		   $("<span>").addClass("number").text(obj.TABLENAME)
@@ -136,19 +170,7 @@ window.bapdosa.posmain = (function() {
 			
 			timeoutVar = setTimeout(refreshUsedDate, 60000);
 			
-			$("#pos-main .table_map ul > li").click(function(e){
-				e.preventDefault();
-				
-				var tableId = $(this).data("tableId");
-				var orderId = $(this).data("orderId") || "";
-				
-				console.log("tableId: " + tableId);
-				console.log("orderId: " + orderId);
-				var url = "/pos/order/orderList.do?tableId=" + tableId + "&orderId=" + orderId;
-				//$.mobile.changePage(url);
-				location.href = url;  
-				
-			});
+
 			
 		};
 

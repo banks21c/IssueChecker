@@ -408,7 +408,9 @@ window.bapdosa.order = (function() {
 			
 			if(!mOrderId){
 				if(confirm("추가된 메뉴가 있습니다. 저장하시겠습니까?")){
-					
+					var afterurl = "/pos/memo/customerRequest.do?tableId=" + mTableId;
+					beforeOrderSave(afterurl);	
+					return false;
 				} else {
 					return false;
 				}
@@ -462,8 +464,9 @@ window.bapdosa.order = (function() {
 		//메모 버튼클릭
 		$(".class-event-memo-register").click(function(e){
 			e.preventDefault();		
-			
-			document.location.href="/pos/memo/memoRegister.do?tableId=" + mTableId + "&orderId=" + mOrderId;
+			var returnUrl = $.base64Encode(document.location.href);
+			//console.log(document.location.href);
+			document.location.href="/pos/memo/memoRegister.do?tableId=" + mTableId + "&orderId=" + mOrderId + "&returnUrl=" + returnUrl;
 		});		
 	}
 	
@@ -678,7 +681,12 @@ window.bapdosa.order = (function() {
 			console.log(returnObj);
 			
 			if(afterurl){
-				document.location.href = afterurl + "&orderId=" + returnObj;
+				var returnUrl = document.location.href;
+				if(!mOrderId){
+					returnUrl += returnObj;
+				}
+				returnUrl = $.base64Encode(returnUrl);
+				document.location.href = afterurl + "&orderId=" + returnObj + "&returnUrl=" + returnUrl;
 			} else {
 				history.back();
 			}

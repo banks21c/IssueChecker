@@ -60,6 +60,11 @@ window.bapdosa.memoRegister = (function() {
 				var returnObj = returnJsonVO.returnObj;
 
 				//console.log(returnObj);
+				if(window.bapdosa.urlParams["returnUrl"]){
+					document.location.href=$.base64Decode(window.bapdosa.urlParams["returnUrl"]);
+				} else {
+					history.back();
+				}
 			}
 			
 			commonAjaxCall(url, param, success);
@@ -83,7 +88,7 @@ window.bapdosa.memoRegister = (function() {
 			
 			$(returnObj).each(function(index,obj){
 				var div = $("<div>").addClass("table_info");				
-				if(obj.ORDERID == mOrderId){
+				if(obj.TABLEID == mTableId){
 					div.addClass("choice");
 				}				
 				var a = $("<a>", { href: "#"});	
