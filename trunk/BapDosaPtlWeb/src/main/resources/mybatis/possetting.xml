@@ -42,6 +42,27 @@
 			AND ISDELETED = #{isDeleted}
 			</if>
     </select>        
+
+    <update id="updateTableCount">
+        /* possetting.updateTableCount */
+        
+		UPDATE ORDERTABLE
+		SET    		       
+		       ISDELETED        = #{isdeleted}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}
+		AND    TABLENO          > #{tableno} 
+    </update>
     
+    <update id="updateTableCount2">
+        /* possetting.updateTableCount */
+        
+		UPDATE ORDERTABLE
+		SET    		       
+		       ISDELETED        = #{isdeleted}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}
+		AND    TABLENO  <![CDATA[ <= ]]>  #{tableno} 
+    </update>    
 
 </mapper>

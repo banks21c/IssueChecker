@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.goodbyenote.bapdosaptlweb.common.model.ReturnJsonVO;
 import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
+import com.goodbyenote.bapdosaptlweb.pos.order.service.OrderService;
 import com.goodbyenote.bapdosaptlweb.pos.setting.service.SettingService;
 
 @Controller
@@ -25,6 +28,9 @@ public class SettingController {
 	
 	@Autowired
 	private SettingService settingService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@RequestMapping(value = "/pos/setting/setCustomerRequest.json")
 	public ModelAndView setCustomerRequest(
@@ -55,24 +61,96 @@ public class SettingController {
 		return mav; 
 	}	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/pos/setting/getCustomerRequestList.json")
-	public ModelAndView getCustomerRequestList(HttpSession httpSession) {
+	public ModelAndView getCustomerRequestList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
 
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
-		Map parametaMap = new HashMap();
 		parametaMap.put("memberId", sessionUserInfo.getMemberId());
 		parametaMap.put("isDeleted", "N");	
 		List<Map> customerRequestList = settingService.getCustomerRequestList(parametaMap);
+		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("customerRequestList", customerRequestList);
 		
 		ModelAndView mav = new ModelAndView();		
 
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
 		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
 		returnJsonVO.setMessage("OK");
-		returnJsonVO.setReturnObj(customerRequestList);
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
 		mav.addObject(returnJsonVO);
 		mav.setViewName("jsonView");
 		
 		return mav; 
-	}	
+	}
+	
+	@RequestMapping(value = "/pos/setting/setting.do")
+	public String settingList(HttpSession httpSession) {	
+
+		return "pos/setting/setting";
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/pos/setting/getOrderTableList.json")	
+	public ModelAndView getOrderTableList( @RequestParam Map parametaMap, Model model, HttpServletRequest request ,HttpSession httpSession) {
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("isDeleted", "N");
+		parametaMap.put("orderBy", "A.TABLEID");
+		parametaMap.put("orderOption", "ASC");
+		
+		List<Map> orderMapList = orderService.getOrderTablePresentList(parametaMap);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("orderMapList", orderMapList);
+		returnMap.put("isPriceDiffer", "N");
+		returnMap.put("isDPdiffer", "N");
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+	
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/tableUpdatetOk.json")
+	public ModelAndView tableUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String tableno = (String)parametaMap.get("tableno");
+		String isdeleted = (String)parametaMap.get("isdeleted");
+		String totalcount = (String)parametaMap.get("totalCount");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("tableno", tableno);
+		parametaMap.put("isdeleted", isdeleted);
+		
+		if(Integer.parseInt(totalcount) > Integer.parseInt(tableno)){		
+		   settingService.updateTableCount(parametaMap);
+		}else{
+			settingService.updateTableCount2(parametaMap);
+		}
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
 }
