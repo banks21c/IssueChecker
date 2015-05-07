@@ -9,9 +9,13 @@ public interface SettingService {
 
 	List<Map> getCustomerRequestList(Map parametaMap);
 	
+	List<Map> getPointDcList(Map parametaMap);
+	
 	void updateTableCount(Map parametaMap);
 	
 	void updateTableCount2(Map parametaMap);
+	
+	void updateDcAmount(Map parametaMap);
 	
 	void updateCustomerRequest(Map parametaMap);
 

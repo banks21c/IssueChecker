@@ -27,7 +27,7 @@
     <select id="getCustomerRequestList" resultType="map">
         /* possetting.getCustomerRequestList */
 		SELECT
-			MEMBERID
+			 MEMBERID
 			,DEVICEID
 			,REQUESTID
 			,CONTENTS
@@ -41,7 +41,25 @@
 			<if test="isDeleted != null">
 			AND ISDELETED = #{isDeleted}
 			</if>
-    </select>        
+    </select>
+    
+    <select id="getPointDcList" resultType="map">
+        /* possetting.getPointDcList */
+		SELECT
+			 MEMBERID
+			,DEVICEID
+			,SETTINGID
+			,SETTINGKEY
+			,SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			
+    </select>         
 
     <update id="updateTableCount">
         /* possetting.updateTableCount */
@@ -64,6 +82,18 @@
 		AND    DEVICEID         = #{deviceid}
 		AND    TABLENO  <![CDATA[ <= ]]>  #{tableno} 
     </update>
+    
+    <update id="updateDcAmount">
+        /* possetting.updateDcAmount */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}
+		AND    SETTINGID        = #{settingid}
+		AND    SETTINGKEY       = #{settingkey}  
+    </update>  
     
     <update id="updateCustomerRequest">
         /* possetting.updateCustomerRequest */
