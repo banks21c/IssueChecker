@@ -229,15 +229,15 @@
 		<div role="main" class="ui-content">
 			<div class="menu_list">
 				<ul>
-					<li><input type="radio" id="specialM_01" name="specialM" /><label for="specialM_01">테이블 이동</label></li>
-					<li><input type="radio" id="specialM_02" name="specialM" /><label for="specialM_02">합석</label></li>
-					<li><input type="radio" id="specialM_03" name="specialM" /><label for="specialM_03">테이블 연결</label></li>
-					<li><input type="radio" id="specialM_04" name="specialM" /><label for="specialM_04">포장판매</label></li>
-					<li><input type="radio" id="specialM_05" name="specialM" /><label for="specialM_05">외상수금</label></li>
-					<li><input type="radio" id="specialM_06" name="specialM" /><label for="specialM_06">예약현황전체보기</label></li>
-					<li><input type="radio" id="specialM_07" name="specialM" /><label for="specialM_07">예치금(선불금) 입금 및 반환</label></li>
-					<li><input type="radio" id="specialM_08" name="specialM" /><label for="specialM_08">테이블 이름 변경</label></li>
-					<li><input type="radio" id="specialM_09" name="specialM" /><label for="specialM_09">식권판매</label></li>
+					<li><input type="radio" id="specialM_01" name="specialM" value="1"/><label for="specialM_01">테이블 이동</label></li>
+					<li><input type="radio" id="specialM_02" name="specialM" value="2"/><label for="specialM_02">합석</label></li>
+					<li><input type="radio" id="specialM_03" name="specialM" value="3"/><label for="specialM_03">테이블 연결</label></li>
+					<li><input type="radio" id="specialM_04" name="specialM" value="4"/><label for="specialM_04">포장판매</label></li>
+					<li><input type="radio" id="specialM_05" name="specialM" value="5"/><label for="specialM_05">외상수금</label></li>
+					<li><input type="radio" id="specialM_06" name="specialM" value="6"/><label for="specialM_06">예약현황전체보기</label></li>
+					<li><input type="radio" id="specialM_07" name="specialM" value="7"/><label for="specialM_07">예치금(선불금) 입금 및 반환</label></li>
+					<li><input type="radio" id="specialM_08" name="specialM" value="8"/><label for="specialM_08">테이블 이름 변경</label></li>
+					<li><input type="radio" id="specialM_09" name="specialM" value="9"/><label for="specialM_09">식권판매</label></li>
 				</ul>
 			</div>
 		</div>

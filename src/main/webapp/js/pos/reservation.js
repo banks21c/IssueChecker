@@ -12,31 +12,26 @@ $(document).ready(function(){
 window.bapdosa.reservation = (function() {	
 	
 	var mTableId = ""; //테이블아이디
-	var mOrderId = ""; //주문번호
 	
 	function eventReg(){
 		
-		mTableId = window.bapdosa.urlParams["tableId"] || "";
-		mOrderId = window.bapdosa.urlParams["orderId"] || "";		
+		mTableId = window.bapdosa.urlParams["tableId"] || "";	
 		
 		$("#reservation-page .table_map ul").on("click","li",function(e){
 			e.preventDefault();
 			
-			mTableId = $(this).data("tableId");
-			mOrderId = $(this).data("orderId") || "";
+			mTableId = $(this).data("tableId") || "";
 			
 			if($(this).children("div").hasClass("choice")){
 				$(this).children("div").removeClass("choice");
-				mTableId = "";
-				mOrderId = "";				
+				mTableId = "";			
 			} else {
 			
-				$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
+				$(this).children("div").addClass("choice");
 				
 			}
 						
 			console.log("tableId: " + mTableId);
-			console.log("orderId: " + mOrderId);
 			
 		});
 		
@@ -128,7 +123,7 @@ window.bapdosa.reservation = (function() {
 			$.when(getOrderTablePresentList()).then (
 				function(status){
 					console.log("status: " + status);
-					if(mOrderId){
+					if(mTableId){
 						
 					}
 				}					

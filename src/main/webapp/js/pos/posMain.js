@@ -39,6 +39,21 @@ window.bapdosa.posmain = (function() {
 			location.href = url;  
 			
 		});
+		
+		//특수 선택시
+		$("#pos-main input[name=specialM]").change(function(e){
+			e.preventDefault();
+			var selVal = $(this).val();
+			var url;
+			//테이블이동
+			if(selVal == 1){
+				url = "/pos/special/tableMove.do";
+			}
+			
+			if(url){
+				document.location.href=url;
+			}
+		});
 	}
 	
 	function getOrderTablePresentList(){
