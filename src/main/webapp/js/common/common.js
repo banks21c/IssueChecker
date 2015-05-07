@@ -21,10 +21,17 @@ $(document).ready(function(){
 		}			  
 	});	
 	
+	//포스메인으로 이동
 	$("a.topbtn.btn_poshome").click(function(e){
 		e.preventDefault();
 		document.location.href="/pos/main/posMain.do";
 	});
+	
+	//설정페이지로 이동
+	$("a.btn_admin").click(function(e){
+		e.preventDefault();
+		document.location.href="/pos/setting/setting.do";
+	});	
 });
 
 
