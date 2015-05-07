@@ -468,6 +468,14 @@ window.bapdosa.order = (function() {
 			//console.log(document.location.href);
 			document.location.href="/pos/memo/memoRegister.do?tableId=" + mTableId + "&orderId=" + mOrderId + "&returnUrl=" + returnUrl;
 		});		
+		
+		//예약버튼클릭		
+		$(".class-event-reservation").click(function(e){
+			e.preventDefault();		
+			var returnUrl = $.base64Encode(document.location.href);
+			//console.log(document.location.href);
+			document.location.href="/pos/memo/reservation.do?tableId=" + mTableId + "&orderId=" + mOrderId + "&returnUrl=" + returnUrl;
+		});			
 	}
 	
 	
