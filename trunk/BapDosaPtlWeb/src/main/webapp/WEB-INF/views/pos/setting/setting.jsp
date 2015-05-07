@@ -31,7 +31,7 @@
 						<input type="number" id="" class="class_table_input" data-role="none" class="wp20" />
 					</p>
 				</dd>
-				<dt><span>점심시간 점심특선메뉴 앞으로</span><a href="#" class="save">저장</a></dt>
+				<dt><span>점심시간 점심특선메뉴 앞으로</span><a href="#" class="save class_admin_save2">저장</a></dt>
 				<dd>
 					<div class="time_set">
 						<p class="time_yn">
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 				</dd>
-				<dt><span>할인율 편집</span><a href="#" class="save">저장</a></dt>
+				<dt><span>할인율 편집</span><a href="#" class="save class_admin_save3">저장</a></dt>
 				<dd>
 					<div class="discount_admin">
 						<ul>
@@ -120,7 +120,7 @@
 						</ul>
 					</div>
 				</dd>
-				<dt><span>전국랭킹-임차료,평수 수정</span><a href="#" class="save">저장</a></dt>
+				<dt><span>전국랭킹-임차료,평수 수정</span><a href="#" class="save class_admin_save4">저장</a></dt>
 				<dd>
 					<div class="ranking_set">
 						<h4>평수 기준</h4>
@@ -155,7 +155,7 @@
 						</ul>
 					</div>
 				</dd>
-				<dt><span>고객요구사항 내용 편집</span><a href="#" class="save">저장</a></dt>
+				<dt><span>고객요구사항 내용 편집</span><a href="#" class="save class_admin_save5">저장</a></dt>
 				<dd>
 					<div class="memo_set">
 						<!--s: 고객 요구사항 등록되어 있는 목록들이 보여짐 -->
@@ -165,7 +165,7 @@
 						<!--e: 고객 요구사항 등록되어 있는 목록들이 보여짐 -->
 					</div>
 				</dd>
-				<dt><span>배달-집합건물 수정/삭제</span><a href="#" class="save">저장</a></dt>
+				<dt><span>배달-집합건물 수정/삭제</span><a href="#" class="save class_admin_save6">저장</a></dt>
 				<dd>
 					<div class="structure_set">
 						<ul>
@@ -180,7 +180,7 @@
 						</ul>
 					</div>
 				</dd>
-				<dt><span>배달관리-수거 메뉴 보이기 여부</span><a href="#" class="save">저장</a></dt>
+				<dt><span>배달관리-수거 메뉴 보이기 여부</span><a href="#" class="save class_admin_save7">저장</a></dt>
 				<dd>
 					<p><input type="checkbox" id="delivery_view" name="delivery_view" /><label for="delivery_view">수거메뉴 보이기</label></p>
 				</dd>

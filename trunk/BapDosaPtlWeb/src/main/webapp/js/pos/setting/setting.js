@@ -143,7 +143,13 @@ window.bapdosa.setting = (function() {
 			e.preventDefault();	
 			tableSave();
 			location.reload();
-		});			
+		});
+		
+		$(".class_admin_save5").click(function(e){
+			e.preventDefault();	
+			requestSave();
+			location.reload();
+		});	
 	}
     
     function getTableInfoList(){
@@ -153,9 +159,7 @@ window.bapdosa.setting = (function() {
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;
-			//console.log("returnObj=" + returnObj);
-			//console.log("orderMapList=" + returnObj.orderMapList);
+			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			tableInfoList = returnObj.orderMapList;
 			console.log("tableInfoList=" + tableInfoList);
@@ -186,17 +190,16 @@ window.bapdosa.setting = (function() {
 			console.log("cusRequestList=" + cusRequestList);
 			
 			$(cusRequestList).each(function(index,obj){
-				//$(".class_customer_request li").find("input").val(obj.CONTENTS);
 				
 				var li = $("<li>",{						
 					memberId : obj.MEMBERID,
 					deviceId : obj.DEVICEID,
 					requestId : obj.REQUESTID,
-					isDeleted : obj.ISDELETED
-				}).append($("<input>").addClass("wp80").val(obj.CONTENTS));
+					isDeleted : obj.ISDELETED,
+					reqContents : obj.CONTENTS
+				}).addClass("class_request_list").append($("<input>").addClass("wp80").val(obj.CONTENTS));
 								  
-				menuBody.append(li);
-				
+				menuBody.append(li);				
 			});
 					
 			dfd.resolve( "complete.." );
@@ -241,8 +244,7 @@ window.bapdosa.setting = (function() {
 			success:function(data){
 				if(typeof console != 'undefined'){		
 					//console.log(data);					
-				}
-				
+				}				
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
 					//$("#id_cate_save").click();		
 				} else{
@@ -250,6 +252,54 @@ window.bapdosa.setting = (function() {
 				}
 			}
 		 });			
+	}
+    
+    function requestSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 
+		 $(".class_request_list").each(function(index ) {			 
+		 
+			 var memberId = $(this).attr("memberId");		 
+			 var deviceId = $(this).attr("deviceId");
+			 var requestId = $(this).attr("requestId");
+			 var reqContents = $(this).attr("reqContents");
+			 var contents2 = $(this).find("input").val();
+			 var contents;
+			 
+			 if(contents2){
+				 contents = contents2;
+			 }else{
+				 contents = reqContents;
+			 }
+			 
+			 var param = "memberid=" + memberId + "&deviceid=" + deviceId + "&requestid=" + requestId + "&contents=" + contents;
+			 var url = "requestUpdatetOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						//$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });
+		 });
 	} 
 	
 	return {
@@ -261,12 +311,8 @@ window.bapdosa.setting = (function() {
 						console.log("status: " + status);
 						getCustomerRequestList();
 					}			
-				);			
-				
-				//displayTableInfo();
-				
-			//getTableInfoList();
-			//getCustomerRequestList();
+			);			
+		
 		}	
 	}   
 })();
