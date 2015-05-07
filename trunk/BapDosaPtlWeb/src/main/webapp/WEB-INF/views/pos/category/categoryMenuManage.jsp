@@ -13,13 +13,14 @@
 <script type="text/javascript" src="../../../../js/common/common.js"></script>
 <script type="text/javascript" src="../../../../js/common/util.js"></script>
 <script type="text/javascript" src="../../../../js/pos/menu/menu.js"></script>
+<script type="text/javascript" src="../../../../js/pos/setting/setting.js"></script>
 </head>
 <body>
 <div data-role="page" id="menu-page" data-url="menu-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" class="topbtn btn_poshome" title="home" data-role="none"></a>
 		<a href="#" class="topbtn btn_home2" title="home" data-role="none"></a>
-		<a href="#" class="btn_admin" title="설정" data-role="none"></a>
+		<a href="/pos/setting/setting.do" class="btn_admin" title="설정" data-role="none" data-ajax="false"></a>
 		<h1>간편포스</h1>
 	</div>
 	<div data-role="content">
