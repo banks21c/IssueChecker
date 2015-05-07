@@ -112,11 +112,8 @@
 				<dt><span>할인율 편집</span><a href="#" class="save class_admin_save3">저장</a></dt>
 				<dd>
 					<div class="discount_admin">
-						<ul>
-							<li><input type="number" data-role="none" id="" value="3" /> %</li>
-							<li><input type="number" data-role="none" id="" value="5" /> %</li>
-							<li><input type="number" data-role="none" id="" value="7" /> %</li>
-							<li><input type="number" data-role="none" id="" value="10" /> %</li>
+						<ul class="class_dc_amount">
+							<li><input type="number" data-role="none" id="" value="" /> %</li>
 						</ul>
 					</div>
 				</dd>
@@ -183,6 +180,10 @@
 				<dt><span>배달관리-수거 메뉴 보이기 여부</span><a href="#" class="save class_admin_save7">저장</a></dt>
 				<dd>
 					<p><input type="checkbox" id="delivery_view" name="delivery_view" /><label for="delivery_view">수거메뉴 보이기</label></p>
+				</dd>
+				<dt><span>배달관리 전화 수신시 고객정보 바탕화면에 보이기 여부</span><a href="#" class="save class_admin_save8">저장</a></dt>
+				<dd>
+					<p><input type="checkbox" id="delivery_info_view" name="delivery_info_view" checked/><label for="delivery_info_view">사용하기</label></p>
 				</dd>
 			</dl>
 		</div>

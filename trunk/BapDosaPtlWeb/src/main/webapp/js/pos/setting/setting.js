@@ -145,6 +145,12 @@ window.bapdosa.setting = (function() {
 			location.reload();
 		});
 		
+		$(".class_admin_save3").click(function(e){
+			e.preventDefault();	
+			dcSave();
+			location.reload();
+		});	
+		
 		$(".class_admin_save5").click(function(e){
 			e.preventDefault();	
 			requestSave();
@@ -166,6 +172,42 @@ window.bapdosa.setting = (function() {
 			
 			$(tableInfoList).each(function(index,obj){
 				$(".class_table_count span").attr("totalCount",obj.TABLENO).text(obj.TABLENO);
+				
+			});
+					
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getPontDcList(){
+		var dfd = new jQuery.Deferred();
+		var menuBody = $(".class_dc_amount");
+	    menuBody.empty();
+	    
+		var url="/pos/setting/getPointDcList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			//isPriceDiffer = returnObj.isPriceDiffer;
+			//isDPdiffer = returnObj.isDPdiffer;			
+			
+			pointList = returnObj.pointDcList;
+			console.log("pointList=" + pointList);
+			
+			$(pointList).each(function(index,obj){
+				
+				var li = $("<li>",{						
+					memberid : obj.MEMBERID,
+					deviceid : obj.DEVICEID,
+					settingid : obj.SETTINGID,
+					settingkey : obj.SETTINGKEY,
+					settingvalue : obj.SETTINGVALUE
+				}).addClass("class_dc_input").append($("<input>").attr("type","number").val(obj.SETTINGVALUE)).append("%");
+								  
+				menuBody.append(li);
 				
 			});
 					
@@ -254,6 +296,55 @@ window.bapdosa.setting = (function() {
 		 });			
 	}
     
+    function dcSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 
+		 $(".class_dc_input").each(function(index ) {			 
+		 
+			 var memberid = $(this).attr("memberid");		 
+			 var deviceid = $(this).attr("deviceid");
+			 var settingid = $(this).attr("settingid");
+			 var settingkey = $(this).attr("settingkey");
+			 var settingvalue1 = $(this).attr("settingvalue");
+			 var settingvalue2 = $(this).find("input").val();
+			 var settingvalue;
+			 
+			 if(settingvalue2){
+				 settingvalue = settingvalue2;
+			 }else{
+				 settingvalue = settingvalue1;
+			 }
+			 
+			 var param = "memberid=" + memberid + "&deviceid=" + deviceid + "&settingid=" + settingid + "&settingkey=" + settingkey + "&settingvalue=" + settingvalue;
+			 var url = "dcUpdatetOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						//$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });
+		 });
+	} 
+    
     function requestSave(){
 		 if(!confirm("저장하시겠습니까?")){
 			 return false;
@@ -312,7 +403,7 @@ window.bapdosa.setting = (function() {
 						getCustomerRequestList();
 					}			
 			);			
-		
+			getPontDcList();
 		}	
 	}   
 })();
