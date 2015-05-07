@@ -28,6 +28,12 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
+	public List<Map> getPointDcList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getPointDcList(parametaMap);
+	}
+	
+	@Override
 	public void updateTableCount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateTableCount(parametaMap);
@@ -37,6 +43,12 @@ public class SettingServiceImpl implements SettingService {
 	public void updateTableCount2(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateTableCount2(parametaMap);
+	}
+	
+	@Override
+	public void updateDcAmount(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateDcAmount(parametaMap);
 	}
 	
 	@Override
