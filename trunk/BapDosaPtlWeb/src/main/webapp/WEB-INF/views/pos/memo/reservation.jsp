@@ -230,11 +230,13 @@
 				<dt>예약<br />현황</dt>
 				<dd>
 					<ul>
+					<!-- 	
 						<li><a href="#" class="active">13:00<br />예약</a></li>
 						<li><a href="#" class="active">15:00<br />예약</a></li>
 						<li><a href="#" class="active">10/11<br />예약</a></li>
 						<li><a href="#">예약<br />추가</a></li>
 						<li><a href="#">예약<br />추가</a></li>
+					 -->
 					</ul>
 				</dd>
 			</dl>
