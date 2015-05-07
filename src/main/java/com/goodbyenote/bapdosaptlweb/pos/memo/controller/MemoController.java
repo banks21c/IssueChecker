@@ -132,4 +132,10 @@ public class MemoController {
 		return mav; 
 	}	
 	
+	@RequestMapping(value = "/pos/memo/reservation.do")
+	public String reservation() {
+
+		return "pos/memo/reservation";
+	}	
+	
 }
