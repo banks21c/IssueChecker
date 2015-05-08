@@ -95,6 +95,7 @@ public class GlobalStatic {
 	CC00001012	손실
 	CC00001013	배달실패
 	CC00001014	식권
+	CC00001015	이동
 	CC00001100	포인트이력유형
 	CC00001101	주문적립
 	CC00001102	배달적립
@@ -176,4 +177,5 @@ public class GlobalStatic {
 	public static final String MEMO_TYPE_LOSS = "CC00001012";	//손실
 	public static final String MEMO_TYPE_DELIVERY_FAIL = "CC00001013";	//배달실패
 	public static final String MEMO_TYPE_TICKET = "CC00001014";	//식권
+	public static final String MEMO_TYPE_MOVE = "CC00001015";	//이동
 }
