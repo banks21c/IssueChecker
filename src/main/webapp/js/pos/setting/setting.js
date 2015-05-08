@@ -239,15 +239,17 @@ window.bapdosa.setting = (function() {
 			rankSetList = returnObj.rankList;
 			console.log("rankSetList=" + rankSetList);
 			
-			$(rankSetList).each(function(index,obj){				
-				$(".class_rank_pyung li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID);							
-				if($(".class_rank_pyung li").eq(index).attr("settingvalue") == "Y"){
-					$(".class_rank_pyung li").eq(index).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
-					$(".class_rank_pyung li").eq(index).find("input").prop("checked", true).attr("data-cacheval" , false);
+			$(rankSetList).each(function(index,obj){
+				var index1 = obj.DISPORDER;
+				var order = index1 -1;
+				$(".class_rank_pyung li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("code",obj.CODE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID).attr("parentcode",obj.PARENTCODE).attr("disporder",obj.DISPORDER);							
+				if($(".class_rank_pyung li").eq(order).attr("settingvalue") == $(".class_rank_pyung li").eq(order).attr("code")){
+					$(".class_rank_pyung li").eq(order).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_pyung li").eq(order).find("input").prop("checked", true).attr("data-cacheval" , false);
 				}else{
 					
-					$(".class_rank_pyung li").eq(index).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
-					$(".class_rank_pyung li").eq(index).find("input").prop("checked", false).attr("data-cacheval" , true);
+					$(".class_rank_pyung li").eq(order).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
+					$(".class_rank_pyung li").eq(order).find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
 			});
 				
@@ -269,15 +271,19 @@ window.bapdosa.setting = (function() {
 			rankSetList2 = returnObj.rankList2;
 			console.log("rankSetList2=" + rankSetList2);
 			
-			$(rankSetList2).each(function(index,obj){				
-				$(".class_rank_rent li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID);							
-				if($(".class_rank_rent li").eq(index).attr("settingvalue") == "Y"){
-					$(".class_rank_rent li").eq(index).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
-					$(".class_rank_rent li").eq(index).find("input").prop("checked", true).attr("data-cacheval" , false);
+			$(rankSetList2).each(function(index,obj){
+				var index1 = obj.DISPORDER;
+				var order = index1 -1;
+				
+				$(".class_rank_rent li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("code",obj.CODE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID).attr("parentcode",obj.PARENTCODE).attr("disporder",obj.DISPORDER);
+				
+				if($(".class_rank_rent li").eq(order).attr("settingvalue") == $(".class_rank_rent li").eq(order).attr("code")){
+					$(".class_rank_rent li").eq(order).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_rent li").eq(order).find("input").prop("checked", true).attr("data-cacheval" , false);
 				}else{
 					
-					$(".class_rank_rent li").eq(index).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
-					$(".class_rank_rent li").eq(index).find("input").prop("checked", false).attr("data-cacheval" , true);
+					$(".class_rank_rent li").eq(order).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
+					$(".class_rank_rent li").eq(order).find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
 			});
 				
@@ -424,14 +430,10 @@ window.bapdosa.setting = (function() {
 			 var settingkey = $(this).attr("settingkey");
 			 
 			 if($(this).find("input").is(":checked")) {
-				 settingvalue = "Y"
-			 }else{
-				 settingvalue = "N"
-			 }
-			 
-			 var param = "settingkey=" + settingkey + "&settingvalue=" + settingvalue;
-			 var url = "rankUpdatetOk.json";
-				
+				 settingvalue = $(this).attr("code");			 
+				 var param = "settingkey=" + settingkey + "&settingvalue=" + settingvalue;
+				 var url = "rankUpdatetOk.json";
+			 }	
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
 			 }
