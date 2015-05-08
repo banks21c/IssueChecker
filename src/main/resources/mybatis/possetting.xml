@@ -66,12 +66,15 @@
         /* possetting.getRankList */
 		SELECT
 			  A.CODENAME,
+			  A.PARENTCODE,
+			  A.DISPORDER,
+			  A.CODE,
 		      B.SETTINGKEY,
 		      B.SETTINGVALUE,
 		      B.MEMBERID,
 		      B.DEVICEID
 		FROM
-			  COMMONCODE A JOIN SETTING B ON A.CODE = B.SETTINGKEY
+			  COMMONCODE A JOIN SETTING B ON A.PARENTCODE = B.SETTINGKEY
 		WHERE	
 			 B.MEMBERID = #{memberid}			
 			 AND B.DEVICEID = #{deviceid}	
@@ -83,12 +86,15 @@
         /* possetting.getRankList2 */
 		SELECT
 			  A.CODENAME,
+			  A.PARENTCODE,
+			  A.DISPORDER,
+			  A.CODE,
 		      B.SETTINGKEY,
 		      B.SETTINGVALUE,
 		      B.MEMBERID,
 		      B.DEVICEID
 		FROM
-			  COMMONCODE A JOIN SETTING B ON A.CODE = B.SETTINGKEY
+			  COMMONCODE A JOIN SETTING B ON A.PARENTCODE = B.SETTINGKEY
 		WHERE	
 			 B.MEMBERID = #{memberid}			
 			 AND B.DEVICEID = #{deviceid}	
