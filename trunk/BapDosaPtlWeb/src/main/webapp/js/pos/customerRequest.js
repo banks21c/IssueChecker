@@ -253,7 +253,8 @@ window.bapdosa.customerRequest = (function() {
 	
 	function getSelCustomerRequestList(tableId, orderId){
 		var url="/pos/memo/getSelCustomerRequestList.json";
-		var param="tableId=" + tableId + "&orderId=" + orderId;
+		//var param="tableId=" + tableId + "&orderId=" + orderId;
+		var param="orderId=" + orderId;
 		var ulArea = $("#customerRequest-page .ask_write ul");
 		var success = function(returnJsonVO){
 			var selCustomerRequestList= returnJsonVO.returnObj;

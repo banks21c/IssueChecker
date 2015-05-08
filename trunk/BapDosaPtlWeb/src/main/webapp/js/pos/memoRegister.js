@@ -53,7 +53,7 @@ window.bapdosa.memoRegister = (function() {
 			
 			var param =   "contents=" + contents 
 						+ "&isImportant=" + isImportant 
-						+ "&tableId=" + mTableId
+						//+ "&tableId=" + mTableId
 						+ "&orderId=" + mOrderId;
 			var url = "/pos/memo/setMemoRegisterOk.json";
 			var success = function(returnJsonVO){

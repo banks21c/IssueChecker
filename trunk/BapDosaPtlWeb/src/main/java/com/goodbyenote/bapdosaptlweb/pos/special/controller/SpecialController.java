@@ -33,7 +33,6 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		return "pos/special/tableMove";
 	}		
 	
-	///pos/sepcial/tableMoveOk.json
 	@RequestMapping(value = "/pos/sepcial/tableMoveOk.json")
 	public ModelAndView tableMoveOk(
 			@RequestParam(required=true) Map parametaMap
@@ -43,6 +42,7 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 
 		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceId", sessionUserInfo.getDeviceId());
 		
 		specialService.setTableMove(parametaMap);
 			
@@ -63,5 +63,57 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 	public String tableShare() {
 
 		return "pos/special/tableShare";
-	}		
+	}
+	
+	@RequestMapping(value = "/pos/sepcial/tableShareOk.json")
+	public ModelAndView tableShareOk(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceId", sessionUserInfo.getDeviceId());
+		
+		specialService.setTableShare(parametaMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}	
+	
+	
+	@RequestMapping(value = "/pos/sepcial/tableShareDelOk.json")
+	public ModelAndView tableShareDelOk(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		
+		resultValue = specialService.setTableShareDelOk(parametaMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
 }

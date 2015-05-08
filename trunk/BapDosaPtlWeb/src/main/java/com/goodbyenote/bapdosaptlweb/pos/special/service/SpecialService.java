@@ -6,4 +6,8 @@ public interface SpecialService {
 
 	void setTableMove(Map parametaMap);
 
+	void setTableShare(Map parametaMap);
+
+	int setTableShareDelOk(Map parametaMap);
+
 }

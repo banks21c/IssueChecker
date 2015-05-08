@@ -176,66 +176,6 @@ public class OrderController {
 		return mav; 
 	}	
 	
-	@RequestMapping(value = "/pos/order/modifyOrderIschecked.json", method = RequestMethod.POST)
-	public ModelAndView modifyOrderIschecked(
-			@Valid OrderVO order,
-			BindingResult result, // 파라미터 검증 결과
-			RedirectAttributes redirectAttrs,
-			Model model,
-			HttpServletRequest request) {	
-
-		
-		System.out.println("memberid:"+order.getMemberid());
-		System.out.println("deviceid:"+order.getDeviceid());
-
-		int resultValue = orderService.updateOrderIschecked(order);
-		System.out.println("resultValue:"+resultValue);
-		ModelAndView mav = new ModelAndView();		
-		if(resultValue > 0){
-			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
-			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj(Integer.toString(resultValue));
-			mav.addObject(returnJsonVO);
-		}else{
-			mav.addObject(null);
-		}
-		mav.setViewName("jsonView");
-		
-		return mav; 
-	}
-	
-	@RequestMapping(value = "/pos/order/modifyOrderIsimportant.json", method = RequestMethod.POST)
-	public ModelAndView modifyOrderIsimportant(
-			@Valid OrderVO order,
-			BindingResult result, // 파라미터 검증 결과
-			RedirectAttributes redirectAttrs,
-			Model model,
-			HttpServletRequest request) {	
-
-		
-		System.out.println("memberid:"+order.getMemberid());
-		System.out.println("deviceid:"+order.getDeviceid());
-
-		int resultValue = orderService.updateOrderIsimportant(order);
-		System.out.println("resultValue:"+resultValue);
-		ModelAndView mav = new ModelAndView();		
-		if(resultValue > 0){
-			ReturnJsonVO returnJsonVO = new ReturnJsonVO();
-			returnJsonVO.setReturnCode("1");// 0: error, 1: returnVal 참조, 2: returnObject참조
-			//returnJsonVO.setReturnVal(Integer.toString(resultValue));
-			returnJsonVO.setMessage("OK");
-			returnJsonVO.setReturnObj(Integer.toString(resultValue));
-			mav.addObject(returnJsonVO);
-		}else{
-			mav.addObject(null);
-		}
-		mav.setViewName("jsonView");
-		
-		return mav; 
-	}
-	
 	/**
 	 * 메모 상세 조회
 	 * 메모 유형

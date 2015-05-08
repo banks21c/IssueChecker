@@ -66,7 +66,7 @@ public class MemoServiceImpl implements MemoService {
 					customerRequestMap.put("startSalesDate", startsalesdate);
 					customerRequestMap.put("memoType", GlobalStatic.MEMO_TYPE_CUSTOMER_REQUEST);		//고객요구 CC00001004
 					customerRequestMap.put("reservationId", "");
-					customerRequestMap.put("tableId", tableId);
+					customerRequestMap.put("tableId", "");
 					customerRequestMap.put("isImportant", "");
 					customerRequestMap.put("isChecked", "N");
 					customerRequestMap.put("isDeleted", "N");
@@ -83,7 +83,7 @@ public class MemoServiceImpl implements MemoService {
 		Map delMap = new HashMap();
 		delMap.put("memberId", memberId);
 		delMap.put("orderId", orderId);
-		delMap.put("tableId", tableId);
+		//delMap.put("tableId", tableId);
 		delMap.put("memoType", GlobalStatic.MEMO_TYPE_CUSTOMER_REQUEST);
 		delMap.put("notDelList", notDelList);
 		
