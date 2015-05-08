@@ -3,10 +3,65 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace= "posspecial" >	
   
-<!-- 
-    <select id="" resultType="map">
-
-    </select>
-     -->
+    <insert id="insertBeforeMerge">
+        /* posspecial.insertBeforeMerge */
+		INSERT INTO BEFOREMERGE
+		(
+			MEMBERID
+			,DEVICEID
+			,BEFOREMERGEID
+			,NEWORDERID
+			,ORDERID
+			,SUBORDERID
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		) VALUES (
+			#{memberId}
+			,#{deviceId}
+			,#{beforeMergeId}
+			,#{newOrderId}
+			,#{orderId}
+			,#{subOrderId}
+			,#{isDeleted}
+			,SYSDATE
+			,SYSDATE
+		)     
+    </insert>
+    
+    <select id="getBeforeMerge" resultType="map">
+         /* posspecial.getBeforeMerge */
+        SELECT
+			MEMBERID
+			,DEVICEID
+			,BEFOREMERGEID
+			,NEWORDERID
+			,ORDERID
+			,SUBORDERID
+			,ISDELETED
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			BEFOREMERGE
+		WHERE
+	 		<if test="beforeMergeId != null and beforeMergeId != ''">
+				BEFOREMERGEID = #{beforeMergeId}
+			</if> 
+	 		<if test="newOrderId != null and newOrderId != ''">
+				NEWORDERID = #{newOrderId}
+			</if> 
+	 		<if test="isDeleted != null and isDeleted != ''">
+				AND ISDELETED = #{isDeleted}
+			</if>			
+	 		
+    </select>    
+    
+    <delete id="deleteBeforeMerge">
+        /* posspecial.deleteBeforeMerge */
+		DELETE FROM BEFOREMERGE		
+		WHERE
+			BEFOREMERGEID = #{beforeMergeId}
+			
+    </delete>      
 
 </mapper>

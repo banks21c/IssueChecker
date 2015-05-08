@@ -69,7 +69,7 @@ window.bapdosa.tableMove = (function() {
 			}
 			
 			
-			var contents = $.trim($("#tableMove-page input[name=contents]").val());
+			var contents = "[테이블이동]" + $.trim($("#tableMove-page input[name=contents]").val() || "");
 			
 			var param =   "contents=" + contents 
 						+ "&orderId=" + before_orderId

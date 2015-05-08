@@ -24,56 +24,61 @@ window.bapdosa.tableShare = (function() {
 			var orderId = $(this).data("orderId") || "";
 			var tableName = $(this).data("tableName") || "";
 			
-			$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
-			console.log("tableId: " + mTableId);
-			
-			var before = $("#tableShare-page #id_area_move_before").text() || "";
-			var after = $("#tableShare-page #id_area_move_after").text() || "";
-			
-			if(before){
-				$("#tableShare-page #id_area_move_after").text(tableName).attr({"tableId": tableId, "orderId": orderId});
-			} else {
-				$("#tableShare-page #id_area_move_before").text(tableName).attr({"tableId": tableId, "orderId": orderId});
+			if(!orderId){			
+				return false;
 			}
 			
+			
+			console.log("tableId: " + mTableId);
+			
+			var shareA = $("#tableShare-page #id_area_share_a").text() || "";
+			var shareB = $("#tableShare-page #id_area_share_b").text() || "";
+			var shareA_orderId = $("#tableShare-page #id_area_share_a").attr("orderId") || "";
+			var shareB_orderId = $("#tableShare-page #id_area_share_b").attr("orderId") || "";
+			
+			
+			if(shareA){				
+				if(orderId == shareA_orderId){
+					return false;
+				}
+				$("#tableShare-page #id_area_share_b").text(tableName).attr({"tableId": tableId, "orderId": orderId});
+			} else {				
+				if(orderId == shareB_orderId){
+					return false;
+				}				
+				$("#tableShare-page #id_area_share_a").text(tableName).attr({"tableId": tableId, "orderId": orderId});
+			}	
+			
+			$(this).children("div").addClass("choice").end().siblings().children("div").removeClass("choice");
 		});
 		
-		$("#tableShare-page #id_area_move_before, #tableMove-page #id_area_move_after").click(function(e){
+		$("#tableShare-page #id_area_share_a,#tableShare-page #id_area_share_b").click(function(e){
 			e.preventDefault();
 			$(this).empty().removeAttr("tableId").removeAttr("orderId");
 		});
 		
-		$("#tableShare-page .class-event-move-save").click(function(e){
+		//합석하기
+		$("#tableShare-page .class-event-share-save").click(function(e){
 			e.preventDefault();
 			
-			var before = $("#tableShare-page #id_area_move_before").text() || "";
-			var before_tableId = $("#tableShare-page #id_area_move_before").attr("tableId") || "";
-			var before_orderId = $("#tableShare-page #id_area_move_before").attr("orderId") || "";
-			var after = $("#tableShare-page #id_area_move_after").text() || "";	
-			var after_tableId = $("#tableShare-page #id_area_move_after").attr("tableId") || "";
-			var after_orderId = $("#tableShare-page #id_area_move_after").attr("orderId") || "";
+			var shareA = $("#tableShare-page #id_area_share_a").text() || "";
+			var shareA_tableId = $("#tableShare-page #id_area_share_a").attr("tableId") || "";
+			var shareA_orderId = $("#tableShare-page #id_area_share_a").attr("orderId") || "";
+			var shareB = $("#tableShare-page #id_area_share_b").text() || "";	
+			var shareB_tableId = $("#tableShare-page #id_area_share_b").attr("tableId") || "";
+			var shareB_orderId = $("#tableShare-page #id_area_share_b").attr("orderId") || "";
 			
-			if(!before_tableId || !after_tableId){
-				alert("이동할 테이블을 선택해 주세요.");
+			if(!shareA_orderId || !shareB_tableId){
+				alert("합석할 테이블을 선택해 주세요.");
 				return false;
 			}
-			
-			if(before_orderId){
-				if(after_orderId){
-					alert("대상테이블이 비어있지 않습니다.");
-					return false;
-				}
-			} else {
-				alert("이동할 테이블이 비어있습니다.");
-				return false;
-			}
-			
-			
-			var contents = $.trim($("#tableShare-page input[name=contents]").val());
+						
+			var contents = "[테이블합석]" + $.trim($("#tableShare-page input[name=contents]").val());
 			
 			var param =   "contents=" + contents 
-						+ "&orderId=" + before_orderId
-						+ "&tableId=" + after_tableId;
+						+ "&orderId=" + shareA_orderId
+						+ "&subOrderId=" + shareB_orderId
+						+ "&tableId=" + shareA_tableId;
 			var url = "/pos/sepcial/tableShareOk.json";
 			var success = function(returnJsonVO){
 				var returnObj = returnJsonVO.returnObj;
@@ -81,6 +86,37 @@ window.bapdosa.tableShare = (function() {
 			}
 			
 			commonAjaxCall(url, param, success);
+		});
+		
+		//합석취소
+		$("#tableShare-page .class-event-share-cancel").click(function(e){
+			e.preventDefault();
+			var shareA = $("#tableShare-page #id_area_share_a").text() || "";
+			var shareA_tableId = $("#tableShare-page #id_area_share_a").attr("tableId") || "";
+			var shareA_orderId = $("#tableShare-page #id_area_share_a").attr("orderId") || "";	
+			
+			if(!shareA){
+				alert("합석취소할 테이블을 선택해 주세요.");
+				return false;
+			}
+			
+			//var contents = "[합석취소]" + $.trim($("#tableShare-page input[name=contents]").val());
+			
+			var param = "newOrderId=" + shareA_orderId
+			var url = "/pos/sepcial/tableShareDelOk.json";
+			var success = function(returnJsonVO){
+				var returnObj = returnJsonVO.returnObj;
+				if(returnObj == 1){
+					document.location.href="/pos/main/posMain.do";
+				} else if(returnObj == 2){
+					alert("취소할수 없습니다.");
+				} else if(returnObj == 3){
+					
+				}
+			}
+			
+			commonAjaxCall(url, param, success);			
+			
 		});
 		
 

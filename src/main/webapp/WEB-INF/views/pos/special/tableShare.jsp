@@ -232,18 +232,18 @@
 		</div>
 		<!--e: 테이블 목록 -->
 		<div class="share_cancel">
-			<a href="#" class="btn_02">합석취소</a>
+			<a href="#" class="btn_02 class-event-share-cancel">합석취소</a>
 		</div>
 		<div class="tb_move">
 			<div class="mv_box">
 				<div class="mv_data share">
 					<div class="mv_befor">
 						<p>합석A</p>
-						<p class="wbox" id="id_area_move_before">14</p>
+						<p class="wbox" id="id_area_share_a"></p>
 					</div>
 					<div class="mv_after">
 						<p>합석B</p>
-						<p class="wbox" id="id_area_move_after">21</p>
+						<p class="wbox" id="id_area_share_b"></p>
 					</div>
 				</div>
 				<div class="mv_memo">
@@ -253,7 +253,7 @@
 			</div>
 		</div>
 		<div class="btn_c tline">
-			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+			<a href="#" class="btn_blue class-event-share-save">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 	<div data-role="footer" data-position="fixed">
