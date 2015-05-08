@@ -151,6 +151,16 @@ window.bapdosa.setting = (function() {
 			location.reload();
 		});	
 		
+		$(".class_admin_save4").click(function(e){
+			e.preventDefault();
+			
+			rankSave();
+			//rankSave2();
+			 setTimeout(function () { 
+			      location.reload();
+			    }, 100);
+		});	
+		
 		$(".class_admin_save5").click(function(e){
 			e.preventDefault();	
 			requestSave();
@@ -182,7 +192,7 @@ window.bapdosa.setting = (function() {
 		 return dfd.promise();
 	}
     
-    function getPontDcList(){
+    function getPointDcList(){
 		var dfd = new jQuery.Deferred();
 		var menuBody = $(".class_dc_amount");
 	    menuBody.empty();
@@ -211,6 +221,66 @@ window.bapdosa.setting = (function() {
 				
 			});
 					
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getRankList(){
+		var dfd = new jQuery.Deferred();
+		
+		var url="/pos/setting/getRankList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			rankSetList = returnObj.rankList;
+			console.log("rankSetList=" + rankSetList);
+			
+			$(rankSetList).each(function(index,obj){				
+				$(".class_rank_pyung li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID);							
+				if($(".class_rank_pyung li").eq(index).attr("settingvalue") == "Y"){
+					$(".class_rank_pyung li").eq(index).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_pyung li").eq(index).find("input").prop("checked", true).attr("data-cacheval" , false);
+				}else{
+					
+					$(".class_rank_pyung li").eq(index).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
+					$(".class_rank_pyung li").eq(index).find("input").prop("checked", false).attr("data-cacheval" , true);
+				}
+			});
+				
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getRankList2(){
+		var dfd = new jQuery.Deferred();
+		
+		var url="/pos/setting/getRankList2.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			rankSetList2 = returnObj.rankList2;
+			console.log("rankSetList2=" + rankSetList2);
+			
+			$(rankSetList2).each(function(index,obj){				
+				$(".class_rank_rent li").eq(index).attr("codename",obj.CODENAME).attr("settingkey",obj.SETTINGKEY).attr("settingvalue",obj.SETTINGVALUE).attr("memberid",obj.MEMBERID).attr("deviceid",obj.DEVICEID);							
+				if($(".class_rank_rent li").eq(index).attr("settingvalue") == "Y"){
+					$(".class_rank_rent li").eq(index).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_rent li").eq(index).find("input").prop("checked", true).attr("data-cacheval" , false);
+				}else{
+					
+					$(".class_rank_rent li").eq(index).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
+					$(".class_rank_rent li").eq(index).find("input").prop("checked", false).attr("data-cacheval" , true);
+				}
+			});
+				
 			dfd.resolve( "complete.." );
 		};
 
@@ -343,7 +413,49 @@ window.bapdosa.setting = (function() {
 				}
 			 });
 		 });
-	} 
+	}
+    function rankSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 
+		 $(".class_rank_check").each(function(index ) {
+			 var settingvalue;
+			 var settingkey = $(this).attr("settingkey");
+			 
+			 if($(this).find("input").is(":checked")) {
+				 settingvalue = "Y"
+			 }else{
+				 settingvalue = "N"
+			 }
+			 
+			 var param = "settingkey=" + settingkey + "&settingvalue=" + settingvalue;
+			 var url = "rankUpdatetOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						//$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });
+		 });
+	}
     
     function requestSave(){
 		 if(!confirm("저장하시겠습니까?")){
@@ -400,10 +512,18 @@ window.bapdosa.setting = (function() {
 			$.when(getTableInfoList()).then (
 					function(status){
 						console.log("status: " + status);
-						getCustomerRequestList();
+						$.when(getCustomerRequestList()).then (
+								function(status){
+									console.log("status: " + status);
+									getRankList();
+								}			
+						);
+						getRankList2();
+						//getCustomerRequestList();
 					}			
 			);			
-			getPontDcList();
+			getPointDcList();
+			//getRankList()
 		}	
 	}   
 })();

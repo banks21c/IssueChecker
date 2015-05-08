@@ -121,34 +121,34 @@
 				<dd>
 					<div class="ranking_set">
 						<h4>평수 기준</h4>
-						<ul>
-							<li><input type="radio" id="pshL01" name="pshL1" /><label for="pshL01">3평이하</label></li>
-							<li><input type="radio" id="pshL02" name="pshL1" /><label for="pshL02">4~5</label></li>
-							<li><input type="radio" id="pshL03" name="pshL1" /><label for="pshL03">6~10</label></li>
-							<li><input type="radio" id="pshL04" name="pshL1" /><label for="pshL04">11~15</label></li>
-							<li><input type="radio" id="pshL05" name="pshL1" /><label for="pshL05">16~20</label></li>
-							<li><input type="radio" id="pshL06" name="pshL1" /><label for="pshL06">20~25</label></li>
-							<li><input type="radio" id="pshL07" name="pshL1" /><label for="pshL07">26~30</label></li>
-							<li><input type="radio" id="pshL08" name="pshL1" /><label for="pshL08">31~40</label></li>
-							<li><input type="radio" id="pshL09" name="pshL1" /><label for="pshL09">41~50</label></li>
-							<li><input type="radio" id="pshL10" name="pshL1" /><label for="pshL10">51~70</label></li>
-							<li><input type="radio" id="pshL11" name="pshL1" /><label for="pshL11">71~100</label></li>
-							<li><input type="radio" id="pshL12" name="pshL1" /><label for="pshL12">초대형</label></li>
+						<ul class="class_rank_pyung">
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL01" name="pshL1" /><label for="pshL01">3평이하</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL02" name="pshL1" /><label for="pshL02">4~5</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL03" name="pshL1" /><label for="pshL03">6~10</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL04" name="pshL1" /><label for="pshL04">11~15</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL05" name="pshL1" /><label for="pshL05">16~20</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL06" name="pshL1" /><label for="pshL06">20~25</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL07" name="pshL1" /><label for="pshL07">26~30</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL08" name="pshL1" /><label for="pshL08">31~40</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL09" name="pshL1" /><label for="pshL09">41~50</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL10" name="pshL1" /><label for="pshL10">51~70</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL11" name="pshL1" /><label for="pshL11">71~100</label></li>
+							<li class="class_rank_check class_rank_pyung_check"><input type="radio" id="pshL12" name="pshL1" /><label for="pshL12">초대형</label></li>
 						</ul>
 						<h4>임차료 기준</h4>
-						<ul>
-							<li><input type="radio" id="pshL201" name="pshL2" /><label for="pshL201">30만이하</label></li>
-							<li><input type="radio" id="pshL202" name="pshL2" /><label for="pshL202">40~50</label></li>
-							<li><input type="radio" id="pshL203" name="pshL2" /><label for="pshL203">60~70</label></li>
-							<li><input type="radio" id="pshL204" name="pshL2" /><label for="pshL204">80~100</label></li>
-							<li><input type="radio" id="pshL205" name="pshL2" /><label for="pshL205">110~150</label></li>
-							<li><input type="radio" id="pshL206" name="pshL2" /><label for="pshL206">160~200</label></li>
-							<li><input type="radio" id="pshL207" name="pshL2" /><label for="pshL207">210~300</label></li>
-							<li><input type="radio" id="pshL208" name="pshL2" /><label for="pshL208">310~400</label></li>
-							<li><input type="radio" id="pshL209" name="pshL2" /><label for="pshL209">410~500</label></li>
-							<li><input type="radio" id="pshL210" name="pshL2" /><label for="pshL210">510~700</label></li>
-							<li><input type="radio" id="pshL211" name="pshL2" /><label for="pshL211">710~900</label></li>
-							<li><input type="radio" id="pshL212" name="pshL2" /><label for="pshL212">초대형</label></li>
+						<ul class="class_rank_rent">
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL201" name="pshL2" /><label for="pshL201">30만이하</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL202" name="pshL2" /><label for="pshL202">40~50</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL203" name="pshL2" /><label for="pshL203">60~70</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL204" name="pshL2" /><label for="pshL204">80~100</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL205" name="pshL2" /><label for="pshL205">110~150</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL206" name="pshL2" /><label for="pshL206">160~200</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL207" name="pshL2" /><label for="pshL207">210~300</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL208" name="pshL2" /><label for="pshL208">310~400</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL209" name="pshL2" /><label for="pshL209">410~500</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL210" name="pshL2" /><label for="pshL210">510~700</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL211" name="pshL2" /><label for="pshL211">710~900</label></li>
+							<li class="class_rank_check class_rank_rent_check"><input type="radio" id="pshL212" name="pshL2" /><label for="pshL212">초대형</label></li>
 						</ul>
 					</div>
 				</dd>
