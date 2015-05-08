@@ -13,7 +13,6 @@
 <script type="text/javascript" src="../../../../js/common/common.js"></script>
 <script type="text/javascript" src="../../../../js/common/util.js"></script>
 <script type="text/javascript" src="../../../../js/pos/menu/menu.js"></script>
-<script type="text/javascript" src="../../../../js/pos/setting/setting.js"></script>
 </head>
 <body>
 <div data-role="page" id="menu-page" data-url="menu-page">
