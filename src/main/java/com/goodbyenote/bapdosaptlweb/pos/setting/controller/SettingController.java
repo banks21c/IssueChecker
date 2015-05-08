@@ -149,6 +149,56 @@ public class SettingController {
 		return mav; 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getRankList.json")
+	public ModelAndView getRankList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		List<Map> rankList = settingService.getRankList(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("rankList", rankList);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getRankList2.json")
+	public ModelAndView getRankList2(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		List<Map> rankList2 = settingService.getRankList2(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("rankList2", rankList2);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/pos/setting/tableUpdatetOk.json")
 	public ModelAndView tableUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
@@ -198,6 +248,33 @@ public class SettingController {
 		parametaMap.put("settingvalue", settingvalue);
 				
 		settingService.updateDcAmount(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/rankUpdatetOk.json")
+	public ModelAndView rankUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingkey = (String)parametaMap.get("settingkey");
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingkey", settingkey);
+		parametaMap.put("settingvalue", settingvalue);
+				
+		settingService.updateRank(parametaMap);
 		
 		
 		ModelAndView mav = new ModelAndView();		
