@@ -34,6 +34,18 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
+	public List<Map> getRankList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getRankList(parametaMap);
+	}
+	
+	@Override
+	public List<Map> getRankList2(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getRankList2(parametaMap);
+	}
+	
+	@Override
 	public void updateTableCount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateTableCount(parametaMap);
@@ -49,6 +61,12 @@ public class SettingServiceImpl implements SettingService {
 	public void updateDcAmount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateDcAmount(parametaMap);
+	}
+	
+	@Override
+	public void updateRank(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateRank(parametaMap);
 	}
 	
 	@Override

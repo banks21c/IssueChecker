@@ -11,11 +11,17 @@ public interface SettingService {
 	
 	List<Map> getPointDcList(Map parametaMap);
 	
+	List<Map> getRankList(Map parametaMap);
+	
+	List<Map> getRankList2(Map parametaMap);
+	
 	void updateTableCount(Map parametaMap);
 	
 	void updateTableCount2(Map parametaMap);
 	
 	void updateDcAmount(Map parametaMap);
+	
+	void updateRank(Map parametaMap);
 	
 	void updateCustomerRequest(Map parametaMap);
 

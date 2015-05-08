@@ -27,6 +27,16 @@ public class SettingDAO {
 		return sqlSession.selectList("possetting.getPointDcList", parametaMap);
 	}
 	
+	public List<Map> getRankList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("possetting.getRankList", parametaMap);
+	}
+	
+	public List<Map> getRankList2(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("possetting.getRankList2", parametaMap);
+	}
+	
 	public void updateTableCount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateTableCount", parametaMap);
@@ -40,6 +50,11 @@ public class SettingDAO {
 	public void updateDcAmount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateDcAmount", parametaMap);
+	}
+	
+	public void updateRank(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateRank", parametaMap);
 	}
 	
 	public void updateCustomerRequest(Map parametaMap) {

@@ -58,8 +58,43 @@
 		WHERE
 			MEMBERID = #{memberid}			
 			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY LIKE 'CC000029%'
 			
-    </select>         
+    </select>
+    
+    <select id="getRankList" resultType="map">
+        /* possetting.getRankList */
+		SELECT
+			  A.CODENAME,
+		      B.SETTINGKEY,
+		      B.SETTINGVALUE,
+		      B.MEMBERID,
+		      B.DEVICEID
+		FROM
+			  COMMONCODE A JOIN SETTING B ON A.CODE = B.SETTINGKEY
+		WHERE	
+			 B.MEMBERID = #{memberid}			
+			 AND B.DEVICEID = #{deviceid}	
+			 AND A.PARENTCODE = 'CC00002500'
+		ORDER BY A.CODE	
+    </select>
+    
+    <select id="getRankList2" resultType="map">
+        /* possetting.getRankList2 */
+		SELECT
+			  A.CODENAME,
+		      B.SETTINGKEY,
+		      B.SETTINGVALUE,
+		      B.MEMBERID,
+		      B.DEVICEID
+		FROM
+			  COMMONCODE A JOIN SETTING B ON A.CODE = B.SETTINGKEY
+		WHERE	
+			 B.MEMBERID = #{memberid}			
+			 AND B.DEVICEID = #{deviceid}	
+			 AND A.PARENTCODE = 'CC00002600'
+		ORDER BY A.CODE	
+    </select>             
 
     <update id="updateTableCount">
         /* possetting.updateTableCount */
@@ -93,7 +128,18 @@
 		AND    DEVICEID         = #{deviceid}
 		AND    SETTINGID        = #{settingid}
 		AND    SETTINGKEY       = #{settingkey}  
-    </update>  
+    </update>
+    
+    <update id="updateRank">
+        /* possetting.updateRank */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = #{settingkey}  
+    </update>    
     
     <update id="updateCustomerRequest">
         /* possetting.updateCustomerRequest */
