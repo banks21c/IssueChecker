@@ -53,6 +53,10 @@ window.bapdosa.posmain = (function() {
 			else if(selVal == 2){
 				url = "/pos/special/tableShare.do";
 			}
+			//테이블연결
+			else if(selVal == 3){
+				url = "/pos/special/tableConnect.do";
+			}			
 			
 			if(url){
 				document.location.href=url;

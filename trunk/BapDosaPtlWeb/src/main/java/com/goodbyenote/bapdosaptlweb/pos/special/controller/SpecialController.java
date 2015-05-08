@@ -116,4 +116,10 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		
 		return mav; 
 	}
+	
+	@RequestMapping(value = "/pos/special/tableConnect.do")
+	public String tableConnect() {
+
+		return "pos/special/tableConnect";
+	}	
 }
