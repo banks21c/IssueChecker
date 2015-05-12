@@ -252,6 +252,30 @@ public class CategoryController {
 		return "pos/category/categoryPointManage";
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/category/getDcTimeList.json")
+	public ModelAndView getDcTimeList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		List<Map> dcTimeList = categoryService.getDcTimeList(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("dcTimeList", dcTimeList);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/pos/category/MenuInsertOk.json")
 	public ModelAndView categoryMenuInsertOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
@@ -324,6 +348,77 @@ public class CategoryController {
 		return mav; 
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/dcMenuUpdatetOk.json")
+	public ModelAndView dcMenuUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String timezonedivision = (String)parametaMap.get("timezonedivision");
+		String isdifferenttime = (String)parametaMap.get("isdifferenttime");
+		String starttime1 = (String)parametaMap.get("starttime1");
+		String starttime2 = (String)parametaMap.get("starttime2");
+		String starttime3 = (String)parametaMap.get("starttime3");
+		String starttime4 = (String)parametaMap.get("starttime4");
+		String starttime5 = (String)parametaMap.get("starttime5");
+		String starttime6 = (String)parametaMap.get("starttime6");
+		String starttime7 = (String)parametaMap.get("starttime7");
+		
+		String endtime1 = (String)parametaMap.get("endtime1");
+		String endtime2 = (String)parametaMap.get("endtime2");
+		String endtime3 = (String)parametaMap.get("endtime3");
+		String endtime4 = (String)parametaMap.get("endtime4");
+		String endtime5 = (String)parametaMap.get("endtime5");
+		String endtime6 = (String)parametaMap.get("endtime6");
+		String endtime7 = (String)parametaMap.get("endtime7");
+		
+		String isusedtime1 = (String)parametaMap.get("isusedtime1");
+		String isusedtime2 = (String)parametaMap.get("isusedtime2");
+		String isusedtime3 = (String)parametaMap.get("isusedtime3");
+		String isusedtime4 = (String)parametaMap.get("isusedtime4");
+		String isusedtime5 = (String)parametaMap.get("isusedtime5");
+		String isusedtime6 = (String)parametaMap.get("isusedtime6");
+		String isusedtime7 = (String)parametaMap.get("isusedtime7");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("timezonedivision", timezonedivision);
+		parametaMap.put("isdifferenttime", isdifferenttime);
+		parametaMap.put("starttime1", starttime1);
+		parametaMap.put("starttime2", starttime2);
+		parametaMap.put("starttime3", starttime3);
+		parametaMap.put("starttime4", starttime4);
+		parametaMap.put("starttime5", starttime5);
+		parametaMap.put("starttime6", starttime6);
+		parametaMap.put("starttime7", starttime7);
+		
+		parametaMap.put("endtime1", endtime1);
+		parametaMap.put("endtime2", endtime2);
+		parametaMap.put("endtime3", endtime3);
+		parametaMap.put("endtime4", endtime4);
+		parametaMap.put("endtime5", endtime5);
+		parametaMap.put("endtime6", endtime6);
+		parametaMap.put("endtime7", endtime7);
+		
+		parametaMap.put("isusedtime1", isusedtime1);
+		parametaMap.put("isusedtime2", isusedtime2);
+		parametaMap.put("isusedtime3", isusedtime3);
+		parametaMap.put("isusedtime4", isusedtime4);
+		parametaMap.put("isusedtime5", isusedtime5);
+		parametaMap.put("isusedtime6", isusedtime6);
+		parametaMap.put("isusedtime7", isusedtime7);
+				
+		categoryService.updateDcMenu(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
 	/*@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/pos/category/menuSave.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(

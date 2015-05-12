@@ -22,6 +22,11 @@ public class SettingDAO {
 		return sqlSession.selectList("possetting.getCustomerRequestList", parametaMap);
 	}
 	
+	public List<Map> getLunchTimeList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("possetting.getLunchTimeList", parametaMap);
+	}
+	
 	public List<Map> getPointDcList(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("possetting.getPointDcList", parametaMap);
@@ -45,6 +50,11 @@ public class SettingDAO {
 	public void updateTableCount2(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateTableCount2", parametaMap);
+	}
+	
+	public void updateLunchEqual(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateLunchEqual", parametaMap);
 	}
 	
 	public void updateDcAmount(Map parametaMap) {

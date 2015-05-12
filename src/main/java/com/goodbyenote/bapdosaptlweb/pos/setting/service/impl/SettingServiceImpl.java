@@ -28,6 +28,12 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
+	public List<Map> getLunchTimeList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getLunchTimeList(parametaMap);
+	}
+	
+	@Override
 	public List<Map> getPointDcList(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return settingDAO.getPointDcList(parametaMap);
@@ -55,6 +61,12 @@ public class SettingServiceImpl implements SettingService {
 	public void updateTableCount2(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateTableCount2(parametaMap);
+	}
+	
+	@Override
+	public void updateLunchEqual(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateLunchEqual(parametaMap);
 	}
 	
 	@Override

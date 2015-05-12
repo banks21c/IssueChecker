@@ -154,6 +154,43 @@
     ORDER BY SORTORDER 
 	</select>
 	
+	<select id="getDcTimeList" resultType="map">
+        /* category.getDcTimeList */
+		SELECT
+			 MEMBERID
+			,TIMEZONEDIVISION
+			,ISDIFFERENTTIME
+			,STARTTIME1
+			,ENDTIME1
+			,ISUSEDTIME1
+			,STARTTIME2
+			,ENDTIME2
+			,ISUSEDTIME2
+			,STARTTIME3
+			,ENDTIME3
+			,ISUSEDTIME3
+			,STARTTIME4
+			,ENDTIME4
+			,ISUSEDTIME4
+			,STARTTIME5
+			,ENDTIME5
+			,ISUSEDTIME5
+			,STARTTIME6
+			,ENDTIME6
+			,ISUSEDTIME6
+			,STARTTIME7
+			,ENDTIME7
+			,ISUSEDTIME7
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			TIMEZONESETTING
+		WHERE
+			MEMBERID = #{memberid}
+		AND TIMEZONEDIVISION = '1'				
+			
+    </select>
+	
 	<insert id="insertCateMenu" parameterType="map">
 		INSERT INTO MENU (
 		        MEMBERID,
@@ -217,5 +254,39 @@
 		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
 		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
 	</update>
+	
+	<update id="updateDcMenu">
+        /* category.updateDcMenu */
+        
+		UPDATE TIMEZONESETTING
+		SET    		       
+		       TIMEZONEDIVISION    = #{timezonedivision},
+		       ISDIFFERENTTIME     = #{isdifferenttime},
+		       STARTTIME1          = #{starttime1},
+		       STARTTIME2          = #{starttime2},
+		       STARTTIME3          = #{starttime3},
+		       STARTTIME4          = #{starttime4},
+		       STARTTIME5          = #{starttime5},
+		       STARTTIME6          = #{starttime6},
+		       STARTTIME7          = #{starttime7},
+		       ENDTIME1            = #{endtime1},
+		       ENDTIME2            = #{endtime2},
+		       ENDTIME3            = #{endtime3},
+		       ENDTIME4            = #{endtime4},
+		       ENDTIME5            = #{endtime5},
+		       ENDTIME6            = #{endtime6},
+		       ENDTIME7            = #{endtime7},
+		       ISUSEDTIME1         = #{isusedtime1},
+		       ISUSEDTIME2         = #{isusedtime2},
+		       ISUSEDTIME3         = #{isusedtime3},
+		       ISUSEDTIME4         = #{isusedtime4},
+		       ISUSEDTIME5         = #{isusedtime5},
+		       ISUSEDTIME6         = #{isusedtime6},
+		       ISUSEDTIME7         = #{isusedtime7}
+		       		       
+		WHERE  MEMBERID            = #{memberid}
+		AND    TIMEZONEDIVISION    = '1'
+		
+    </update>
 	  
 </mapper>
