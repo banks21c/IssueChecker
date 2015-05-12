@@ -121,5 +121,10 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 	public String tableConnect() {
 
 		return "pos/special/tableConnect";
+	}
+	@RequestMapping(value = "/pos/special/tableNameChange.do")
+	public String tableNameChange() {
+
+		return "pos/special/tableNameChange";
 	}	
 }
