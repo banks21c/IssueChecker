@@ -797,6 +797,7 @@ window.bapdosa.setting = (function() {
 					
 				}				
 			 });
+			
 			 var param = "memberid=" + memberid + "&timezonedivision=" + timezonedivision + "&isdifferenttime=" + isdifferenttime +
 			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
 			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
