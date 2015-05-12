@@ -384,6 +384,7 @@ window.bapdosa.menu = (function() {
 		$("#id_point_set_time_differ li").click(function(e){
 			e.preventDefault();
 			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
+			getDcTimetap();
 		});
 		
 		$(".class_point_time_differ").change(function(e){
@@ -488,126 +489,16 @@ window.bapdosa.menu = (function() {
 			}			
 		});
 		
-		/*세팅 */
-		//점심시간 점심메뉴 앞으로	
-		$("#id_setting_set_time_differ li").click(function(e){
+		$(".class_menu_dc_save").click(function(e){
 			e.preventDefault();
-			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
-		});
-		
-		$(".class_setting_time_differ").change(function(e){
-			e.preventDefault();			
-			
-			if($(this).is(":checked")) {
-				
-		    	$("#id_setting_set_time_differ").show();
-		    	$("#id_setting_time_same").hide();
-		    	
-			}else{
-				
-				$("#id_setting_set_time_differ").hide();
-		    	$("#id_setting_time_same").show();		    
+			if($(".class_point_time_differ").is(":checked")){
+				dcDifferSave();
+			}else{				
+				dcEqualSave();
 			}
-		})
-		
-		$("#id_setting_am_btn").click(function(e){
-			e.preventDefault();	
-			if($("#id_setting_am_text").text() == '오후'){
-			     $("#id_setting_am_text").text("오전");
-			}else{
-			     $("#id_setting_am_text").text("오후");
-			}
-		});
-		$("#id_setting_pm_btn").click(function(e){
-			e.preventDefault();	
-			if($("#id_setting_pm_text").text() == '오후'){
-			     $("#id_setting_pm_text").text("오전");
-			}else{
-			     $("#id_setting_pm_text").text("오후");
-			}
-		});
-		
-		$("#id_setting_minute_btn").click(function(e){
-			e.preventDefault();	
-			if($("#id_setting_minute_text").text() == '00'){
-			     $("#id_setting_minute_text").text("30");
-			}else{
-			     $("#id_setting_minute_text").text("00");
-			}
-		});
-		$("#id_setting_minute2_btn").click(function(e){
-			e.preventDefault();	
-			if($("#id_setting_minute2_text").text() == '00'){
-			     $("#id_setting_minute2_text").text("30");
-			}else{
-			     $("#id_setting_minute2_text").text("00");
-			}
-		});
-		
-		$("#id_setting_hour_plus_btn").click(function(e){
-			e.preventDefault();
-			var hour = $("#id_setting_hour_text").text();
-			if(hour == '12'){
-				$("#id_setting_hour_text").text("01");
-			}else{
-				if(10 > parseInt(hour.substring(1,2)) && hour != "09" && hour != "10" && hour != "11"){
-				    $("#id_setting_hour_text").text("0" + (parseInt(hour)+ 1));
-				}else{
-					$("#id_setting_hour_text").text(parseInt(hour)+ 1);					
-				}
-			}			
-		});
-		$("#id_setting_hour_minus_btn").click(function(e){
-			e.preventDefault();	
-			var hour = $("#id_setting_hour_text").text();
-			if(hour == '01'){
-				$("#id_setting_hour_text").text("12");
-			}else{
-				if( hour != "11" && hour != "12"){
-				    $("#id_setting_hour_text").text("0" + (parseInt(hour) - 1));
-				}else{
-					$("#id_setting_hour_text").text(parseInt(hour) - 1);					
-				}
-			}			
-		});
-		$("#id_setting_hour2_plus_btn").click(function(e){
-			e.preventDefault();
-			var hour = $("#id_setting_hour2_text").text();
-			if(hour == '12'){
-				$("#id_setting_hour2_text").text("01");
-			}else{
-				if(10 > parseInt(hour.substring(1,2)) && hour != "09" && hour != "10" && hour != "11"){
-				    $("#id_setting_hour2_text").text("0" + (parseInt(hour)+ 1));
-				}else{
-					$("#id_setting_hour2_text").text(parseInt(hour)+ 1);					
-				}
-			}			
-		});
-		$("#id_setting_hour2_minus_btn").click(function(e){
-			e.preventDefault();	
-			var hour = $("#id_setting_hour2_text").text();
-			if(hour == '01'){
-				$("#id_setting_hour2_text").text("12");
-			}else{
-				if( hour != "11" && hour != "12"){
-				    $("#id_setting_hour2_text").text("0" + (parseInt(hour) - 1));
-				}else{
-					$("#id_setting_hour2_text").text(parseInt(hour) - 1);					
-				}
-			}			
+			location.reload();
 		});	
-		$(".admin_list dt").click(function(){
-			if($(this).next().is(":hidden")){
-				$(".admin_list dt").next().hide();
-				$(".admin_list dt").removeClass("on");
-				$(this).next().show();
-				$(this).addClass("on");
-
-			}else if($(this).next().is(":visible")){
-				$(this).next().hide();
-				$(this).removeClass("on");
-			}
-		})	
+		
 	}
 	
 	function updateCate(sortorder,name,categoryid){
@@ -926,11 +817,454 @@ window.bapdosa.menu = (function() {
 		}		
 	}
 	
+	function getDcTimeList(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/category/getDcTimeList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			//isPriceDiffer = returnObj.isPriceDiffer;
+			//isDPdiffer = returnObj.isDPdiffer;			
+			
+			dcTimeList = returnObj.dcTimeList;
+			console.log("dcTimeList=" + dcTimeList);
+			
+			$(dcTimeList).each(function(index,obj){
+				$(".class_dc_time_line").attr("memberid", obj.MEMBERID);
+				$(".class_dc_time_differ_main").attr("starttime1",obj.STARTTIME1).attr("starttime2",obj.STARTTIME2).attr("starttime3",obj.STARTTIME3).attr("starttime4",obj.STARTTIME4).attr("starttime5",obj.STARTTIME5).attr("starttime6",obj.STARTTIME6).attr("starttime7",obj.STARTTIME7)
+				.attr("endtime1",obj.ENDTIME1).attr("endtime2",obj.ENDTIME2).attr("endtime3",obj.ENDTIME3).attr("endtime4",obj.ENDTIME4).attr("endtime5",obj.ENDTIME5).attr("endtime6",obj.ENDTIME6).attr("endtime7",obj.ENDTIME7)	
+                .attr("isusedtime1",obj.ISUSEDTIME1).attr("isusedtime2",obj.ISUSEDTIME2).attr("isusedtime3",obj.ISUSEDTIME3).attr("isusedtime4",obj.ISUSEDTIME4).attr("isusedtime5",obj.ISUSEDTIME5).attr("isusedtime6",obj.ISUSEDTIME6).attr("isusedtime7",obj.ISUSEDTIME7);	
+				if(obj.ISDIFFERENTTIME == "Y"){
+					$(".class_point_time_differ").click();
+				}else{
+					if(obj.ISUSEDTIME1 == "Y"){					
+						$(".class_dc_time_same_main li").eq(0).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(0).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME2 == "Y"){					
+						$(".class_dc_time_same_main li").eq(1).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(1).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME3 == "Y"){					
+						$(".class_dc_time_same_main li").eq(2).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(2).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME4 == "Y"){					
+						$(".class_dc_time_same_main li").eq(3).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(3).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME5 == "Y"){					
+						$(".class_dc_time_same_main li").eq(4).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(4).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME6 == "Y"){					
+						$(".class_dc_time_same_main li").eq(5).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(5).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					if(obj.ISUSEDTIME7 == "Y"){					
+						$(".class_dc_time_same_main li").eq(6).find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+						$(".class_dc_time_same_main li").eq(6).find("input").prop("checked", true).attr("data-cacheval" , false);					
+					}
+					
+				}
+				if(obj.STARTTIME1){					
+					$("#id_point_hour_text").text(obj.STARTTIME1.substring(0,2));
+					$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));					
+				}else{
+					$("#id_point_hour_text").text("00");
+					$("#id_point_minute_text").text("00");	
+				}
+				if(obj.ENDTIME1){					
+					$("#id_point_hour2_text").text(obj.ENDTIME1.substring(0,2));
+					$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));					
+				}else{
+					$("#id_point_hour2_text").text("00");
+					$("#id_point_minute2_text").text("00");	
+				}				
+			});
+					
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getDcTimetap(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/category/getDcTimeList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			//isPriceDiffer = returnObj.isPriceDiffer;
+			//isDPdiffer = returnObj.isDPdiffer;			
+			
+			dcTimeList = returnObj.dcTimeList;
+			console.log("dcTimeList=" + dcTimeList);
+			
+			$(dcTimeList).each(function(index,obj){
+				if($("#id_point_set_time_differ li").eq(0).find("a").hasClass("active")){
+					if(obj.STARTTIME1){					
+						$("#id_point_hour_text").text(obj.STARTTIME1.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}				
+					if(obj.ENDTIME1){					
+						$("#id_point_hour2_text").text(obj.ENDTIME1.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(1).find("a").hasClass("active")){
+					if(obj.STARTTIME2){	
+						$("#id_point_hour_text").text(obj.STARTTIME2.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME2.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}				
+					if(obj.ENDTIME2){					
+						$("#id_point_hour2_text").text(obj.ENDTIME2.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME2.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(2).find("a").hasClass("active")){
+					if(obj.STARTTIME3){					
+						$("#id_point_hour_text").text(obj.STARTTIME3.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME3.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}
+					if(obj.ENDTIME3){					
+						$("#id_point_hour2_text").text(obj.ENDTIME3.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME3.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(3).find("a").hasClass("active")){
+					if(obj.STARTTIME4){					
+						$("#id_point_hour_text").text(obj.STARTTIME4.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME4.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}
+					if(obj.ENDTIME4){					
+						$("#id_point_hour2_text").text(obj.ENDTIME4.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME4.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(4).find("a").hasClass("active")){
+					if(obj.STARTTIME5){					
+						$("#id_point_hour_text").text(obj.STARTTIME5.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME5.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}
+					if(obj.ENDTIME5){					
+						$("#id_point_hour2_text").text(obj.ENDTIME5.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME5.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(5).find("a").hasClass("active")){
+					if(obj.STARTTIME6){					
+						$("#id_point_hour_text").text(obj.STARTTIME6.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME6.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}
+					if(obj.ENDTIME6){					
+						$("#id_point_hour2_text").text(obj.ENDTIME6.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME6.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+				if($("#id_point_set_time_differ li").eq(6).find("a").hasClass("active")){
+					if(obj.STARTTIME7){					
+						$("#id_point_hour_text").text(obj.STARTTIME7.substring(0,2));
+						$("#id_point_minute_text").text(obj.STARTTIME7.substring(2,4));					
+					}else{
+						$("#id_point_hour_text").text("00");
+						$("#id_point_minute_text").text("00");	
+					}
+					if(obj.ENDTIME7){					
+						$("#id_point_hour2_text").text(obj.ENDTIME7.substring(0,2));
+						$("#id_point_minute2_text").text(obj.ENDTIME7.substring(2,4));					
+					}else{
+						$("#id_point_hour2_text").text("00");
+						$("#id_point_minute2_text").text("00");	
+					}
+				}
+			});
+					
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function dcEqualSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 	 
+			 var memberid= $(".class_dc_time_line").attr("memberid");		 
+			 var timezonedivision = "1";
+			 var isdifferenttime = "N";
+			 var starttime = $("#id_point_hour_text").text() + $("#id_point_minute_text").text();
+			 var endtime = $("#id_point_hour2_text").text() + $("#id_point_minute2_text").text();
+			 
+			 var starttime1;
+			 var starttime2;
+			 var starttime3;
+			 var starttime4;
+			 var starttime5;
+			 var starttime6;
+			 var starttime7;
+			 var endtime1;
+			 var endtime2;
+			 var endtime3;
+			 var endtime4;
+			 var endtime5;
+			 var endtime6;
+			 var endtime7;
+			 var isusedtime1;
+			 var isusedtime2;
+			 var isusedtime3;
+			 var isusedtime4;
+			 var isusedtime5;
+			 var isusedtime6;
+			 var isusedtime7;
+			 
+			 $(".class_dc_time_same").each(function(index ) {	
+				 
+				if($(".class_dc_time_same").eq(0).find("input").is(":checked")){					 
+					 starttime1 = starttime;
+					 endtime1 = endtime;
+					 isusedtime1 = "Y";
+				}else{
+					starttime1="";
+					endtime1="";
+					isusedtime1 = "N";
+				}
+				if($(".class_dc_time_same").eq(1).find("input").is(":checked")){					 
+					 starttime2 = starttime;
+					 endtime2 = endtime;
+					 isusedtime2 = "Y";
+				}else{
+					starttime2="";
+					endtime2="";
+					isusedtime2 = "N";
+				}
+				if($(".class_dc_time_same").eq(2).find("input").is(":checked")){					 
+					 starttime3 = starttime;
+					 endtime3 = endtime;
+					 isusedtime3 = "Y";
+				}else{
+					starttime3="";
+					endtime3="";
+					isusedtime3 = "N";
+				}
+				if($(".class_dc_time_same").eq(3).find("input").is(":checked")){					 
+					 starttime4 = starttime;
+					 endtime4 = endtime;
+					 isusedtime4 = "Y";
+				}else{
+					starttime4="";
+					endtime4="";
+					isusedtime4 = "N";
+				}
+				if($(".class_dc_time_same").eq(4).find("input").is(":checked")){					 
+					 starttime5 = starttime;
+					 endtime5 = endtime;
+					 isusedtime5 = "Y";
+				}else{
+					starttime5="";
+					endtime5="";
+					isusedtime5 = "N";
+				}
+				if($(".class_dc_time_same").eq(5).find("input").is(":checked")){					 
+					 starttime6 = starttime;
+					 endtime6 = endtime;
+					 isusedtime6 = "Y";
+				}else{
+					starttime6="";
+					endtime6="";
+					isusedtime6 = "N";
+				}
+				if($(".class_dc_time_same").eq(6).find("input").is(":checked")){					 
+					 starttime7 = starttime;
+					 endtime7 = endtime;
+					 isusedtime7 = "Y";
+				}else{
+					starttime7="";
+					endtime7="";
+					isusedtime7 = "N";
+				}
+			 });
+			 var param = "memberid=" + memberid + "&timezonedivision=" + timezonedivision + "&isdifferenttime=" + isdifferenttime +
+			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
+			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
+			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
+			 var url = "dcMenuUpdatetOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						//$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });
+		
+	}
+   
+   function dcDifferSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 	 
+			 var memberid= $(".class_dc_time_line").attr("memberid");		 
+			 var timezonedivision = "1";
+			 var isdifferenttime = "Y";
+			 var starttime = $("#id_point_hour_text").text() + $("#id_point_minute_text").text();
+			 var endtime = $("#id_point_hour2_text").text() + $("#id_point_minute2_text").text();
+			 
+			 var starttime1 = $(".class_dc_time_differ_main").attr("starttime1");
+			 var starttime2 = $(".class_dc_time_differ_main").attr("starttime2");
+			 var starttime3 = $(".class_dc_time_differ_main").attr("starttime3");
+			 var starttime4 = $(".class_dc_time_differ_main").attr("starttime4");
+			 var starttime5 = $(".class_dc_time_differ_main").attr("starttime5");
+			 var starttime6 = $(".class_dc_time_differ_main").attr("starttime6");
+			 var starttime7 = $(".class_dc_time_differ_main").attr("starttime7");
+			 var endtime1 = $(".class_dc_time_differ_main").attr("endtime1");
+			 var endtime2 = $(".class_dc_time_differ_main").attr("endtime2");
+			 var endtime3 = $(".class_dc_time_differ_main").attr("endtime3");
+			 var endtime4 = $(".class_dc_time_differ_main").attr("endtime4");
+			 var endtime5 = $(".class_dc_time_differ_main").attr("endtime5");
+			 var endtime6 = $(".class_dc_time_differ_main").attr("endtime6");
+			 var endtime7 = $(".class_dc_time_differ_main").attr("endtime7");
+			 var isusedtime1 = $(".class_dc_time_differ_main").attr("isusedtime1");
+			 var isusedtime2 = $(".class_dc_time_differ_main").attr("isusedtime2");
+			 var isusedtime3 = $(".class_dc_time_differ_main").attr("isusedtime3");
+			 var isusedtime4 = $(".class_dc_time_differ_main").attr("isusedtime4");
+			 var isusedtime5 = $(".class_dc_time_differ_main").attr("isusedtime5");
+			 var isusedtime6 = $(".class_dc_time_differ_main").attr("isusedtime6");
+			 var isusedtime7 = $(".class_dc_time_differ_main").attr("isusedtime7");
+			 
+			 $(".class_dc_time_differ_tap").each(function(index ) {	
+				 
+				if($(".class_dc_time_differ_tap").eq(0).find("a").hasClass("active")){		
+					 starttime1 = starttime;
+					 endtime1 = endtime;
+					 isusedtime1 = "Y";					 
+					 
+				}else if($(".class_dc_time_differ_tap").eq(1).find("a").hasClass("active")){
+					 starttime2 = starttime;
+					 endtime2 = endtime;
+					 isusedtime2 = "Y";
+					
+				}else if($(".class_dc_time_differ_tap").eq(2).find("a").hasClass("active")){
+					 starttime3 = starttime;
+					 endtime3 = endtime;
+					 isusedtime3 = "Y";
+					
+				}else if($(".class_dc_time_differ_tap").eq(3).find("a").hasClass("active")){
+					 starttime4 = starttime;
+					 endtime4 = endtime;
+					 isusedtime4 = "Y";
+					
+				}else if($(".class_dc_time_differ_tap").eq(4).find("a").hasClass("active")){
+					 starttime5 = starttime;
+					 endtime5 = endtime;
+					 isusedtime5 = "Y";
+					
+				}else if($(".class_dc_time_differ_tap").eq(5).find("a").hasClass("active")){
+					 starttime6 = starttime;
+					 endtime6 = endtime;
+					 isusedtime6 = "Y";
+					
+				}else if($(".class_dc_time_differ_tap").eq(6).find("a").hasClass("active")){
+					 starttime7 = starttime;
+					 endtime7 = endtime;
+					 isusedtime7 = "Y";
+					
+				}else{
+					
+				}				
+			 });
+			 var param = "memberid=" + memberid + "&timezonedivision=" + timezonedivision + "&isdifferenttime=" + isdifferenttime +
+			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
+			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
+			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
+			 var url = "dcMenuUpdatetOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+						//console.log(data);					
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+						//$("#id_cate_save").click();		
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+				}
+			 });
+		
+	}
+	
 	return {
 		init: function() {
 			eventReg();				
 			displayCategoryMenu();
 			displayCategoryPoint();
+			getDcTimeList();
 		}
 	}   
 })();
