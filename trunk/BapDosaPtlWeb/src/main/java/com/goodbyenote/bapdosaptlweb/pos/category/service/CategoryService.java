@@ -40,6 +40,11 @@ public interface CategoryService {
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryPointList(Map searchCondition);
 	
+	@SuppressWarnings("rawtypes")
+	List<Map> getDcTimeList(Map parametaMap);
+	
+	public void updateDcMenu(Map parametaMap);
+	
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo);
 

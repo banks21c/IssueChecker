@@ -76,6 +76,17 @@ public class CategoryDAO {
 	public List<Map> getCategoryPointList(Map searchCondition) {
 		return sqlSession.selectList("category.getCategoryPointList", searchCondition);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public List<Map> getDcTimeList(Map parametaMap) {
+		return sqlSession.selectList("category.getDcTimeList", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public int updateDcMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateDcMenu", parametaMap);
+	}
 
 	public List<CategoryVO> getList(CategoryVO category) {
 		return sqlSession.selectList("category.getList", category);

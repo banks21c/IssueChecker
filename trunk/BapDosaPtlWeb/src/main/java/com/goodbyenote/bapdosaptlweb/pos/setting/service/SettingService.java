@@ -9,6 +9,8 @@ public interface SettingService {
 
 	List<Map> getCustomerRequestList(Map parametaMap);
 	
+	List<Map> getLunchTimeList(Map parametaMap);
+	
 	List<Map> getPointDcList(Map parametaMap);
 	
 	List<Map> getRankList(Map parametaMap);
@@ -18,6 +20,8 @@ public interface SettingService {
 	void updateTableCount(Map parametaMap);
 	
 	void updateTableCount2(Map parametaMap);
+	
+	void updateLunchEqual(Map parametaMap);
 	
 	void updateDcAmount(Map parametaMap);
 	
