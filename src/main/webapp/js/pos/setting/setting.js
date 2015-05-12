@@ -106,8 +106,10 @@ window.bapdosa.setting = (function() {
 			var hour = $("#id_setting_hour_text").text();
 			if(hour == '01'){
 				$("#id_setting_hour_text").text("12");
+			}else if(hour == '00'){
+				$("#id_setting_hour_text").text("11");
 			}else{
-				if( hour != "11" && hour != "12"){
+				if( hour != "11" && hour != "12" && hour != "00"){
 				    $("#id_setting_hour_text").text("0" + (parseInt(hour) - 1));
 				}else{
 					$("#id_setting_hour_text").text(parseInt(hour) - 1);					
@@ -132,8 +134,10 @@ window.bapdosa.setting = (function() {
 			var hour = $("#id_setting_hour2_text").text();
 			if(hour == '01'){
 				$("#id_setting_hour2_text").text("12");
+			}else if(hour == '00'){
+				$("#id_setting_hour2_text").text("11");
 			}else{
-				if( hour != "11" && hour != "12"){
+				if( hour != "11" && hour != "12" && hour != "00"){
 				    $("#id_setting_hour2_text").text("0" + (parseInt(hour) - 1));
 				}else{
 					$("#id_setting_hour2_text").text(parseInt(hour) - 1);					
@@ -600,27 +604,27 @@ window.bapdosa.setting = (function() {
 			 var starttime = $("#id_setting_hour_text").text() + $("#id_setting_minute_text").text();
 			 var endtime = $("#id_setting_hour2_text").text() + $("#id_setting_minute2_text").text();
 			 
-			 var starttime1;
-			 var starttime2;
-			 var starttime3;
-			 var starttime4;
-			 var starttime5;
-			 var starttime6;
-			 var starttime7;
-			 var endtime1;
-			 var endtime2;
-			 var endtime3;
-			 var endtime4;
-			 var endtime5;
-			 var endtime6;
-			 var endtime7;
-			 var isusedtime1;
-			 var isusedtime2;
-			 var isusedtime3;
-			 var isusedtime4;
-			 var isusedtime5;
-			 var isusedtime6;
-			 var isusedtime7;
+			 var starttime1 = $(".class_setting_time_differ_main").attr("starttime1");
+			 var starttime2 = $(".class_setting_time_differ_main").attr("starttime2");
+			 var starttime3 = $(".class_setting_time_differ_main").attr("starttime3");
+			 var starttime4 = $(".class_setting_time_differ_main").attr("starttime4");
+			 var starttime5 = $(".class_setting_time_differ_main").attr("starttime5");
+			 var starttime6 = $(".class_setting_time_differ_main").attr("starttime6");
+			 var starttime7 = $(".class_setting_time_differ_main").attr("starttime7");
+			 var endtime1 = $(".class_setting_time_differ_main").attr("endtime1");
+			 var endtime2 = $(".class_setting_time_differ_main").attr("endtime2");
+			 var endtime3 = $(".class_setting_time_differ_main").attr("endtime3");
+			 var endtime4 = $(".class_setting_time_differ_main").attr("endtime4");
+			 var endtime5 = $(".class_setting_time_differ_main").attr("endtime5");
+			 var endtime6 = $(".class_setting_time_differ_main").attr("endtime6");
+			 var endtime7 = $(".class_setting_time_differ_main").attr("endtime7");
+			 var isusedtime1 = $(".class_setting_time_differ_main").attr("isusedtime1");
+			 var isusedtime2 = $(".class_setting_time_differ_main").attr("isusedtime2");
+			 var isusedtime3 = $(".class_setting_time_differ_main").attr("isusedtime3");
+			 var isusedtime4 = $(".class_setting_time_differ_main").attr("isusedtime4");
+			 var isusedtime5 = $(".class_setting_time_differ_main").attr("isusedtime5");
+			 var isusedtime6 = $(".class_setting_time_differ_main").attr("isusedtime6");
+			 var isusedtime7 = $(".class_setting_time_differ_main").attr("isusedtime7");
 			 
 			 $(".class_setting_time_same").each(function(index ) {	
 				 
@@ -629,8 +633,8 @@ window.bapdosa.setting = (function() {
 					 endtime1 = endtime;
 					 isusedtime1 = "Y";
 				}else{
-					starttime1="";
-					endtime1="";
+					starttime1;
+					endtime1;
 					isusedtime1 = "N";
 				}
 				if($(".class_setting_time_same").eq(1).find("input").is(":checked")){					 
@@ -638,8 +642,8 @@ window.bapdosa.setting = (function() {
 					 endtime2 = endtime;
 					 isusedtime2 = "Y";
 				}else{
-					starttime2="";
-					endtime2="";
+					starttime2;
+					endtime2;
 					isusedtime2 = "N";
 				}
 				if($(".class_setting_time_same").eq(2).find("input").is(":checked")){					 
@@ -647,8 +651,8 @@ window.bapdosa.setting = (function() {
 					 endtime3 = endtime;
 					 isusedtime3 = "Y";
 				}else{
-					starttime3="";
-					endtime3="";
+					starttime3;
+					endtime3;
 					isusedtime3 = "N";
 				}
 				if($(".class_setting_time_same").eq(3).find("input").is(":checked")){					 
@@ -656,8 +660,8 @@ window.bapdosa.setting = (function() {
 					 endtime4 = endtime;
 					 isusedtime4 = "Y";
 				}else{
-					starttime4="";
-					endtime4="";
+					starttime4;
+					endtime4;
 					isusedtime4 = "N";
 				}
 				if($(".class_setting_time_same").eq(4).find("input").is(":checked")){					 
@@ -665,8 +669,8 @@ window.bapdosa.setting = (function() {
 					 endtime5 = endtime;
 					 isusedtime5 = "Y";
 				}else{
-					starttime5="";
-					endtime5="";
+					starttime5;
+					endtime5;
 					isusedtime5 = "N";
 				}
 				if($(".class_setting_time_same").eq(5).find("input").is(":checked")){					 
@@ -674,8 +678,8 @@ window.bapdosa.setting = (function() {
 					 endtime6 = endtime;
 					 isusedtime6 = "Y";
 				}else{
-					starttime6="";
-					endtime6="";
+					starttime6;
+					endtime6;
 					isusedtime6 = "N";
 				}
 				if($(".class_setting_time_same").eq(6).find("input").is(":checked")){					 
@@ -683,8 +687,8 @@ window.bapdosa.setting = (function() {
 					 endtime7 = endtime;
 					 isusedtime7 = "Y";
 				}else{
-					starttime7="";
-					endtime7="";
+					starttime7;
+					endtime7;
 					isusedtime7 = "N";
 				}
 			 });
