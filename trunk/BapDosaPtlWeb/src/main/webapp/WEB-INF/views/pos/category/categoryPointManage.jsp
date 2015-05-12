@@ -133,14 +133,15 @@
 				<div class="time_box">
 					<!--s: 할인시간대 요일마다 다르게 설정 경우 -->
 					<div class="week_choice tab" id="id_point_set_time_differ" style="display:none">
-						<ul>
-							<li><a href="#" class="active" >월</a></li>
-							<li><a href="#">화</a></li>
-							<li><a href="#">수</a></li>
-							<li><a href="#">목</a></li>
-							<li><a href="#">금</a></li>
-							<li class="week_blue"><a href="#">토</a></li>
-							<li class="week_red"><a href="#">일</a></li>
+						<ul class="class_dc_time_differ_main" starttime1="" starttime2="" starttime3="" starttime4="" starttime5="" starttime6="" starttime7=""
+							endtime1="" endtime2="" endtime3="" endtime4="" endtime5="" endtime6="" endtime7="">
+							<li class="class_dc_time_differ_tap"><a href="#" class="active" >월</a></li>
+							<li class="class_dc_time_differ_tap"><a href="#">화</a></li>
+							<li class="class_dc_time_differ_tap"><a href="#">수</a></li>
+							<li class="class_dc_time_differ_tap"><a href="#">목</a></li>
+							<li class="class_dc_time_differ_tap"><a href="#">금</a></li>
+							<li class="week_blue class_dc_time_differ_tap"><a href="#">토</a></li>
+							<li class="week_red class_dc_time_differ_tap"><a href="#">일</a></li>
 						</ul>
 					</div>
 					<!--e: 할인시간대 요일마다 다르게 설정 경우 -->
@@ -159,7 +160,7 @@
 						</div>
 						<div class="time_line">
 							<ul>
-								<li><span id="id_point_am_text">오전</span> <span id="id_point_hour_text" >12</span> : <span id="id_point_minute_text">00</span></li>
+								<li class="class_dc_time_line"><span id="id_point_am_text">오전</span> <span id="id_point_hour_text" >12</span> : <span id="id_point_minute_text">00</span></li>
 								<li><span id="id_point_pm_text">오후</span> <span id="id_point_hour2_text">12</span> : <span id="id_point_minute2_text">00</span></li>
 							</ul>
 						</div>
@@ -170,35 +171,23 @@
 							<ul>
 								<li><a href="#" id="id_point_hour2_minus_btn" title="시간"></a></li>
 							</ul>
-						</div>
-						<!-- <div class="times start">
-							<span><a href="#" class="up"></a>오전</span>
-							<span><a href="#" class="up"></a><a href="#" class="down"></a>12</span>
-							<span class="mins">:</span>
-							<span><a href="#" class="up"></a>00</span>
-						</div>
-						<div class="times end">
-							<span><a href="#" class="up"></a>오후</span>
-							<span><a href="#" class="up"></a><a href="#" class="down"></a>12</span>
-							<span class="mins">:</span>
-							<span><a href="#" class="up"></a>00</span>
-						</div> -->
+						</div>						
 					</div>
 					<div class="week_choice" id="id_point_time_same">
-						<ul>
-							<li><input type="checkbox" id="week_01" /><label for="week_01">월</label></li>
-							<li><input type="checkbox" id="week_02" /><label for="week_02">화</label></li>
-							<li><input type="checkbox" id="week_03" /><label for="week_03">수</label></li>
-							<li><input type="checkbox" id="week_04" /><label for="week_04">목</label></li>
-							<li><input type="checkbox" id="week_05" /><label for="week_05">금</label></li>
-							<li><input type="checkbox" id="week_06" /><label for="week_06" class="week_blue">토</label></li>
-							<li><input type="checkbox" id="week_07" /><label for="week_07" class="week_red">일</label></li>
+						<ul class="class_dc_time_same_main">
+							<li class="class_dc_time_same"><input type="checkbox" id="week_01" /><label for="week_01">월</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_02" /><label for="week_02">화</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_03" /><label for="week_03">수</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_04" /><label for="week_04">목</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_05" /><label for="week_05">금</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_06" /><label for="week_06" class="week_blue">토</label></li>
+							<li class="class_dc_time_same"><input type="checkbox" id="week_07" /><label for="week_07" class="week_red">일</label></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="btn_c">
-				<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
+				<a href="#" class="btn_blue class_menu_dc_save">저장</a><a href="#" class="btn_white" data-rel="back">취소</a>
 			</div>
 		</div>
 	</div>
