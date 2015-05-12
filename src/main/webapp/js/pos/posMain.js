@@ -56,7 +56,11 @@ window.bapdosa.posmain = (function() {
 			//테이블연결
 			else if(selVal == 3){
 				url = "/pos/special/tableConnect.do";
-			}			
+			}
+			//테이블이름변경
+			else if(selVal == 8){				
+				url = "/pos/special/tableNameChange.do";
+			}				
 			
 			if(url){
 				document.location.href=url;
