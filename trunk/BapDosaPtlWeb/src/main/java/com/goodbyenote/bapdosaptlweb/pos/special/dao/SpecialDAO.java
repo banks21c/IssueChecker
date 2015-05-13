@@ -25,4 +25,14 @@ public class SpecialDAO {
 		// TODO Auto-generated method stub
 		sqlSession.delete("posspecial.deleteBeforeMerge", delMergeMap);
 	}
+
+	public void updateOrderTable(Map orderTableMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("posspecial.updateOrderTable", orderTableMap);
+	}
+
+	public void cancelOrderTable(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("posspecial.cancelOrderTable", parametaMap);
+	}
 }

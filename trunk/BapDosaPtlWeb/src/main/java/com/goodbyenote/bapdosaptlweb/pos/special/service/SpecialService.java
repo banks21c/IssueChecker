@@ -10,4 +10,8 @@ public interface SpecialService {
 
 	int setTableShareDelOk(Map parametaMap);
 
+	void setTableConnect(Map<String, Object> connectTableInfoMap);
+
+	void setTableConnectCancel(Map parametaMap);
+
 }

@@ -208,5 +208,35 @@ public class SpecialServiceImpl implements SpecialService {
 		}
 		
 		return resultValue;
+	}
+
+	@Override
+	public void setTableConnect(Map<String, Object> connectTableInfoMap) {
+		// TODO Auto-generated method stub
+		String memberId = (String)connectTableInfoMap.get("memberId");
+		String deviceId = (String)connectTableInfoMap.get("deviceId");
+		String defaultTableId = (String)connectTableInfoMap.get("defaultTableId");	
+		
+		List<String> linkedTableList =  (List<String>)connectTableInfoMap.get("linkedTableList");
+		Map orderTableMap = new HashMap();
+		orderTableMap.put("memberId", memberId);
+		orderTableMap.put("deviceId", deviceId);		
+		orderTableMap.put("linkedTableId", defaultTableId);		
+		linkedTableList.forEach( 
+				linkedTableId -> {
+					System.out.println(linkedTableId);
+				
+					orderTableMap.put("tableId", linkedTableId);
+					specialDAO.updateOrderTable(orderTableMap);
+					
+				}
+			);		
+		
+	}
+
+	@Override
+	public void setTableConnectCancel(Map parametaMap) {
+		// TODO Auto-generated method stub
+		specialDAO.cancelOrderTable(parametaMap);
 	}	
 }

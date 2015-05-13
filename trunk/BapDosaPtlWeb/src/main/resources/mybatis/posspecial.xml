@@ -62,6 +62,37 @@
 		WHERE
 			BEFOREMERGEID = #{beforeMergeId}
 			
-    </delete>      
+    </delete> 
+    
+    <update id="updateOrderTable">
+        /* posspecial.updateOrderTable */
+		UPDATE ORDERTABLE
+		SET
+			MODIFICATIONDATE = SYSDATE
+			<if test="tableNo != null and tableNo != ''">
+			,TABLENO = #{tableNo}
+			</if>
+			<if test="tableName != null and tableName != ''">
+			,TABLENAME = #{tableName}
+			</if>
+			<if test="linkedTableId != null and linkedTableId != ''">
+			,LINKEDTABLEID = #{linkedTableId}
+			</if>
+			<if test="isDeleted != null and isDeleted != ''">
+			,ISDELETED = #{isDeleted}
+			</if>		
+		WHERE
+			TABLEID = #{tableId}
+			
+    </update>     
+    <update id="cancelOrderTable">
+        /* posspecial.cancelOrderTable */
+		UPDATE ORDERTABLE
+		SET
+			MODIFICATIONDATE = SYSDATE
+			,LINKEDTABLEID = NULL	
+		WHERE
+			LINKEDTABLEID = #{linkedTableId}			
+    </update>   
 
 </mapper>
