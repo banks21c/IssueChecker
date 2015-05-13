@@ -29,8 +29,13 @@ window.bapdosa.posmain = (function() {
 		$("#pos-main .table_map ul").on("click", "li", function(e){
 			e.preventDefault();
 			
-			var tableId = $(this).data("tableId");
-			var orderId = $(this).data("orderId") || "";
+			var tableId = $(this).attr("tableId") || "";
+			var orderId = $(this).attr("orderId") || "";
+			var linkedTableId = $(this).attr("linkedTableId") || "";
+			
+			if(linkedTableId){
+				tableId = linkedTableId;
+			}			
 			
 			console.log("tableId: " + tableId);
 			console.log("orderId: " + orderId);
@@ -74,17 +79,11 @@ window.bapdosa.posmain = (function() {
 		var param="";
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-
-			console.log(returnObj);
-			
-
-			
 			//기존 리스트 삭제
 			var ulList = $("#pos-main .table_map ul");
 			ulList.empty();
 			
 			$(returnObj).each(function(index,obj){
-				console.log(obj);
 				
 				var div = $("<div>").addClass("table_info");
 				var a = $("<a>", { href: "#"});	
@@ -113,76 +112,57 @@ window.bapdosa.posmain = (function() {
 							//사용금액
 							$("<span>").addClass("sales").text(window.bapdosa.util.setComma(parseInt(obj.SUM_PRICE/1000)))
 					);					
-				}
+				}	
 				
+				//연결된테이블일경우
+				if(obj.LINKEDTABLECOUNT > 0 || obj.LINKEDTABLEID ? true:false){
 					
-					if(obj.TAKEOUTCOUNT > 0 || obj.SERVICECOUNT > 0 || obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0 || obj.DAERI_COUNT > 0){
-						
-						var pspan = $("<span>").addClass("ico_list");
-						//메모가 있을경우
-						if(obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0){
-							pspan.append(
-									$("<span>").addClass("ico")
-						   			   .addClass("m")
-						   			   .text("M")									
-							);
-						}						
-						//포장이있을시
-						if(obj.TAKEOUTCOUNT > 0){
-							pspan.append(
-									$("<span>").addClass("ico")
-						   			   .addClass("p")
-						   			   .text("포")									
-							);
-						}
-						//서비스가 있을시
-						if(obj.SERVICECOUNT > 0){
-							pspan.append(
-									$("<span>").addClass("ico")
-						   			   .addClass("s")
-						   			   .text("서")									
-							);
-						}
-						//대리가 있을시
-						if(obj.DAERI_COUNT > 0){
-							pspan.append(
-									$("<span>").addClass("ico")
-						   			   .addClass("b")
-						   			   .text("대")									
-							);
-						}						
-						
-							
-					
-//						a.append(
-//								$("<span>").addClass("ico_list")
-//										   .append( $("<span>").addClass("ico")
-//												   			   .addClass("m")
-//												   			   .text("M")											   
-//										   )
-//										   .append( $("<span>").addClass("ico")
-//												   			   .addClass("p")
-//												   			   .text("포")
-//												   
-//										   )
-//										   .append( $("<span>").addClass("ico")
-//												   			   .addClass("s")
-//												   			   .text("서")
-//												   
-//										   )
-//										   .append( $("<span>").addClass("ico")
-//												   			   .addClass("b")
-//												   			   .text("대")
-//												   
-//										   )
-//						);
-						
-						a.append(pspan);
-					
+					var connectStr = "연결";
+					if(obj.LINKEDTABLEID){
+						connectStr += "(+" + obj.LINKEDTABLENAME + ")";
 					}
-
+					a.append(
+							//연결정보넣기
+							$("<span>").addClass("connect").text(connectStr)
+					);						
+				}
 					
-
+				if(obj.TAKEOUTCOUNT > 0 || obj.SERVICECOUNT > 0 || obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0 || obj.DAERI_COUNT > 0){					
+					var pspan = $("<span>").addClass("ico_list");
+					//메모가 있을경우
+					if(obj.MEMO_COUNT > 0 || obj.CUSTOMERREQUEST_COUNT > 0){
+						pspan.append(
+								$("<span>").addClass("ico")
+					   			   .addClass("m")
+					   			   .text("M")									
+						);
+					}						
+					//포장이있을시
+					if(obj.TAKEOUTCOUNT > 0){
+						pspan.append(
+								$("<span>").addClass("ico")
+					   			   .addClass("p")
+					   			   .text("포")									
+						);
+					}
+					//서비스가 있을시
+					if(obj.SERVICECOUNT > 0){
+						pspan.append(
+								$("<span>").addClass("ico")
+					   			   .addClass("s")
+					   			   .text("서")									
+						);
+					}
+					//대리가 있을시
+					if(obj.DAERI_COUNT > 0){
+						pspan.append(
+								$("<span>").addClass("ico")
+					   			   .addClass("b")
+					   			   .text("대")									
+						);
+					}					
+					a.append(pspan);				
+				}
 				
 				a.append( 
 				  		   $("<span>").addClass("number").text(obj.TABLENAME)
@@ -190,8 +170,16 @@ window.bapdosa.posmain = (function() {
 				
 				div.append(a);				
 				
-				ulList.append($("<li>").data( {tableId: obj.TABLEID, orderId: obj.ORDERID})
-					  .append(div));
+				ulList.append($("<li>")
+								.attr({
+									tableId: obj.TABLEID,
+									orderId: obj.ORDERID,
+									linkedTableCount: obj.LINKEDTABLECOUNT,
+									linkedTableId:obj.LINKEDTABLEID,
+									isConnected: obj.LINKEDTABLECOUNT > 0 || obj.LINKEDTABLEID ? true:false								
+								})
+								//.data( {tableId: obj.TABLEID, orderId: obj.ORDERID})
+								.append(div));
 				
 			});
 			
