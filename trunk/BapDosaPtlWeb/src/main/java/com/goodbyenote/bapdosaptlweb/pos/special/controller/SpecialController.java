@@ -1,12 +1,14 @@
 package com.goodbyenote.bapdosaptlweb.pos.special.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,5 +128,59 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 	public String tableNameChange() {
 
 		return "pos/special/tableNameChange";
+	}	
+	
+	@RequestMapping(value = "/pos/sepcial/tableConnectOk.json")
+	public ModelAndView tableConnectOk(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		String connectTableInfo = (String)parametaMap.get("connectTableInfo");		
+		
+		logger.debug(connectTableInfo);
+		Map<String, Object> connectTableInfoMap = new ObjectMapper().readValue(connectTableInfo, HashMap.class) ;		
+
+		connectTableInfoMap.put("memberId", sessionUserInfo.getMemberId());
+		connectTableInfoMap.put("deviceId", sessionUserInfo.getDeviceId());		
+		specialService.setTableConnect(connectTableInfoMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@RequestMapping(value = "/pos/sepcial/tableConnectCancelOk.json")
+	public ModelAndView tableConnectCancelOk(
+			@RequestParam(required=true) Map parametaMap
+			,HttpSession httpSession) {	
+		
+		int resultValue = 1;
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());		
+		specialService.setTableConnectCancel(parametaMap);
+			
+		System.out.println("resultValue:"+resultValue);
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(resultValue);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
 	}	
 }
