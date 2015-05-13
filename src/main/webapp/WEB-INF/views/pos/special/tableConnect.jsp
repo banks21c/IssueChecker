@@ -28,15 +28,15 @@
 		<!--s: 테이블 목록 -->
 		<div class="table_map list6">
 			<ul>
-				<li>
-					<!--s: 테이블을 선택한 경우 choice 추가 -->
+<!-- 				<li>
+					s: 테이블을 선택한 경우 choice 추가
 					<div class="table_info choice">
 						<a href="#">
 							<span class="number">1</span>
 							<span class="sales">999</span>
 						</a>
 					</div>
-					<!--e: 테이블을 선택한 경우 choice 추가 -->
+					e: 테이블을 선택한 경우 choice 추가
 				</li>
 				<li>
 					<div class="table_info choice">
@@ -47,24 +47,24 @@
 					</div>
 				</li>
 				<li>
-					<!--s: 예약 테이블인 경우 reserve 추가 -->
+					s: 예약 테이블인 경우 reserve 추가
 					<div class="table_info reserve">
 						<a href="#">
 							<span class="number">3</span>
 							<span class="re_t">예약</span>
 						</a>
 					</div>
-					<!--e: 예약 테이블인 경우 reserve 추가 -->
+					e: 예약 테이블인 경우 reserve 추가
 				</li>
 				<li>
-					<!--s: 테이블 주문이 들어간 경우 active 추가 -->
+					s: 테이블 주문이 들어간 경우 active 추가
 					<div class="table_info active">
 						<a href="#">
 							<span class="number">4</span>
 							<span class="sales">12</span>
 						</a>
 					</div>
-					<!--e: 테이블 주문이 들어간 경우 active 추가 -->
+					e: 테이블 주문이 들어간 경우 active 추가
 				</li>
 				<li>
 					<div class="table_info">
@@ -84,7 +84,7 @@
 					</div>
 				</li>
 				<li>
-					<!-- 연결 테이블 그룹별로 group01~group10 추가 -->
+					연결 테이블 그룹별로 group01~group10 추가
 					<div class="table_info group01">
 						<a href="#">
 							<span class="number">7</span>
@@ -158,7 +158,7 @@
 					</div>
 				</li>
 				<li>
-					<div class="table_info group10 choice"><!-- 연결된 그룹을 선택하면 choice 추가 -->
+					<div class="table_info group10 choice">연결된 그룹을 선택하면 choice 추가
 						<a href="#">
 							<span class="number">16</span>
 							<span class="sales"></span>
@@ -166,7 +166,7 @@
 					</div>
 				</li>
 				<li>
-					<div class="table_info group10 choice"><!-- 연결된 그룹을 선택하면 choice 추가 -->
+					<div class="table_info group10 choice">연결된 그룹을 선택하면 choice 추가
 						<a href="#">
 							<span class="number">17</span>
 							<span class="sales"></span>
@@ -228,15 +228,18 @@
 							<span class="sales"></span>
 						</a>
 					</div>
-				</li>
+				</li>-->
 			</ul>
 		</div>
-		<!--e: 테이블 목록 -->
+		<!--e: 테이블 목록 -->	
 		<div class="share_cancel noline">
-			<a href="#" class="btn_02">연결취소</a>
+			<div class="mv_befor">
+				<span class="wbox" style="align:left" id="id_area_default_table" flag="M"></span>
+			</div>
+			<a href="#" class="btn_02 class-event-connect-cancel" style="display:none">연결취소</a>
 		</div>
 		<div class="btn_c tline">
-			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+			<a href="#" class="btn_blue class-event-connect-save">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 	<div data-role="footer" data-position="fixed">
