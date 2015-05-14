@@ -137,7 +137,21 @@
 			 AND B.DEVICEID = #{deviceid}	
 			 AND A.PARENTCODE = 'CC00002600'
 		ORDER BY A.CODE	
-    </select>             
+    </select>
+    
+    <select id="getLunchFront" resultType="map">
+        /* possetting.getLunchFront */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002400'
+    </select>               
 
     <update id="updateTableCount">
         /* possetting.updateTableCount */
@@ -227,6 +241,17 @@
 		WHERE  MEMBERID         = #{memberid}
 		AND    DEVICEID         = #{deviceid}
 		AND    REQUESTID        = #{requestid} 
-    </update>    
+    </update>
+    
+    <update id="updateLunchFront">
+        /* possetting.updateLunchFront */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002400'  
+    </update>      
 
 </mapper>
