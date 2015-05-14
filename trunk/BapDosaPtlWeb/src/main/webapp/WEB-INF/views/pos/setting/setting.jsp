@@ -34,11 +34,11 @@
 				<dt><span>점심시간 점심특선메뉴 앞으로</span><a href="#" class="save class_admin_save2">저장</a></dt>
 				<dd>
 					<div class="time_set">
-						<p class="time_yn">
-							<input type="radio" id="timeY" name="timeYN" /><label for="timeY">예</label>
-							<input type="radio" id="timeN" name="timeYN" /><label for="timeN">아니오</label>
+						<p class="time_yn class_lunch_time_yn">
+							<input type="radio" id="timeY" name="timeYN" value="1"/><label for="timeY">예</label>
+							<input type="radio" id="timeN" name="timeYN" value="2" /><label for="timeN">아니오</label>
 						</p>
-						   <div class="time_wrap">
+						   <div class="time_wrap class_lunch_wrap">
 								<p class="diferente"><input type="checkbox" id="timec" class="class_setting_time_differ"/><label for="timec">점심 시간대 요일마다 다르게 설정</label></p>
 								<div class="time_box">
 									<!--s: 할인시간대 요일마다 다르게 설정 경우 -->
