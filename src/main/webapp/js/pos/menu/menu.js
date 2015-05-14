@@ -878,18 +878,22 @@ window.bapdosa.menu = (function() {
 					
 				}
 				if(obj.STARTTIME1){					
-					$("#id_point_hour_text").text(obj.STARTTIME1.substring(0,2));
-					$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));					
+					$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME1.substring(0,2)));
+					$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));
+					$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME1.substring(0,2)));	
 				}else{
 					$("#id_point_hour_text").text("00");
-					$("#id_point_minute_text").text("00");	
+					$("#id_point_minute_text").text("00");
+					$("#id_point_am_text").text("오전");
 				}
 				if(obj.ENDTIME1){					
-					$("#id_point_hour2_text").text(obj.ENDTIME1.substring(0,2));
-					$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));					
+					$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME1.substring(0,2)));
+					$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));
+					$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME1.substring(0,2)));
 				}else{
 					$("#id_point_hour2_text").text("00");
 					$("#id_point_minute2_text").text("00");	
+					$("#id_point_pm_text").text("오후");
 				}				
 			});
 					
@@ -915,114 +919,142 @@ window.bapdosa.menu = (function() {
 			$(dcTimeList).each(function(index,obj){
 				if($("#id_point_set_time_differ li").eq(0).find("a").hasClass("active")){
 					if(obj.STARTTIME1){					
-						$("#id_point_hour_text").text(obj.STARTTIME1.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME1.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME1.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME1.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
-					}				
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
+					}
 					if(obj.ENDTIME1){					
-						$("#id_point_hour2_text").text(obj.ENDTIME1.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME1.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME1.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME1.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(1).find("a").hasClass("active")){
-					if(obj.STARTTIME2){	
-						$("#id_point_hour_text").text(obj.STARTTIME2.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME2.substring(2,4));					
+					if(obj.STARTTIME2){					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME2.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME2.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME2.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
-					}				
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
+					}
 					if(obj.ENDTIME2){					
-						$("#id_point_hour2_text").text(obj.ENDTIME2.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME2.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME2.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME2.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME2.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(2).find("a").hasClass("active")){
 					if(obj.STARTTIME3){					
-						$("#id_point_hour_text").text(obj.STARTTIME3.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME3.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME3.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME3.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME3.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
 					}
 					if(obj.ENDTIME3){					
-						$("#id_point_hour2_text").text(obj.ENDTIME3.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME3.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME3.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME3.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME3.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(3).find("a").hasClass("active")){
 					if(obj.STARTTIME4){					
-						$("#id_point_hour_text").text(obj.STARTTIME4.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME4.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME4.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME4.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME4.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
 					}
 					if(obj.ENDTIME4){					
-						$("#id_point_hour2_text").text(obj.ENDTIME4.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME4.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME4.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME4.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME4.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(4).find("a").hasClass("active")){
 					if(obj.STARTTIME5){					
-						$("#id_point_hour_text").text(obj.STARTTIME5.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME5.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME5.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME5.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME5.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
 					}
 					if(obj.ENDTIME5){					
-						$("#id_point_hour2_text").text(obj.ENDTIME5.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME5.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME5.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME5.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME5.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(5).find("a").hasClass("active")){
 					if(obj.STARTTIME6){					
-						$("#id_point_hour_text").text(obj.STARTTIME6.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME6.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME6.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME6.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME6.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
 					}
 					if(obj.ENDTIME6){					
-						$("#id_point_hour2_text").text(obj.ENDTIME6.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME6.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME6.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME6.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME6.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 				if($("#id_point_set_time_differ li").eq(6).find("a").hasClass("active")){
 					if(obj.STARTTIME7){					
-						$("#id_point_hour_text").text(obj.STARTTIME7.substring(0,2));
-						$("#id_point_minute_text").text(obj.STARTTIME7.substring(2,4));					
+						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME7.substring(0,2)));
+						$("#id_point_minute_text").text(obj.STARTTIME7.substring(2,4));
+						$("#id_point_am_text").text(window.bapdosa.util.hourToampm(obj.STARTTIME7.substring(0,2)));	
 					}else{
 						$("#id_point_hour_text").text("00");
-						$("#id_point_minute_text").text("00");	
+						$("#id_point_minute_text").text("00");
+						$("#id_point_am_text").text("오전");
 					}
 					if(obj.ENDTIME7){					
-						$("#id_point_hour2_text").text(obj.ENDTIME7.substring(0,2));
-						$("#id_point_minute2_text").text(obj.ENDTIME7.substring(2,4));					
+						$("#id_point_hour2_text").text(window.bapdosa.util.hourTo12(obj.ENDTIME7.substring(0,2)));
+						$("#id_point_minute2_text").text(obj.ENDTIME7.substring(2,4));
+						$("#id_point_pm_text").text(window.bapdosa.util.hourToampm(obj.ENDTIME7.substring(0,2)));
 					}else{
 						$("#id_point_hour2_text").text("00");
 						$("#id_point_minute2_text").text("00");	
+						$("#id_point_pm_text").text("오후");
 					}
 				}
 			});
@@ -1042,8 +1074,10 @@ window.bapdosa.menu = (function() {
 			 var memberid= $(".class_dc_time_line").attr("memberid");		 
 			 var timezonedivision = "1";
 			 var isdifferenttime = "N";
-			 var starttime = $("#id_point_hour_text").text() + $("#id_point_minute_text").text();
-			 var endtime = $("#id_point_hour2_text").text() + $("#id_point_minute2_text").text();
+			 var isAmPm = $("#id_point_am_text").text();
+			 var isAmPm2 = $("#id_point_pm_text").text();
+			 var starttime = window.bapdosa.util.hourTo24(isAmPm,$("#id_point_hour_text").text()) + $("#id_point_minute_text").text();
+			 var endtime = window.bapdosa.util.hourTo24(isAmPm2,$("#id_point_hour2_text").text()) + $("#id_point_minute2_text").text();
 			 
 			 var starttime1 = $(".class_dc_time_differ_main").attr("starttime1");
 			 var starttime2 = $(".class_dc_time_differ_main").attr("starttime2");
@@ -1173,8 +1207,10 @@ window.bapdosa.menu = (function() {
 			 var memberid= $(".class_dc_time_line").attr("memberid");		 
 			 var timezonedivision = "1";
 			 var isdifferenttime = "Y";
-			 var starttime = $("#id_point_hour_text").text() + $("#id_point_minute_text").text();
-			 var endtime = $("#id_point_hour2_text").text() + $("#id_point_minute2_text").text();
+			 var isAmPm = $("#id_point_am_text").text();
+			 var isAmPm2 = $("#id_point_pm_text").text();
+			 var starttime = window.bapdosa.util.hourTo24(isAmPm,$("#id_point_hour_text").text()) + $("#id_point_minute_text").text();
+			 var endtime = window.bapdosa.util.hourTo24(isAmPm2,$("#id_point_hour2_text").text()) + $("#id_point_minute2_text").text();
 			 
 			 var starttime1 = $(".class_dc_time_differ_main").attr("starttime1");
 			 var starttime2 = $(".class_dc_time_differ_main").attr("starttime2");
@@ -1269,7 +1305,7 @@ window.bapdosa.menu = (function() {
 			 });
 		
 	}
-	
+   
 	return {
 		init: function() {
 			eventReg();				
