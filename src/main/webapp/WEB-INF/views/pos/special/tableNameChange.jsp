@@ -33,38 +33,22 @@
 			<div class="cate before">
 				<h3>Before</h3>
 				<div class="full">
-					<ul>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">9</a></li>
+					<ul id="id_table_name_change_main" class="class_table_name_change_main">
+						<li><a href="#"></a></li>						
 					</ul>
 				</div>
 			</div>
 			<div class="cate after">
 				<h3>After</h3>
 				<div class="full">
-					<ul>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
-						<li><span><input type="text" id="" data-role="none" /></span></li>
+					<ul class="class_table_name_change_sub">
+						<li><span><input type="text" id="" data-role="none" /></span></li>						
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="btn_c tline">
-			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+			<a href="#" class="btn_blue class_table_name_change_save">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 	<div data-role="footer" data-position="fixed">
