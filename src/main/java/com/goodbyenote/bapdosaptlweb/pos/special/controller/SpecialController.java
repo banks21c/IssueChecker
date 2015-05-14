@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -182,5 +183,32 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		mav.setViewName("jsonView");
 		
 		return mav; 
-	}	
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/special/tableNameUpdateOk.json")
+	public ModelAndView tableNameUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String tableNo = (String)parametaMap.get("tableNo");
+		String tableName = (String)parametaMap.get("tableName");
+		String tableId = (String)parametaMap.get("tableId");
+		
+		parametaMap.put("memberId", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceId", sessionUserInfo.getDeviceId());
+		parametaMap.put("tableNo", tableNo);
+		parametaMap.put("tableName", tableName);
+		parametaMap.put("tableId", tableId);		
+				
+		specialService.updateOrderTable(parametaMap);		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
 }
