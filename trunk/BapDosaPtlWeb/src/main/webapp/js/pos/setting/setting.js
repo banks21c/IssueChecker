@@ -166,6 +166,7 @@ window.bapdosa.setting = (function() {
 			}else{				
 				lunchEqualSave();
 			}
+			lunchFrontSave();
 			location.reload();
 		});	
 		
@@ -589,6 +590,33 @@ window.bapdosa.setting = (function() {
 		 return dfd.promise();
 	}
     
+    function getLunchFront(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/setting/getLunchFront.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			lunchFront = returnObj.lunchFront;
+			console.log("lunchFront=" + lunchFront);
+			$(lunchFront).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002402")	{
+					$(".class_lunch_time_yn").find("label").eq(1).addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_pyung li").find("input").eq(1).prop("checked", true).attr("data-cacheval" , false);
+					$(".class_lunch_wrap").hide();
+				}else{
+					$(".class_lunch_time_yn").find("label").eq(0).addClass("ui-radio-on").removeClass("ui-radio-off");
+					$(".class_rank_pyung li").find("input").eq(0).prop("checked", true).attr("data-cacheval" , false);
+					$(".class_lunch_wrap").show();
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
     function tableSave(){
 		 if(!confirm("저장하시겠습니까?")){
 			 return false;
@@ -969,18 +997,7 @@ window.bapdosa.setting = (function() {
 		 
 		 $(".class_request_list").each(function(index ) {			 
 		 
-			 var memberId = $(this).attr("memberId");		 
-			 var deviceId = $(this).attr("deviceId");
-			 var requestId = $(this).attr("requestId");
-			 var reqContents = $(this).attr("reqContents");
-			 var contents2 = $(this).find("input").val();
-			 var contents;
-			 
-			 if(contents2){
-				 contents = contents2;
-			 }else{
-				 contents = reqContents;
-			 }
+			 var settingvalue;
 			 
 			 var param = "memberid=" + memberId + "&deviceid=" + deviceId + "&requestid=" + requestId + "&contents=" + contents;
 			 var url = "requestUpdateOk.json";
@@ -1009,13 +1026,47 @@ window.bapdosa.setting = (function() {
 			 });
 		 });
 	} 
+    
+    function lunchFrontSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("input[name=timeYN]:checked").val() == "1"){
+			 settingvalue = 'CC00002401';
+		 }else{
+			 settingvalue = 'CC00002402';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "lunchFrontUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+					//console.log(data);					
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+					//$("#id_cate_save").click();		
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+			}
+		 });
+		 
+	} 
 	
 	return {
 		init: function() {
-			eventReg();
-			$(".class_lunch_time_yn").find("label").eq(1).addClass("ui-radio-on").removeClass("ui-radio-off");
-			$(".class_rank_pyung li").find("input").eq(1).prop("checked", true).attr("data-cacheval" , false);
-			$(".class_lunch_wrap").hide();
+			eventReg();		
 			
 			$.when(getTableInfoList()).then (
 					function(status){
@@ -1029,14 +1080,13 @@ window.bapdosa.setting = (function() {
 												getLunchTimeList();
 											}			
 									);
+									getLunchFront();
 								}			
 						);
 						getRankList2();
-						//getCustomerRequestList();
 					}			
 			);			
 			getPointDcList();
-			//getRankList()
 		}	
 	}   
 })();
