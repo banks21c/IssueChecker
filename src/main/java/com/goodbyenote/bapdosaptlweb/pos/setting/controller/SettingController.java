@@ -223,6 +223,31 @@ public class SettingController {
 		return mav; 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getLunchFront.json")
+	public ModelAndView getLunchFront(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		List<Map> lunchFront = settingService.getLunchFront(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("lunchFront", lunchFront);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/pos/setting/tableUpdateOk.json")
 	public ModelAndView tableUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
@@ -399,6 +424,31 @@ public class SettingController {
 		
 				
 		settingService.updateCustomerRequest(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/lunchFrontUpdateOk.json")
+	public ModelAndView lunchFrontUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingvalue", settingvalue);
+				
+		settingService.updateLunchFront(parametaMap);
 		
 		
 		ModelAndView mav = new ModelAndView();		
