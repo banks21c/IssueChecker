@@ -582,3 +582,41 @@
 	    
 	    return !pattern.test(str);
 	}	
+	
+	/*
+	 * 24시간 => 12시간 , 예) 00 -> 12, 12-> 12
+	 * param HH (00~23)
+	 * return 02
+	 */
+	window.bapdosa.util.hourTo12 = function(hour)
+	{
+		var hour = parseInt(hour);
+		var hourTime = ['12','01','02','03','04','05','06','07','08','09','10','11','12','1','2','3','4','5','6','7','8','9','10','11'];	    
+	    return hourTime[hour];
+	}	
+	
+	/*
+	 * 12시간 => 24시간 , 예) 오전, 12 -> 00; 오후, 12-> 12
+	 * param 오전(오후),HH (1~12)
+	 * return 02
+	 */
+	window.bapdosa.util.hourTo24 = function(diff, hour)
+	{
+		var hour = parseInt(hour);		
+		var hourTime = {
+			'오전': ['','01','02','03','04','05','06','07','08','09','10','11','00'],
+			'오후': ['','13','14','15','16','17','18','19','20','21','22','23','12']
+		};	    
+	    return hourTime[diff][hour];
+	}	
+	
+	/*
+	 * HH -> 오전/오후
+	 * param HH (00~23)
+	 * return 오후
+	 */
+	window.bapdosa.util.hourToampm = function(hour)
+	{
+		var hour = parseInt(hour);   
+	    return hour < 12 ? '오전' : '오후';
+	}	
