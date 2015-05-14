@@ -239,4 +239,10 @@ public class SpecialServiceImpl implements SpecialService {
 		// TODO Auto-generated method stub
 		specialDAO.cancelOrderTable(parametaMap);
 	}	
+	
+	@Override
+	public void updateOrderTable(Map parametaMap) {
+		// TODO Auto-generated method stub
+		specialDAO.updateOrderTable(parametaMap);
+	}
 }

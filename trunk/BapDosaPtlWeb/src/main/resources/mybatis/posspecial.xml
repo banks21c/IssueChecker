@@ -82,7 +82,9 @@
 			,ISDELETED = #{isDeleted}
 			</if>		
 		WHERE
-			TABLEID = #{tableId}
+			TABLEID  = #{tableId}
+		AND MEMBERID = #{memberId}
+		AND DEVICEID = #{deviceId}
 			
     </update>     
     <update id="cancelOrderTable">

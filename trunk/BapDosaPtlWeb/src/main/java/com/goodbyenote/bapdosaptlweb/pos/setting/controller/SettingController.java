@@ -224,7 +224,7 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/tableUpdatetOk.json")
+	@RequestMapping("/pos/setting/tableUpdateOk.json")
 	public ModelAndView tableUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
@@ -255,7 +255,7 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/lunchEqualUpdatetOk.json")
+	@RequestMapping("/pos/setting/lunchEqualUpdateOk.json")
 	public ModelAndView lunchEqualUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
@@ -327,7 +327,7 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/dcUpdatetOk.json")
+	@RequestMapping("/pos/setting/dcUpdateOk.json")
 	public ModelAndView dcUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
@@ -356,7 +356,7 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/rankUpdatetOk.json")
+	@RequestMapping("/pos/setting/rankUpdateOk.json")
 	public ModelAndView rankUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
@@ -383,7 +383,7 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/requestUpdatetOk.json")
+	@RequestMapping("/pos/setting/requestUpdateOk.json")
 	public ModelAndView requestUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");

@@ -13,5 +13,7 @@ public interface SpecialService {
 	void setTableConnect(Map<String, Object> connectTableInfoMap);
 
 	void setTableConnectCancel(Map parametaMap);
+	
+	void updateOrderTable(Map parametaMap);
 
 }
