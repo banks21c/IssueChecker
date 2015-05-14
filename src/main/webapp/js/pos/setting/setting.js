@@ -14,7 +14,7 @@ $(document).on("mobileinit", function () {
 window.bapdosa.setting = (function() {
 	var tableInfoList;
 	var orderMapList;
-	var customerRequestList;
+	var customerRequestList;	
 	
     function eventReg(){    	
     	$(".admin_list dt span").click(function(){
@@ -33,6 +33,15 @@ window.bapdosa.setting = (function() {
 
 		/*세팅 */
 		//점심시간 점심메뉴 앞으로	
+    	$("input[name=timeYN]").change(function(e){
+			e.preventDefault();			
+			if($(this).val() == "1") {				
+		    	$(".class_lunch_wrap").show();
+			}else{				
+				$(".class_lunch_wrap").hide();
+			}
+		})
+		
 		$("#id_setting_set_time_differ li").click(function(e){
 			e.preventDefault();
 			$(this).children("a").addClass("active").end().siblings("li").children("a").removeClass("active");
@@ -500,8 +509,7 @@ window.bapdosa.setting = (function() {
 				if($(".class_rank_pyung li").eq(order).attr("settingvalue") == $(".class_rank_pyung li").eq(order).attr("code")){
 					$(".class_rank_pyung li").eq(order).find("label").addClass("ui-radio-on").removeClass("ui-radio-off");
 					$(".class_rank_pyung li").eq(order).find("input").prop("checked", true).attr("data-cacheval" , false);
-				}else{
-					
+				}else{					
 					$(".class_rank_pyung li").eq(order).find("label").addClass("ui-radio-off").removeClass("ui-radio-on");
 					$(".class_rank_pyung li").eq(order).find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
@@ -1004,7 +1012,10 @@ window.bapdosa.setting = (function() {
 	
 	return {
 		init: function() {
-			eventReg();	
+			eventReg();
+			$(".class_lunch_time_yn").find("label").eq(1).addClass("ui-radio-on").removeClass("ui-radio-off");
+			$(".class_rank_pyung li").find("input").eq(1).prop("checked", true).attr("data-cacheval" , false);
+			$(".class_lunch_wrap").hide();
 			
 			$.when(getTableInfoList()).then (
 					function(status){
