@@ -157,14 +157,20 @@ window.bapdosa.menu = (function() {
 			e.preventDefault();
 			if(!confirm("정말로 삭제하시겠습니까?")){
 				return false;
-			}			
+			}
+			
 			$('tr.class_menu_main_view').each(function(){
 				if($(this).find("input:eq(0)").is(":checked")){
-					$(this).attr("isdeleted", "Y");
-					menuSave();
+					if($(this).attr("catemenuname")){
+						$(this).attr("isdeleted", "Y");
+						menuSave();
+						location.reload();
+					}else{
+						$(this).remove();
+					}
 				}
 			})
-			location.reload();						
+			//						
 	    });
 		
 		$("#id_point_save").click(function(e){
