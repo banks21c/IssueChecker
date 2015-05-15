@@ -4,6 +4,24 @@ if (!window.bapdosa.order) {
 
 $(document).ready(function(){		
 	window.bapdosa.order.init();
+	
+	
+	
+//	console.log("window.bapdosa.util.hourTo12('00'):" + window.bapdosa.util.hourTo12('00'));
+//	console.log("window.bapdosa.util.hourTo12('01'):" + window.bapdosa.util.hourTo12('01'));
+//	console.log("window.bapdosa.util.hourTo12('12'):" + window.bapdosa.util.hourTo12('12'));
+//	console.log("window.bapdosa.util.hourTo12('23'):" + window.bapdosa.util.hourTo12('23'));
+//	
+//	console.log("window.bapdosa.util.hourTo24('오전','12'):" + window.bapdosa.util.hourTo24('오전','12'));
+//	console.log("window.bapdosa.util.hourTo24('오전','01'):" + window.bapdosa.util.hourTo24('오전','01'));
+//	console.log("window.bapdosa.util.hourTo24('오후''12'):" + window.bapdosa.util.hourTo24('오후','12'));
+//	console.log("window.bapdosa.util.hourTo24('오후''01'):" + window.bapdosa.util.hourTo24('오후','01'));
+//	
+//	console.log("window.bapdosa.util.hourToampm('00'):" + window.bapdosa.util.hourToampm('00'));
+//	console.log("window.bapdosa.util.hourToampm('01'):" + window.bapdosa.util.hourToampm('01'));
+//	console.log("window.bapdosa.util.hourToampm('12'):" + window.bapdosa.util.hourToampm('12'));
+//	console.log("window.bapdosa.util.hourToampm('23'):" + window.bapdosa.util.hourToampm('23'));
+	
 });
 
 
@@ -23,6 +41,7 @@ window.bapdosa.order = (function() {
 	var selCategoryId;
 	var orderArea;
 	var mOrderAreaFirst;
+	var isDiscount = false;
 	
 	var customerSearchInfo = {
 		currentPage: 1,
@@ -632,36 +651,51 @@ window.bapdosa.order = (function() {
 		orderAreaList.each(function(i){	
 			var deviceId = $(this).attr("deviceId") || "";
 			var menuId = $(this).attr("menuId") || "";
+			var menuName = $(this).attr("menuName") || "";
 			var orderDetailId = ($(this).attr("orderDetailId") || "").startsWith("temp_") ? "" : $(this).attr("orderDetailId");
 			var orderCount = parseInt($(this).find("td:eq(1)").text());
-			var originalPrice =  parseInt($(this).attr("storePrice"));
+			var originalPrice = 0;
+			var discountPrice = 0; 
 			var takeoutPrice =  parseInt($(this).attr("takeoutPrice"));
 			var storePrice =  parseInt($(this).attr("storePrice"));
+			var takeoutDiscount =  parseInt($(this).attr("takeoutDiscount"));
+			var storeDiscount =  parseInt($(this).attr("storeDiscount"));			
 			var isService = $(this).attr("isService") || "";		
 			var isTakeout = $(this).attr("isTakeout") || "";
 			var newFlag = $(this).attr("newFlag") || "N";			
 			
-			if(isPriceDiffer == "Y"){
+			//if(isPriceDiffer == "Y"){
 				if(isTakeout == "Y"){
-					originalPrice = parseInt($(this).attr("takeoutPrice")); 
+					originalPrice = takeoutPrice; 
+					discountPrice = takeoutPrice;
+					//할인시간대이면
+					if(isDiscount){
+						discountPrice = takeoutDiscount;
+					}					
 				} else {
-					originalPrice = parseInt($(this).attr("storePrice"));
+					originalPrice = storePrice;
+					discountPrice = storePrice;
+					//할인시간대이면
+					if(isDiscount){
+						discountPrice = storeDiscount;
+					}					
 				}				
-			}			
+			//}			
 			
 			if(isService == "Y"){
-				originalPrice = 0;
+				discountPrice = 0;
 			}
-			originalPrice = originalPrice * orderCount;
+			//originalPrice = originalPrice * orderCount;
 			
 			var data = {
 					orderDetailId : orderDetailId,
 					menuId: menuId,
+					menuName: menuName,
 					quantity: orderCount,
 					isTakeout: isTakeout,
 					isService: isService,
 					originalPrice: originalPrice,
-					discountPrice: originalPrice,
+					discountPrice: discountPrice,
 					newFlag: newFlag
 			}
 			orderDataList.push(data);
@@ -736,24 +770,37 @@ window.bapdosa.order = (function() {
 	}
 	
 	function setOrderDetailPriceSync(selArea){		
-		var orderCount = parseInt(selArea.find("td:eq(1)").text());
-		var defaultPrice =  parseInt(selArea.attr("storePrice"));
+		var orderCount = parseInt(selArea.find("td:eq(1)").text());		
+		var originalPrice = 0;
+		var discountPrice = 0; 
+		var takeoutPrice =  parseInt(selArea.attr("takeoutPrice"));
+		var storePrice =  parseInt(selArea.attr("storePrice"));
+		var takeoutDiscount =  parseInt(selArea.attr("takeoutDiscount"));
+		var storeDiscount =  parseInt(selArea.attr("storeDiscount"));		
 		var isService = selArea.attr("isService") || "";
-		var isTakeout = selArea.attr("isTakeout") || "";
+		var isTakeout = selArea.attr("isTakeout") || "";		
+					
+		if(isTakeout == "Y"){
+			originalPrice = takeoutPrice; 
+			discountPrice = takeoutPrice;
+			//할인시간대이면
+			if(isDiscount){
+				discountPrice = takeoutDiscount;
+			}			
+		} else {
+			originalPrice = storePrice;
+			discountPrice = storePrice;
+			//할인시간대이면
+			if(isDiscount){
+				discountPrice = storeDiscount;
+			}				
+		}
 		
-		if(isPriceDiffer == "Y"){			
-			if(isTakeout == "Y"){
-				defaultPrice = parseInt(selArea.attr("takeoutPrice")); 
-			} else {
-				defaultPrice = parseInt(selArea.attr("storePrice"));
-			}
-		}		
-				
 		if(isService == "Y"){
-			defaultPrice = 0;
+			discountPrice = 0;
 		}
 		selArea.find("td:eq(1)").text(orderCount);
-		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(defaultPrice * orderCount));			
+		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(discountPrice * orderCount));			
 	}
 	
 	//total개수, 합계금액 계산
@@ -762,21 +809,23 @@ window.bapdosa.order = (function() {
 		var sumPrice = 0;
 		orderAreaList.each(function(i){				
 			var orderCount = parseInt($(this).find("td:eq(1)").text());
-			var defaultPrice =  parseInt($(this).attr("storePrice"));			
-			var isService = $(this).attr("isService") || "";		
-			var isTakeout = $(this).attr("isTakeout") || "";
-			if(isPriceDiffer == "Y"){
-				if(isTakeout == "Y"){
-					defaultPrice = parseInt($(this).attr("takeoutPrice")); 
-				} else {
-					defaultPrice = parseInt($(this).attr("storePrice"));
-				}				
-			}			
-			
-			if(isService == "Y"){
-				defaultPrice = 0;
-			}
-			sumPrice += defaultPrice * orderCount;
+			var orderPrice = parseInt(window.bapdosa.util.getNumberOnly($(this).find("td:eq(3)").text()));
+//			
+//			var defaultPrice =  parseInt($(this).attr("storePrice"));			
+//			var isService = $(this).attr("isService") || "";		
+//			var isTakeout = $(this).attr("isTakeout") || "";
+//			if(isPriceDiffer == "Y"){
+//				if(isTakeout == "Y"){
+//					defaultPrice = parseInt($(this).attr("takeoutPrice")); 
+//				} else {
+//					defaultPrice = parseInt($(this).attr("storePrice"));
+//				}				
+//			}			
+//			
+//			if(isService == "Y"){
+//				defaultPrice = 0;
+//			}
+			sumPrice += orderPrice;
 		});	
 		
 		$("#order-page .paging_count > span").text(orderAreaList.size());
@@ -873,6 +922,7 @@ window.bapdosa.order = (function() {
 				
 				if(selMenuObj){	
 					
+					//var displayPrice = selMenuObj.STOREPRICE;
 					var displayPrice = selMenuObj.STOREPRICE;
 //					if(isPriceDiffer == "Y"){
 //						displayPrice = selMenuObj.STOREPRICE;
@@ -898,13 +948,11 @@ window.bapdosa.order = (function() {
 						orderDetailId: 'temp_' + new Date().getTime(),
 						categoryId: categoryId,
 						menuId: menuId,
+						menuName: selMenuObj.NAME,
 						storePrice: selMenuObj.STOREPRICE,
-						deliveryPrice: selMenuObj.DELIVERYPRICE,
 						takeoutPrice: selMenuObj.TAKEOUTPRICE,
-						defaultDiscount: selMenuObj.DEFAULTDISCOUNT,
-						deliveryDiscount: selMenuObj.DELIVERYDISCOUNT,
-						storeDiscount: selMenuObj.STOREDISCOUNT,
-						takeoutDiscount: selMenuObj.TAKEOUTDISCOUNT,
+						storeDiscount: selMenuObj.STOREPRICE * (selMenuObj.STOREDISCOUNT/100),
+						takeoutDiscount: selMenuObj.TAKEOUTPRICE * (selMenuObj.TAKEOUTDISCOUNT/100),
 						isService: selCategoryIsService,
 						isTakeout: "N",
 						newFlag: "Y"
@@ -1029,13 +1077,13 @@ window.bapdosa.order = (function() {
 		
 		if(selMenuObj){	
 			
-			var displayPrice = selMenuObj.STOREPRICE;
+			var displayPrice = selMenuObj.STOREDISCOUNT;
 //			if(isPriceDiffer == "Y"){
 //				displayPrice = selMenuObj.STOREPRICE;
 //			}
 			
 			var td1 = $("<td>").addClass("a_tl")
-			 				   .text(selMenuObj.NAME);
+			 				   .text(orderObj.MENUNAME);
 			
 			if(isTakeout == "Y"){
 				td1.prepend(
@@ -1043,9 +1091,9 @@ window.bapdosa.order = (function() {
 						   .addClass("p")
 						   .text("포")
 				);		
-				if(isPriceDiffer == "Y"){
-					displayPrice = selMenuObj.TAKEOUTPRICE;
-				}				
+				//if(isPriceDiffer == "Y"){
+					displayPrice = selMenuObj.TAKEOUTDISCOUNT;
+				//}				
 			}
 			
 			if(selCategoryIsService == "Y"){						
@@ -1063,13 +1111,11 @@ window.bapdosa.order = (function() {
 				orderDetailId: orderDetailId,
 				categoryId: categoryId,
 				menuId: menuId,
-				storePrice: selMenuObj.STOREPRICE,
-				deliveryPrice: selMenuObj.DELIVERYPRICE,
-				takeoutPrice: selMenuObj.TAKEOUTPRICE,
-				defaultDiscount: selMenuObj.DEFAULTDISCOUNT,
-				deliveryDiscount: selMenuObj.DELIVERYDISCOUNT,
-				storeDiscount: selMenuObj.STOREDISCOUNT,
-				takeoutDiscount: selMenuObj.TAKEOUTDISCOUNT,
+				menuName: orderObj.MENUNAME,
+				storePrice: isTakeout == 'Y' ? selMenuObj.STOREPRICE : orderObj.ORIGINALPRICE,
+				takeoutPrice: isTakeout == 'Y' ? orderObj.ORIGINALPRICE : selMenuObj.TAKEOUTPRICE,
+				storeDiscount: isTakeout == 'Y' || selCategoryIsService == 'Y' ? selMenuObj.STOREDISCOUNT : orderObj.DISCOUNTPRICE,
+				takeoutDiscount: isTakeout == 'Y' ? selCategoryIsService == 'Y' ? selMenuObj.TAKEOUTDISCOUNT: orderObj.DISCOUNTPRICE : selMenuObj.TAKEOUTDISCOUNT,
 				isService: selCategoryIsService,
 				isTakeout: isTakeout,
 				newFlag: "N"
