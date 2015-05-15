@@ -105,19 +105,6 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCategoryPointList(searchCondition);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public List<Map> getDcTimeList(Map parametaMap) {
-		return categoryDAO.getDcTimeList(parametaMap);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void updateDcMenu(Map parametaMap) {
-		// TODO Auto-generated method stub
-		categoryDAO.updateDcMenu(parametaMap);
-	}
-
 	@Override
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo) {

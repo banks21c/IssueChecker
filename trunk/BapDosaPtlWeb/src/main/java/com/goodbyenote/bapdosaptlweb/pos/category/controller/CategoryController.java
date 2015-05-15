@@ -31,6 +31,7 @@ import com.goodbyenote.bapdosaptlweb.common.model.SessionUserInfo;
 import com.goodbyenote.bapdosaptlweb.common.util.SecurityUtils;
 import com.goodbyenote.bapdosaptlweb.pos.category.service.CategoryService;
 import com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO;
+import com.goodbyenote.bapdosaptlweb.pos.setting.service.SettingService;
 
 /**
  * Handles requests for the application home page.
@@ -42,6 +43,9 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private SettingService settingService;
 
 	@Autowired
     ServletContext context;
@@ -253,15 +257,19 @@ public class CategoryController {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/pos/category/getDcTimeList.json")
-	public ModelAndView getDcTimeList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+	@RequestMapping(value = "/pos/category/getDcTimezoneSet.json")
+	public ModelAndView getDcTimezoneSet(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
 
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+        String timezonedivision = (String)parametaMap.get("timezonedivision");
+		
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
-		List<Map> dcTimeList = categoryService.getDcTimeList(parametaMap);		
+		parametaMap.put("timezonedivision", timezonedivision);
+		Map dcTimezoneSet = settingService.getTimezoneSet(parametaMap);		
 		
 		Map returnMap = new HashMap();
-		returnMap.put("dcTimeList", dcTimeList);
+		returnMap.put("dcTimezoneSet", dcTimezoneSet);
 		
 		ModelAndView mav = new ModelAndView();		
 
@@ -349,8 +357,8 @@ public class CategoryController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/category/dcMenuUpdatetOk.json")
-	public ModelAndView dcMenuUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+	@RequestMapping("/pos/category/updateDcTimezoneSet.json")
+	public ModelAndView updateDcTimezoneSet(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
@@ -408,7 +416,7 @@ public class CategoryController {
 		parametaMap.put("isusedtime6", isusedtime6);
 		parametaMap.put("isusedtime7", isusedtime7);
 				
-		categoryService.updateDcMenu(parametaMap);
+		settingService.updateTimezoneSet(parametaMap);
 		
 		
 		ModelAndView mav = new ModelAndView();		
