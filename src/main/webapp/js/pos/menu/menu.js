@@ -164,7 +164,7 @@ window.bapdosa.menu = (function() {
 					if($(this).attr("catemenuname")){
 						$(this).attr("isdeleted", "Y");
 						menuSave();
-						location.reload();
+						
 					}else{
 						$(this).remove();
 					}
@@ -591,7 +591,7 @@ window.bapdosa.menu = (function() {
 			 var storeprice2 = $(this).find("input:eq(2)").val();
 			 
 			 if(storeprice != storeprice2){			 
-				 storeprice = storeprice2;
+				 storeprice = storeprice2 * 1000;
 			 }else {
 				 storeprice;
 			 }
@@ -603,7 +603,7 @@ window.bapdosa.menu = (function() {
 				 deliveryprice = $(this).attr('deliveryprice');
 				 var deliveryprice2 = $(this).find("input:eq(3)").val();
 				 if(deliveryprice != deliveryprice2){	
-					 deliveryprice = deliveryprice2;
+					 deliveryprice = deliveryprice2 * 1000;
 				 }else {
 					 deliveryprice;
 				 }
@@ -615,7 +615,7 @@ window.bapdosa.menu = (function() {
 				 takeoutprice = $(this).attr('takeoutprice');
 				 var takeoutprice2 = $(this).find("input:eq(4)").val();
 				 if(takeoutprice != takeoutprice2){	
-					 takeoutprice = takeoutprice2;
+					 takeoutprice = takeoutprice2 * 1000;
 				 }else {
 					 takeoutprice;
 				 }
@@ -665,6 +665,7 @@ window.bapdosa.menu = (function() {
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
+					location.reload();
 				}
 			 });	
 		});	
