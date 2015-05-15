@@ -177,13 +177,10 @@ window.bapdosa.setting = (function() {
 		});	
 		
 		$(".class_admin_save4").click(function(e){
-			e.preventDefault();
-			
+			e.preventDefault();			
 			rankSave();
 			//rankSave2();
-			 setTimeout(function () { 
-			      location.reload();
-			    }, 100);
+			location.reload();
 		});	
 		
 		$(".class_admin_save5").click(function(e){
@@ -984,7 +981,7 @@ window.bapdosa.setting = (function() {
 						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
-					}
+					}					
 				}
 			 });
 		 });
@@ -997,7 +994,18 @@ window.bapdosa.setting = (function() {
 		 
 		 $(".class_request_list").each(function(index ) {			 
 		 
-			 var settingvalue;
+			 var memberId = $(this).attr("memberId");		 
+			 var deviceId = $(this).attr("deviceId");
+			 var requestId = $(this).attr("requestId");
+			 var reqContents = $(this).attr("reqContents");
+			 var contents2 = $(this).find("input").val();
+			 var contents;
+			 
+			 if(contents2){
+				 contents = contents2;
+			 }else{
+				 contents = reqContents;
+			 }
 			 
 			 var param = "memberid=" + memberId + "&deviceid=" + deviceId + "&requestid=" + requestId + "&contents=" + contents;
 			 var url = "requestUpdateOk.json";
@@ -1067,26 +1075,13 @@ window.bapdosa.setting = (function() {
 	return {
 		init: function() {
 			eventReg();		
-			
-			$.when(getTableInfoList()).then (
-					function(status){
-						console.log("status: " + status);
-						$.when(getCustomerRequestList()).then (
-								function(status){
-									console.log("status: " + status);									
-									$.when(getRankList()).then (
-											function(status){
-												console.log("status: " + status);
-												getLunchTimeList();
-											}			
-									);
-									getLunchFront();
-								}			
-						);
-						getRankList2();
-					}			
-			);			
-			getPointDcList();
+			getTableInfoList();
+			getCustomerRequestList();
+			getRankList();
+			getLunchTimeList();
+			getLunchFront();
+			getRankList2();
+			getPointDcList();			
 		}	
 	}   
 })();
