@@ -830,19 +830,20 @@ window.bapdosa.menu = (function() {
 	
 	function getDcTimeList(){
 		var dfd = new jQuery.Deferred();
-		var url="/pos/category/getDcTimeList.json";
-		var param="";
+		var url="/pos/category/getDcTimezoneSet.json";
+		var timezonedivision = 1;
+		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			//isPriceDiffer = returnObj.isPriceDiffer;
 			//isDPdiffer = returnObj.isDPdiffer;			
 			
-			dcTimeList = returnObj.dcTimeList;
-			console.log("dcTimeList=" + dcTimeList);
+			dcTimezoneSet = returnObj.dcTimezoneSet;
+			console.log("dcTimezoneSet=" + dcTimezoneSet);
 			
-			$(dcTimeList).each(function(index,obj){
+			$(dcTimezoneSet).each(function(index,obj){
 				$(".class_dc_time_line").attr("memberid", obj.MEMBERID);
-				$(".class_dc_time_differ_main").attr("starttime1",obj.STARTTIME1).attr("starttime2",obj.STARTTIME2).attr("starttime3",obj.STARTTIME3).attr("starttime4",obj.STARTTIME4).attr("starttime5",obj.STARTTIME5).attr("starttime6",obj.STARTTIME6).attr("starttime7",obj.STARTTIME7)
+				$(".class_dc_time_differ_main").attr("timezonedivision",timezonedivision).attr("starttime1",obj.STARTTIME1).attr("starttime2",obj.STARTTIME2).attr("starttime3",obj.STARTTIME3).attr("starttime4",obj.STARTTIME4).attr("starttime5",obj.STARTTIME5).attr("starttime6",obj.STARTTIME6).attr("starttime7",obj.STARTTIME7)
 				.attr("endtime1",obj.ENDTIME1).attr("endtime2",obj.ENDTIME2).attr("endtime3",obj.ENDTIME3).attr("endtime4",obj.ENDTIME4).attr("endtime5",obj.ENDTIME5).attr("endtime6",obj.ENDTIME6).attr("endtime7",obj.ENDTIME7)	
                 .attr("isusedtime1",obj.ISUSEDTIME1).attr("isusedtime2",obj.ISUSEDTIME2).attr("isusedtime3",obj.ISUSEDTIME3).attr("isusedtime4",obj.ISUSEDTIME4).attr("isusedtime5",obj.ISUSEDTIME5).attr("isusedtime6",obj.ISUSEDTIME6).attr("isusedtime7",obj.ISUSEDTIME7);	
 				if(obj.ISDIFFERENTTIME == "Y"){
@@ -907,17 +908,18 @@ window.bapdosa.menu = (function() {
     
     function getDcTimetap(){
 		var dfd = new jQuery.Deferred();
-		var url="/pos/category/getDcTimeList.json";
-		var param="";
+		var url="/pos/category/getDcTimezoneSet.json";
+		var timezonedivision = 1;
+		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			//isPriceDiffer = returnObj.isPriceDiffer;
 			//isDPdiffer = returnObj.isDPdiffer;			
 			
-			dcTimeList = returnObj.dcTimeList;
-			console.log("dcTimeList=" + dcTimeList);
+			dcTimezoneSet = returnObj.dcTimezoneSet;
+			console.log("dcTimezoneSet=" + dcTimezoneSet);
 			
-			$(dcTimeList).each(function(index,obj){
+			$(dcTimezoneSet).each(function(index,obj){
 				if($("#id_point_set_time_differ li").eq(0).find("a").hasClass("active")){
 					if(obj.STARTTIME1){					
 						$("#id_point_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME1.substring(0,2)));
@@ -1173,7 +1175,7 @@ window.bapdosa.menu = (function() {
 			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
 			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
 			 //alert(param);
-			 var url = "dcMenuUpdatetOk.json";
+			 var url = "updateDcTimezoneSet.json";
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
@@ -1280,7 +1282,7 @@ window.bapdosa.menu = (function() {
 			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
 			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
 			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
-			 var url = "dcMenuUpdatetOk.json";
+			 var url = "updateDcTimezoneSet.json";
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
