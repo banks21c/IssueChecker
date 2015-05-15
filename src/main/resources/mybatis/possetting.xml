@@ -43,8 +43,8 @@
 			</if>
     </select>
     
-    <select id="getLunchTimeList" resultType="map">
-        /* possetting.getLunchTimeList */
+    <select id="getTimezoneSet" resultType="map">
+        /* possetting.getTimezoneSet */
 		SELECT
 			 MEMBERID
 			,TIMEZONEDIVISION
@@ -76,7 +76,7 @@
 			TIMEZONESETTING
 		WHERE
 			MEMBERID = #{memberid}
-		AND TIMEZONEDIVISION    = '0'				
+		AND TIMEZONEDIVISION    = #{timezonedivision}				
 			
     </select>
     
@@ -175,12 +175,11 @@
 		AND    TABLENO  <![CDATA[ <= ]]>  #{tableno} 
     </update>
     
-    <update id="updateLunchEqual">
-        /* possetting.updateLunchEqual */
+    <update id="updateTimezoneSet">
+        /* possetting.updateTimezoneSet */
         
 		UPDATE TIMEZONESETTING
-		SET    		       
-		       TIMEZONEDIVISION    = #{timezonedivision},
+		SET         
 		       ISDIFFERENTTIME     = #{isdifferenttime},
 		       STARTTIME1          = #{starttime1},
 		       STARTTIME2          = #{starttime2},
@@ -205,7 +204,7 @@
 		       ISUSEDTIME7         = #{isusedtime7}
 		       		       
 		WHERE  MEMBERID            = #{memberid}
-		AND    TIMEZONEDIVISION    = '0'
+		AND    TIMEZONEDIVISION    = #{timezonedivision}
 		
     </update>  
     

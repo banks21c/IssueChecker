@@ -9,7 +9,7 @@ public interface SettingService {
 
 	List<Map> getCustomerRequestList(Map parametaMap);
 	
-	List<Map> getLunchTimeList(Map parametaMap);
+	Map getTimezoneSet(Map parametaMap);
 	
 	List<Map> getPointDcList(Map parametaMap);
 	
@@ -23,7 +23,7 @@ public interface SettingService {
 	
 	void updateTableCount2(Map parametaMap);
 	
-	void updateLunchEqual(Map parametaMap);
+	void updateTimezoneSet(Map parametaMap);
 	
 	void updateDcAmount(Map parametaMap);
 	

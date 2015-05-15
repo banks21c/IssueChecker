@@ -22,9 +22,9 @@ public class SettingDAO {
 		return sqlSession.selectList("possetting.getCustomerRequestList", parametaMap);
 	}
 	
-	public List<Map> getLunchTimeList(Map parametaMap) {
+	public Map getTimezoneSet(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("possetting.getLunchTimeList", parametaMap);
+		return sqlSession.selectOne("possetting.getTimezoneSet", parametaMap);
 	}
 	
 	public List<Map> getPointDcList(Map parametaMap) {
@@ -57,9 +57,9 @@ public class SettingDAO {
 		sqlSession.update("possetting.updateTableCount2", parametaMap);
 	}
 	
-	public void updateLunchEqual(Map parametaMap) {
+	public void updateTimezoneSet(Map parametaMap) {
 		// TODO Auto-generated method stub
-		sqlSession.update("possetting.updateLunchEqual", parametaMap);
+		sqlSession.update("possetting.updateTimezoneSet", parametaMap);
 	}
 	
 	public void updateDcAmount(Map parametaMap) {

@@ -124,15 +124,19 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/pos/setting/getLunchTimeList.json")
-	public ModelAndView getLunchTimeList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+	@RequestMapping(value = "/pos/setting/getTimezoneSet.json")
+	public ModelAndView getTimezoneSet(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
 
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		String timezonedivision = (String)parametaMap.get("timezonedivision");
+		
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
-		List<Map> lunchTimeList = settingService.getLunchTimeList(parametaMap);		
+		parametaMap.put("timezonedivision", timezonedivision);
+		Map timezoneSet = settingService.getTimezoneSet(parametaMap);		
 		
 		Map returnMap = new HashMap();
-		returnMap.put("lunchTimeList", lunchTimeList);
+		returnMap.put("timezoneSet", timezoneSet);
 		
 		ModelAndView mav = new ModelAndView();		
 
@@ -280,8 +284,8 @@ public class SettingController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/pos/setting/lunchEqualUpdateOk.json")
-	public ModelAndView lunchEqualUpdatetOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+	@RequestMapping("/pos/setting/updateTimezoneSet.json")
+	public ModelAndView updateTimezoneSet(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
 		
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		
@@ -339,7 +343,7 @@ public class SettingController {
 		parametaMap.put("isusedtime6", isusedtime6);
 		parametaMap.put("isusedtime7", isusedtime7);
 				
-		settingService.updateLunchEqual(parametaMap);
+		settingService.updateTimezoneSet(parametaMap);
 		
 		
 		ModelAndView mav = new ModelAndView();		
