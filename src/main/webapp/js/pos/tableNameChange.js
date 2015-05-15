@@ -11,10 +11,7 @@ window.bapdosa.tableNameChange = (function() {
 		
 		$(".class_table_name_change_save").click(function(e){
 			e.preventDefault();	
-			tableNameChangeSave();
-			setTimeout(function () { 
-			      location.reload();
-			    }, 500);
+			tableNameChangeSave();			
 		});	
 	}
 	
@@ -38,10 +35,10 @@ window.bapdosa.tableNameChange = (function() {
 					deviceId : obj.DEVICEID,
 					tableId : obj.TABLEID,
 					tableNo : obj.TABLENO,
-					tableName : obj.TABLENAME,
+					tableName : obj.TABLENAME ? obj.TABLENAME : obj.TABLENO,
 					linkedTableId : obj.LINKEDTABLEID,
 					isDeleted : obj.ISDELETED
-				}).append($("<a>").text(obj.TABLENAME));
+				}).append($("<a>").text(obj.TABLENAME ? obj.TABLENAME : obj.TABLENO));
 								  
 				menuBody.append(li);				
 			});
@@ -72,7 +69,7 @@ window.bapdosa.tableNameChange = (function() {
 					deviceId : obj.DEVICEID,
 					tableId : obj.TABLEID,
 					tableNo : obj.TABLENO,
-					tableName : obj.TABLENAME,
+					tableName : obj.TABLENAME ? obj.TABLENAME : obj.TABLENO,
 					linkedTableId : obj.LINKEDTABLEID,
 					isDeleted : obj.ISDELETED
 				}).addClass("class_table_name_change_input").append($("<span>").append($("<input>").attr("type" ,"text").attr("maxlength" ,4).attr("data-role" ,"none")));
@@ -127,6 +124,7 @@ window.bapdosa.tableNameChange = (function() {
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
+					location.reload();
 				}
 			 });
 		 });
