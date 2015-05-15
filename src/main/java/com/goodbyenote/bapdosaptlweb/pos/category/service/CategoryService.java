@@ -38,12 +38,7 @@ public interface CategoryService {
 	public List<Map> getCategoryMenuJsonList(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryPointList(Map searchCondition);
-	
-	@SuppressWarnings("rawtypes")
-	List<Map> getDcTimeList(Map parametaMap);
-	
-	public void updateDcMenu(Map parametaMap);
+	public List<Map> getCategoryPointList(Map searchCondition);		
 	
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo);
