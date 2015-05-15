@@ -234,7 +234,7 @@ public class SettingController {
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
-		List<Map> lunchFront = settingService.getLunchFront(parametaMap);		
+		Map lunchFront = settingService.getLunchFront(parametaMap);		
 		
 		Map returnMap = new HashMap();
 		returnMap.put("lunchFront", lunchFront);

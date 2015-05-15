@@ -42,9 +42,9 @@ public class SettingDAO {
 		return sqlSession.selectList("possetting.getRankList2", parametaMap);
 	}
 	
-	public List<Map> getLunchFront(Map parametaMap) {
+	public Map getLunchFront(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("possetting.getLunchFront", parametaMap);
+		return sqlSession.selectOne("possetting.getLunchFront", parametaMap);
 	}
 	
 	public void updateTableCount(Map parametaMap) {

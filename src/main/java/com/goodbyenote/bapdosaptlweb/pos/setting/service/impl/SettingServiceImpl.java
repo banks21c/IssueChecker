@@ -52,7 +52,7 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
-	public List<Map> getLunchFront(Map parametaMap) {
+	public Map getLunchFront(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return settingDAO.getLunchFront(parametaMap);
 	}
