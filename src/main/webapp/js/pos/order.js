@@ -43,6 +43,11 @@ window.bapdosa.order = (function() {
 	var mOrderAreaFirst;
 	var isDiscount = false;
 	
+	var mDcTimezoneSet;	//할인시간대설정값
+	var mLunchTimezoneSet;	//점심시간할인대설정값
+	var mIsDcPrice = false;
+	var mIsLunchTime = false;
+	
 	var customerSearchInfo = {
 		currentPage: 1,
 		unitCount: 10,
@@ -993,6 +998,9 @@ window.bapdosa.order = (function() {
 			categoryInfoList = returnObj.categoryJsonList;
 			console.log(categoryInfoList);
 			
+			mDcTimezoneSet = returnObj.dcTimezoneSet;
+			mLunchTimezoneSet = returnObj.lunchTimezoneSet;
+
 			$(categoryInfoList).each(function(index,obj){
 				console.log(obj);
 				if(index < 4){
@@ -1020,9 +1028,31 @@ window.bapdosa.order = (function() {
 		 return dfd.promise();
 	}
 	
+	function isTimeZoneCheck(nowHHMM, nowWeek, timezoneSet){
+//		var nowHHMM = moment().format('HHmm');
+//		var nowWeek = moment().format('E');
+		console.log("nowWeek: " + nowWeek);
+		console.log("nowHHMM: " + nowHHMM);		
+		
+		console.log("ISUSEDTIME" + nowWeek + ": " + timezoneSet["ISUSEDTIME" + nowWeek]);
+		console.log("STARTTIME" + nowWeek + ": " + timezoneSet["STARTTIME" + nowWeek]);
+		console.log("ENDTIME" + nowWeek + ": " + timezoneSet["ENDTIME" + nowWeek]);
+		
+	
+//		if(timezoneSet["ISUSEDTIME" + nowWeek] == 'Y'){
+//			if(nowHHMM > timezoneSet["STARTTIME" + nowWeek] && )
+//		}
+		
+	}
+	
 	function getOrderInfoList(){
 		
 		if(!mOrderId){
+			var nowHHMM = moment().format('HHmm');
+			var nowWeek = moment().format('E');			
+			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
+			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);
+			
 			return false;
 		}
 		
@@ -1044,6 +1074,12 @@ window.bapdosa.order = (function() {
 				mIsFirstCustomer = true;
 				displayCustomerInfo(orderInfoObj.CUSTOMERID);
 			}
+			
+			var startSalesDate = orderInfoObj.STARTSALESDATE;
+			var nowHHMM = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('HHmm');
+			var nowWeek = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('E');
+			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
+			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);			
 			
 			mOrderAreaFirst = orderArea.clone();
 			

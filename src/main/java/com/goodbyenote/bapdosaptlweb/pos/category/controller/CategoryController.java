@@ -95,6 +95,12 @@ public class CategoryController {
 		
 		searchCondition.put("memberid", sessionUserInfo.getMemberId());		
 		List<Map> categoryJsonList = categoryService.getCategoryJsonList(searchCondition);		
+		String timezonedivision = "1";	// 0:점심시간때, 1: 할인시간때
+		searchCondition.put("timezonedivision", timezonedivision);
+		Map dcTimezoneSet = settingService.getTimezoneSet(searchCondition);
+		timezonedivision = "0";
+		searchCondition.put("timezonedivision", timezonedivision);
+		Map lunchTimezoneSet = settingService.getTimezoneSet(searchCondition);
 		
 		for(int i=0; i<categoryJsonList.size();i++){
 			
@@ -118,6 +124,8 @@ public class CategoryController {
 		returnMap.put("categoryJsonList", categoryJsonList);
 		returnMap.put("isPriceDiffer", "N");
 		returnMap.put("isDPdiffer", "N");
+		returnMap.put("dcTimezoneSet", dcTimezoneSet);
+		returnMap.put("lunchTimezoneSet", lunchTimezoneSet);
 		
 		ModelAndView mav = new ModelAndView();		
 		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
