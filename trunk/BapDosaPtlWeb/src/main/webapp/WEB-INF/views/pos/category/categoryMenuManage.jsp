@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -88,9 +89,10 @@
 								<td><label sortorder="${categoryMenu.SORTORDER}"><input type="checkbox" class="class_menu_check_${status.count}" /></label></td>
 								<td><input type="text" class="class_menu_name" data-role="none" value="${categoryMenu.NAME}"/></td>
 								<!-- <td class="class_menu_defaultprice"><input type="text"  data-role="none" value="${categoryMenu.DEFAULTPRICE}"/></td>-->
-								<td class="class_menu_storeprice"><input type="tel"  data-role="none" value="${categoryMenu.STOREPRICE}"/></td>
-								<td class="class_menu_deliveryprice"><input type="tel"  data-role="none" value="${categoryMenu.DELIVERYPRICE}"/></td>
-								<td class="class_menu_takeoutprice" ><input type="tel" data-role="none" value="${categoryMenu.TAKEOUTPRICE}"/></td>
+								
+								<td class="class_menu_storeprice"><input type="tel"  data-role="none" value="<fmt:formatNumber maxFractionDigits="1" value="${categoryMenu.STOREPRICE*0.001}"/>"/></td>
+								<td class="class_menu_deliveryprice"><input type="tel"  data-role="none" value="<fmt:formatNumber maxFractionDigits="1" value="${categoryMenu.DELIVERYPRICE*0.001}"/>"/></td>
+								<td class="class_menu_takeoutprice" ><input type="tel" data-role="none" value="<fmt:formatNumber maxFractionDigits="1" value="${categoryMenu.TAKEOUTPRICE*0.001}"/>"/></td>
 								<td><label><input type="checkbox" class="class_menu_hidden_${status.count}" /></label></td>
 							</tr>
 						</c:forEach>
