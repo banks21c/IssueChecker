@@ -28,9 +28,9 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
-	public List<Map> getLunchTimeList(Map parametaMap) {
+	public Map getTimezoneSet(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return settingDAO.getLunchTimeList(parametaMap);
+		return settingDAO.getTimezoneSet(parametaMap);
 	}
 	
 	@Override
@@ -70,9 +70,9 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
-	public void updateLunchEqual(Map parametaMap) {
+	public void updateTimezoneSet(Map parametaMap) {
 		// TODO Auto-generated method stub
-		settingDAO.updateLunchEqual(parametaMap);
+		settingDAO.updateTimezoneSet(parametaMap);
 	}
 	
 	@Override
