@@ -216,19 +216,20 @@ window.bapdosa.setting = (function() {
     
     function getLunchTimeList(){
 		var dfd = new jQuery.Deferred();
-		var url="/pos/setting/getLunchTimeList.json";
-		var param="";
+		var url="/pos/setting/getTimezoneSet.json";
+		var timezonedivision = 0;
+		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			//isPriceDiffer = returnObj.isPriceDiffer;
 			//isDPdiffer = returnObj.isDPdiffer;			
 			
-			lunchTimeList = returnObj.lunchTimeList;
-			console.log("lunchTimeList=" + lunchTimeList);
+			timezoneSet = returnObj.timezoneSet;
+			console.log("timezoneSet=" + timezoneSet);
 			
-			$(lunchTimeList).each(function(index,obj){
+			$(timezoneSet).each(function(index,obj){
 				$(".class_time_line").attr("memberid", obj.MEMBERID);
-				$(".class_setting_time_differ_main").attr("starttime1",obj.STARTTIME1).attr("starttime2",obj.STARTTIME2).attr("starttime3",obj.STARTTIME3).attr("starttime4",obj.STARTTIME4).attr("starttime5",obj.STARTTIME5).attr("starttime6",obj.STARTTIME6).attr("starttime7",obj.STARTTIME7)
+				$(".class_setting_time_differ_main").attr("timezonedivision",timezonedivision).attr("starttime1",obj.STARTTIME1).attr("starttime2",obj.STARTTIME2).attr("starttime3",obj.STARTTIME3).attr("starttime4",obj.STARTTIME4).attr("starttime5",obj.STARTTIME5).attr("starttime6",obj.STARTTIME6).attr("starttime7",obj.STARTTIME7)
 				.attr("endtime1",obj.ENDTIME1).attr("endtime2",obj.ENDTIME2).attr("endtime3",obj.ENDTIME3).attr("endtime4",obj.ENDTIME4).attr("endtime5",obj.ENDTIME5).attr("endtime6",obj.ENDTIME6).attr("endtime7",obj.ENDTIME7)	
                 .attr("isusedtime1",obj.ISUSEDTIME1).attr("isusedtime2",obj.ISUSEDTIME2).attr("isusedtime3",obj.ISUSEDTIME3).attr("isusedtime4",obj.ISUSEDTIME4).attr("isusedtime5",obj.ISUSEDTIME5).attr("isusedtime6",obj.ISUSEDTIME6).attr("isusedtime7",obj.ISUSEDTIME7);	
 				if(obj.ISDIFFERENTTIME == "Y"){
@@ -293,17 +294,18 @@ window.bapdosa.setting = (function() {
     
     function getLunchTimetap(){
 		var dfd = new jQuery.Deferred();
-		var url="/pos/setting/getLunchTimeList.json";
-		var param="";
+		var url="/pos/setting/getTimezoneSet.json";
+		var timezonedivision = 0;
+		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			//isPriceDiffer = returnObj.isPriceDiffer;
 			//isDPdiffer = returnObj.isDPdiffer;			
 			
-			lunchTimeList = returnObj.lunchTimeList;
-			console.log("lunchTimeList=" + lunchTimeList);
+			timezoneSet = returnObj.timezoneSet;
+			console.log("timezoneSet=" + timezoneSet);
 			
-			$(lunchTimeList).each(function(index,obj){
+			$(timezoneSet).each(function(index,obj){
 				if($("#id_setting_set_time_differ li").eq(0).find("a").hasClass("active")){
 					if(obj.STARTTIME1){					
 						$("#id_setting_hour_text").text(window.bapdosa.util.hourTo12(obj.STARTTIME1.substring(0,2)));
@@ -764,7 +766,7 @@ window.bapdosa.setting = (function() {
 			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
 			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
 			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
-			 var url = "lunchEqualUpdateOk.json";
+			 var url = "updateTimezoneSet.json";
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
@@ -873,7 +875,7 @@ window.bapdosa.setting = (function() {
 			 "&starttime1=" + starttime1 + "&starttime2=" + starttime2 + "&starttime3=" + starttime3 + "&starttime4=" + starttime4 + "&starttime5=" + starttime5 + "&starttime6=" + starttime6+ "&starttime7=" + starttime7 +
 			 "&endtime1=" + endtime1 + "&endtime2=" + endtime2 + "&endtime3=" + endtime3 + "&endtime4=" + endtime4 + "&endtime5=" + endtime5 + "&endtime6=" + endtime6 + "&endtime7=" + endtime7 +
 			 "&isusedtime1=" + isusedtime1 + "&isusedtime2=" + isusedtime2 + "&isusedtime3=" + isusedtime3 + "&isusedtime4=" + isusedtime4 + "&isusedtime5=" + isusedtime5 + "&isusedtime6=" + isusedtime6 + "&isusedtime7=" + isusedtime7;
-			 var url = "lunchEqualUpdateOk.json";
+			 var url = "updateTimezoneSet.json";
 				
 			 if(typeof console != 'undefined'){
 				console.log("param: " + param);
