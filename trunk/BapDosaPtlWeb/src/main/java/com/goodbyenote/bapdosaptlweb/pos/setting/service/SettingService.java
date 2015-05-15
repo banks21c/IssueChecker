@@ -17,7 +17,7 @@ public interface SettingService {
 	
 	List<Map> getRankList2(Map parametaMap);
 	
-	List<Map> getLunchFront(Map parametaMap);
+	Map getLunchFront(Map parametaMap);
 	
 	void updateTableCount(Map parametaMap);
 	
