@@ -75,7 +75,7 @@ window.bapdosa.tableNameChange = (function() {
 					tableName : obj.TABLENAME,
 					linkedTableId : obj.LINKEDTABLEID,
 					isDeleted : obj.ISDELETED
-				}).addClass("class_table_name_change_input").append($("<span>").append($("<input>").attr("type" ,"text").attr("data-role" ,"none")));
+				}).addClass("class_table_name_change_input").append($("<span>").append($("<input>").attr("type" ,"text").attr("maxlength" ,4).attr("data-role" ,"none")));
 								  
 				menuBody.append(li);				
 			});
