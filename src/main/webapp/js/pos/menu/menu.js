@@ -151,7 +151,7 @@ window.bapdosa.menu = (function() {
 		$(".class_menu_save").click(function(e){
 			e.preventDefault();			
 			updateShortMenu();						
-			location.reload();
+			
 	    });
 		$("#id_menu_delete").click(function(e){
 			e.preventDefault();
@@ -175,7 +175,7 @@ window.bapdosa.menu = (function() {
 		$("#id_point_save").click(function(e){
 			e.preventDefault();			
 			pointSave();						
-			location.reload();
+			
 	    });
 		$("#id_dc_check_sub").click(function(e){
 			e.preventDefault();
@@ -783,6 +783,7 @@ window.bapdosa.menu = (function() {
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
+					location.reload();
 				}
 			 });	
 		});	
