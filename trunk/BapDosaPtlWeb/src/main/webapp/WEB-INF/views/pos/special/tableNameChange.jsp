@@ -54,7 +54,7 @@
 	<div data-role="footer" data-position="fixed">
 		<div class="help">
 			<!--<a href="prepaid_deposit.html" class="pnprev" data-ajax="false"><span>&lt;</span></a> 개발에선 지워주세요 -->
-			<p><span>카테고리를 선택하고 메뉴와 금액을 입력하세요.</span></p>
+			<p><span>오른쪽 입력란에 바뀔 테이블 이름을 입력하고 저장버튼을 눌러주세요.</span></p>
 			<!-- <a href="sales_main.html" class="pnnext" data-ajax="false"><span>&gt;</span></a>개발에선 지워주세요 -->
 		</div>
 	</div>
