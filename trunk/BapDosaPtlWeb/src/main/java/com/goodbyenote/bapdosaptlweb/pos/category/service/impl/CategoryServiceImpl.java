@@ -179,44 +179,6 @@ public class CategoryServiceImpl implements CategoryService {
 		);
 				
 		return 1;
-	}
-	@Override
-	public List<CategoryVO> getList(CategoryVO category) {
-		return categoryDAO.getList(category);
-	}
-
-	@Override
-	public int count(CategoryVO category) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public CategoryVO getDetail(CategoryVO category) {
-		return categoryDAO.getDetail(category);
-	}
-
-	@Override
-	public int insertAction(CategoryVO category) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	public int updateCategoryIschecked(CategoryVO category){
-		return categoryDAO.updateCategoryIschecked(category);
-	}
-	public int updateCategoryIsimportant(CategoryVO category){
-		return categoryDAO.updateCategoryIsimportant(category);
-	}
-
-	@Override
-	public List<CategoryVO> getReservationList(CategoryVO category) {
-		return categoryDAO.getReservationList(category);
-	}
-
-	@Override
-	public List<CategoryVO> getCustomerRequestList(CategoryVO category) {
-		return categoryDAO.getCustomerRequestList(category);
-	}
+	}	
 
 }
