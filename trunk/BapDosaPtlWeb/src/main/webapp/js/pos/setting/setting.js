@@ -196,8 +196,6 @@ window.bapdosa.setting = (function() {
 		var param="";
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			tableInfoList = returnObj.orderMapList;
 			console.log("tableInfoList=" + tableInfoList);
@@ -221,8 +219,6 @@ window.bapdosa.setting = (function() {
 		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			timezoneSet = returnObj.timezoneSet;
 			console.log("timezoneSet=" + timezoneSet);
@@ -464,8 +460,6 @@ window.bapdosa.setting = (function() {
 		var param="";
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			pointList = returnObj.pointDcList;
 			console.log("pointList=" + pointList);
@@ -650,10 +644,8 @@ window.bapdosa.setting = (function() {
 			},
 			success:function(data){
 				if(typeof console != 'undefined'){		
-					//console.log(data);					
 				}				
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-					//$("#id_cate_save").click();		
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
@@ -781,10 +773,8 @@ window.bapdosa.setting = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -890,10 +880,8 @@ window.bapdosa.setting = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -939,10 +927,8 @@ window.bapdosa.setting = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -977,10 +963,8 @@ window.bapdosa.setting = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}					
@@ -1025,10 +1009,8 @@ window.bapdosa.setting = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -1062,10 +1044,8 @@ window.bapdosa.setting = (function() {
 			},
 			success:function(data){
 				if(typeof console != 'undefined'){		
-					//console.log(data);					
 				}					
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-					//$("#id_cate_save").click();		
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
