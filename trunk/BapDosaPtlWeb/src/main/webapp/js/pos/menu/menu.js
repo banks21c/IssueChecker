@@ -52,7 +52,7 @@ window.bapdosa.menu = (function() {
 		$("#id_cate_save").click(function(e){		
 			e.preventDefault();			
 			updateCate(sortorder,name,categoryid);
-			location.reload();
+			
 		});	
 		$(".class_menu_check").change(function(e){
 			e.preventDefault();			
@@ -163,8 +163,7 @@ window.bapdosa.menu = (function() {
 				if($(this).find("input:eq(0)").is(":checked")){
 					if($(this).attr("catemenuname")){
 						$(this).attr("isdeleted", "Y");
-						menuSave();
-						
+						menuSave();						
 					}else{
 						$(this).remove();
 					}
@@ -553,6 +552,7 @@ window.bapdosa.menu = (function() {
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
+					location.reload();
 				}
 			 });	
 		});	
