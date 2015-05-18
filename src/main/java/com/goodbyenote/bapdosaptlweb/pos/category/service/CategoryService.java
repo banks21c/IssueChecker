@@ -43,19 +43,4 @@ public interface CategoryService {
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo);
 
-	public List<CategoryVO> getList(CategoryVO menu);
-
-	public int count(CategoryVO menu);
-
-	public CategoryVO getDetail(CategoryVO menu);
-
-	public int insertAction(CategoryVO menu);
-
-	public int updateCategoryIschecked(CategoryVO category);
-
-	public int updateCategoryIsimportant(CategoryVO category);
-
-	public List<CategoryVO> getReservationList(CategoryVO category);
-
-	public List<CategoryVO> getCustomerRequestList(CategoryVO category);
 }
