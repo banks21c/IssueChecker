@@ -548,11 +548,8 @@ window.bapdosa.menu = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
-					}
-					
+					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -657,11 +654,9 @@ window.bapdosa.menu = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}
 					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -782,11 +777,9 @@ window.bapdosa.menu = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}
 					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -835,8 +828,6 @@ window.bapdosa.menu = (function() {
 		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			dcTimezoneSet = returnObj.dcTimezoneSet;
 			console.log("dcTimezoneSet=" + dcTimezoneSet);
@@ -913,8 +904,6 @@ window.bapdosa.menu = (function() {
 		var param="timezonedivision=" + timezonedivision;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			//isPriceDiffer = returnObj.isPriceDiffer;
-			//isDPdiffer = returnObj.isDPdiffer;			
 			
 			dcTimezoneSet = returnObj.dcTimezoneSet;
 			console.log("dcTimezoneSet=" + dcTimezoneSet);
@@ -1190,10 +1179,8 @@ window.bapdosa.menu = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
@@ -1297,10 +1284,8 @@ window.bapdosa.menu = (function() {
 				},
 				success:function(data){
 					if(typeof console != 'undefined'){		
-						//console.log(data);					
 					}					
 					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
-						//$("#id_cate_save").click();		
 					} else{
 						//alert(data.returnJsonVO.message);
 					}
