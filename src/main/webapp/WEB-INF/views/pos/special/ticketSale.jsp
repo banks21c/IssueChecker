@@ -22,7 +22,7 @@
 	<div data-role="page" id="numpad-page" data-url="numpad-page">
 		<div data-role="header" data-theme="a">
 			<h1>식권판매금액 입력</h1>
-			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+			<!-- <a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>-->
 		</div>
 		<div role="main" class="ui-content">
 			<div class="change_wrap">
