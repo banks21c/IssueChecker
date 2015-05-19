@@ -65,6 +65,10 @@ window.bapdosa.posmain = (function() {
 			//테이블이름변경
 			else if(selVal == 8){				
 				url = "/pos/special/tableNameChange.do";
+			}
+			//식권판매
+			else if(selVal == 9){				
+				url = "/pos/special/ticketSale.do";
 			}				
 			
 			if(url){
