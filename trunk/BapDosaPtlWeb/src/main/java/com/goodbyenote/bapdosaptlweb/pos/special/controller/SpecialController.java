@@ -211,4 +211,10 @@ private static final Logger logger = LoggerFactory.getLogger(SpecialController.c
 		
 		return mav; 
 	}
+	
+	@RequestMapping(value = "/pos/special/ticketSale.do")
+	public String ticketSale() {
+
+		return "pos/special/ticketSale";
+	}
 }
