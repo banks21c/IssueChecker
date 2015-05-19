@@ -996,10 +996,21 @@ window.bapdosa.order = (function() {
 			isPriceDiffer = returnObj.isPriceDiffer;
 			isDPdiffer = returnObj.isDPdiffer;
 			categoryInfoList = returnObj.categoryJsonList;
-			//console.log(categoryInfoList);
+			
 			
 			mDcTimezoneSet = returnObj.dcTimezoneSet;
 			mLunchTimezoneSet = returnObj.lunchTimezoneSet;
+			
+			var nowHHMM = moment().format('HHmm');
+			var nowWeek = moment().format('E');			
+			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);	
+			//console.log("mIsLunchTime: " + mIsLunchTime);
+			//점심메뉴 앞으로
+			if(mIsLunchTime){
+				var spliceObjArr = categoryInfoList.splice(4,1);	//5번째부터 1개요소 삭제
+				categoryInfoList.unshift(spliceObjArr[0]);			//삭제된요소중 첫번째요소 앞단에 삽입
+				//console.log(categoryInfoList);
+			}
 
 			$(categoryInfoList).each(function(index,obj){
 				//console.log(obj);
@@ -1056,7 +1067,7 @@ window.bapdosa.order = (function() {
 			var nowWeek = moment().format('E');			
 			
 			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
-			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);
+			//mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);
 			
 			return false;
 		}
@@ -1072,7 +1083,7 @@ window.bapdosa.order = (function() {
 			var nowHHMM = moment(orderInfoObj.CREATIONDATE).format('HHmm');
 			var nowWeek = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('E');
 			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
-			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);				
+			//mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);				
 			
 			$(orderDetailList).each(function(index,obj){
 				//console.log(obj);
