@@ -20,7 +20,7 @@ window.bapdosa.ticketSale = (function() {
 		
 		$('#id_get_month').text(getMonth);
 		$('#id_get_day').text(getDate);
-		$('#id_get_weekday').text(week[now.getDay()]);
+		$('#id_get_weekday').text(week[getDay]);
 		
 		$('#numpad-page .keypad li a span').click(function (e) {
 			e.preventDefault();			
