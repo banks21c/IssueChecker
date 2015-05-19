@@ -9,23 +9,22 @@
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$(".ele tbody tr").click(function(){
-		if($(this).next().is(":hidden")){
-			$(".ele tbody tr.mon").next().hide();
-			$(".ele tbody tr.mon").removeClass("this");
-			$(this).next().show();
-			$(this).addClass("this");
-		}else if($(this).next().is(":visible")){
-			$(this).next().hide();
-			$(this).removeClass("this");
-		}
-	})	
-	$("#toTop").click(function() {
-            $('html, body').scrollTop(0);
-        });
-});
-
+	$(function(){
+		$(".ele tbody tr").click(function(){
+			if($(this).next().is(":hidden")){
+				$(".ele tbody tr.mon").next().hide();
+				$(".ele tbody tr.mon").removeClass("this");
+				$(this).next().show();
+				$(this).addClass("this");
+			}else if($(this).next().is(":visible")){
+				$(this).next().hide();
+				$(this).removeClass("this");
+			}
+		})	
+		$("#toTop").click(function() {
+				$('html, body').scrollTop(0);
+			});
+	});
 </script>
 </head>
 <body id="surtax">

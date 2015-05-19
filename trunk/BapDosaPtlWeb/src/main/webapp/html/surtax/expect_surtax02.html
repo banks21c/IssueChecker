@@ -28,6 +28,13 @@
 				$(this).removeClass("this");
 			}
 		})	
+		$(".btn_key").click(function() {
+			$('.tax_wrap').toggleClass('di');
+			$('.top01 .combine').toggleClass('di');
+		});
+		$(".cus_btn").click(function() {
+			$('.customer_write, .customer_add').toggleClass('big_view');
+		});
 	});
 </script>
 </head>
@@ -66,24 +73,19 @@
 			<div class="step_tit">
 				<p class="stt"><span>Step1</span> 매출</p>
 			</div>
-			<div class="btn_r">
-				<a href="#" class="btn_05">POS 연동</a><a href="#" class="btn_05">가게장부 연동</a>
-			</div>
-			<div class="step_dl">
+			<div class="step_dl line">
 				<dl>
 					<dt>(신용카드+현금영수증)매출</dt>
 					<dd>
-						<input type="tel" id="" data-role="none" class="wp70" disabled="disabled" />
-						<a href="#card_cash" class="btn_01 lb" title="검색" data-transition="slide"><i class="ish"></i></a>
+						<input type="tel" id="" data-role="none" class="wp70" />
+						<a href="#card_cash" class="btn_01 lb" title="상세입력" data-transition="slide"><i class="iadd"></i></a>
+						<p>상세입력은 +</p>
 					</dd>
 				</dl>
 			</div>
-			<div class="btn_r">
-				<a href="#" class="btn_05">가게장부 연동</a>
-			</div>
-			<div class="step_dl">
+			<div class="step_dl line">
 				<dl>
-					<dt>순수현금매출 <span>(상세입력은 +)</span></dt>
+					<dt>순수현금매출</dt>
 					<dd>
 						<input type="tel" id="" data-role="none" class="wp70" />
 						<a href="#only_cash" class="btn_01 lb" title="상세입력" data-transition="slide"><i class="iadd"></i></a>
@@ -92,8 +94,9 @@
 				<dl>
 					<dt>세금계산서매출</dt>
 					<dd>
-						<input type="tel" id="" data-role="none" class="wp70" disabled="disabled" />
-						<a href="#tax_pop" class="btn_01 lb" title="검색" data-transition="slide"><i class="ish"></i></a>
+						<input type="tel" id="" data-role="none" class="wp70" />
+						<a href="#tax_pop" class="btn_01 lb" title="상세입력" data-transition="slide"><i class="iadd"></i></a>
+						<p>상세입력은 +</p>
 					</dd>
 				</dl>
 			</div>
@@ -310,84 +313,162 @@
 		<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
 	</div>
 	<div role="main" class="ui-content">
-		<div class="pos_top">
+		<div class="pos_top noline">
 			<div class="top01 noline">
-				<!--s: 면세 과세자인 경우 none 처리 -->
-				<div class="btn_fl">
-					<p class="day">
-						<a href="#" class="btn_pn prev" title="이전"></a>
-						<span>2015</span>
-						<a href="#" class="btn_pn next" title="다음"></a>
-					</p>
-				</div>
-				<!--e: 면세 과세자인 경우 none 처리 -->
+				<p class="combine">현영 = 현금영수증</p><!-- 카드 현금영수증 구분입력으로 들어왔을 경우 di 클래스 추가 -->
 				<p>단위 : 천원</p>
 			</div>
 		</div>
-		<div class="list5">
-			<table>
-				<colgroup>
-					<col width="*" />
-					<col width="38%" />
-					<col width="38%" />
-				</colgroup>
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">카드매출</th>
-						<th scope="col">현금 영수증 매출</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">7월</th>
-						<td>1,225</td>
-						<td>99,999</td>
-					</tr>
-					<tr>
-						<th scope="row">8월</th>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">9월</th>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">10월</th>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">11월</th>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">12월</th>
-						<td></td>
-						<td></td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<!--s: 면세 과세자인 경우 none 처리 -->
-					<tr>
-						<th scope="row">VAT</th>
-						<td>1,225</td>
-						<td>99,999</td>
-					</tr>
-					<!--e: 면세 과세자인 경우 none 처리 -->
-					<tr>
-						<th scope="row">합계</th>
-						<td>1,225</td>
-						<td>99,999</td>
-					</tr>
-				</tfoot>
-			</table>
+		<div class="tax_wrap"><!-- 카드 현금영수증 구분입력으로 들어왔을 경우 di 클래스 추가 -->
+			<div class="list5 divide taxin">
+				<table>
+					<colgroup>
+						<col width="*" />
+						<col width="70%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">(카드+현금영수증)매출</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">7월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">8월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">9월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">10월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">11월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">12월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">공급가액</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+						<tr>
+							<th scope="row">VAT</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+						<tr>
+							<th scope="row">합계</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="list5 combine taxin">
+				<table>
+					<colgroup>
+						<col width="*" />
+						<col width="35%" />
+						<col width="35%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">카드매출</th>
+							<th scope="col">현영매출</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">7월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">8월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">9월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">10월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">11월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+						<tr>
+							<th scope="row">12월</th>
+							<td><input type="tel" id="" data-role="none" /></td>
+							<td><input type="tel" id="" data-role="none" /></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<!--s: 간이 과세자는 none처리 -->
+						<tr>
+							<th scope="row">공급가액</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+						<tr>
+							<th scope="row">VAT</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+						<!--e: 간이 과세자는 none처리 -->
+						<tr>
+							<th scope="row">합계</th>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+							<td><input type="tel" id="" data-role="none" disabled="disabled" /></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="keypadw">
+				<div class="keypad">
+					<ul>
+						<li><a href="#"><span>1</span></a></li>
+						<li><a href="#"><span>2</span></a></li>
+						<li><a href="#"><span>3</span></a></li>
+						<li><a href="#"><span>4</span></a></li>
+						<li><a href="#"><span>5</span></a></li>
+						<li><a href="#"><span>6</span></a></li>
+						<li><a href="#"><span>7</span></a></li>
+						<li><a href="#"><span>8</span></a></li>
+						<li><a href="#"><span>9</span></a></li>
+						<li><a href="#"><span class="ts">완료</span></a></li>
+						<li><a href="#"><span>0</span></a></li>
+						<li>
+							<a href="#"><span>-</span></a>
+							<a href="#" style="display:none"><span><i></i></span></a><!-- 숫자가 입력되면 마이너스가 백버튼으로 변경 -->
+						</li>
+					</ul>
+				</div>
+				<p class="btn_c">
+					<a href="#" class="btn_key">(카드+현영)<br /><strong class="divide">구분입력</strong><strong class="combine">통합입력</strong>하기</a>
+				</p>
+			</div>
 		</div>
+		<p class="tax_help">부가세 포함된 금액으로 입력하세요.</p>
 		<div class="btn_c mgt01">
-			<a href="#" class="btn_gray" data-rel="back">돌아가기</a>
+			<a href="#" class="btn_green">저장</a><a href="#" class="btn_gray" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 </div>
@@ -470,6 +551,70 @@
 		<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
 	</div>
 	<div role="main" class="ui-content">
+		<div class="customer_write">
+			<div class="customer">
+				<div class="hre">
+					<div class="customer_type">
+						<input type="radio" id="customer01" name="customerL" /><label for="customer01">건별입력</label>
+						<input type="radio" id="customer02" name="customerL" /><label for="customer02">거래처별 합계</label>
+					</div>
+					<div class="customer_list">
+						<ul>
+							<li><a href="#">직접입력</a></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+							<li><span></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="keypadw">
+				<div class="keypad">
+					<ul>
+						<li><a href="#"><span>1</span></a></li>
+						<li><a href="#"><span>2</span></a></li>
+						<li><a href="#"><span>3</span></a></li>
+						<li><a href="#"><span>4</span></a></li>
+						<li><a href="#"><span>5</span></a></li>
+						<li><a href="#"><span>6</span></a></li>
+						<li><a href="#"><span>7</span></a></li>
+						<li><a href="#"><span>8</span></a></li>
+						<li><a href="#"><span>9</span></a></li>
+						<li>
+							<a href="#"><span>-</span></a>
+							<a href="#" style="display:none"><span><i></i></span></a><!-- 숫자가 입력되면 마이너스가 백버튼으로 변경 -->
+						</li>
+						<li><a href="#"><span>0</span></a></li>
+						<li><a href="#"><span>.</span></a></li>
+						<li><a href="#"><span class="ts">연속</span></a></li>
+						<li><a href="#"><span class="ts">완료</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="customer_add">
+			<div class="cus_box">
+				<div class="cus">
+					<dl>
+						<dt>상호</dt>
+						<dd><input type="text" id="" data-role="none" /></dd>
+					</dl>
+					<dl>
+						<dt>월</dt>
+						<dd class="wm"><input type="tel" id="" data-role="none" /></dd>
+						<dt class="wm">공급가액</dt>
+						<dd><input type="tel" id="" data-role="none" /></dd>
+					</dl>
+				</div>
+			</div>
+			<div class="cus_btn"><i></i><span class="sb">리스트<br />확대</span><span class="sv">리스트 축소</span></div>
+		</div>
 		<div class="list3 syear ele2">
 			<table>
 				<colgroup>
@@ -477,14 +622,6 @@
 					<col width="21%" />
 					<col width="25%" />
 				</colgroup>
-				<thead>
-					<tr>
-						<th scope="col">상호</th>
-						<th scope="col">매수</th>
-						<th scope="col">금액</th>
-					</tr>
-				</thead>
-				<tbody>
 					<tr class="mon">
 						<td class="a_tl">(유)성수종합주류</td>
 						<td>2</td>

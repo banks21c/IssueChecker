@@ -30,12 +30,18 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 .ui-content {padding:0 0 1em 0}
 
 /* id 조절 */
+#surtax {background-color:#e3e2dd}
 #surtax .ui-header {background-image:url('../images/common/top_bg2.jpg')}
 #surtax .topbtn.btn_home2 {background-position:-134px -29px}
 #surtax .menu_tab ul li a.on {border-color:#629047}
 #surtax input[type="text"], #surtax input[type="password"], #surtax input[type="tel"] {border-color:#a09f9a;-webkit-border-radius:.25em;border-radius:.25em;padding:0}
 #surtax input[type="date"], #surtax input[type="time"], #surtax input[type="number"] {border-color:#a09f9a;-webkit-border-radius:.25em;border-radius:.25em;padding:0}
 #surtax input[type="text"].year {width:80px !important;text-align:center}
+#surtax .keypad {padding:2% 0 0 0}
+#surtax .keypad ul li {width:28%;margin:0 0 4% 4%}
+#surtax .keypad ul li:nth-child(14) {width:60%}
+#surtax .keypad ul li a {background:none;background-color:#5f5f5f;box-shadow:none}
+#surtax .keypad ul li a span {box-shadow:none}
 
 /* head */
 .ui-header {background:url('../images/common/top_bg.jpg') repeat-x 0 0;background-size:auto 44px;height:44px;border:none}
@@ -65,8 +71,11 @@ table {border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed;f
 
 /* pos */
 .pos_top {background-color:#e3e2dd;border-bottom:1px solid #9c9b96}
+.pos_top.noline {border-bottom:none}
 .pos_top.gray {background-color:#f3f3f3;border-color:#e3e3e3}
-.pos_top .top01 {overflow:hidden;border-bottom:1px solid #c3c3c1;padding:.25em .3em;/*box-shadow:0 1px 0 0 #d5d4cf*/}
+.pos_top .top01 {overflow:hidden;border-bottom:1px solid #c3c3c1;padding:.25em .3em;position:relative/*box-shadow:0 1px 0 0 #d5d4cf*/}
+.pos_top .top01 .combine {position:absolute;width:100%;text-align:center;font-weight:normal;display:none}
+.pos_top .top01 .combine.di {display:block}
 .dman_wrap {padding:.25em 0;margin:0 .3em;overflow:hidden}
 .pos_top .top01.noline {border-bottom:none}
 .pos_top .top01.onlyt {box-shadow:none;border-bottom:none}
@@ -438,6 +447,7 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list table tbody td {border-bottom:1px solid #e6e6e6;text-align:center;height:35px;padding:0 8px}
 .list table tbody tr.active td {background-color:#ecf4f6}
 .list table tbody td.price {text-align:right;font-family:'arial'}
+.list table tbody td.price span.dis {text-decoration:line-through;display:block;color:#999;text-shadow:none}
 .list table tfoot td {background-color:#faffe9;padding:0 .6em;height:35px;border-bottom:1px solid #e6e6e6;font-weight:bold}
 .list table tfoot td.price {text-align:right;font-size:16px;color:#db5c08;font-family:'arial'}
 .list_total {overflow:hidden;position:relative;background-color:#faffe9;padding:.2em .6em;border-bottom:1px solid #9c9b96;border-top:1px solid #e6e6e6}
@@ -463,6 +473,10 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list3.syear.ele {background:none;position:relative;top:-34px;margin-bottom:-34px}
 .list3.syear.ele table td {background-color:#fff;font-weight:bold}
 .list3.syear.ele table td.a_tl {font-weight:normal}
+.list3.syear.ele2 {background:none;margin-top:.5em;border-top:2px solid #9c9b96}
+.list3.syear.ele2 table td {background-color:#fff;font-weight:bold;border-color:#cacaca}
+.list3.syear.ele2 table td.a_tl {font-weight:normal}
+.list3.syear.ele2 table th {border-color:#cacaca}
 .list3 table thead th {background-color:#f3f3f3;text-align:center;height:32px;border-bottom:1px solid #e6e6e6;font-weight:bold}
 .list3 table tbody td {border-bottom:1px solid #e6e6e6;text-align:center;height:32px;padding:0 .2em}
 .list3 table tbody td span.ico {margin-right:.1em}
@@ -480,7 +494,7 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list3.syear table tbody tr.mon.this td:last-child {background-image:url('../images/blt/blt_close.png')}
 .list3.syear table tbody tr.day {display:none}
 .list3.syear table tbody tr.day td {background-color:#edf4f5;text-shadow:none;box-shadow:0 3px 3px 0px #a6b0b1 inset}
-.list3.syear.ele table tbody tr.day td {background-color:#f3f3f3;box-shadow:0 3px 3px 0px #bbbaba inset}
+.list3.syear.ele table tbody tr.day td, .list3.syear.ele2 table tbody tr.day td {background-color:#f3f3f3;box-shadow:0 3px 3px 0px #bbbaba inset}
 .list3.syear table tbody tr.day dl {display:table;table-layout:fixed;width:100%;border-bottom:1px solid #d9d9d9}
 .list3.syear table tbody tr.day dl:last-child {border-bottom:none}
 .list3.syear table tbody tr.day dl dt {display:table-cell;text-align:center;padding:.4em 0}
@@ -513,7 +527,8 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list4 table tbody td input[type="text"], .list4 table tbody td input[type="number"] {width:100%}
 .list4 table tbody td a.btn_02 {text-align:center;width:100%;padding:0}
 
-.list5{background-color:#fff;border-bottom:1px solid #9c9b96}
+.list5{border-bottom:1px solid #9c9b96}
+.list5 table {background-color:#fff}
 .list5 table thead th {background-color:#f3f3f3;text-align:center;padding:.5em 0;border-bottom:1px solid #d8d6d6;border-left:1px solid #d8d6d6;font-weight:bold}
 .list5 table thead th:first-child {border-left:none}
 .list5 table tbody th {text-align:center;border-bottom:1px solid #d8d6d6;padding:.5em .3em;font-weight:bold}
@@ -522,6 +537,10 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .list5 table tfoot td {text-align:right;padding:.5em .3em;border-left:1px solid #d8d6d6;border-bottom:1px solid #d8d6d6;font-weight:bold;background-color:#e2eff2;color:#0190bc}
 .list5 table tfoot tr:last-child th {border-bottom:none;background-color:#fcfcef;color:#45871d}
 .list5 table tfoot tr:last-child td {border-bottom:none;background-color:#fcfcef;color:#dd5b07}
+.list5.taxin table td {padding:0 .5em}
+.list5.taxin table td input[type="tel"] {border:none;width:95%;text-align:right}
+.list5.taxin table tfoot td input[type="tel"] {background-color:#fcfcef}
+.list5.taxin table tfoot td input[disabled] {box-shadow:none}
 
 .memo_list table {background-color:#fff;border-top:1px solid #9c9b96}
 .memo_list table td {border-bottom:1px solid #e6e6e6;text-align:left;height:35px}
@@ -663,6 +682,79 @@ input[type="text"].active {border-color:#0190bc;background-color:#f8f8f8}
 .tax_step .step_help .help_tit {background-color:#5f8ab2;border-top:1px solid #4b769d;border-bottom:1px solid #4b769d;padding:.6em .3em;color:#fff;position:relative}
 .tax_step .step_help .help_tit .btn_help {position:absolute;top:50%;right:.5em;margin-top:-9px}
 .tax_step .step_help .help_txt {padding:.5em .3em;background-color:#f3f3f3;border-bottom:1px solid #cacaca;display:none}
+
+.help_box {margin-top:.5em}
+.help_box dl dt {border-top:1px solid #4b769d;border-bottom:1px solid #4b769d;background-color:#5f8ab2;color:#fff;font-weight:bold;text-align:center;padding:.5em 0}
+.help_box dl dd {background-color:#f3f3f3;border-bottom:1px solid #cacaca;padding:.5em}
+
+.ratio {background-color:#fff;border-bottom:1px solid #cacaca;padding:2% 0 1% 0}
+.ratio ul {overflow:hidden}
+.ratio ul li {float:left;width:15.5%;margin:0 0 1% 1%}
+.ratio ul li a {display:block;border:1px solid #959595;background-color:#e1e1e0;text-align:center;-webkit-border-radius:.3em;border-radius:.3em;padding:.9em 0;box-shadow:0 -2px 3px 0 #a5a5a5 inset}
+
+.ratio_in {background-color:#fff;border-bottom:2px solid #9c9b96;padding:2% 1%;overflow:hidden}
+.ratio_in .ratio_data {float:left;width:53%;padding:2% 1%}
+.ratio_in .ratio_data dl {display:table;table-layout:fixed;width:100%;margin-bottom:.5em}
+.ratio_in .ratio_data dl dt {display:table-cell;width:55%;text-align:left;vertical-align:top;padding-top:.4em;text-indent:-1px;font-size:13px}
+.ratio_in .ratio_data dl dd {display:table-cell}
+.ratio_in .ratio_data dl dd input[type="tel"] {width:95%;text-align:center}
+.ratio_in .ratio_data dl dd p+p {margin-top:.5em}
+.ratio_in .keypad {float:left;width:45%}
+
+.tax_wrap {overflow:hidden}
+.tax_wrap .list5 {float:left;width:57%;margin:0 1%;border-bottom:none;letter-spacing:-1px}
+.tax_wrap .list5 tfoot  th, .tax_wrap .list5 tfoot  td {background-color:#fcfcef;color:#3b3b3c !important}
+.tax_wrap .list5 table {border:1px solid #9c9b96}
+.tax_wrap .keypadw {float:left;width:40%;margin-right:1%}
+#surtax .tax_wrap .keypadw .keypad {padding-top:4%}
+.tax_wrap .keypadw .btn_c {margin-top:.5em}
+.tax_wrap .keypadw .btn_c a {width:75%}
+.tax_help {padding:.5em;border-bottom:1px solid #cacaca}
+.btn_key {border:1px solid #9c9b96;display:inline-block;padding:.5em;text-align:center;color:#3a3a37;-webkit-border-radius:.3em;border-radius:.3em;
+	background-image: -moz-linear-gradient(top, #fff, #edeaea);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #edeaea));
+}
+.tax_wrap .combine {display:none}
+.tax_wrap.di .combine {display:block}
+.tax_wrap.di .btn_c .combine {display:inline-block}
+.tax_wrap.di .divide {display:none}
+.btn_key strong {color:#dd5b07}
+
+.customer_write {overflow:hidden;display:table;table-layout:fixed;width:98%;padding:1.5% 1%}
+.customer_write.big_view {display:none}
+.customer_write .customer {display:table-cell;vertical-align:top;padding-right:1%;height:100%;position:relative}
+.customer_write .customer .hre {position:absolute;top:0;left:0;height:100%;width:98%}
+.customer_write .customer_type label {letter-spacing:-2px}
+.customer_write .customer_list {border:1px solid #9c9b96;-webkit-border-radius:.3em;border-radius:.3em;background-color:#fff;;height:85%;position:absolute;bottom:0;left:0;width:99%}
+.customer_write .customer_list ul {overflow:hidden;height:100%}
+.customer_write .customer_list ul li {float:left;width:50%;height:20%;border-bottom:1px solid #cacaca}
+.customer_write .customer_list ul li span, .customer_write .customer_list ul li a {display:block;height:100%;line-height:2.2em;padding-left:.5em;letter-spacing:-1px}
+.customer_write .customer_list ul li:nth-child(9), .customer_write .customer_list ul li:nth-child(10) {border-bottom:none}
+.customer_write .customer_list ul li:nth-child(2n) span {border-left:1px solid #cacaca}
+.customer_write .keypadw {display:table-cell;width:40%;vertical-align:top} 
+#surtax .customer_write .keypadw .keypad {padding-top:4%}
+.customer_add {margin:1%;display:table;table-layout:fixed;width:98%}
+.customer_add .cus_box {display:table-cell;width:74%;padding-right:1%}
+.customer_add .cus_box .cus {border:1px solid #60a7a7;background-color:#95c2c2;-webkit-border-radius:.3em;border-radius:.3em;border:1px solid #60a7a7;background-color:#95c2c2}
+.customer_add .cus_box dl {padding:.5em 0;display:table;width:100%;table-layout:fixed}
+.customer_add .cus_box dl+dl {padding-top:0}
+.customer_add .cus_box dl dt {display:table-cell;width:18%;color:#fff;letter-spacing:-1px;padding:0 .5em}
+.customer_add .cus_box dl dt.wm {width:28%;padding-left:0}
+.customer_add .cus_box dl dd {display:table-cell;padding:0 .5em 0 0}
+.customer_add .cus_box dl dd.wm {width:20%}
+.customer_add .cus_box dl input[type="text"], .customer_add .cus_box dl input[type="tel"] {border:none;width:100%;padding:0 !important}
+.customer_add .cus_btn {display:table-cell;width:25%;position:relative;border:1px solid #9c9b96;text-align:center;vertical-align:middle;-webkit-border-radius:.3em;border-radius:.3em;font-weight:bold;cursor:pointer;
+	background-image: -moz-linear-gradient(top, #fff, #edebeb);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #fff),color-stop(1, #edebeb));
+}
+.customer_add.big_view {display:block;overflow:hidden;text-align:right}
+.customer_add.big_view .cus_box {display:none}
+.customer_add.big_view .cus_btn {display:inline-block;width:30%;padding:.5em;margin-top:.3em}
+.customer_add.big_view .cus_btn span.sv {display:inline-block}
+.customer_add.big_view .cus_btn span.sb {display:none}
+.customer_add .cus_btn span {display:inline-block}
+.customer_add .cus_btn span.sv {display:none}
+.customer_add .cus_btn * {vertical-align:middle}
 
 /* 배달 */
 .delivery_map .btn_c {margin-top:1em}
@@ -939,6 +1031,8 @@ i {display:inline-block;overflow:hidden}
 .btn_01.bigs i {background:url('../images/ico/ico_view.png') no-repeat -14px 0;background-size:auto 16px;height:16px;width:14px;margin:-1px 2px 0 0}
 .ish {background:url('../images/ico/ico_sh2.png') no-repeat 0 0;background-size:auto 19px;width:16px;height:19px;position:relative;top:-.1em}
 .iadd {background:url('../images/ico/ico_add.png') no-repeat 0 0;background-size:auto 11px;width:11px;height:11px;position:relative;top:-.15em}
+.customer_add .cus_btn i {background:url('../images/ico/ico_view.png') no-repeat -14px 0;background-size:auto 16px;height:16px;width:14px;margin:-1px 4px 0 0;display:inline-block}
+.customer_add.big_view .cus_btn i {background-position:0 0}
 
 /* input */
 input[type="radio"], input[type="checkbox"] {width:20px;height:20px;vertical-align:middle}
@@ -1169,6 +1263,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	/*text-shadow:1px 1px 3px #000;*/
 }
 .keypad ul li a span {display:block;height:33px;line-height:33px;box-shadow:0 1px 0 0 #b1b6bc inset;-webkit-border-radius:.2em;border-radius:.2em}
+.keypad ul li a span.ts {font-size:14px}
 .keypad ul li:nth-child(3n+1) {margin-left:0}
 .keypad ul li:nth-child(3n){margin-right:0}
 .keypad ul li a span i {display:inline-block;width:24px;height:22px;background:url('../images/ico/ico_back.png') no-repeat 0 0;background-size:24px auto;margin-top:.22em}
@@ -1251,6 +1346,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.admin_list .discount_admin ul li input[type="number"] {width:60%}
 	.time_admin .btn_ud.bdown ul li a {left:45%}
 	.tax_step .step_dl dl dd p label {padding-right:.6em}
+	.ratio_in .ratio_data dl dt {font-size:14px}
 }
 @media screen and (min-width:760px){
 	#surtax .topbtn.btn_home2 {background-position:-268px -58px}
@@ -1416,6 +1512,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.mv_box .mv_data.share {background-size:26px auto}
 
 	.tax_step .step_tit {padding:.85em .3em}
+	.ratio_in .ratio_data dl dt {font-size:28px}
 
 	.btn_fl a {margin-right:8px}
 	.btn_fr a {margin-left:8px}
@@ -1450,6 +1547,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.memo_list table td a {background-size:38px auto;height:60px;line-height:60px;padding-right:50px}
 	.ish {background-size:auto 38px;width:32px;height:38px}
 	.iadd {background-size:auto 22px;width:22px;height:22px}
+	.customer_add .cus_btn i {background-position:-28px 0;background-size:auto 32px;height:32px;width:28px;margin:-1px 8px 0 0}
 
 	.pos_top .top02 .btn_fr input[type="text"] {width:60px !important}
 	input[type="radio"], input[type="checkbox"] {width:40px;height:40px}
@@ -1484,6 +1582,7 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.keypad ul li a span {height:66px;line-height:66px;box-shadow:0 2px 0 0 #b1b6bc inset}
 	.keypad ul li a {font-size:48px;height:66px;line-height:66px);box-shadow:0 2px 2px 2px #1b1d1f}
 	.keypad ul li a span i {width:48px;height:44px;background-size:48px auto}
+	.keypad ul li a span.ts {font-size:28px}
 
 	.name_shw .name_choice ul li a {height:60px;line-height:60px;box-shadow:0 2px 2px 2px #68696d}
 	.name_shw .guest_list ul li a {height:60px;line-height:60px}
@@ -1557,6 +1656,8 @@ input.in_brown {border:2px solid #a68864;background-color:#f2eee2;font-weight:bo
 	.tax_step .step_dl dl dd.pdr input {margin-right:3.2em}
 	.tax_step .step_dl dl dd p {padding-left:.7em}
 	.tax_step .step_dl dl.bgblue {font-size:28px}
+
+	.customer_write .customer_list ul li span, .customer_write .customer_list ul li a {line-height:2.8em}
 }
 
 /* 임시 */
