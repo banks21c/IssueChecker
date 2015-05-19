@@ -41,12 +41,12 @@ window.bapdosa.order = (function() {
 	var selCategoryId;
 	var orderArea;
 	var mOrderAreaFirst;
-	var isDiscount = false;
+	//var isDiscount = false;
 	
 	var mDcTimezoneSet;	//할인시간대설정값
 	var mLunchTimezoneSet;	//점심시간할인대설정값
-	var mIsDcPrice = false;
-	var mIsLunchTime = false;
+	var mIsDcPrice = false;	//할인시간대flag
+	var mIsLunchTime = false;	//점심시간대flag
 	
 	var customerSearchInfo = {
 		currentPage: 1,
@@ -93,7 +93,7 @@ window.bapdosa.order = (function() {
 		
 		//주문된 요소 선택시
 		orderArea.on("click", "tr", function() {
-            console.log($(this).attr("menuId"));            
+            //console.log($(this).attr("menuId"));            
             $(this).addClass("active").siblings().removeClass("active");
         });
 		
@@ -103,7 +103,7 @@ window.bapdosa.order = (function() {
 			
 			var selOrderDetail = orderArea.children("tr.active");
 			if(selOrderDetail.length >= 1){
-				console.log(selOrderDetail);
+				//console.log(selOrderDetail);
 				countAddMenu(selOrderDetail.attr("orderDetailId"));
 				displayTotal();
 			} else {
@@ -185,7 +185,7 @@ window.bapdosa.order = (function() {
 		$("#add_fre_form input[name=isContact]").change(function(e){
 			e.preventDefault();
 			var checked = $(this).prop("checked");
-			console.log(checked);
+			//console.log(checked);
 			
 			if(checked){
 				$("#add_fre .fre_addition dl:eq(0)").show();
@@ -197,7 +197,7 @@ window.bapdosa.order = (function() {
 		$("#add_fre_form input[name=isCredit]").change(function(e){
 			e.preventDefault();
 			var checked = $(this).prop("checked");
-			console.log(checked);
+			//console.log(checked);
 			
 			if(checked){
 				$("#add_fre .fre_addition dl:eq(1)").show();
@@ -210,7 +210,7 @@ window.bapdosa.order = (function() {
 		$("#add_fre_form input[name=isDeposit]").change(function(e){
 			e.preventDefault();
 			var checked = $(this).prop("checked");
-			console.log(checked);
+			//console.log(checked);
 			
 			if(checked){
 				$("#add_fre .fre_addition dl:eq(2)").show();
@@ -292,7 +292,7 @@ window.bapdosa.order = (function() {
 			var success = function(returnJsonVO){
 				var returnObj = returnJsonVO.returnObj;
 				
-				console.log(returnObj);
+				//console.log(returnObj);
 				
 				if(returnObj){
 					
@@ -331,7 +331,7 @@ window.bapdosa.order = (function() {
 		//단골고객이름클릭시 
 		$(".class-event-search-select-customer").on("click", "a.class-event-customer-select", function(e){
 			e.preventDefault();
-			console.log($(this).attr("customerId"));
+			//console.log($(this).attr("customerId"));
 			
 			displayCustomerInfo($(this).attr("customerId"));
 //			$(".fre_pop").hide();
@@ -343,7 +343,7 @@ window.bapdosa.order = (function() {
 		//검색어 입력시
 		$("#fre_pop_customer_search input[name=searchName]").on("input", function(e){
 			
-			console.log($(this).val());
+			//console.log($(this).val());
 			
 			var search = $.trim($(this).val());
 			
@@ -362,7 +362,7 @@ window.bapdosa.order = (function() {
 				}
 			} else {
 				if(search.length > 1){
-					console.log(search.substring(search.length-1));
+					//console.log(search.substring(search.length-1));
 					
 					var lastLetter = search.substring(search.length-1);
 					
@@ -374,7 +374,7 @@ window.bapdosa.order = (function() {
 						searchCustomerList();						
 					}
 					
-					console.log(window.bapdosa.util.isInitialLetter(lastLetter));
+					//console.log(window.bapdosa.util.isInitialLetter(lastLetter));
 				} else {
 					customerSearchInfoInit(3);
 					searchCustomerList();
@@ -419,12 +419,10 @@ window.bapdosa.order = (function() {
 		
 		//고객주문 버튼클릭
 		$(".class-event-customer-request").click(function(e){
-			e.preventDefault();
-			
-			
+			e.preventDefault();			
 			
 			var orderAreaList = orderArea.children("tr");
-			console.log("orderAreaList.size(): " + orderAreaList.size());
+			//console.log("orderAreaList.size(): " + orderAreaList.size());
 			if(orderAreaList.size() == 0){
 				alert("선택한 메뉴가 없습니다.");
 				return false;
@@ -447,14 +445,14 @@ window.bapdosa.order = (function() {
 					var flag = true;
 					$.each(orderAreaList, function(i2,obj2){	
 						//console.log(obj2);
-						console.log($(obj).attr("orderDetailId") + " : " + $(obj2).attr("orderDetailId"));
+						//console.log($(obj).attr("orderDetailId") + " : " + $(obj2).attr("orderDetailId"));
 						//console.log(($(obj).attr("orderDetailId") || "").startsWith("temp_"));
 						if( ($(obj2).attr("orderDetailId") || "").startsWith("temp_") ){
-							console.log("startsWith(temp_) ");
+							//console.log("startsWith(temp_) ");
 							flag = true;
 							return true;							
 						} else if($(obj).attr("orderDetailId") == $(obj2).attr("orderDetailId")){		
-							console.log($(obj).children("td:eq(1)").text() + " : " + $(obj2).children("td:eq(1)").text());
+							//console.log($(obj).children("td:eq(1)").text() + " : " + $(obj2).children("td:eq(1)").text());
 							if($(obj).children("td:eq(1)").text() == $(obj2).children("td:eq(1)").text()){
 								flag = false;
 								//return false;
@@ -465,14 +463,14 @@ window.bapdosa.order = (function() {
 						}				
 					});	
 					
-					console.log("flag: " + flag);
+					//console.log("flag: " + flag);
 					if(flag){
 						isDiffFlag = true;
 						return false;
 					}					
 				});	
 				
-				console.log("isDiffFlag:" + isDiffFlag);
+				//console.log("isDiffFlag:" + isDiffFlag);
 				
 				if(isDiffFlag){					
 					var afterurl = "/pos/memo/customerRequest.do?tableId=" + mTableId;
@@ -517,17 +515,17 @@ window.bapdosa.order = (function() {
 		var initialLetter =  $(".class-event-search-select-button li a.active > span").attr("title") || "";
 		var searchName = $.trim($("#fre_pop_customer_search input[name=searchName]").val() || "");
 		
-		console.log("orderBy: " + orderBy + ", initialLetter: " + initialLetter + ", searchName:" + searchName);
+		//console.log("orderBy: " + orderBy + ", initialLetter: " + initialLetter + ", searchName:" + searchName);
 
 		var url="/pos/customer/getCustomerList.json";
 		var param="searchName=" + searchName + "&orderBy=" + orderBy + "&initialLetter=" + initialLetter + "&page=" + page + "&unitCount=" + unitCount + "&notNoName=" + notNoName;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			console.log(returnObj);
+			//console.log(returnObj);
 			var customerMapList = returnObj.customerMapList;
 			var customerArea = $(".class-event-search-select-customer");
 			$(customerMapList).each(function(i,obj){
-				console.log(obj);
+				//console.log(obj);
 				//<li><a href="#">김치과</a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li>
 				//<li><a href="#">세무그룹정명 <strong class="tc">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 외상인 경우 -->
 				//<li><a href="#">세무그룹 <strong class="ty">17</strong></a><a href="#guest_detail" class="btn_go2" title="자세히보기" data-rel="popup" data-position-to="window" data-transition="pop"></a></li><!-- 예치금인 경우 -->
@@ -599,7 +597,7 @@ window.bapdosa.order = (function() {
 		
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;			
-			console.log(returnObj);
+			//console.log(returnObj);
 			
 			if(returnObj){				
 				mCustomerId = returnObj.CUSTOMERID;
@@ -641,7 +639,7 @@ window.bapdosa.order = (function() {
 				customerArea.append(addInfo);
 				
 				
-				console.log("ok");
+				//console.log("ok");
 				
 			}
 		};
@@ -674,14 +672,14 @@ window.bapdosa.order = (function() {
 					originalPrice = takeoutPrice; 
 					discountPrice = takeoutPrice;
 					//할인시간대이면
-					if(isDiscount){
+					if(mIsDcPrice){
 						discountPrice = takeoutDiscount;
 					}					
 				} else {
 					originalPrice = storePrice;
 					discountPrice = storePrice;
 					//할인시간대이면
-					if(isDiscount){
+					if(mIsDcPrice){
 						discountPrice = storeDiscount;
 					}					
 				}				
@@ -725,7 +723,7 @@ window.bapdosa.order = (function() {
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
 			
-			console.log(returnObj);
+			//console.log(returnObj);
 			
 			if(afterurl){
 				var returnUrl = document.location.href;
@@ -776,8 +774,7 @@ window.bapdosa.order = (function() {
 	
 	function setOrderDetailPriceSync(selArea){		
 		var orderCount = parseInt(selArea.find("td:eq(1)").text());		
-		var originalPrice = 0;
-		var discountPrice = 0; 
+		var displaylPrice = 0;
 		var takeoutPrice =  parseInt(selArea.attr("takeoutPrice"));
 		var storePrice =  parseInt(selArea.attr("storePrice"));
 		var takeoutDiscount =  parseInt(selArea.attr("takeoutDiscount"));
@@ -786,26 +783,24 @@ window.bapdosa.order = (function() {
 		var isTakeout = selArea.attr("isTakeout") || "";		
 					
 		if(isTakeout == "Y"){
-			originalPrice = takeoutPrice; 
-			discountPrice = takeoutPrice;
+			displaylPrice = takeoutPrice; 
 			//할인시간대이면
-			if(isDiscount){
-				discountPrice = takeoutDiscount;
+			if(mIsDcPrice){
+				displaylPrice = takeoutDiscount;
 			}			
 		} else {
-			originalPrice = storePrice;
-			discountPrice = storePrice;
+			displaylPrice = storePrice;
 			//할인시간대이면
-			if(isDiscount){
-				discountPrice = storeDiscount;
+			if(mIsDcPrice){
+				displaylPrice = storeDiscount;
 			}				
 		}
 		
 		if(isService == "Y"){
-			discountPrice = 0;
+			displaylPrice = 0;
 		}
 		selArea.find("td:eq(1)").text(orderCount);
-		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(discountPrice * orderCount));			
+		selArea.find("td:eq(3)").text(window.bapdosa.util.setComma(displaylPrice * orderCount));			
 	}
 	
 	//total개수, 합계금액 계산
@@ -847,7 +842,7 @@ window.bapdosa.order = (function() {
 				var categoryMenuList = categoryObj.categoryMenuList;
 				
 				$(categoryMenuList).each(function(c_index, menuObj){
-					console.log(menuObj);
+					//console.log(menuObj);
 					if(menuObj.ISHIDDEN == "Y"){
 						return;
 					}
@@ -889,6 +884,7 @@ window.bapdosa.order = (function() {
 		}
 	}	
 	
+	//메뉴선택하여 주문처리
 	function orderMenu(categoryId, menuId, orderDetailId){
 		var now_hm = moment().format('h:mm');
 		var selMenuObj ;
@@ -901,7 +897,7 @@ window.bapdosa.order = (function() {
 			var orderFlag = true;
 			orderArea.children("tr").each(function(i){				
 				if($(this).attr("newFlag") == "Y" && $(this).attr("categoryId") == categoryId && $(this).attr("menuId") == menuId){
-					console.log($(this).attr("orderDetailId"));
+					//console.log($(this).attr("orderDetailId"));
 					countAddMenu($(this).attr("orderDetailId"));
 					orderFlag = false;
 					return false;
@@ -929,9 +925,13 @@ window.bapdosa.order = (function() {
 					
 					//var displayPrice = selMenuObj.STOREPRICE;
 					var displayPrice = selMenuObj.STOREPRICE;
-//					if(isPriceDiffer == "Y"){
-//						displayPrice = selMenuObj.STOREPRICE;
-//					}
+					
+					
+					if(mIsDcPrice){
+						displayPrice = selMenuObj.STOREPRICE * ((100-selMenuObj.STOREDISCOUNT)/100);
+					}
+					
+					console.log("selMenuObj.STOREDISCOUNT: " + selMenuObj.STOREDISCOUNT);
 					
 					var td1 = $("<td>").addClass("a_tl")
 					 				   .text(selMenuObj.NAME);
@@ -956,8 +956,8 @@ window.bapdosa.order = (function() {
 						menuName: selMenuObj.NAME,
 						storePrice: selMenuObj.STOREPRICE,
 						takeoutPrice: selMenuObj.TAKEOUTPRICE,
-						storeDiscount: selMenuObj.STOREPRICE * (selMenuObj.STOREDISCOUNT/100),
-						takeoutDiscount: selMenuObj.TAKEOUTPRICE * (selMenuObj.TAKEOUTDISCOUNT/100),
+						storeDiscount: selMenuObj.STOREPRICE * ((100-selMenuObj.STOREDISCOUNT)/100),
+						takeoutDiscount: selMenuObj.TAKEOUTPRICE * ((100-selMenuObj.TAKEOUTDISCOUNT)/100),
 						isService: selCategoryIsService,
 						isTakeout: "N",
 						newFlag: "Y"
@@ -996,13 +996,13 @@ window.bapdosa.order = (function() {
 			isPriceDiffer = returnObj.isPriceDiffer;
 			isDPdiffer = returnObj.isDPdiffer;
 			categoryInfoList = returnObj.categoryJsonList;
-			console.log(categoryInfoList);
+			//console.log(categoryInfoList);
 			
 			mDcTimezoneSet = returnObj.dcTimezoneSet;
 			mLunchTimezoneSet = returnObj.lunchTimezoneSet;
 
 			$(categoryInfoList).each(function(index,obj){
-				console.log(obj);
+				//console.log(obj);
 				if(index < 4){
 					var selLi = $("#order-page .class-category-area > li:eq(" + index + ")");
 					
@@ -1037,11 +1037,15 @@ window.bapdosa.order = (function() {
 		console.log("ISUSEDTIME" + nowWeek + ": " + timezoneSet["ISUSEDTIME" + nowWeek]);
 		console.log("STARTTIME" + nowWeek + ": " + timezoneSet["STARTTIME" + nowWeek]);
 		console.log("ENDTIME" + nowWeek + ": " + timezoneSet["ENDTIME" + nowWeek]);
-		
+		var returnVal = false;
 	
-//		if(timezoneSet["ISUSEDTIME" + nowWeek] == 'Y'){
-//			if(nowHHMM > timezoneSet["STARTTIME" + nowWeek] && )
-//		}
+		if(timezoneSet["ISUSEDTIME" + nowWeek] == 'Y'){
+			if(nowHHMM >= timezoneSet["STARTTIME" + nowWeek] &&  nowHHMM  <= timezoneSet["ENDTIME" + nowWeek]){
+				returnVal = true; 
+			}
+		}
+		
+		return returnVal;
 		
 	}
 	
@@ -1050,6 +1054,7 @@ window.bapdosa.order = (function() {
 		if(!mOrderId){
 			var nowHHMM = moment().format('HHmm');
 			var nowWeek = moment().format('E');			
+			
 			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
 			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);
 			
@@ -1060,9 +1065,15 @@ window.bapdosa.order = (function() {
 		var param="tableId=" + mTableId + "&orderId=" + mOrderId;
 		var success = function(returnJsonVO){
 			var returnObj = returnJsonVO.returnObj;
-			console.log(returnObj);
+			//console.log(returnObj);
 			var orderDetailList = returnObj.orderDetailList;
 			var orderInfoObj = returnObj.orderInfo;
+			//var startSalesDate = orderInfoObj.STARTSALESDATE;
+			var nowHHMM = moment(orderInfoObj.CREATIONDATE).format('HHmm');
+			var nowWeek = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('E');
+			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
+			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);				
+			
 			$(orderDetailList).each(function(index,obj){
 				//console.log(obj);
 				addOrder(obj);
@@ -1073,13 +1084,7 @@ window.bapdosa.order = (function() {
 			if(orderInfoObj.CUSTOMERID){
 				mIsFirstCustomer = true;
 				displayCustomerInfo(orderInfoObj.CUSTOMERID);
-			}
-			
-			var startSalesDate = orderInfoObj.STARTSALESDATE;
-			var nowHHMM = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('HHmm');
-			var nowWeek = moment(orderInfoObj.STARTSALESDATE, "YYYYMMDD").format('E');
-			mIsDcPrice = isTimeZoneCheck(nowHHMM, nowWeek, mDcTimezoneSet);
-			mIsLunchTime = isTimeZoneCheck(nowHHMM, nowWeek, mLunchTimezoneSet);			
+			}		
 			
 			mOrderAreaFirst = orderArea.clone();
 			
@@ -1150,8 +1155,8 @@ window.bapdosa.order = (function() {
 				menuName: orderObj.MENUNAME,
 				storePrice: isTakeout == 'Y' ? selMenuObj.STOREPRICE : orderObj.ORIGINALPRICE,
 				takeoutPrice: isTakeout == 'Y' ? orderObj.ORIGINALPRICE : selMenuObj.TAKEOUTPRICE,
-				storeDiscount: isTakeout == 'Y' || selCategoryIsService == 'Y' ? selMenuObj.STOREDISCOUNT : orderObj.DISCOUNTPRICE,
-				takeoutDiscount: isTakeout == 'Y' ? selCategoryIsService == 'Y' ? selMenuObj.TAKEOUTDISCOUNT: orderObj.DISCOUNTPRICE : selMenuObj.TAKEOUTDISCOUNT,
+				storeDiscount: isTakeout == 'Y' || selCategoryIsService == 'Y' ? selMenuObj.STOREPRICE * (100-selMenuObj.STOREDISCOUNT)/100 : orderObj.DISCOUNTPRICE,
+				takeoutDiscount: isTakeout == 'Y' ? selCategoryIsService == 'Y' ? selMenuObj.TAKEOUTPRICE * (100-selMenuObj.TAKEOUTDISCOUNT)/100: orderObj.DISCOUNTPRICE : selMenuObj.TAKEOUTPRICE * (100-selMenuObj.TAKEOUTDISCOUNT)/100,
 				isService: selCategoryIsService,
 				isTakeout: isTakeout,
 				newFlag: "N"
@@ -1175,7 +1180,7 @@ window.bapdosa.order = (function() {
 		var param="tableId=" + mTableId;
 		var success = function(returnJsonVO){
 			var tableInfoObj = returnJsonVO.returnObj;
-			console.log(tableInfoObj);
+			//console.log(tableInfoObj);
 			
 			$("#order-page .class-area-table-name").text(tableInfoObj.TABLENAME)
 			
@@ -1195,6 +1200,11 @@ window.bapdosa.order = (function() {
 			);			
 			
 			displayTableInfo();
+		},
+	
+		mVarInfo: function(){		
+			console.log("mIsDcPrice: " + mIsDcPrice);
+			console.log("mIsLunchTime: " + mIsLunchTime);
 		}
 	}   
 })();
