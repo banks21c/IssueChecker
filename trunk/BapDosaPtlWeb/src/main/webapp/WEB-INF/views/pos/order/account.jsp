@@ -207,20 +207,22 @@ $(document).ready(function() {
 			<div class="credit_write">
 				<dl>
 					<dt class="w02">직접입력</dt>
-					<dd><input type="number" id="" data-role="none" class="wp70" /> %</dd>
+					<dd><input type="tel" name="directDcRate" data-role="none" class="wp70" /> %</dd>
 				</dl>
 			</div>
 			<div class="menu_list">
 				<ul>
-					<li><input type="radio" id="discountL_01" name="discountL" /><label for="discountL_01">할인없음</label></li>
+					<li><input type="radio" id="discountL_0" name="discountRate" value="0" checked/><label for="discountL_0">할인없음</label></li>
+					<!-- 
 					<li><input type="radio" id="discountL_02" name="discountL" /><label for="discountL_02">3%</label></li>
 					<li><input type="radio" id="discountL_03" name="discountL" /><label for="discountL_03">5%</label></li>
 					<li><input type="radio" id="discountL_04" name="discountL" /><label for="discountL_04">7%</label></li>
 					<li><input type="radio" id="discountL_05" name="discountL" /><label for="discountL_05">10%</label></li>
+					-->
 				</ul>
 			</div>
 			<div class="btn_c line">
-				<a href="#" class="btn_blue">확인</a><a href="#" class="btn_white" data-rel="back">취소</a>
+				<a href="#" class="btn_blue class-event-dcrate-save">확인</a><a href="#" class="btn_white" data-rel="back">취소</a>
 			</div>
 		</div>
 	</div>

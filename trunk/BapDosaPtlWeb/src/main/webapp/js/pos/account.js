@@ -381,7 +381,25 @@ window.bapdosa.account = (function() {
 			};
 			commonAjaxCall(url, param, success);			
 		});
+		
+		//할인률 선택
+		$("#discount_pop .class-event-dcrate-save").click(function(e){
+			e.preventDefault();			
+			var selVal = $("#discount_pop input[name=discountRate]:checked").val() || 0;
+			//console.log(selVal);
+			adjustDcRate(selVal);
+		});
 
+	}
+	
+	//할인률을 적용한다.
+	function adjustDcRate(selVal){
+		var foodPrice = parseInt(window.bapdosa.util.getNumberOnly($("#form_account input[name=foodPrice]").val() || "0"));
+		
+		var discountFoodPrice = foodPrice * parseInt(selVal) / 100;
+		$("#form_account input[name=discountAmount]").val(window.bapdosa.util.setComma(discountFoodPrice)).trigger('input');
+		
+		$("#discount_pop").popup("close");
 	}
 	
 	//거스름돈과 더받을돈을 계산하여 입력한다.
@@ -663,16 +681,16 @@ window.bapdosa.account = (function() {
 				}	
 				
 				if(index == 0){
-					mOrderName = obj.MENU_NAME;
-					orderListStr = preStr + obj.MENU_NAME + "(" + obj.QUANTITY + ")";
+					mOrderName = obj.MENUNAME;
+					orderListStr = preStr + obj.MENUNAME + "(" + obj.QUANTITY + ")";
 				} else {
 					if(index == 1){
 						mOrderName += " 외";
 					}
-					orderListStr += " " + preStr + obj.MENU_NAME + "(" + obj.QUANTITY + ")"
+					orderListStr += " " + preStr + obj.MENUNAME + "(" + obj.QUANTITY + ")"
 				}
 				
-				totalPrice += obj.DISCOUNTPRICE;
+				totalPrice += (obj.DISCOUNTPRICE * obj.QUANTITY);
 			});	
 			
 			mFoodPrice = totalPrice;
@@ -703,6 +721,37 @@ window.bapdosa.account = (function() {
 			
 		};
 		commonAjaxCall(url, param, success);		
+	}	
+	
+	
+	function displayDiscountRate(){
+		var url="/pos/setting/getPointDcList.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var pointDcList = returnJsonVO.returnObj.pointDcList;
+			
+			$(pointDcList).each(function(i,obj){
+				console.log(obj);
+				$("<li>").append(
+								$("<input>", {
+									type:'radio',
+									id:'discount_0' + i,
+									name:'discountRate',
+									value: obj.SETTINGVALUE
+									
+								})
+						).append(
+								$("<label>").attr("for", "discount_0" + i).text(obj.SETTINGVALUE + "%")
+						).appendTo("#discount_pop .menu_list ul")
+			});
+			
+			//<li><input type="radio" id="discountL_02" name="discountRate" /><label for="discountL_02">3%</label></li>
+			
+			//$("#discount_pop input[name=discountRate]").checkboxradio("refresh");
+			//$("#discount_pop .menu_list ul").listview('refresh');
+			$("#discount_pop .menu_list ul").trigger('create');
+		};
+		commonAjaxCall(url, param, success);		
 	}		
 	
 	return {
@@ -711,6 +760,7 @@ window.bapdosa.account = (function() {
 
 			getOrderInfoList();
 			displayTableInfo();
+			displayDiscountRate();
 		}
 	}   
 })();
