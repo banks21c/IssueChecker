@@ -1007,7 +1007,7 @@ window.bapdosa.order = (function() {
 			//console.log("mIsLunchTime: " + mIsLunchTime);
 			//점심메뉴 앞으로
 			if(mIsLunchTime){
-				var spliceObjArr = categoryInfoList.splice(4,1);	//5번째부터 1개요소 삭제
+				var spliceObjArr = categoryInfoList.splice(4,1);	//5번째부터 1개요소(점심메뉴) 삭제
 				categoryInfoList.unshift(spliceObjArr[0]);			//삭제된요소중 첫번째요소 앞단에 삽입
 				//console.log(categoryInfoList);
 			}
