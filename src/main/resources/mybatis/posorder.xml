@@ -450,7 +450,7 @@
 			<if test="originalPrice != null and originalPrice != '' ">
 			,ORIGINALPRICE = #{originalPrice}
 			</if>
-			<if test="discountPrice != null and discountPrice != '' ">
+			<if test='discountPrice != null'>
             ,DISCOUNTPRICE = #{discountPrice} 
             </if>
             <if test="isService != null and isService != '' ">

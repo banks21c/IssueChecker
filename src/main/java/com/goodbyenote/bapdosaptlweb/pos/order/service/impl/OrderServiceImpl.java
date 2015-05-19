@@ -164,6 +164,7 @@ public class OrderServiceImpl implements OrderService {
 					Map selMap = orderDAO.selectOrderDetail(orderData);
 					
 					if(selMap != null){
+						System.out.println(orderData);
 						orderDAO.updateOrderDetail(orderData);
 					}
 					

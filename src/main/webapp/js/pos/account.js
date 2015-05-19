@@ -384,13 +384,105 @@ window.bapdosa.account = (function() {
 		
 		//할인률 선택
 		$("#discount_pop .class-event-dcrate-save").click(function(e){
-			e.preventDefault();			
+			e.preventDefault();		
+			var directDcRate = $.trim($("#discount_pop input[name=directDcRate]").val() || "");
 			var selVal = $("#discount_pop input[name=discountRate]:checked").val() || 0;
 			//console.log(selVal);
+			if(directDcRate){
+				selVal = directDcRate;
+			}
 			adjustDcRate(selVal);
+		});
+		
+		//주문상세 팝업
+		$("#account-page .class-area-order-list").click(function(e){
+			e.preventDefault();
+			getOrderInfoDetail();
+			$("#order_pop").popup("open");
 		});
 
 	}
+	
+	//주문상세 내용
+	function getOrderInfoDetail(){		
+		
+		var url="/pos/order/getOrderInfoList.json";
+		var param="tableId=" + mTableId + "&orderId=" + mOrderId;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			//console.log(returnObj);
+			var orderDetailList = returnObj.orderDetailList;
+			var orderArea = $("#order_pop table tbody").empty();
+			$(orderDetailList).each(function(index,obj){
+				//console.log(obj);
+				addOrder(obj, orderArea);
+			});	
+			
+			displayTotal(orderArea);
+			
+		};
+		commonAjaxCall(url, param, success);
+	}
+	
+	//total개수, 합계금액 계산
+	function displayTotal(orderArea){
+		var orderAreaList = orderArea.children("tr");
+		var sumPrice = 0;
+		orderAreaList.each(function(i){				
+			var orderCount = parseInt($(this).find("td:eq(1)").text());
+			var orderPrice = parseInt(window.bapdosa.util.getNumberOnly($(this).find("td:eq(3) span:not('.dis')").text()));
+
+			sumPrice += orderPrice;
+		});	
+		
+		$("#order_pop table tfoot .price").text(window.bapdosa.util.setComma(sumPrice));
+		$("#order_pop .pop_total > span").text(orderAreaList.size());
+	}	
+	
+	function addOrder(orderObj, orderArea){
+		var orderDetailId = orderObj.ORDERDETAILID;
+		var categoryId = orderObj.CATEGORYID;
+		var menuId = orderObj.MENUID;
+		var now_hm = orderObj.CREATIONDATE.hours + ":" + orderObj.CREATIONDATE.minutes;
+		var originalPrice = orderObj.ORIGINALPRICE;
+		var discountPrice = orderObj.DISCOUNTPRICE;
+			
+//			<tr>
+//			<td class="a_tl"><strong>소갈비 - 한우</strong></td>
+//			<td>3</td>
+//			<td>16:43</td>
+//			<td class="price"><span class="dis">60,000</span><span>50,000</span></td>
+//			</tr>			
+			
+			var td1 = $("<td>").addClass("a_tl")
+			 				   .append($("<strong>").text(orderObj.MENUNAME));
+			
+			
+			
+			
+			var tr = $("<tr>").append(td1)
+							  .append(
+									  $("<td>").text(orderObj.QUANTITY)	
+							  ).append(
+								$("<td>").text(now_hm)
+							  );
+			
+//			.append(
+//				$("<td>").addClass("price")
+// 				   		 .append(window.bapdosa.util.setComma(displayPrice*orderObj.QUANTITY))
+//			);
+			
+			var td4 = $("<td>").addClass("price");
+			if(originalPrice == discountPrice){
+				td4.append($("<span>").text(window.bapdosa.util.setComma(discountPrice*orderObj.QUANTITY)));
+			} else {
+				td4.append($("<span>").addClass("dis").text(window.bapdosa.util.setComma(originalPrice*orderObj.QUANTITY)))
+				   .append($("<span>").text(window.bapdosa.util.setComma(discountPrice*orderObj.QUANTITY)));				
+			}
+			tr.append(td4);
+			
+			tr.appendTo(orderArea);
+	}	
 	
 	//할인률을 적용한다.
 	function adjustDcRate(selVal){
