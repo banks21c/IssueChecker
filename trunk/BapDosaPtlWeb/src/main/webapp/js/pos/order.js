@@ -712,7 +712,7 @@ window.bapdosa.order = (function() {
 		};
 		
 		orderObjJson = JSON.stringify(orderObj);			
-		//console.log(JSON.stringify(orderObj));
+		console.log(JSON.stringify(orderObj));
 		orderSave(orderObjJson, afterurl);		
 	}
 	

@@ -250,6 +250,60 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<!--e: 알림 팝업 -->
+	
+	<!-- s: 주문 팝업 -->
+	<div data-role="popup" id="order_pop" data-overlay-theme="b" data-theme="a" data-dismissible="false">
+		<div data-role="header" data-theme="a">
+			<h1>주문조회</h1>
+			<a href="#" data-rel="back" data-role="none" class="close ui-btn-right"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<div class="list maxh">
+				<table>
+					<colgroup>
+						<col width="*" />
+						<col width="7%" />
+						<col width="17%" />
+						<col width="25%" />
+					</colgroup>
+					<tbody>
+						<!-- 
+						<tr>
+							<td class="a_tl"><strong>소갈비 - 한우</strong></td>
+							<td>3</td>
+							<td>16:43</td>
+							<td class="price"><span class="dis">60,000</span><span>50,000</span></td>
+						</tr>
+						<tr>
+							<td class="a_tl"><strong>양념갈비 - 한우</strong></td>
+							<td>3</td>
+							<td>16:43</td>
+							<td class="price"><span>36,000</span></td>
+						</tr>
+						<tr>
+							<td class="a_tl"><strong>소갈비 - 한우</strong></td>
+							<td>6</td>
+							<td>16:43</td>
+							<td class="price"><span>120,000</span></td>
+						</tr>
+						 -->
+					</tbody>
+					<tfoot>
+						<tr>
+							<td class="a_tl">합계</td>
+							<td class="price" colspan="3">78,000</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<p class="pop_total">total : <span>10</span></p>
+			<div class="btn_c">
+				<a href="#" class="btn_blue" data-rel="back">확인</a>
+				<!-- <a href="#" class="btn_white">수정</a> -->
+			</div>
+		</div>
+	</div>
+	<!--e: 주문 팝업 -->	
 </div>
 </body>
 </html> 
