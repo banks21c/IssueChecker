@@ -151,7 +151,56 @@
 			MEMBERID = #{memberid}			
 			AND DEVICEID = #{deviceid}
 			AND SETTINGKEY = 'CC00002400'
-    </select>               
+    </select>
+    
+    <select id="getbuildingList" resultType="map">
+        /* possetting.getbuildingList */
+		SELECT
+			  MEMBERID
+			 ,DEVICEID
+			 ,BUILDINGID
+			 ,ISAPT
+			 ,BUILDINGTYPE
+			 ,NAME
+			 ,ISDELETED
+			 ,CREATIONDATE
+			 ,MODIFICATIONDATE
+		FROM
+			  BUILDING
+		WHERE	
+			 MEMBERID = #{memberid}			
+			 AND DEVICEID = #{deviceid}	
+			 AND ISDELETED = #{isdeleted}
+		ORDER BY BUILDINGID	
+    </select> 
+    
+    <select id="getDeliveryColllectMenu" resultType="map">
+        /* possetting.getDeliveryColllectMenu */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002700'
+    </select>
+    
+    <select id="getDeliveryCustomerInfo" resultType="map">
+        /* possetting.getDeliveryCustomerInfo */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002800'
+    </select>              
 
     <update id="updateTableCount">
         /* possetting.updateTableCount */
@@ -251,6 +300,40 @@
 		WHERE  MEMBERID         = #{memberid}
 		AND    DEVICEID         = #{deviceid}		
 		AND    SETTINGKEY       = 'CC00002400'  
-    </update>      
+    </update> 
+    
+    <update id="updateBuildingList">
+        /* possetting.updateBuildingList */
+        
+		UPDATE BUILDING
+		SET    		       
+		       NAME             = #{name},
+		       ISDELETED        = #{isdeleted}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    BUILDINGID       = #{buildingid}  
+    </update>
+    
+    <update id="updateDeliveryCollectMenu">
+        /* possetting.updateDeliveryCollectMenu */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002700'  
+    </update> 
+    
+    <update id="updateDeliveryCustomerInfo">
+        /* possetting.updateDeliveryCustomerInfo */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002800'  
+    </update>       
 
 </mapper>

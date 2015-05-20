@@ -47,6 +47,21 @@ public class SettingDAO {
 		return sqlSession.selectOne("possetting.getLunchFront", parametaMap);
 	}
 	
+	public List<Map> getbuildingList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("possetting.getbuildingList", parametaMap);
+	}
+	
+	public Map getDeliveryColllectMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("possetting.getDeliveryColllectMenu", parametaMap);
+	}
+	
+	public Map getDeliveryCustomerInfo(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("possetting.getDeliveryCustomerInfo", parametaMap);
+	}
+	
 	public void updateTableCount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateTableCount", parametaMap);
@@ -80,6 +95,21 @@ public class SettingDAO {
 	public void updateLunchFront(Map parametaMap) {
 		// TODO Auto-generated method stub
 		sqlSession.update("possetting.updateLunchFront", parametaMap);
+	}
+	
+	public void updateBuildingList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateBuildingList", parametaMap);
+	}
+	
+	public void updateDeliveryCollectMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateDeliveryCollectMenu", parametaMap);
+	}
+	
+	public void updateDeliveryCustomerInfo(Map parametaMap) {
+		// TODO Auto-generated method stub
+		sqlSession.update("possetting.updateDeliveryCustomerInfo", parametaMap);
 	}
 
 }
