@@ -31,6 +31,10 @@ public interface CategoryService {
 	
 	public void updateCatePoint(Map parametaMap);
 	
+	public void updateMenuDiffer(Map parametaMap);
+	
+	public void updateDcDiffer(Map parametaMap);
+	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map parametaMap);
 	
@@ -38,7 +42,11 @@ public interface CategoryService {
 	public List<Map> getCategoryMenuJsonList(Map parametaMap);
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> getCategoryPointList(Map searchCondition);		
+	public List<Map> getCategoryPointList(Map searchCondition);
+	
+	public Map getMenuDiffer(Map parametaMap);
+	
+	public Map getDcDiffer(Map parametaMap);
 	
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo);

@@ -89,6 +89,20 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
+	public void updateMenuDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		categoryDAO.updateMenuDiffer(parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void updateDcDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		categoryDAO.updateDcDiffer(parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
 	public List<Map> getCategoryMenuList(Map searchCondition) {
 		return categoryDAO.getCategoryMenuList(searchCondition);
 	}
@@ -103,6 +117,18 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Map> getCategoryPointList(Map searchCondition) {
 		return categoryDAO.getCategoryPointList(searchCondition);
+	}
+	
+	@Override
+	public Map getMenuDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return categoryDAO.getMenuDiffer(parametaMap);
+	}
+	
+	@Override
+	public Map getDcDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return categoryDAO.getDcDiffer(parametaMap);
 	}
 	
 	@Override

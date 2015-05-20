@@ -154,6 +154,34 @@
     ORDER BY SORTORDER 
 	</select>
 	
+	<select id="getMenuDiffer" resultType="map">
+        /* possetting.getMenuDiffer */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002100'
+    </select>
+    
+    <select id="getDcDiffer" resultType="map">
+        /* possetting.getDcDiffer */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002200'
+    </select>
+	
 	<insert id="insertCateMenu" parameterType="map">
 		INSERT INTO MENU (
 		        MEMBERID,
@@ -217,5 +245,27 @@
 		AND    DEVICEID         = #{deviceid , jdbcType=NUMERIC}
 		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
 	</update>
+	
+	<update id="updateMenuDiffer">
+        /* possetting.updateMenuDiffer */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002100'  
+    </update>
+    
+    <update id="updateDcDiffer">
+        /* possetting.updateDcDiffer */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002200'  
+    </update>  
 	
 </mapper>
