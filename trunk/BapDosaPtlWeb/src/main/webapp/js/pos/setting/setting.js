@@ -188,6 +188,22 @@ window.bapdosa.setting = (function() {
 			requestSave();
 			location.reload();
 		});	
+		
+		$(".class_admin_save6").click(function(e){
+			e.preventDefault();	
+			buildingSave();			
+		});
+		
+		$(".class_admin_save7").click(function(e){
+			e.preventDefault();	
+			deliveryCollectMenuSave();			
+		});
+		
+		$(".class_admin_save8").click(function(e){
+			e.preventDefault();	
+			deliveryCustomerInfoSave();			
+		});
+		
 	}
     
     function getTableInfoList(){
@@ -601,6 +617,113 @@ window.bapdosa.setting = (function() {
 					$(".class_lunch_time_yn").find("label").eq(0).addClass("ui-radio-on").removeClass("ui-radio-off");
 					$(".class_rank_pyung li").find("input").eq(0).prop("checked", true).attr("data-cacheval" , false);
 					$(".class_lunch_wrap").show();
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getBuildingList(){
+		var dfd = new jQuery.Deferred();
+		var menuBody = $(".class_building_list");
+	    menuBody.empty();
+	    
+		var url="/pos/setting/getbuildingList.json";
+		var isdeleted = "N";
+		var param="isdeleted=" + isdeleted;
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			buildingList = returnObj.buildingList;
+			console.log("buildingList=" + buildingList);
+			
+			$(buildingList).each(function(index,obj){
+				var typetext;
+				var classtype;
+				if(obj.ISAPT == "A"){
+					typetext = "아";
+					classtype = "ico a"
+				}else if(obj.ISAPT == "V"){
+					typetext = "빌";
+					classtype = "ico bd"
+				}else if(obj.ISAPT == "S"){
+					typetext = "상";
+					classtype = "ico sg"
+				}else if(obj.ISAPT == "E"){
+					typetext = "기";
+					classtype = "ico e"
+				}
+				var li = $("<li>",{						
+					memberid : obj.MEMBERID,
+					deviceid : obj.DEVICEID,
+					buildingid : obj.BUILDINGID,
+					isapt : obj.ISAPT,
+					buildingtype : obj.BUILDINGTYPE,
+					name : obj.NAME,
+					isdeleted : obj.ISDELETED
+				}).addClass("class_building_info").append($("<input>").addClass("wp60").attr("type","text").val(obj.NAME))
+				.append("&nbsp;").append($("<span>").addClass(classtype).text(typetext)).append($("<a>" , {
+					        click : function(e){
+							e.preventDefault();
+							buildingDelete($(this).attr("id"),$(this).attr("buildingname"));
+					      }
+				     }).addClass("del ui-link").addClass("class_building_delete").attr("href","#").attr("id" , obj.BUILDINGID).attr("buildingname" , obj.NAME).text("삭제"));
+								  
+				menuBody.append(li);	
+				
+			});
+					
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getDeliveryColllectMenu(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/setting/getDeliveryColllectMenu.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			deliveryColllectMenu = returnObj.deliveryColllectMenu;
+			console.log("deliveryColllectMenu=" + deliveryColllectMenu);
+			$(deliveryColllectMenu).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002701")	{
+					$(".class_delivery_collect_menu").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+					$(".class_delivery_collect_menu").find("input").prop("checked", true).attr("data-cacheval" , false);
+				}else{
+					$(".class_delivery_collect_menu").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
+					$(".class_delivery_collect_menu li").find("input").prop("checked", false).attr("data-cacheval" , true);
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+    
+    function getDeliveryCustomerInfo(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/setting/getDeliveryCustomerInfo.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			deliveryCustomerInfo = returnObj.deliveryCustomerInfo;
+			console.log("deliveryCustomerInfo=" + deliveryCustomerInfo);
+			$(deliveryCustomerInfo).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002801")	{
+					$(".class_delivery_customer_info").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+					$(".class_delivery_customer_info").find("input").prop("checked", true).attr("data-cacheval" , false);
+				}else{
+					$(".class_delivery_customer_info").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
+					$(".class_delivery_customer_info li").find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
 			});
 			dfd.resolve( "complete.." );
@@ -1053,6 +1176,150 @@ window.bapdosa.setting = (function() {
 		 });
 		 
 	} 
+    
+    function buildingSave(){
+		 if(!confirm("저장하시겠습니까?")){
+			 return false;
+		 }
+		 
+		 $(".class_building_info").each(function(index ) {			 
+		 
+			 var memberId = $(this).attr("memberId");		 
+			 var deviceId = $(this).attr("deviceId");
+			 var buildingid = $(this).attr("buildingid");
+			 var isdeleted = $(this).attr("isdeleted");
+			 var name = $(this).find("input").val();
+			
+			 var param = "memberid=" + memberId + "&deviceid=" + deviceId + "&buildingid=" + buildingid + "&name=" + name + "&isdeleted=" + isdeleted;			 
+			 var url = "buildingUpdateOk.json";
+				
+			 if(typeof console != 'undefined'){
+				console.log("param: " + param);
+			 }
+			 $.ajax({
+				url: url,
+				type: 'post',
+				data: param,
+				dataType: "json",
+				error:function (xhr, ajaxOptions, thrownError){				
+					//alert(thrownError);
+				},
+				success:function(data){
+					if(typeof console != 'undefined'){		
+					}					
+					if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+					} else{
+						//alert(data.returnJsonVO.message);
+					}
+					location.reload();
+				}
+			 });
+		 });
+	}
+    
+    function deliveryCollectMenuSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("input[name=delivery_view]").is(":checked")){
+			 settingvalue = 'CC00002701';
+		 }else{
+			 settingvalue = 'CC00002702';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "deliveryCollectMenuUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
+    
+    function deliveryCustomerInfoSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("input[name=delivery_info_view]").is(":checked")){
+			 settingvalue = 'CC00002801';
+		 }else{
+			 settingvalue = 'CC00002802';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "deliveryCustomerInfoUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
+    function buildingDelete(id , name){
+		 if(!confirm("정말 삭제하시겠습니까?")){
+			 return false;
+		 }		 
+		 var isdeleted = "Y";		 
+		
+		 var param = "buildingid=" + id + "&name=" + name + "&isdeleted=" + isdeleted;		 
+		 var url = "buildingUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
 	
 	return {
 		init: function() {
@@ -1063,7 +1330,10 @@ window.bapdosa.setting = (function() {
 			getLunchTimeList();
 			getLunchFront();
 			getRankList2();
-			getPointDcList();			
+			getPointDcList();
+			getBuildingList();
+			getDeliveryColllectMenu();
+			getDeliveryCustomerInfo();
 		}	
 	}   
 })();
