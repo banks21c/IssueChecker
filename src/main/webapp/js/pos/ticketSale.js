@@ -54,8 +54,32 @@ window.bapdosa.ticketSale = (function() {
         
         $("#id_ticket_save").click(function(){
 			//alert($("#id_ticket_calendar").val());
+        	var calendarParam = $("#id_ticket_calendar").val();
+        	var ticketParam = $('#numpad-page .class_price_input').val();  
+        	
+        	if(calendarParam == ""){
+        		alert("날짜를 선택해주세요");
+        		return false;
+        	}
+        	if(ticketParam == ""){
+        		alert("식권판매금액을 입력해주세요");
+        		return false;
+        	}
+        	ticketSave();
+        	
 		});
-	};		
+	};
+	function ticketSave(){
+		if(!confirm("저장하시겠습니까?")){
+			return false;
+		}
+		
+		var calendarParam = $("#id_ticket_calendar").val();
+    	var calendarParam1 = calendarParam.substring(0,4);
+    	var calendarParam2 = calendarParam.substring(5,7);
+    	var calendarParam3 = calendarParam.substring(8,10);        	
+    	var ticketParam = $('#numpad-page .class_price_input').val(); 
+	}
 	
 	return{
 		
