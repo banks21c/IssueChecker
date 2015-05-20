@@ -28,9 +28,10 @@
 			<div class="change_wrap">
 				<div class="change_in">
 					<p class="day">
-						<a href="#" id="id_numpad_prev" class="btn_pn prev ui-link" title="이전"></a>
-						<span id="id_get_month"></span>/<span id="id_get_day"></span>/<span id="id_get_weekday"></span>
-						<a href="#" id="id_numpad_next" class="btn_pn next ui-link" title="다음"></a>
+						<!-- <a href="#" id="id_numpad_prev" class="btn_pn prev ui-link" title="이전"></a>-->
+						 <input type="date" data-role="date" id="id_ticket_calendar">
+						<!-- <span id="id_get_month"></span>/<span id="id_get_day"></span>/<span id="id_get_weekday"></span>-->
+						<!-- <a href="#" id="id_numpad_next" class="btn_pn next ui-link" title="다음"></a>-->
 					</p>
 					<p class="gb"><input type="number" id="" class="class_price_input" data-role="none" /> 천원</p>
 				</div>
@@ -56,7 +57,7 @@
 			</div>
 		</div>
 		<div class="btn_c line">
-			<a href="#" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
+			<a href="#" id="id_ticket_save" class="btn_blue">저장</a><a href="#" class="btn_white" data-rel="back">돌아가기</a>
 		</div>
 	</div>
 	<!--e: 식권 팝업 -->	
