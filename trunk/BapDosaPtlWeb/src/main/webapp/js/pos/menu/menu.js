@@ -173,8 +173,8 @@ window.bapdosa.menu = (function() {
 	    });
 		
 		$("#id_point_save").click(function(e){
-			e.preventDefault();			
-			pointSave();						
+			e.preventDefault();	
+			dcPointSave();			
 			
 	    });
 		$("#id_dc_check_sub").click(function(e){
@@ -564,7 +564,15 @@ window.bapdosa.menu = (function() {
 			return false;
 		}
 		menuSave();			
+		menuDifferSave();
+	}
+    function dcPointSave(){
 		
+		if(!confirm("저장하시겠습니까?")){
+			return false;
+		}
+		pointSave();
+		dcPoDifferSave();
 	}
 	function menuSave(){
 		$("tr.class_menu_main_view").each(function(index) {			 
@@ -666,10 +674,7 @@ window.bapdosa.menu = (function() {
 		});	
 	}
 	
-	function pointSave(){
-		if(!confirm("저장하시겠습니까?")){
-			return false;
-		}
+	function pointSave(){		
 		
 		$("tr.class_point_main_view").each(function() {			 
 			
@@ -820,6 +825,89 @@ window.bapdosa.menu = (function() {
 			var pointname = $(".class_point_pop_tap li input[etcpointid='" + categoryid + "']").attr("pointname");
 			$(".class_point_tab_top").text(pointname);
 		}		
+	}
+	function getMenuDiffer(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/category/getMenuDiffer.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			menuDiffer = returnObj.menuDiffer;
+			console.log("menuDiffer=" + menuDiffer);
+			$(menuDiffer).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002102")	{
+					$(".class_menu_differ_check div").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+					$(".class_menu_differ_check div").find("input").prop("checked", true).attr("data-cacheval" , false);
+					$("#id_menu_tab_top3").show();
+			    	$("#id_menu_tab_top4").show();
+			    	$("#id_menu_col_top3").show();
+			    	$("#id_menu_col_top4").show();			    	
+			    	$(".class_menu_deliveryprice").show();
+			    	$(".class_menu_takeoutprice").show();
+				}else{
+					$(".class_menu_differ_check div").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
+					$(".class_menu_differ_check div").find("input").prop("checked", false).attr("data-cacheval" , true);
+					$("#id_menu_tab_top3").hide();
+			    	$("#id_menu_tab_top4").hide();
+			    	$("#id_menu_col_top3").hide();
+			    	$("#id_menu_col_top4").hide();
+			    	$(".class_menu_deliveryprice").hide();
+			    	$(".class_menu_takeoutprice").hide();
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+	
+	function getDcDiffer(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/category/getDcDiffer.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			dcDiffer = returnObj.dcDiffer;
+			console.log("dcDiffer=" + dcDiffer);
+			$(dcDiffer).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002202")	{
+					$(".class_dc_differ_check div").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+					$(".class_dc_differ_check div").find("input").prop("checked", true).attr("data-cacheval" , false);
+					
+					$("#id_point_tab_top1").hide();
+					$("#id_point_tab_top2").hide();
+			    	$("#id_point_tab_top3").show();
+			    	$("#id_point_tab_top4").show();
+			    	$("#id_point_tab_top5").show();
+			    	$("#id_point_col_top1").hide();
+			    	$("#id_point_col_top2").hide();
+			    	$("#id_point_col_top3").show();
+			    	$("#id_point_col_top4").show();
+			    	$("#id_point_col_top5").show();
+			    	$("#id_check_point_dc").show();					
+					
+			    	$(".class_point_storepoint").show();
+			    	$(".class_point_deliverypoint").show();
+			    	$(".class_point_takeoutpoint").show();
+			    	$(".class_point_storediscount").hide();
+			    	$(".class_point_point").hide();
+			    	$(".class_point_deliverydiscount").hide();
+			    	$(".class_point_takeoutdiscount").hide(); 
+					
+				}else{
+					$(".class_dc_differ_check div").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
+					$(".class_dc_differ_check div").find("input").prop("checked", false).attr("data-cacheval" , true);
+					
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
 	}
 	
 	function getDcTimeList(){
@@ -1058,6 +1146,76 @@ window.bapdosa.menu = (function() {
 		commonAjaxCall(url, param, success);	
 		 return dfd.promise();
 	}
+    function menuDifferSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("input[name=name_menu_input]").is(":checked")){
+			 settingvalue = 'CC00002102';
+		 }else{
+			 settingvalue = 'CC00002101';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "menuDifferUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
+    function dcPoDifferSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("input[name=name_dc_input]").is(":checked")){
+			 settingvalue = 'CC00002202';
+		 }else{
+			 settingvalue = 'CC00002201';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "dcDifferUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
     
     function dcEqualSave(){
 		 if(!confirm("저장하시겠습니까?")){
@@ -1301,6 +1459,8 @@ window.bapdosa.menu = (function() {
 			displayCategoryMenu();
 			displayCategoryPoint();
 			getDcTimeList();
+			getMenuDiffer();
+			getDcDiffer();
 		}
 	}   
 })();
