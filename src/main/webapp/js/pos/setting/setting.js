@@ -698,7 +698,7 @@ window.bapdosa.setting = (function() {
 					$(".class_delivery_collect_menu").find("input").prop("checked", true).attr("data-cacheval" , false);
 				}else{
 					$(".class_delivery_collect_menu").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
-					$(".class_delivery_collect_menu li").find("input").prop("checked", false).attr("data-cacheval" , true);
+					$(".class_delivery_collect_menu").find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
 			});
 			dfd.resolve( "complete.." );
@@ -723,7 +723,7 @@ window.bapdosa.setting = (function() {
 					$(".class_delivery_customer_info").find("input").prop("checked", true).attr("data-cacheval" , false);
 				}else{
 					$(".class_delivery_customer_info").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
-					$(".class_delivery_customer_info li").find("input").prop("checked", false).attr("data-cacheval" , true);
+					$(".class_delivery_customer_info").find("input").prop("checked", false).attr("data-cacheval" , true);
 				}
 			});
 			dfd.resolve( "complete.." );
