@@ -20,7 +20,7 @@ window.bapdosa.ticketSale = (function() {
 		
 		$('#id_get_month').text(getMonth);
 		$('#id_get_day').text(getDate);
-		$('#id_get_weekday').text(week[getDay]);
+		$('#id_get_weekday').text(week[getDay]);		
 		
 		$('#numpad-page .keypad li a span').click(function (e) {
 			e.preventDefault();			
@@ -51,6 +51,10 @@ window.bapdosa.ticketSale = (function() {
         $("#id_numpad_prev").click(function(){
 			
 		});
+        
+        $("#id_ticket_save").click(function(){
+			//alert($("#id_ticket_calendar").val());
+		});
 	};		
 	
 	return{
@@ -68,7 +72,8 @@ window.bapdosa.ticketSale = (function() {
 		
 		open : function(name){
 			keyText = '0';
-			setResult = '0';			
+			setResult = '0';
+			//$("#datepicker" ).datepicker();
 			
 		},
 		confirm: function() {
