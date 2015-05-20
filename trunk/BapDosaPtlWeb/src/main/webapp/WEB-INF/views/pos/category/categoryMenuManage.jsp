@@ -39,8 +39,8 @@
 				</c:forEach>
 			</ul>
 		</div>
-        <p class="ck_other">
-			<input type="checkbox" id="pr_other" class="class_menu_check" name="name_memu_add"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
+        <p class="ck_other class_menu_differ_check">
+			<input type="checkbox" id="pr_other" class="class_menu_check" name="name_menu_input"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label>
 		</p>
 		<div class="food_list">
 			<div class="tab">

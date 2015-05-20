@@ -40,7 +40,7 @@
 			</ul>
 		</div>
 		<div class="discount_time">
-		    <div class="btn_fl"><input type="checkbox" id="pr_other" class="class_point_check" /><label for="pr_other">매장/배달/포장 금액 각각 다름</label></div>
+		    <div class="btn_fl class_dc_differ_check"><input type="checkbox" id="pr_other" class="class_point_check" name="name_dc_input"/><label for="pr_other">매장/배달/포장 금액 각각 다름</label></div>
 			<div class="btn_fr"><a href="#discount_time" class="btn_02" data-rel="popup" data-position-to="window" data-transition="pop">할인시간대 설정</a></div>
 			<!-- <a href="#discount_time" class="btn_02" data-rel="popup" data-position-to="window" data-transition="pop">할인시간대 설정</a>-->
 		</div>
