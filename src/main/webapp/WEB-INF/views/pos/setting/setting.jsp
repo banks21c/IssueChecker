@@ -156,24 +156,20 @@
 				<dt><span>배달-집합건물 수정/삭제</span><a href="#" class="save class_admin_save6">저장</a></dt>
 				<dd>
 					<div class="structure_set">
-						<ul>
+						<ul class="class_building_list">
 							<li>
 								<input type="text" id="" data-role="none" class="wp60" /> <span class="ico a">아</span>
-								<a href="#" class="del">삭제</a>
-							</li>
-							<li>
-								<input type="text" id="" data-role="none" class="wp60" /> <span class="ico bd">빌</span>
-								<a href="#" class="del">삭제</a>
-							</li>
+								<a href="#" class="del class_building_delete">삭제</a>
+							</li>							
 						</ul>
 					</div>
 				</dd>
 				<dt><span>배달관리-수거 메뉴 보이기 여부</span><a href="#" class="save class_admin_save7">저장</a></dt>
-				<dd>
+				<dd class="class_delivery_collect_menu">
 					<p><input type="checkbox" id="delivery_view" name="delivery_view" /><label for="delivery_view">수거메뉴 보이기</label></p>
 				</dd>
 				<dt><span>배달관리 전화 수신시 고객정보 바탕화면에 보이기 여부</span><a href="#" class="save class_admin_save8">저장</a></dt>
-				<dd>
+				<dd class="class_delivery_customer_info">
 					<p><input type="checkbox" id="delivery_info_view" name="delivery_info_view" checked/><label for="delivery_info_view">사용하기</label></p>
 				</dd>
 			</dl>
