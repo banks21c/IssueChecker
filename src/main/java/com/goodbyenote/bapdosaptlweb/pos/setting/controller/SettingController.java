@@ -252,6 +252,85 @@ public class SettingController {
 		return mav; 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getbuildingList.json")
+	public ModelAndView getbuildingList(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		String isdeleted = (String)parametaMap.get("isdeleted");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("isdeleted", "N");
+		List<Map> buildingList = settingService.getbuildingList(parametaMap);
+		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("buildingList", buildingList);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getDeliveryColllectMenu.json")
+	public ModelAndView getDeliveryColllectMenu(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		Map deliveryColllectMenu = settingService.getDeliveryColllectMenu(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("deliveryColllectMenu", deliveryColllectMenu);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/setting/getDeliveryCustomerInfo.json")
+	public ModelAndView getDeliveryCustomerInfo(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		Map deliveryCustomerInfo = settingService.getDeliveryCustomerInfo(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("deliveryCustomerInfo", deliveryCustomerInfo);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/pos/setting/tableUpdateOk.json")
 	public ModelAndView tableUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
@@ -453,6 +532,85 @@ public class SettingController {
 		parametaMap.put("settingvalue", settingvalue);
 				
 		settingService.updateLunchFront(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/buildingUpdateOk.json")
+	public ModelAndView buildingUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String buildingid = (String)parametaMap.get("buildingid");
+		String name = (String)parametaMap.get("name");
+		String isdeleted = (String)parametaMap.get("isdeleted");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("buildingid", buildingid);
+		parametaMap.put("name", name);
+		parametaMap.put("isdeleted", isdeleted);
+				
+		settingService.updateBuildingList(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/deliveryCollectMenuUpdateOk.json")
+	public ModelAndView deliveryCollectMenuUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingvalue", settingvalue);
+				
+		settingService.updateDeliveryCollectMenu(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/setting/deliveryCustomerInfoUpdateOk.json")
+	public ModelAndView deliveryCustomerInfoUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingvalue", settingvalue);
+				
+		settingService.updateDeliveryCustomerInfo(parametaMap);
 		
 		
 		ModelAndView mav = new ModelAndView();		

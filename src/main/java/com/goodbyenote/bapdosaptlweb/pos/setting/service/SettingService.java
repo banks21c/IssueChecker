@@ -19,6 +19,12 @@ public interface SettingService {
 	
 	Map getLunchFront(Map parametaMap);
 	
+	List<Map> getbuildingList(Map parametaMap);
+	
+	Map getDeliveryColllectMenu(Map parametaMap);
+	
+	Map getDeliveryCustomerInfo(Map parametaMap);
+	
 	void updateTableCount(Map parametaMap);
 	
 	void updateTableCount2(Map parametaMap);
@@ -33,5 +39,9 @@ public interface SettingService {
 	
 	void updateLunchFront(Map parametaMap);
 	
-
+	void updateBuildingList(Map parametaMap);
+	
+	void updateDeliveryCollectMenu(Map parametaMap);
+	
+	void updateDeliveryCustomerInfo(Map parametaMap);
 }

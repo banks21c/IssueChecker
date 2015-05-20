@@ -58,6 +58,24 @@ public class SettingServiceImpl implements SettingService {
 	}
 	
 	@Override
+	public List<Map> getbuildingList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getbuildingList(parametaMap);
+	}
+	
+	@Override
+	public Map getDeliveryColllectMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getDeliveryColllectMenu(parametaMap);
+	}
+	
+	@Override
+	public Map getDeliveryCustomerInfo(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return settingDAO.getDeliveryCustomerInfo(parametaMap);
+	}
+	
+	@Override
 	public void updateTableCount(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateTableCount(parametaMap);
@@ -97,6 +115,24 @@ public class SettingServiceImpl implements SettingService {
 	public void updateLunchFront(Map parametaMap) {
 		// TODO Auto-generated method stub
 		settingDAO.updateLunchFront(parametaMap);
+	}
+	
+	@Override
+	public void updateBuildingList(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateBuildingList(parametaMap);
+	}
+	
+	@Override
+	public void updateDeliveryCollectMenu(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateDeliveryCollectMenu(parametaMap);
+	}
+	
+	@Override
+	public void updateDeliveryCustomerInfo(Map parametaMap) {
+		// TODO Auto-generated method stub
+		settingDAO.updateDeliveryCustomerInfo(parametaMap);
 	}
 
 }
