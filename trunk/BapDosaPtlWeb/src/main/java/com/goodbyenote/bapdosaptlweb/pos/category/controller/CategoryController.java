@@ -435,6 +435,104 @@ public class CategoryController {
 		
 		return mav; 
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/category/getMenuDiffer.json")
+	public ModelAndView getMenuDiffer(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		Map menuDiffer = categoryService.getMenuDiffer(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("menuDiffer", menuDiffer);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/menuDifferUpdateOk.json")
+	public ModelAndView menuDifferUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingvalue", settingvalue);
+				
+		categoryService.updateMenuDiffer(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/pos/category/getDcDiffer.json")
+	public ModelAndView getDcDiffer(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
+
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		Map dcDiffer = categoryService.getDcDiffer(parametaMap);		
+		
+		Map returnMap = new HashMap();
+		returnMap.put("dcDiffer", dcDiffer);
+		
+		ModelAndView mav = new ModelAndView();		
+
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode("1");// 0: error, 1: 성공
+		returnJsonVO.setMessage("OK");
+		returnJsonVO.setReturnObj(returnMap);
+		logger.debug("returnMap: " + returnMap);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");
+		
+		return mav; 
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/pos/category/dcDifferUpdateOk.json")
+	public ModelAndView dcDifferUpdateOk(Model model, @RequestParam Map parametaMap , HttpSession httpSession){
+		
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
+		
+		logger.debug(parametaMap.toString());
+		String settingvalue = (String)parametaMap.get("settingvalue");
+		
+		parametaMap.put("memberid", sessionUserInfo.getMemberId());
+		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
+		parametaMap.put("settingvalue", settingvalue);
+				
+		categoryService.updateDcDiffer(parametaMap);
+		
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		logger.debug("#################returnJsonVO=" + returnJsonVO.toString());	
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
 	/*@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/pos/category/menuSave.json", method = RequestMethod.POST)
 	public ModelAndView insertAction(

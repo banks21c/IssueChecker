@@ -63,6 +63,18 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("rawtypes")
+	public int updateMenuDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateMenuDiffer", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public int updateDcDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateDcDiffer", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map parametaMap) {
 		return sqlSession.selectList("category.getCategoryMenuList", parametaMap);
 	}
@@ -75,6 +87,16 @@ public class CategoryDAO {
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryPointList(Map searchCondition) {
 		return sqlSession.selectList("category.getCategoryPointList", searchCondition);
-	}	
+	}
+	
+	public Map getMenuDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("category.getMenuDiffer", parametaMap);
+	}
+	
+	public Map getDcDiffer(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("category.getDcDiffer", parametaMap);
+	}
 
 }
