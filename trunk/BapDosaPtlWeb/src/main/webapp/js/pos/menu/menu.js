@@ -643,7 +643,7 @@ window.bapdosa.menu = (function() {
 			 
 			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
 			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted + "&menuFlag=" + menuFlag;
-			 //alert(param);
+			 alert(param);
 			 if(menuid){
 				 var url = "MenuUpdatetOk.json";
 			 }else{
@@ -1556,14 +1556,14 @@ window.bapdosa.menu = (function() {
 			displayCategoryPoint();
 			getDcTimeList();
 			getMenuDiffer();
-			/*$.when(getDcPointChoice()).then (
+			$.when(getDcPointChoice()).then (
 					function(status){
 						console.log("status: " + status);
 						getDcDiffer();
 					}			
-				);	*/
-			getDcPointChoice();
-			getDcDiffer();
+			);	
+			/*getDcPointChoice();
+			getDcDiffer();*/
 			
 		}
 	}   
