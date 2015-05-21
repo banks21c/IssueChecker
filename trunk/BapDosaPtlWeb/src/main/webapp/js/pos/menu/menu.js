@@ -1556,14 +1556,15 @@ window.bapdosa.menu = (function() {
 			displayCategoryPoint();
 			getDcTimeList();
 			getMenuDiffer();
-			$.when(getDcPointChoice()).then (
+			/*$.when(getDcPointChoice()).then (
 					function(status){
 						console.log("status: " + status);
 						getDcDiffer();
 					}			
-				);	
-			//getDcDiffer();
-			//getDcPointChoice();
+				);	*/
+			getDcPointChoice();
+			getDcDiffer();
+			
 		}
 	}   
 })();
