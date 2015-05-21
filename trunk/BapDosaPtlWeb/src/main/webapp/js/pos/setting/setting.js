@@ -643,16 +643,16 @@ window.bapdosa.setting = (function() {
 			$(buildingList).each(function(index,obj){
 				var typetext;
 				var classtype;
-				if(obj.ISAPT == "A"){
+				if(obj.BUILDINGTYPE == "1"){
 					typetext = "아";
 					classtype = "ico a"
-				}else if(obj.ISAPT == "V"){
+				}else if(obj.BUILDINGTYPE == "2"){
 					typetext = "빌";
 					classtype = "ico bd"
-				}else if(obj.ISAPT == "S"){
+				}else if(obj.BUILDINGTYPE == "3"){
 					typetext = "상";
 					classtype = "ico sg"
-				}else if(obj.ISAPT == "E"){
+				}else if(obj.BUILDINGTYPE == "4"){
 					typetext = "기";
 					classtype = "ico e"
 				}
