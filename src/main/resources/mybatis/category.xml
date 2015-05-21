@@ -181,6 +181,20 @@
 			AND DEVICEID = #{deviceid}
 			AND SETTINGKEY = 'CC00002200'
     </select>
+    
+    <select id="getDcPointChoice" resultType="map">
+        /* possetting.getDcPointChoice */
+		SELECT
+		     SETTINGVALUE
+			,CREATIONDATE
+			,MODIFICATIONDATE
+		FROM
+			SETTING
+		WHERE
+			MEMBERID = #{memberid}			
+			AND DEVICEID = #{deviceid}
+			AND SETTINGKEY = 'CC00002300'
+    </select>
 	
 	<insert id="insertCateMenu" parameterType="map">
 		INSERT INTO MENU (
@@ -266,6 +280,17 @@
 		WHERE  MEMBERID         = #{memberid}
 		AND    DEVICEID         = #{deviceid}		
 		AND    SETTINGKEY       = 'CC00002200'  
+    </update>
+    
+    <update id="updateDcPointChoice">
+        /* possetting.updateDcPointChoice */
+        
+		UPDATE SETTING
+		SET    		       
+		       SETTINGVALUE     = #{settingvalue}		       
+		WHERE  MEMBERID         = #{memberid}
+		AND    DEVICEID         = #{deviceid}		
+		AND    SETTINGKEY       = 'CC00002300'  
     </update>  
 	
 </mapper>

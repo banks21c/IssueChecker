@@ -103,6 +103,13 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@SuppressWarnings("rawtypes")
 	@Override
+	public void updateDcPointChoice(Map parametaMap) {
+		// TODO Auto-generated method stub
+		categoryDAO.updateDcPointChoice(parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
 	public List<Map> getCategoryMenuList(Map searchCondition) {
 		return categoryDAO.getCategoryMenuList(searchCondition);
 	}
@@ -129,6 +136,12 @@ public class CategoryServiceImpl implements CategoryService {
 	public Map getDcDiffer(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return categoryDAO.getDcDiffer(parametaMap);
+	}
+	
+	@Override
+	public Map getDcPointChoice(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return categoryDAO.getDcPointChoice(parametaMap);
 	}
 	
 	@Override
