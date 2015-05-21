@@ -608,17 +608,17 @@ window.bapdosa.setting = (function() {
 			
 			lunchFront = returnObj.lunchFront;
 			console.log("lunchFront=" + lunchFront);
-			$(lunchFront).each(function(index,obj){
-				if(obj.SETTINGVALUE == "CC00002402")	{
-					$(".class_lunch_time_yn").find("label").eq(1).addClass("ui-radio-on").removeClass("ui-radio-off");
-					$(".class_rank_pyung li").find("input").eq(1).prop("checked", true).attr("data-cacheval" , false);
-					$(".class_lunch_wrap").hide();
-				}else{
-					$(".class_lunch_time_yn").find("label").eq(0).addClass("ui-radio-on").removeClass("ui-radio-off");
-					$(".class_rank_pyung li").find("input").eq(0).prop("checked", true).attr("data-cacheval" , false);
-					$(".class_lunch_wrap").show();
-				}
-			});
+			
+			if(lunchFront.SETTINGVALUE == "CC00002402")	{
+				$(".class_lunch_time_yn").find("label").eq(1).addClass("ui-radio-on").removeClass("ui-radio-off");
+				$(".class_rank_pyung li").find("input").eq(1).prop("checked", true).attr("data-cacheval" , false);
+				$(".class_lunch_wrap").hide();
+			}else{
+				$(".class_lunch_time_yn").find("label").eq(0).addClass("ui-radio-on").removeClass("ui-radio-off");
+				$(".class_rank_pyung li").find("input").eq(0).prop("checked", true).attr("data-cacheval" , false);
+				$(".class_lunch_wrap").show();
+			}
+			
 			dfd.resolve( "complete.." );
 		};
 
