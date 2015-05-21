@@ -35,6 +35,8 @@ public interface CategoryService {
 	
 	public void updateDcDiffer(Map parametaMap);
 	
+	public void updateDcPointChoice(Map parametaMap);
+	
 	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map parametaMap);
 	
@@ -47,6 +49,8 @@ public interface CategoryService {
 	public Map getMenuDiffer(Map parametaMap);
 	
 	public Map getDcDiffer(Map parametaMap);
+	
+	public Map getDcPointChoice(Map parametaMap);
 	
 	public int menuSave(Map<String, Object> menuObjMap,
 			SessionUserInfo sessionUserInfo);

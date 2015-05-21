@@ -75,6 +75,12 @@ public class CategoryDAO {
 	}
 	
 	@SuppressWarnings("rawtypes")
+	public int updateDcPointChoice(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("category.updateDcPointChoice", parametaMap);
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public List<Map> getCategoryMenuList(Map parametaMap) {
 		return sqlSession.selectList("category.getCategoryMenuList", parametaMap);
 	}
@@ -97,6 +103,11 @@ public class CategoryDAO {
 	public Map getDcDiffer(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("category.getDcDiffer", parametaMap);
+	}
+	
+	public Map getDcPointChoice(Map parametaMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("category.getDcPointChoice", parametaMap);
 	}
 
 }
