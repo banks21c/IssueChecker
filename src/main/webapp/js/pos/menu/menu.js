@@ -573,6 +573,7 @@ window.bapdosa.menu = (function() {
 		}
 		pointSave();
 		dcPoDifferSave();
+		dcPointChoiceSave();
 	}
 	function menuSave(){
 		$("tr.class_menu_main_view").each(function(index) {			 
@@ -889,17 +890,76 @@ window.bapdosa.menu = (function() {
 			    	$("#id_point_col_top5").show();
 			    	$("#id_check_point_dc").show();					
 					
-			    	$(".class_point_storepoint").show();
+					
+				}else{
+					$(".class_dc_differ_check div").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
+					$(".class_dc_differ_check div").find("input").prop("checked", false).attr("data-cacheval" , true);
+					
+					$("#id_point_tab_top1").show();
+					$("#id_point_tab_top2").show();
+			    	$("#id_point_tab_top3").hide();
+			    	$("#id_point_tab_top4").hide();
+			    	$("#id_point_tab_top5").hide();
+			    	$("#id_point_col_top1").show();
+			    	$("#id_point_col_top2").show();
+			    	$("#id_point_col_top3").hide();
+			    	$("#id_point_col_top4").hide();
+			    	$("#id_point_col_top5").hide();
+			    	
+			    	$(".class_point_point").show();
+			    	$(".class_point_storediscount").show();
+			    	$(".class_point_storepoint").hide();		    	
+			    	$(".class_point_deliverypoint").hide();
+			    	$(".class_point_takeoutpoint").hide();
+			    	$(".class_point_deliverydiscount").hide();
+			    	$(".class_point_takeoutdiscount").hide();
+			    	$(".class_point_storediscount1").hide();
+			    	
+			    	$("#id_check_point_dc").hide();
+					
+				}
+			});
+			dfd.resolve( "complete.." );
+		};
+
+		commonAjaxCall(url, param, success);	
+		 return dfd.promise();
+	}
+	
+	function getDcPointChoice(){
+		var dfd = new jQuery.Deferred();
+		var url="/pos/category/getDcPointChoice.json";
+		var param="";
+		var success = function(returnJsonVO){
+			var returnObj = returnJsonVO.returnObj;
+			
+			dcPointChoice = returnObj.dcPointChoice;
+			console.log("dcPointChoice=" + dcPointChoice);
+			$(dcPointChoice).each(function(index,obj){
+				if(obj.SETTINGVALUE == "CC00002302")	{	
+					$("#id_dc_check_sub").addClass("active");
+					$("#id_point_check_sub").removeClass("active");	
+					
+					$(".class_point_storediscount1").show();
+					$(".class_point_deliverydiscount").show();
+					$(".class_point_takeoutdiscount").show();
+					$(".class_point_storepoint").hide();
+					$(".class_point_deliverypoint").hide();
+					$(".class_point_takeoutpoint").hide();
+					$(".class_point_point").hide();
+					$(".class_point_storediscount").hide();
+					
+				}else{
+					$("#id_dc_check_sub").removeClass("active");
+					$("#id_point_check_sub").addClass("active");
+					
+					$(".class_point_storepoint").show();
 			    	$(".class_point_deliverypoint").show();
 			    	$(".class_point_takeoutpoint").show();
 			    	$(".class_point_storediscount").hide();
 			    	$(".class_point_point").hide();
 			    	$(".class_point_deliverydiscount").hide();
-			    	$(".class_point_takeoutdiscount").hide(); 
-					
-				}else{
-					$(".class_dc_differ_check div").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
-					$(".class_dc_differ_check div").find("input").prop("checked", false).attr("data-cacheval" , true);
+			    	$(".class_point_takeoutdiscount").hide();
 					
 				}
 			});
@@ -1217,6 +1277,42 @@ window.bapdosa.menu = (function() {
 		 
 	} 
     
+    function dcPointChoiceSave(){	
+    	
+		 var settingvalue;
+		 
+		 if($("#id_dc_check_sub").hasClass("active")){
+			 settingvalue = 'CC00002302';
+		 }else{
+			 settingvalue = 'CC00002301';
+		 }		 
+		 var param ="settingvalue=" + settingvalue;
+		 var url = "dcPointChoiceUpdateOk.json";
+			
+		 if(typeof console != 'undefined'){
+			console.log("param: " + param);
+		 }
+		 $.ajax({
+			url: url,
+			type: 'post',
+			data: param,
+			dataType: "json",
+			error:function (xhr, ajaxOptions, thrownError){				
+				//alert(thrownError);
+			},
+			success:function(data){
+				if(typeof console != 'undefined'){		
+				}					
+				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
+				} else{
+					//alert(data.returnJsonVO.message);
+				}
+				location.reload();
+			}
+		 });
+		 
+	} 
+    
     function dcEqualSave(){
 		 if(!confirm("저장하시겠습니까?")){
 			 return false;
@@ -1460,7 +1556,14 @@ window.bapdosa.menu = (function() {
 			displayCategoryPoint();
 			getDcTimeList();
 			getMenuDiffer();
-			getDcDiffer();
+			$.when(getDcPointChoice()).then (
+					function(status){
+						console.log("status: " + status);
+						getDcDiffer();
+					}			
+				);	
+			//getDcDiffer();
+			//getDcPointChoice();
 		}
 	}   
 })();
