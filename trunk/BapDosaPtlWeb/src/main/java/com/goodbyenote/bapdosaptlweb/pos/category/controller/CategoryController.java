@@ -491,7 +491,7 @@ public class CategoryController {
 		SessionUserInfo sessionUserInfo = (SessionUserInfo)httpSession.getAttribute("SESSION_USER_INFO");
 		parametaMap.put("memberid", sessionUserInfo.getMemberId());
 		parametaMap.put("deviceid", sessionUserInfo.getDeviceId());
-		Map dcDiffer = categoryService.getDcDiffer(parametaMap);		
+		List<Map> dcDiffer = categoryService.getDcDiffer(parametaMap);		
 		
 		Map returnMap = new HashMap();
 		returnMap.put("dcDiffer", dcDiffer);
@@ -534,7 +534,7 @@ public class CategoryController {
 		return mav; 
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/*@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/pos/category/getDcPointChoice.json")
 	public ModelAndView getDcPointChoice(@RequestParam Map parametaMap, Model model, HttpServletRequest request , HttpSession httpSession) {
 
@@ -557,7 +557,7 @@ public class CategoryController {
 		mav.setViewName("jsonView");
 		
 		return mav; 
-	}
+	}*/
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/pos/category/dcPointChoiceUpdateOk.json")

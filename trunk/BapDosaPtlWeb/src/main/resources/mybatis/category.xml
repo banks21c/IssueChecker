@@ -180,6 +180,8 @@
 			MEMBERID = #{memberid}			
 			AND DEVICEID = #{deviceid}
 			AND SETTINGKEY = 'CC00002200'
+			OR SETTINGKEY = 'CC00002300'
+			ORDER BY SETTINGVALUE DESC
     </select>
     
     <select id="getDcPointChoice" resultType="map">

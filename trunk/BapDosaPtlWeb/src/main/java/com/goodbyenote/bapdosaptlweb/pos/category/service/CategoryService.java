@@ -48,7 +48,7 @@ public interface CategoryService {
 	
 	public Map getMenuDiffer(Map parametaMap);
 	
-	public Map getDcDiffer(Map parametaMap);
+	public List<Map> getDcDiffer(Map parametaMap);
 	
 	public Map getDcPointChoice(Map parametaMap);
 	

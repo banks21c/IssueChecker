@@ -100,9 +100,9 @@ public class CategoryDAO {
 		return sqlSession.selectOne("category.getMenuDiffer", parametaMap);
 	}
 	
-	public Map getDcDiffer(Map parametaMap) {
+	public List<Map> getDcDiffer(Map parametaMap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("category.getDcDiffer", parametaMap);
+		return sqlSession.selectList("category.getDcDiffer", parametaMap);
 	}
 	
 	public Map getDcPointChoice(Map parametaMap) {
