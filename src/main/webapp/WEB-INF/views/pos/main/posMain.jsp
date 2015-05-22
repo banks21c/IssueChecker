@@ -28,7 +28,7 @@
 				<li><a href="#" class="btn_03">배달</a></li>
 				<li><a href="#" class="btn_03">메모</a></li>
 				<li><a href="#special_pop" class="btn_03" data-rel="popup" data-position-to="window" data-transition="pop">특수</a></li>
-				<li><a href="#" class="btn_03">매상</a></li>
+				<li><a href="/pos/sales/salesDaily.do" data-ajax="false" class="btn_03">매상</a></li>
 				<li><a href="/pos/category/categoryManage.do" class="btn_03" data-ajax="false">메뉴</a></li>
 			</ul>
 		</div>
