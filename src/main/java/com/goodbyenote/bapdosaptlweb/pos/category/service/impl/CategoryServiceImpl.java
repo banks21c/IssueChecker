@@ -133,7 +133,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 	
 	@Override
-	public Map getDcDiffer(Map parametaMap) {
+	public List<Map> getDcDiffer(Map parametaMap) {
 		// TODO Auto-generated method stub
 		return categoryDAO.getDcDiffer(parametaMap);
 	}
