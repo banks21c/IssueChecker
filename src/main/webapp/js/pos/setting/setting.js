@@ -741,8 +741,16 @@ window.bapdosa.setting = (function() {
 		 var tableNo = $(".class_table_input").val();
 		 var totalCount = $(".class_table_count span").attr("totalCount");
 		 
+		 if(tableNo == ""){
+				alert("테이블 개수를 입력해주세요");
+				 return false;
+		 }	
 		 if(tableNo > 60){
-				alert("테이블 갯수는 60개를 초과할수없습니다");
+				alert("테이블 개수는 60개를 초과할수없습니다");
+				 return false;
+		 }
+		 if(tableNo < 1){
+				alert("테이블 개수는 1개 이상이어야 합니다");
 				 return false;
 		 }	
 		 if(tableCount > tableNo){		 
