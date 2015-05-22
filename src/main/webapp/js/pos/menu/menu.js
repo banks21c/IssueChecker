@@ -643,7 +643,6 @@ window.bapdosa.menu = (function() {
 			 
 			 var param ="sortorder=" + sortorder + "&name=" + catemenuname+ "&categoryid=" + categoryid + "&menuid=" + menuid + "&memberid=" + memberid + 
 			 "&storeprice=" + storeprice + "&deliveryprice=" + deliveryprice + "&takeoutprice=" + takeoutprice + "&ishidden=" + ishidden + "&isdeleted=" + isdeleted + "&menuFlag=" + menuFlag;
-			 alert(param);
 			 if(menuid){
 				 var url = "MenuUpdatetOk.json";
 			 }else{
@@ -696,9 +695,12 @@ window.bapdosa.menu = (function() {
 			
 			 var storepoint = $(this).attr('storepoint');
 			 var storepoint2 = $(this).find("input:eq(1)").val();
+			 var storepoint3 = $(this).find("input:eq(3)").val();
 			 
 			 if(storepoint != storepoint2){			 
 				 storepoint = storepoint2;
+			 }else if(storepoint != storepoint3){
+				 storepoint = storepoint3;
 			 }else {
 				 storepoint;
 			 }
@@ -730,10 +732,14 @@ window.bapdosa.menu = (function() {
 			 
 			 var storediscount = $(this).attr('storediscount');
 			 var storediscount2 = $(this).find("input:eq(2)").val();
+			 var storediscount3 = $(this).find("input:eq(6)").val();
 			 
 			 if(storediscount != storediscount2){			 
 				 storediscount = storediscount2;
+			 }else if(storediscount != storediscount3){
+				 storediscount = storediscount3;
 			 }else {
+			 
 				 storediscount;
 			 }
 			
@@ -874,9 +880,13 @@ window.bapdosa.menu = (function() {
 			dcDiffer = returnObj.dcDiffer;
 			console.log("dcDiffer=" + dcDiffer);
 			$(dcDiffer).each(function(index,obj){
-				if(obj.SETTINGVALUE == "CC00002202")	{
+				//alert(obj.SETTINGVALUE);
+				if(obj.SETTINGVALUE == "CC00002302")	{
 					$(".class_dc_differ_check div").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
 					$(".class_dc_differ_check div").find("input").prop("checked", true).attr("data-cacheval" , false);
+					
+					$("#id_dc_check_sub").addClass("active");
+					$("#id_point_check_sub").removeClass("active");	
 					
 					$("#id_point_tab_top1").hide();
 					$("#id_point_tab_top2").hide();
@@ -888,10 +898,45 @@ window.bapdosa.menu = (function() {
 			    	$("#id_point_col_top3").show();
 			    	$("#id_point_col_top4").show();
 			    	$("#id_point_col_top5").show();
-			    	$("#id_check_point_dc").show();					
+			    	$("#id_check_point_dc").show();	
+			    	$(".class_point_storediscount1").show();
+					$(".class_point_deliverydiscount").show();
+					$(".class_point_takeoutdiscount").show();
+					$(".class_point_storepoint").hide();
+					$(".class_point_deliverypoint").hide();
+					$(".class_point_takeoutpoint").hide();
+					$(".class_point_point").hide();
+					$(".class_point_storediscount").hide();
 					
+				}else if(obj.SETTINGVALUE == "CC00002301"){
 					
-				}else{
+					$(".class_dc_differ_check div").find("label").addClass("ui-checkbox-on").removeClass("ui-checkbox-off");
+					$(".class_dc_differ_check div").find("input").prop("checked", true).attr("data-cacheval" , false);
+					
+					$("#id_dc_check_sub").removeClass("active");
+					$("#id_point_check_sub").addClass("active");
+					
+					$("#id_point_tab_top1").hide();
+					$("#id_point_tab_top2").hide();
+			    	$("#id_point_tab_top3").show();
+			    	$("#id_point_tab_top4").show();
+			    	$("#id_point_tab_top5").show();
+			    	$("#id_point_col_top1").hide();
+			    	$("#id_point_col_top2").hide();
+			    	$("#id_point_col_top3").show();
+			    	$("#id_point_col_top4").show();
+			    	$("#id_point_col_top5").show();
+			    	$("#id_check_point_dc").show();	
+			    	
+			    	$(".class_point_storepoint").show();
+			    	$(".class_point_deliverypoint").show();
+			    	$(".class_point_takeoutpoint").show();
+			    	$(".class_point_storediscount").hide();
+			    	$(".class_point_point").hide();
+			    	$(".class_point_deliverydiscount").hide();
+			    	$(".class_point_takeoutdiscount").hide(); 
+			    	
+				}else if(obj.SETTINGVALUE == "CC00002201"){
 					$(".class_dc_differ_check div").find("label").removeClass("ui-checkbox-on").addClass("ui-checkbox-off");
 					$(".class_dc_differ_check div").find("input").prop("checked", false).attr("data-cacheval" , true);
 					
@@ -916,50 +961,6 @@ window.bapdosa.menu = (function() {
 			    	$(".class_point_storediscount1").hide();
 			    	
 			    	$("#id_check_point_dc").hide();
-					
-				}
-			});
-			dfd.resolve( "complete.." );
-		};
-
-		commonAjaxCall(url, param, success);	
-		 return dfd.promise();
-	}
-	
-	function getDcPointChoice(){
-		var dfd = new jQuery.Deferred();
-		var url="/pos/category/getDcPointChoice.json";
-		var param="";
-		var success = function(returnJsonVO){
-			var returnObj = returnJsonVO.returnObj;
-			
-			dcPointChoice = returnObj.dcPointChoice;
-			console.log("dcPointChoice=" + dcPointChoice);
-			$(dcPointChoice).each(function(index,obj){
-				if(obj.SETTINGVALUE == "CC00002302")	{	
-					$("#id_dc_check_sub").addClass("active");
-					$("#id_point_check_sub").removeClass("active");	
-					
-					$(".class_point_storediscount1").show();
-					$(".class_point_deliverydiscount").show();
-					$(".class_point_takeoutdiscount").show();
-					$(".class_point_storepoint").hide();
-					$(".class_point_deliverypoint").hide();
-					$(".class_point_takeoutpoint").hide();
-					$(".class_point_point").hide();
-					$(".class_point_storediscount").hide();
-					
-				}else{
-					$("#id_dc_check_sub").removeClass("active");
-					$("#id_point_check_sub").addClass("active");
-					
-					$(".class_point_storepoint").show();
-			    	$(".class_point_deliverypoint").show();
-			    	$(".class_point_takeoutpoint").show();
-			    	$(".class_point_storediscount").hide();
-			    	$(".class_point_point").hide();
-			    	$(".class_point_deliverydiscount").hide();
-			    	$(".class_point_takeoutdiscount").hide();
 					
 				}
 			});
@@ -1555,16 +1556,8 @@ window.bapdosa.menu = (function() {
 			displayCategoryMenu();
 			displayCategoryPoint();
 			getDcTimeList();
-			getMenuDiffer();
-			$.when(getDcPointChoice()).then (
-					function(status){
-						console.log("status: " + status);
-						getDcDiffer();
-					}			
-			);	
-			/*getDcPointChoice();
-			getDcDiffer();*/
-			
+			getMenuDiffer();			
+			getDcDiffer();			
 		}
 	}   
 })();
