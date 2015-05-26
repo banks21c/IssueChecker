@@ -62,6 +62,10 @@ window.bapdosa.posmain = (function() {
 			else if(selVal == 3){
 				url = "/pos/special/tableConnect.do";
 			}
+			//포장판매
+			else if(selVal == 4){				
+				url = "/pos/order/takeOut.do";
+			}			
 			//테이블이름변경
 			else if(selVal == 8){				
 				url = "/pos/special/tableNameChange.do";
@@ -70,6 +74,7 @@ window.bapdosa.posmain = (function() {
 			else if(selVal == 9){				
 				url = "/pos/special/ticketSale.do";
 			}				
+
 			
 			if(url){
 				document.location.href=url;

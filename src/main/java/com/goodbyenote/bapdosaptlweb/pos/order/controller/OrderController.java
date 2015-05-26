@@ -75,6 +75,12 @@ public class OrderController {
 	public String orderList() {
 
 		return "pos/order/orderList";
+	}	
+	
+	@RequestMapping(value = "/pos/order/takeOut.do")
+	public String takeOut() {
+
+		return "pos/order/takeOut";
 	}		
 	
 	/**

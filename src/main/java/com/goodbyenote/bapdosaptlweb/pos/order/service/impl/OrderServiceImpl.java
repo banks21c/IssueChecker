@@ -90,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
 		String tableId = (String)orderObjMap.get("tableId");
 		String orderId = (String)orderObjMap.get("orderId");
 		String customerId = (String)orderObjMap.get("customerId");
+		String istakeoutorder = (String)orderObjMap.get("isTakeoutOrder");
 		
 
 		
@@ -120,6 +121,7 @@ public class OrderServiceImpl implements OrderService {
 //			paramMap.put("useddeposit", null);
 //			paramMap.put("usedpoint", null);
 //			paramMap.put("ischangeaftermerge", null);
+			paramMap.put("istakeoutorder", istakeoutorder);
 			
 			System.out.println(paramMap);
 			orderDAO.insertTableOrder(paramMap);			

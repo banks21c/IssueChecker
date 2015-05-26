@@ -226,7 +226,7 @@ window.bapdosa.customerRequest = (function() {
 		var url="/pos/setting/getCustomerRequestList.json";
 		var param="";
 		var success = function(returnJsonVO){
-			mDefaultCustomerRequestList = returnJsonVO.returnObj;
+			mDefaultCustomerRequestList = returnJsonVO.returnObj.customerRequestList;
 
 			//console.log(returnObj);
 			//<li><a href="#">달지 않게 해 주세요</a></li>		
