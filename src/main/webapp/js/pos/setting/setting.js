@@ -155,8 +155,7 @@ window.bapdosa.setting = (function() {
 		});
 		$(".class_admin_save1").click(function(e){
 			e.preventDefault();	
-			tableSave();
-			location.reload();
+			tableSave();			
 		});
 		
 		$(".class_admin_save2").click(function(e){
@@ -780,6 +779,7 @@ window.bapdosa.setting = (function() {
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
+				location.reload();
 			}
 		 });			
 	}
@@ -1227,6 +1227,7 @@ window.bapdosa.setting = (function() {
     
     function deliveryCollectMenuSave(){	
     	
+    	 var dfd = new jQuery.Deferred();
 		 var settingvalue;
 		 
 		 if($("input[name=delivery_view]").is(":checked")){
@@ -1237,32 +1238,23 @@ window.bapdosa.setting = (function() {
 		 var param ="settingvalue=" + settingvalue;
 		 var url = "deliveryCollectMenuUpdateOk.json";
 			
-		 if(typeof console != 'undefined'){
-			console.log("param: " + param);
-		 }
-		 $.ajax({
-			url: url,
-			type: 'post',
-			data: param,
-			dataType: "json",
-			error:function (xhr, ajaxOptions, thrownError){				
-				//alert(thrownError);
-			},
-			success:function(data){
-				if(typeof console != 'undefined'){		
+		 var success = function(data){
+			 if(typeof console != 'undefined'){		
 				}					
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
-				location.reload();
-			}
-		 });
+				location.reload();			
+		 }
+		 commonAjaxCall(url, param, success);	
+		 return dfd.promise();	
 		 
 	} 
     
-    function deliveryCustomerInfoSave(){	
+    function deliveryCustomerInfoSave(){
     	
+    	 var dfd = new jQuery.Deferred();
 		 var settingvalue;
 		 
 		 if($("input[name=delivery_info_view]").is(":checked")){
@@ -1273,60 +1265,40 @@ window.bapdosa.setting = (function() {
 		 var param ="settingvalue=" + settingvalue;
 		 var url = "deliveryCustomerInfoUpdateOk.json";
 			
-		 if(typeof console != 'undefined'){
-			console.log("param: " + param);
-		 }
-		 $.ajax({
-			url: url,
-			type: 'post',
-			data: param,
-			dataType: "json",
-			error:function (xhr, ajaxOptions, thrownError){				
-				//alert(thrownError);
-			},
-			success:function(data){
-				if(typeof console != 'undefined'){		
+		 var success = function(data){
+			 if(typeof console != 'undefined'){		
 				}					
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
-				location.reload();
-			}
-		 });
+				location.reload();			
+		 }
+		 commonAjaxCall(url, param, success);	
+		 return dfd.promise();	
 		 
 	} 
     function buildingDelete(id , name){
 		 if(!confirm("정말 삭제하시겠습니까?")){
 			 return false;
-		 }		 
+		 }
+		 var dfd = new jQuery.Deferred();
 		 var isdeleted = "Y";		 
 		
 		 var param = "buildingid=" + id + "&name=" + name + "&isdeleted=" + isdeleted;		 
 		 var url = "buildingUpdateOk.json";
-			
-		 if(typeof console != 'undefined'){
-			console.log("param: " + param);
-		 }
-		 $.ajax({
-			url: url,
-			type: 'post',
-			data: param,
-			dataType: "json",
-			error:function (xhr, ajaxOptions, thrownError){				
-				//alert(thrownError);
-			},
-			success:function(data){
-				if(typeof console != 'undefined'){		
+		 
+		 var success = function(data){
+			 if(typeof console != 'undefined'){		
 				}					
 				if(data.returnJsonVO && data.returnJsonVO.returnVal == "1"){
 				} else{
 					//alert(data.returnJsonVO.message);
 				}
-				location.reload();
-			}
-		 });
-		 
+				location.reload();			
+		 }
+		 commonAjaxCall(url, param, success);	
+		 return dfd.promise();	
 	} 
 	
 	return {
