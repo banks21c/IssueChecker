@@ -77,7 +77,14 @@
 			#{memberId}
 			,#{deviceId}
 			,#{orderId}
-			,#{tableId}
+            <choose>                
+                <when test="tableId != null and tableId != '' ">
+                    ,#{tableId}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 			
 			,#{startsalesdate}
 			,#{price}
             <choose>                
@@ -343,7 +350,14 @@
 			,#{deviceId}
 			,#{orderDetailId}
 			,#{orderId}
-			,#{tableId}	
+            <choose>                
+                <when test="tableId != null and tableId != '' ">
+                    ,#{tableId}
+                </when>                
+                <otherwise>
+                    ,NULL
+                </otherwise>                
+            </choose> 
 			,#{menuId}
 			,#{menuName}
 			,#{quantity}
