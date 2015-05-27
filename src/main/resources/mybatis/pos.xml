@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace= "pos" >
-    <insert id="insertCustomerData" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CustomerVO">
+    <insert id="insertCustomerData" parameterType="com.goodbyenote.issuechecker.pos.model.CustomerVO">
     	INSERT INTO Customer
     		(
 			    customerId,
@@ -41,7 +41,7 @@
 			)   		
     </insert>
     
-    <insert id="insertMember" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MemberDriverVO">
+    <insert id="insertMember" parameterType="com.goodbyenote.issuechecker.pos.model.MemberDriverVO">
     	INSERT INTO MemberDriver
     		(
 			    memberDriverId,
@@ -62,7 +62,7 @@
 			)
     </insert>
     
-    <insert id="insertMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+    <insert id="insertMenu" parameterType="com.goodbyenote.issuechecker.pos.model.MenuVO">
     	INSERT INTO MENU
     		(
     			menuId, categoryId, name, sortOrder, defaultPrice, 

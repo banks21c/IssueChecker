@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace= "common" >
 	
-    <select id="getCommonCodeList" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
+    <select id="getCommonCodeList" resultType="com.goodbyenote.issuechecker.common.model.CommonCodeVO">
     	/* common.getCommonCodeList() */
 		SELECT 	
 			M.*
@@ -20,7 +20,7 @@
             END
     </select>
     
-    <select id="getCommonCodeParents" resultType="com.goodbyenote.bapdosaptlweb.common.model.CommonCodeVO">
+    <select id="getCommonCodeParents" resultType="com.goodbyenote.issuechecker.common.model.CommonCodeVO">
     	/* common.getCommonCodeList() */
 		SELECT 	
 			M.*
@@ -32,7 +32,7 @@
 			M.dispOrder
     </select>
     
-    <insert id="insertExceptionLog" parameterType="com.goodbyenote.bapdosaptlweb.common.model.ExceptionVO">
+    <insert id="insertExceptionLog" parameterType="com.goodbyenote.issuechecker.common.model.ExceptionVO">
 		INSERT INTO EXCEPTIONLOG
 		( 
 			URL, 

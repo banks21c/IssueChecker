@@ -33,7 +33,7 @@
 	</beans:bean>
 	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
 	
-	<context:component-scan base-package="com.goodbyenote.bapdosaptlweb" />
+	<context:component-scan base-package="com.goodbyenote.issuechecker" />
 	
 	<mvc:interceptors> 
 
@@ -41,24 +41,24 @@
 		    <mvc:mapping path="/**/*.do" />
 		    <mvc:mapping path="/**/*.json" />
 		    <mvc:exclude-mapping path="/login/**"/>
-   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.LoginCheckInterceptor" />
+   			<beans:bean class="com.goodbyenote.issuechecker.common.interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
 		
 		<!-- 
 		<mvc:interceptor>
 		    <mvc:mapping path="/**/*.json" />
-   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.AccessLogInterceptor" />
+   			<beans:bean class="com.goodbyenote.issuechecker.common.interceptor.AccessLogInterceptor" />
 		</mvc:interceptor>		
     	-->
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**/*.do" />
-   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.AdminInterceptor" />
+   			<beans:bean class="com.goodbyenote.issuechecker.common.interceptor.AdminInterceptor" />
 		</mvc:interceptor>
 <!-- 
 		<mvc:interceptor>
 			<mvc:mapping path="/mypage/**/*.do" />
 			<mvc:mapping path="/register/**/*.do" />
-   			<beans:bean class="com.goodbyenote.bapdosaptlweb.common.interceptor.MypageInterceptor" />
+   			<beans:bean class="com.goodbyenote.issuechecker.common.interceptor.MypageInterceptor" />
 		</mvc:interceptor>
 	-->
 			

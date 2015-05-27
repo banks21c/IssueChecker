@@ -64,7 +64,7 @@
     ORDER BY SORTORDER 
 	</select>
 	
-	<insert id="insertCategory" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+	<insert id="insertCategory" parameterType="com.goodbyenote.issuechecker.pos.model.CategoryVO">
 		INSERT INTO CATEGORY (MEMBERID,
 	            DEVICEID,
 	            CATEGORYID,	            
@@ -89,7 +89,7 @@
 	</insert>
 	
 	<!-- 수정 -->
-	<update id="updateCategory" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.CategoryVO">
+	<update id="updateCategory" parameterType="com.goodbyenote.issuechecker.pos.model.CategoryVO">
 		UPDATE CATEGORY
 		SET    
 		       
@@ -127,7 +127,7 @@
     ORDER BY SORTORDER 
 	</select>
 	
-	<select id="getCategoryPointList" resultType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO" >
+	<select id="getCategoryPointList" resultType="com.goodbyenote.issuechecker.pos.model.MenuVO" >
 	SELECT
 		MEMBERID,
 		DEVICEID,
@@ -225,7 +225,7 @@
 	</insert>
 	
 	<!-- 수정 -->
-	<update id="updateCateMenu" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+	<update id="updateCateMenu" parameterType="com.goodbyenote.issuechecker.pos.model.MenuVO">
 		UPDATE MENU
 		SET    	
 		        MENUID              = #{menuid, jdbcType=NUMERIC},	        
@@ -243,7 +243,7 @@
 		AND    MENUID           = #{menuid , jdbcType=NUMERIC}		
 	</update>
 	
-	<update id="updateCatePoint" parameterType="com.goodbyenote.bapdosaptlweb.pos.model.MenuVO">
+	<update id="updateCatePoint" parameterType="com.goodbyenote.issuechecker.pos.model.MenuVO">
 		UPDATE MENU
 		SET    	
 		        MENUID              = #{menuid, jdbcType=NUMERIC},	        
