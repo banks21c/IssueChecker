@@ -1,7 +1,6 @@
 package com.goodbyenote.bapdosaptlweb.member.controller;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,11 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,9 +65,9 @@ public class LoginController {
 				sessionUserInfo.setMembertype((String)userMapTemp.get("MEMBERTYPE"));
 				sessionUserInfo.setDeviceId(userMapTemp.get("DEVICEID").toString());
 				
-				Map e​nvironmentMap = new HashMap();
-				e​nvironmentMap.put("isPriceDeviced", "Y");
-				sessionUserInfo.setE​nvironmentMap(e​nvironmentMap);
+				Map environmentMap = new HashMap();
+				environmentMap.put("isPriceDeviced", "Y");
+				sessionUserInfo.setEnvironmentMap(environmentMap);
 				
 				
 				System.out.println("sessionUserInfo:" + sessionUserInfo);
