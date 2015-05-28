@@ -5,24 +5,20 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>로그인</title>
 		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script>var console = (window.console = window.console || {});</script>
 		<script>
 		$(document).ready(function(){
 			$(".class-event-login-apply").click(function(e){
 				e.preventDefault();
 				
-				if(!$.trim($("input[name='businessNumber']").val())){
-					alert("사업자번호를 입력해 주세요.");
+				if(!$.trim($("input[name='loginId']").val())){
+					alert("로그인ID를 입력해 주세요.");
 					return false;
 				}
-				if(!$.trim($("input[name='businessNumber']").length != 10)){
-					alert("사업자번호는 10자리입니다.");
-					return false;
-				}				
-				var url = "loginOk.json";
-				var param = "businessNumber=" + $.trim($("input[name='businessNumber']").val()) ;
-				if(typeof console != 'undefined'){
-					console.log("param: " + param);
-				}
+
+				var url = "login.json";
+				var param = "loginId=" + $.trim($("input[name='loginId']").val()) ;
+				console.log("param: " + param);
 				$.ajax({
 					url: url,
 					type: 'post',
@@ -49,7 +45,7 @@
 								if(forwardUrl){
 									document.location.href=forwardUrl;
 								} else {
-									document.location.href="/pos/main/posMain.do";
+									document.location.href="/issue/issueList.do";
 								}
 								
 														
@@ -101,7 +97,7 @@
 	</head>
 	<body>
 		<form name="loginForm" method="post">
-		<input name="businessNumber" value="1234567890"/>
+		로그인ID : <input name="loginId" value="1234567890"/>
 		<input type="button" value="로그인" class="class-event-login-apply"/>
 		</form>
 		<br/><br/>
