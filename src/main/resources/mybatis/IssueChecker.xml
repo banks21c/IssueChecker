@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace= "issueChecker" >	
+  
+
+    <select id="getIssueList" resultType="map">
+		/* issueChecker.getIssueList */
+		SELECT
+			ISSUEID
+			, SUBJECT
+			, CONTENTS
+			, TYPE
+			, STATE
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='TYPE' AND TYPE = CD) TYPENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='STATE' AND TYPE = CD) STATENM
+			, REGISTERID
+			, CHARGEPERSONID
+			, CREATIONDATE
+			, MODIFICATIONDATE
+		FROM T_ISSUE
+		<where>
+			<if test="type != null and type != ''">
+				AND TYPE = #{type}
+			</if>			
+			<if test="state != null and state != ''">
+				AND STATE = #{state}
+			</if>	
+			<if test="registerId != null and registerId != ''">
+				AND REGISTERID = #{registerId}
+			</if>					
+			<if test="chargePersonId != null and chargePersonId != ''">
+				AND CHARGEPERSONID = #{chargePersonId}
+			</if>					
+		</where>
+    </select>
+	
+    <insert id="insertIssue" parameterType="map">
+        /* issueChecker.insertIssue */
+		INSERT INTO T_ISSUE 
+		(
+			ISSUEID,
+			SUBJECT,
+			CONTENTS,
+			TYPE,
+			STATE,
+			REGISTERID,
+			CHARGEPERSONID,
+			CREATIONDATE,
+			MODIFICATIONDATE
+        )
+		VALUES 
+		( 
+			(SELECT NVL(MAX(ISSUEID),0) + 1 FROM T_ISSUE),
+			#{subject},
+			#{contents},
+			#{type},
+			#{state},
+			#{registerId},
+			#{chargePersonId},
+			SYSDATE,
+			SYSDATE 
+		 )
+    </insert>
+
+    <update id="updateIssue" parameterType="map">
+        /* issueChecker.updateIssue */
+		UPDATE T_ISSUE SET 
+			SUBJECT=#{subject},
+			CONTENTS=#{contents},
+			TYPE=#{type},
+			STATE=#{state},
+			REGISTERID=#{registerId},
+			CHARGEPERSONID=#{chargePersonId},
+			MODIFICATIONDATE=SYSDATE
+		WHERE
+			ISSUEID = #{issueId}
+    </update>
+
+    
+    <delete id="deleteIssue">
+        /* issueChecker.deleteIssue */
+		DELETE 
+		FROM T_ISSUE
+		WHERE
+			ISSUEID = #{issueId}
+    </delete>    
+    
+    <select id="getLoginUser" resultType="map">
+		/* issueChecker.getLoginUser */
+    	SELECT USERID,LOGINID,USERNAME,EMAIL
+    	FROM T_USER
+    	<where>
+    		<if test="loginId != null">
+    			LOGINID = #{loginId}
+    		</if>
+    	</where>
+    </select>
+    
+    <select id="getIssueDetail" resultType="map">
+		/* issueChecker.getIssueDetail */
+		SELECT
+			ISSUEID
+			, SUBJECT
+			, CONTENTS
+			, TYPE
+			, STATE
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='TYPE' AND TYPE = CD) TYPENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='STATE' AND STATE = CD) STATENM
+			, REGISTERID
+			, CHARGEPERSONID
+			, TO_CHAR(CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
+			, TO_CHAR(MODIFICATIONDATE,'YYYY-MM-DD') MODIFICATIONDATE
+		FROM T_ISSUE
+		WHERE ISSUEID = #{issueId}
+    </select>
+
+    <select id="getChagePersonList" resultType="map">
+		/* issueChecker.getChagePersonList */
+		SELECT
+			USERID,USERNAME
+		FROM T_USER
+    </select>        
+
+</mapper>
