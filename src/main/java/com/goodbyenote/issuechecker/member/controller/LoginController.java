@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.goodbyenote.issuechecker.common.model.ReturnJsonVO;
 import com.goodbyenote.issuechecker.common.model.SessionUserInfo;
-import com.goodbyenote.issuechecker.member.service.MemberService;
+import com.goodbyenote.issuechecker.issue.service.UserService;
 
 
 @Controller
@@ -24,7 +24,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	MemberService memberService;
+	UserService userService;
 	
 	@RequestMapping("/login/login.do")
 	public String login(Model model) {
@@ -33,48 +33,33 @@ public class LoginController {
 	}	
 	
 	
-	//loginOk.json
-	@RequestMapping("/login/loginOk.json")
-	public ModelAndView loginOk(Model model, @RequestParam(required=true) Map parametaMap, HttpSession httpSession){
-		logger.debug(parametaMap.toString());
+	//login.json
+	@RequestMapping("/login/login.json")
+	public ModelAndView login(Model model, @RequestParam(required=true) Map<?, ?> paramMap, HttpSession httpSession){
+		logger.debug(paramMap.toString());
 		
 		String returnCode = "1";// 0: error, 1: 성공
-		String businessNumber = (String)parametaMap.get("businessNumber");
+		String loginId = (String)paramMap.get("loginId");
+		System.out.println("loginId:"+loginId);
 		
-		Map userMapTemp = memberService.getMemberByBusinessNumber(parametaMap);
-		System.out.println(userMapTemp);
+		Map<?, ?> userMapTemp = userService.getLoginUser(paramMap);
+		System.out.println("userMapTemp:"+userMapTemp);
 		int returnVal = 0;
-		String message = "해당 사업자번호가 등록되지 않았습니다.";
+		String message = "로그인ID가 없습니다.";
 		
 		SessionUserInfo sessionUserInfo = new SessionUserInfo();
-		if(userMapTemp != null && userMapTemp.get("BUSINESSNUMBER") != null && !"".equals(userMapTemp.get("BUSINESSNUMBER"))){
+		if(userMapTemp != null && userMapTemp.get("USERID") != null && !"".equals(userMapTemp.get("USERID"))){
 			returnVal = 1;
 			message = "ok";
-			
-			if("Y".equals((String)userMapTemp.get("ISDELETED"))){
-				returnVal = 0;
-				message = "사용중지된 사업자 번호입니다.";	//"사용중지된 메일 아이디 입니다.";				
 
-			} else {
+			sessionUserInfo.setUserId(userMapTemp.get("USERID").toString());
+			sessionUserInfo.setLoginId((String) userMapTemp.get("LOGINID"));
+			sessionUserInfo.setUserName((String) userMapTemp.get("USERNAME"));
+			sessionUserInfo.setEmail((String) userMapTemp.get("EMAIL"));
 
-				sessionUserInfo.setMemberId( userMapTemp.get("MEMBERID").toString());
-				sessionUserInfo.setBusinessnumber((String)userMapTemp.get("BUSINESSNUMBER"));
-				sessionUserInfo.setPhonenumber((String)userMapTemp.get("PHONENUMBER"));
-				sessionUserInfo.setMembername((String)userMapTemp.get("MEMBERNAME"));
-				sessionUserInfo.setPhonenumber2((String)userMapTemp.get("PHONENUMBER2"));
-				sessionUserInfo.setMembertype((String)userMapTemp.get("MEMBERTYPE"));
-				sessionUserInfo.setDeviceId(userMapTemp.get("DEVICEID").toString());
-				
-				Map environmentMap = new HashMap();
-				environmentMap.put("isPriceDeviced", "Y");
-				sessionUserInfo.setEnvironmentMap(environmentMap);
-				
-				
-				System.out.println("sessionUserInfo:" + sessionUserInfo);
-					
-				//세션 생성
-				httpSession.setAttribute("SESSION_USER_INFO", sessionUserInfo);					
-			}
+			// 세션 생성
+			httpSession.setAttribute("SESSION_USER_INFO", sessionUserInfo);			
+
 		}	
 		
 		ModelAndView mav = new ModelAndView();		
