@@ -15,10 +15,6 @@
 		$(document).ready(function() {			
 			$("#saveBtn").click(function(e){
 				e.preventDefault();
-				issueForm.submit();
-			});
-			$("#saveBtn1").click(function(e){
-				e.preventDefault();
 				
 				var url = "/issue/saveIssue.json";
 				var param = $("#issueForm").serialize();
@@ -46,6 +42,7 @@
 							//console.log("data.returnJsonVO.returnVal: " + data.returnJsonVO.returnVal);
 							if(data.returnJsonVO.returnCode == 1){
 								alert("저장에 성공하였습니다.");
+								document.location.href="/issue/issueList.do";
 							} else {
 								console.log("fail: " + data.returnJsonVO.returnVal);
 								alert("저장에 실패하였습니다.");
@@ -94,6 +91,7 @@
 	<form id="issueForm" method="post" action="/issue/saveIssue.do">
 		<input type="hidden" name="issueId" value="${issueDetail.ISSUEID}" />
 		<input type="hidden" name="registerId" value="${issueDetail.REGISTERID}" />
+		<input type="hidden" name="currentChargePersonId" value="${issueDetail.CHARGEPERSONID}" />
 		<table border="1">
 			<colgroup>
 				<col width="100px" />
@@ -119,7 +117,7 @@
 			<tr>
 				<th>유형</th>
 				<td><select name="type" id="type">
-						<option value="">전체</option>
+						<option value="">선택</option>
 						<option value="0"
 							<c:if test="${issueDetail.TYPE=='0'}">selected</c:if>>요건</option>
 						<option value="1"
@@ -129,7 +127,7 @@
 				</select></td>
 				<th>상태</th>
 				<td><select name="state" id="state">
-						<option value="">전체</option>
+						<option value="">선택</option>
 						<option value="0"
 							<c:if test="${issueDetail.STATE=='0'}">selected</c:if>>open</option>
 						<option value="1"
@@ -145,6 +143,7 @@
 				<td><c:out value="${issueDetail.REGISTERID}" /></td>
 				<th>담당자</th>
 				<td><select name="chargePersonId">
+						<option value="">선택</option>
 						<c:forEach items="${chargePersonList}" var="chargePerson">
 							<c:if test="${chargePerson.USERID == issueDetail.CHARGEPERSONID}">
 								<option value="${chargePerson.USERID}" selected>${chargePerson.USERNAME}</option>

@@ -10,7 +10,17 @@
 		$(document).ready(function(){
 			$(".class-event-login-apply").click(function(e){
 				e.preventDefault();
-				
+				login();
+			});
+			$("#loginId").keydown(function(e){
+				e.preventDefault();
+				if(event.keyCode == 13){
+					console.log(event.keyCode);
+					login();
+				}
+			});
+			
+			login = function (){
 				if(!$.trim($("input[name='loginId']").val())){
 					alert("로그인ID를 입력해 주세요.");
 					return false;
@@ -26,12 +36,10 @@
 					dataType: "json",
 					error:function (xhr, ajaxOptions, thrownError){
 						
-						alert(thrownError);
+						alert("error:"+thrownError);
 					},
 					success:function(data){
-						if(typeof console != 'undefined'){		
-							console.log(data);					
-						}
+						console.log("data:"+data);					
 						
 						if(data.returnJsonVO){
 							
@@ -56,7 +64,7 @@
 				});	
 				
 				return false;					
-			});
+			}
 			
 			$(".class-event-logout-apply").click(function(e){
 				e.preventDefault();
@@ -80,12 +88,7 @@
 							if(data.returnJsonVO.returnObj == "0"){
 								alert(data.returnJsonVO.message);
 							} else if(data.returnJsonVO.returnObj == "1"){
-
 								alert("로그아웃 되었습니다.");
-								
-								
-								
-														
 							}
 						} 
 						
@@ -97,7 +100,7 @@
 	</head>
 	<body>
 		<form name="loginForm" method="post">
-		로그인ID : <input name="loginId" value="1234567890"/>
+		로그인ID : <input name="loginId" id="loginId" value="1234567890"/>
 		<input type="button" value="로그인" class="class-event-login-apply"/>
 		</form>
 		<br/><br/>
