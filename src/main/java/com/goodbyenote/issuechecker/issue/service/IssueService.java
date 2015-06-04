@@ -13,4 +13,12 @@ public interface IssueService {
 
 	List<Map> getChargePersonList();
 
+	int saveIssueEventHistory(Map param);
+
+	int deleteIssue(Map param);
+
+	String getIssueId();
+
+	int insertUserIssueCheck(Map param);
+
 }

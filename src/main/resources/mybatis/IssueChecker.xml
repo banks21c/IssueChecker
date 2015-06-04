@@ -12,8 +12,8 @@
 			, CONTENTS
 			, TYPE
 			, STATE
-			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='TYPE' AND TYPE = CD) TYPENM
-			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='STATE' AND TYPE = CD) STATENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_TYPE' AND TYPE = CD) TYPENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_STATE' AND STATE = CD) STATENM
 			, REGISTERID
 			, CHARGEPERSONID
 			, CREATIONDATE
@@ -51,7 +51,7 @@
         )
 		VALUES 
 		( 
-			(SELECT NVL(MAX(ISSUEID),0) + 1 FROM T_ISSUE),
+			#{issueId},
 			#{subject},
 			#{contents},
 			#{type},
@@ -105,8 +105,8 @@
 			, CONTENTS
 			, TYPE
 			, STATE
-			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='TYPE' AND TYPE = CD) TYPENM
-			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='STATE' AND STATE = CD) STATENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_TYPE' AND TYPE = CD) TYPENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_STATE' AND STATE = CD) STATENM
 			, REGISTERID
 			, CHARGEPERSONID
 			, TO_CHAR(CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
@@ -121,5 +121,46 @@
 			USERID,USERNAME
 		FROM T_USER
     </select>        
+
+    <select id="getIssueId" resultType="string">
+		SELECT NVL(MAX(ISSUEID),0) + 1 
+		FROM T_ISSUE
+    </select>        
+
+    <insert id="saveIssueEventHistory" parameterType="map">
+        /* issueChecker.saveIssueEventHistory */
+		INSERT INTO T_ISSUE_EVENT_HISTORY 
+		(
+			ISSUEID,
+			REGISTERID,
+			CHARGEPERSONID,
+			EVENTTYPE,
+			CREATIONDATE
+        )
+		VALUES 
+		( 
+			#{issueId},
+			#{registerId},
+			#{chargePersonId},
+			#{eventType},
+			SYSDATE 
+		 )
+    </insert>
+
+    <insert id="insertUserIssueCheck" parameterType="map">
+        /* issueChecker.insertUserIssueCheck */
+		INSERT INTO T_USER_ISSUE_CHECK
+		(
+			ISSUEID,
+			USERID,
+			CHECKDATE
+        )
+		VALUES 
+		( 
+			#{issueId},
+			#{userId},
+			SYSDATE 
+		 )
+    </insert>
 
 </mapper>

@@ -24,15 +24,31 @@ public class IssueDAO {
 	}
 
 	public int saveIssue(Map param) {
-		if(param.get("issueId") != null){
+		if(param.get("crud").equals("u")){
 			return sqlSession.insert("issueChecker.updateIssue", param);
-		}else{
+		}else if(param.get("crud").equals("c")){
 			return sqlSession.insert("issueChecker.insertIssue", param);			
-		}
+		}else return 0;
 	}
 
 	public List<Map> getChargePersonList() {
         return sqlSession.selectList("issueChecker.getChagePersonList",null);			
+	}
+
+	public int saveIssueEventHistory(Map param) {
+        return sqlSession.insert("issueChecker.saveIssueEventHistory", param);			
+	}
+
+	public int deleteIssue(Map param) {
+        return sqlSession.delete("issueChecker.deleteIssue", param);			
+	}
+
+	public String getIssueId() {
+        return sqlSession.selectOne("issueChecker.getIssueId",null);			
+	}
+
+	public int insertUserIssueCheck(Map param) {
+        return sqlSession.insert("issueChecker.insertUserIssueCheck", param);			
 	}
 
 }

@@ -170,20 +170,29 @@ public class IssueController {
 		if(sessionUserInfo != null){			
 			param.put("registerId", sessionUserInfo.getUserId());				
 		}
+		
 		int resultValue = issueService.saveIssue(param);
+
+		String returnCode = "0";
+		if(resultValue > 0) returnCode = "1";
+		String message = "";
+		String returnVal = "";
 			
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("issueId", issueId);
 		model.put("resultValue", resultValue);
 		model.put("searchParamMap", param);
 		
-		String rstUrl = "";
-		if(issueId != null){
-			rstUrl = "redirect:/issue/issueDetail.do";
-		}else{
-			rstUrl = "redirect:/issue/issueList.do";
-		}
-		return new ModelAndView(rstUrl, model);	
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode(returnCode);// 0: error, 1: 성공
+		returnJsonVO.setMessage(message);
+		returnJsonVO.setReturnObj(returnVal);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+		
 	}	
 	
 	@RequestMapping("/issue/saveIssue.json")
@@ -199,7 +208,40 @@ public class IssueController {
 		if(sessionUserInfo != null){			
 			param.put("registerId", sessionUserInfo.getUserId());				
 		}
+		
+		String issueId = (String) param.get("issueId");
+		if(issueId != null){
+			param.put("eventType", "1");//수정
+			param.put("crud", "u");
+		}else{
+			param.put("eventType", "0");//등록				
+			param.put("crud", "c");
+
+			issueId = issueService.getIssueId();
+			param.put("issueId", issueId);
+		}
+		
+		String currentChagePersonId = (String)param.get("currentChargePersonId");
+		String chargePersonId = (String)param.get("chargePersonId");
+		
+		logger.debug("currentChagePersonId:"+currentChagePersonId);
+		logger.debug("chargePersonId:"+chargePersonId);
+		logger.debug("is same:"+currentChagePersonId.equals(chargePersonId));
+		logger.debug("is not same:"+!currentChagePersonId.equals(chargePersonId));
+
 		int resultValue = issueService.saveIssue(param);
+		logger.debug("resultValue:"+resultValue);
+		if(resultValue > 0){
+			int saveResult = issueService.saveIssueEventHistory(param);
+			if(saveResult > 0){
+                if(!chargePersonId.equals(currentChagePersonId)){
+                        param.put("eventType", "4");//담당자지정
+                        logger.debug("param:"+param.toString());
+                        logger.debug("eventType:"+param.get("eventType"));
+                        issueService.saveIssueEventHistory(param);
+                }
+			}
+		}		
 		
 		String returnCode = resultValue +"";
 		int returnVal = 0;
@@ -216,6 +258,74 @@ public class IssueController {
 		return mav; 
 	}
 
+	@RequestMapping("/issue/deleteIssue.json")
+	public ModelAndView deleteIssue(Model model,
+			@RequestParam(required = true) Map param,
+			HttpSession httpSession, HttpServletRequest request) {
+
+		logger.debug(param.toString());
+		
+		HttpSession session = request.getSession(true);
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)session.getAttribute("SESSION_USER_INFO");
+		
+		if(sessionUserInfo != null){			
+			param.put("registerId", sessionUserInfo.getUserId());				
+		}
+		
+        param.put("eventType", "2");//삭제
+		
+		
+		int resultValue = issueService.deleteIssue(param);
+		if(resultValue > 0){
+			issueService.saveIssueEventHistory(param);
+		}
+		
+		String returnCode = resultValue +"";
+		int returnVal = 0;
+		String message = "";
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode(returnCode);// 0: error, 1: 성공
+		returnJsonVO.setMessage(message);
+		returnJsonVO.setReturnObj(returnVal);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
+	@RequestMapping("/issue/insertUserIssueCheck.json")
+	public ModelAndView insertUserIssueCheck(Model model,
+			@RequestParam(required = true) Map param,
+			HttpSession httpSession, HttpServletRequest request) {
+
+		logger.debug(param.toString());
+		
+		HttpSession session = request.getSession(true);
+		SessionUserInfo sessionUserInfo = (SessionUserInfo)session.getAttribute("SESSION_USER_INFO");
+		
+		if(sessionUserInfo != null){			
+			param.put("userId", sessionUserInfo.getUserId());				
+		}
+		
+		int resultValue = issueService.insertUserIssueCheck(param);
+		
+		String returnCode = resultValue +"";
+		int returnVal = 0;
+		String message = "";
+		
+		ModelAndView mav = new ModelAndView();		
+		ReturnJsonVO returnJsonVO = new ReturnJsonVO();
+		returnJsonVO.setReturnCode(returnCode);// 0: error, 1: 성공
+		returnJsonVO.setMessage(message);
+		returnJsonVO.setReturnObj(returnVal);
+		mav.addObject(returnJsonVO);
+		mav.setViewName("jsonView");		
+		
+		return mav; 
+	}
+	
 	@RequestMapping(value = "/issue/issueRegist.do")
 	public ModelAndView issueRegist(
 			@RequestParam(required=true) Map param

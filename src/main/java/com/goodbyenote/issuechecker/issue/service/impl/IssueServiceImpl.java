@@ -35,4 +35,24 @@ public class IssueServiceImpl implements IssueService {
 		return issueDAO.getChargePersonList();
 	}
 
+	@Override
+	public int saveIssueEventHistory(Map param) {
+		return issueDAO.saveIssueEventHistory(param);
+	}
+
+	@Override
+	public int deleteIssue(Map param) {
+		return issueDAO.deleteIssue(param);
+	}
+
+	@Override
+	public String getIssueId() {
+		return issueDAO.getIssueId();
+	}
+
+	@Override
+	public int insertUserIssueCheck(Map param) {
+		return issueDAO.insertUserIssueCheck(param);
+	}
+
 }
