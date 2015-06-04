@@ -27,7 +27,7 @@
 				document.location.href="/issue/issueRegist.do";
 			});
 
-			checkThisIssue = function(id,e){
+			checkThisIssue = function(id){
 				$("#issueId").val(id);
 				console.log("id:"+id);
 				
@@ -61,6 +61,41 @@
 				});					
 			};
 			
+			deleteIssue = function(id){
+				$("#issueId").val(id);
+				console.log("id:"+id);
+				
+				//e.preventDefault();
+				
+				var url = "/issue/deleteIssue.json";
+				var param = $("#issueForm").serialize();
+				alert("param:"+param);
+				$.ajax({
+					url: url,
+					type: 'post',
+					data: param, 
+					dataType: "json",
+					error:function (xhr, ajaxOptions, thrownError){
+						alert("error");
+						alert(thrownError);
+					},
+					success:function(data){
+						console.log(data);					
+						
+						if(data.returnJsonVO){
+							
+							alert("삭제성공");
+							document.location.href="/issue/issueList.do";
+
+						} 
+						
+					}
+				});					
+			};
+			
+			
+		
+			
 			$("#logoutBtn").click(function(e){
 				e.preventDefault();
 				
@@ -93,7 +128,41 @@
 				});					
 			});
 			
+			$("#deleteBtn").click(function(e){
+				e.preventDefault();
+				
+				var url = "/issue/deleteIssue.json";
+				$.ajax({
+					url: url,
+					type: 'post',
+					dataType: "json",
+					error:function (xhr, ajaxOptions, thrownError){
+						
+						alert(thrownError);
+					},
+					success:function(data){
+						if(typeof console != 'undefined'){		
+							console.log(data);					
+						}
+						
+						if(data.returnJsonVO){
+							
+							if(data.returnJsonVO.returnObj == "0"){
+								alert(data.returnJsonVO.message);
+							} else if(data.returnJsonVO.returnObj == "1"){
+
+								alert("삭제 되었습니다.");
+								document.location.href="/issue/issueList.do";						
+							}
+						} 
+						
+					}
+				});					
+			});		
+			
 		});
+		
+		
 		</script>
 	</head>
 	<body>
@@ -177,7 +246,10 @@
 	     </thead>
 	      <c:forEach items="${issueList}" var="issue">
 	        <tr>
-	          <td align="center"><input type="checkbox" name="chk_${issue.ISSUEID}" id="chk_${issue.ISSUEID}"/></td>
+	          <td align="center">
+	          <input type="checkbox" name="chk_${issue.ISSUEID}" id="chk_${issue.ISSUEID}"/>
+	          <input type="button" onclick="deleteIssue('${issue.ISSUEID}')" value="체크"/>
+	          </td>
 	          <td align="center"><c:out value="${issue.ISSUEID}" /></td>
 	          <td><a href="/issue/issueDetail.do?issueId=${issue.ISSUEID}"><c:out value="${issue.SUBJECT}" /></a></td>
 	          <td><c:out value="${issue.CONTENTS}" /></td>
