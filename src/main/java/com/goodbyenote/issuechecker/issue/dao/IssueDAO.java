@@ -32,7 +32,7 @@ public class IssueDAO {
 	}
 
 	public List<Map> getChargePersonList() {
-        return sqlSession.selectList("issueChecker.getChagePersonList",null);			
+        return sqlSession.selectList("issueChecker.getChargePersonList",null);			
 	}
 
 	public int saveIssueEventHistory(Map param) {
@@ -49,6 +49,38 @@ public class IssueDAO {
 
 	public int insertUserIssueCheck(Map param) {
         return sqlSession.insert("issueChecker.insertUserIssueCheck", param);			
+	}
+
+	public int saveIssueComment(Map param) {
+		return sqlSession.insert("issueChecker.saveIssueComment", param);		
+	}
+
+	public List<Map> getCommentList(Map param) {
+		return sqlSession.selectList("issueChecker.getCommentList", param);
+	}
+
+	public int deleteIssueComment(Map param) {
+	    return sqlSession.delete("issueChecker.deleteIssueComment", param);	
+	}
+
+	public List<Map> getRegisterIdList(Map param) {
+		return sqlSession.selectList("issueChecker.getRegisterIdList", param);
+	}
+
+	public List<Map> getEventTypeList() {
+		  return sqlSession.selectList("issueChecker.getEventTypeList",null);			
+	}
+
+	public List<Map> getIssueHistoryList(Map param) {
+		return sqlSession.selectList("issueChecker.getIssueHistoryList", param);
+	}
+
+	public List<Map> getIssueCheckList(Map param) {
+		return sqlSession.selectList("issueChecker.getIssueCheckList", param);
+	}
+
+	public int updateCheckStatus(Map param) {
+		return sqlSession.update("issueChecker.updateCheckStatus", param);
 	}
 
 }

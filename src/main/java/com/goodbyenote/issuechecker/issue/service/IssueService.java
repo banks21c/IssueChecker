@@ -21,4 +21,19 @@ public interface IssueService {
 
 	int insertUserIssueCheck(Map param);
 
+	int saveIssueComment(Map param);
+
+	List<Map> getCommentList(Map param);
+
+	int deleteIssueComment(Map param);
+
+	List<Map> getRegisterIdList(Map param);
+
+	List<Map> getEventTypeList();
+
+	List<Map> getIssueHistoryList(Map param);
+
+	List<Map> getIssueCheckList(Map param);
+
+	int updateCheckStatus(Map param);
 }

@@ -4,6 +4,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>로그인</title>
+		<link rel="stylesheet" href="../../css/icon.css">
+		<link rel="stylesheet" href="../../css/login.css">
+		
 		<script type="text/javascript" src="../../js/jquery.min.js"></script>
 		<script>var console = (window.console = window.console || {});</script>
 		<script>
@@ -13,8 +16,8 @@
 				login();
 			});
 			$("#loginId").keydown(function(e){
-				e.preventDefault();
 				if(event.keyCode == 13){
+					e.preventDefault();
 					console.log(event.keyCode);
 					login();
 				}
@@ -97,13 +100,29 @@
 			});
 		});
 		</script>
+		
+<script type="text/javascript">
+	$(function() {
+		$("input[type=text]").bind('focus blur',function(){$(this).toggleClass('focus')});
+	});
+</script>
+
+		
+		
 	</head>
 	<body>
-		<form name="loginForm" method="post">
-		로그인ID : <input name="loginId" id="loginId" value="1234567890"/>
-		<input type="button" value="로그인" class="class-event-login-apply"/>
+		
+<div class="login_wrap">
+	<h1 style="text-align:center">로그인</h1>
+	<div class="">
+		<form method="post" action="">
+			<fieldset>
+				<span><input type="text" name="loginId" id="loginId"  value="" /></span>
+				<button type="submit" class="class-event-login-apply"><i class="fa fa-lock"></i> Login</button>
+			</fieldset>
 		</form>
-		<br/><br/>
-		<input type="button" class="class-event-logout-apply" value="로그아웃"/>
+	</div>
+</div>
+		
 	</body>
 </html>

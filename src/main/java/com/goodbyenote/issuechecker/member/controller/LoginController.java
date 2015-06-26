@@ -43,7 +43,7 @@ public class LoginController {
 		System.out.println("loginId:"+loginId);
 		
 		Map<?, ?> userMapTemp = userService.getLoginUser(paramMap);
-		System.out.println("userMapTemp:"+userMapTemp);
+		logger.debug("userMapTemp:"+userMapTemp);
 		int returnVal = 0;
 		String message = "로그인ID가 없습니다.";
 		
@@ -56,6 +56,7 @@ public class LoginController {
 			sessionUserInfo.setLoginId((String) userMapTemp.get("LOGINID"));
 			sessionUserInfo.setUserName((String) userMapTemp.get("USERNAME"));
 			sessionUserInfo.setEmail((String) userMapTemp.get("EMAIL"));
+			sessionUserInfo.setUserType((String) userMapTemp.get("USERTYPE"));
 
 			// 세션 생성
 			httpSession.setAttribute("SESSION_USER_INFO", sessionUserInfo);			

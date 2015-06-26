@@ -14,10 +14,12 @@
 			, STATE
 			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_TYPE' AND TYPE = CD) TYPENM
 			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_STATE' AND STATE = CD) STATENM
-			, REGISTERID
+			, (SELECT USERNAME FROM T_USER WHERE USERID=REGISTERID)REGISTERNM
 			, CHARGEPERSONID
-			, CREATIONDATE
+			, (SELECT USERNAME FROM T_USER WHERE USERID=CHARGEPERSONID)CHARGEPERSONNM
+			, TO_CHAR(CREATIONDATE,'YYYY-MM-DD')CREATIONDATE
 			, MODIFICATIONDATE
+			, CHECKSTATUS
 		FROM T_ISSUE
 		<where>
 			<if test="type != null and type != ''">
@@ -86,9 +88,18 @@
 			ISSUEID = #{issueId}
     </delete>    
     
+     <delete id="deleteIssueComment">
+        /* issueChecker.deleteIssueComment */
+		DELETE 
+		FROM T_ISSUE_COMMENT
+		WHERE
+			ISSUEID = #{issueId}
+			and COMMENTID = #{commentId}			
+    </delete>    
+    
     <select id="getLoginUser" resultType="map">
 		/* issueChecker.getLoginUser */
-    	SELECT USERID,LOGINID,USERNAME,EMAIL
+    	SELECT USERID,LOGINID,USERNAME,EMAIL,USERTYPE
     	FROM T_USER
     	<where>
     		<if test="loginId != null">
@@ -107,6 +118,7 @@
 			, STATE
 			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_TYPE' AND TYPE = CD) TYPENM
 			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_STATE' AND STATE = CD) STATENM
+			, (SELECT USERNAME FROM T_USER WHERE REGISTERID = USERID) USERNAME
 			, REGISTERID
 			, CHARGEPERSONID
 			, TO_CHAR(CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
@@ -115,13 +127,52 @@
 		WHERE ISSUEID = #{issueId}
     </select>
 
-    <select id="getChagePersonList" resultType="map">
-		/* issueChecker.getChagePersonList */
+    <select id="getChargePersonList" resultType="map">
+		/* issueChecker.getChargePersonList */
 		SELECT
 			USERID,USERNAME
 		FROM T_USER
     </select>        
-
+    
+     <select id="getRegisterIdList" resultType="map">
+		/* issueChecker.getRegisterIdList */
+		SELECT
+			USERID,USERNAME
+		FROM T_USER
+    </select>       
+    
+     <select id="getEventTypeList" resultType="map">
+		/* issueChecker.getEventTypeList */
+		SELECT CD, CDNM 
+		FROM T_COMMONCODE 
+		WHERE GRPCD='EVENT_TYPE'		
+    </select>   
+    
+     <select id="getIssueHistoryList" resultType="map">
+		/* issueChecker.getIssueHistoryList */
+		SELECT
+			ISSUEID,
+			REGISTERID, 
+			CHARGEPERSONID,
+			EVENTTYPE,
+			(SELECT USERNAME FROM T_USER WHERE USERID=REGISTERID)REGISTERNM,
+			(SELECT USERNAME FROM T_USER WHERE USERID=CHARGEPERSONID)CHARGEPERSONNM,
+			(SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='EVENT_TYPE' AND CD=EVENTTYPE) EVENTTYPENM, 
+			TO_CHAR(CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
+		FROM T_ISSUE_EVENT_HISTORY
+		<where>
+			<if test="registerId != null and registerId != ''">
+				AND REGISTERID = #{registerId}
+			</if>			
+			<if test="chargePersonId != null and chargePersonId != ''">
+				AND CHARGEPERSONID = #{chargePersonId}
+			</if>			
+			<if test="eventType != null and eventType != ''">
+				AND EVENTTYPE = #{eventType}
+			</if>			
+		</where>
+    </select>            
+    
     <select id="getIssueId" resultType="string">
 		SELECT NVL(MAX(ISSUEID),0) + 1 
 		FROM T_ISSUE
@@ -163,4 +214,84 @@
 		 )
     </insert>
 
+
+ 	<insert id="saveIssueComment" parameterType="map">
+        /* issueChecker.saveIssueComment */
+		INSERT INTO T_ISSUE_COMMENT
+		(
+			ISSUEID,
+			COMMENTID,
+			COMMENTS,
+			REGISTERID,
+			CREATIONDATE,
+   			MODIFICATIONDATE
+        )
+		VALUES 
+		( 
+			#{issueId},
+			(SELECT NVL(MAX(COMMENTID),0) + 1 FROM T_ISSUE_COMMENT),
+			#{comment},
+			#{registerId},
+			SYSDATE,
+			SYSDATE 
+		 )
+    </insert>
+    
+    <select id="getCommentList" resultType="map">
+		/* issueChecker.getCommentList */
+		SELECT
+			ISSUEID
+			, COMMENTS
+			, COMMENTID
+			, (SELECT USERNAME FROM T_USER WHERE REGISTERID = USERID) USERNAME
+			, TO_CHAR(CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
+			, MODIFICATIONDATE
+		FROM T_ISSUE_COMMENT
+		<where>
+			<if test="issueId != null and issueId != ''">
+				AND ISSUEID = #{issueId}
+			</if>			
+					
+		</where>
+    </select>
+
+    <select id="getIssueCheckList" resultType="map">
+		/* issueChecker.getIssueCheckList */
+		SELECT
+			  A.ISSUEID
+			, A.SUBJECT
+			, A.CONTENTS
+			, A.TYPE
+			, A.STATE
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_TYPE' AND A.TYPE = CD) TYPENM
+			, (SELECT CDNM FROM T_COMMONCODE WHERE GRPCD='ISSUE_STATE' AND A.STATE = CD) STATENM
+			, (SELECT USERNAME FROM T_USER WHERE USERID=A.REGISTERID) REGISTERNM
+			, (SELECT USERNAME FROM T_USER WHERE USERID=A.CHARGEPERSONID) CHARGEPERSONNM
+			, TO_CHAR(A.CREATIONDATE,'YYYY-MM-DD') CREATIONDATE
+			, A.MODIFICATIONDATE
+			, TO_CHAR(B.CHECKDATE,'YYYY-MM-DD') CHECKDATE 
+		FROM T_ISSUE A, T_USER_ISSUE_CHECK B
+		WHERE A.ISSUEID = B.ISSUEID		
+			<if test="type != null and type != ''">
+				AND TYPE = #{type}
+			</if>			
+			<if test="state != null and state != ''">
+				AND STATE = #{state}
+			</if>	
+			<if test="registerId != null and registerId != ''">
+				AND REGISTERID = #{registerId}
+			</if>					
+			<if test="chargePersonId != null and chargePersonId != ''">
+				AND CHARGEPERSONID = #{chargePersonId}
+			</if>					
+    </select>
+
+    <update id="updateCheckStatus" parameterType="map">
+        /* issueChecker.updateCheckStatus */
+		UPDATE T_ISSUE SET 
+			CHECKSTATUS='Y'
+		WHERE
+			ISSUEID = #{issueId}
+    </update>
+    
 </mapper>

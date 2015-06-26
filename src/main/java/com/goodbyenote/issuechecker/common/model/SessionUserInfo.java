@@ -16,6 +16,7 @@ public class SessionUserInfo {
 	private String loginId;
 	private String userName;
 	private String email;
+	private String userType;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -111,6 +112,14 @@ public class SessionUserInfo {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 	@Override

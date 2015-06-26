@@ -7,7 +7,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>이슈 목목</title>
+		<title>이슈 목록</title>
+		<link rel="stylesheet" type="text/css" href="/css/mystyle.css">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/icon.css">
 		<script type="text/javascript" src="/js/jquery.min.js"></script>
 		<script>var console = (window.console = window.console || {});</script>
 		<script>
@@ -96,10 +99,38 @@
 		</script>
 	</head>
 	<body>
-	<h1>이슈 등록</h1>
+<div class="wrap">
+	<div id="header">
+		<h1>Issue Tracker</h1>
+		<div class="nav_wrap">
+			<div class="util">
+				<p class="message"><i class="fa fa-comments"></i>${userNm}님 환영합니다</p>
+				<div class="logoutStyle">
+			         <a id="logoutBtn">로그아웃</a>
+			    </div>
+			</div>		
+			<div class="nav">
+				<ul>
+					<li class="current"><a href="#">이슈 목록</a></li>
+					<li><a href="/issue/issueHistoryList.do">이슈 히스토리 목록</a></li>
+					<li><a href="/issue/issueCheckList.do">이슈 체크 목록</a></li>
+					<li><a href="/member/memberList.do">회원 목록</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div id="contents">
+	<div class="page2">
+	<div class="location_bar">
+		<div class="location">
+			<i class="fa fa-map-marker"></i>이슈 목록 &gt;  <strong>이슈 등록</strong>
+		</div>
+	</div>	
+	<div class="form_wrap">
 	<form id="issueForm" method="post" action="/issue/saveIssue.do">
 		<input type="hidden" name="currentChargePersonId" value="" />
-		<table border="1">
+		<table>
 			<colgroup>
 				<col width="100px" />
 				<col />
@@ -108,7 +139,7 @@
 			</colgroup>
 			<tr>
 				<th><font color="red">*</font>주제</th>
-				<td colspan="3"><input type="text" size=79 name="subject" value="" /></td>
+				<td colspan="3"><input type="text" size=82 name="subject" value="" /></td>
 			</tr>
 			<tr>
 				<th><font color="red">*</font>내용</th>
@@ -146,9 +177,16 @@
 	</form>
 	    <br/>
 		<div style="padding-left:250px">
-			<input type="button" id="saveBtn" value="저장"/>
-			<input type="button" id="gotoListBtn" value="목록"/>
+<!-- 			<input type="button" id="saveBtn" value="저장"/> -->
+<!-- 			<input type="button" id="gotoListBtn" value="목록"/> -->
+
+		<span class="btn_green"><a id="saveBtn">저장</a></span>
+		<span class="btn_white"><a id="gotoListBtn">목록</a></span>
+		
 		</div>
-	    				
-	</body>
+	</div>
+</div>
+</div>
+</div>
+</body>
 </html>

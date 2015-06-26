@@ -47,38 +47,54 @@
 		  BUSINESSNUMBER = #{businessNumber}
     </select>
       
+    <select id="getMemberList" resultType="org.apache.commons.collections.map.CaseInsensitiveMap">
+		/* member.getMemberList */
+		SELECT 
+			USERID, LOGINID, USERNAME, EMAIL, USERTYPE
+		FROM T_USER
+		<where>
+			<if test="userType != '' and userType != null">
+			USERTYPE = #{userType}
+			</if>		
+		</where>
+    </select>
+
     <insert id="insertMember">
-        INSERT INTO MEMBER
-        (
-		MEMBERID
-		,STARTBUSINESSDESIREYN
-		,FRANCHISEJOINYN
-		,ITEM
-		,PHONENUMBER
-		,PHONENUMBER2
-		,ADDRESS1
-		,ADDRESS2
-		,BIRTHDAY
-		,APPENGAGEDATE
-		,ESEROEXTRACT
-		,BEFORESALES
-		,LASTCONSULTDATE
-		,AVAILABLEMONEY
-		,BUSINESSTYPE
-		,MEMBERNAME
-		,BUSINESSNUMBER
-		,GENDER
-		,MEMBERTYPE
-		,ESEROJOINYN
-		,TAXACCOUNTACCEPTYN
-		,OPENDATE
-		,ISDELETED
-		,CREATIONDATE
-		,MODIFICATIONDATE   
-		)
-		VALUES
-		{
-		}     
+		/* member.insertMember */
+		INSERT INTO T_USER (
+		   USERID, LOGINID, USERNAME, 
+		   EMAIL,USERTYPE) 
+		VALUES ( 
+			#{userId},#{loginId},#{userName},#{email},#{userType}
+		)     
     </insert>
+
+    <update id="updateMember" parameterType="map">
+        /* member.updateMember */
+		UPDATE T_USER
+		SET    USERID   = #{userId},
+		       LOGINID  = #{loginId},
+		       USERNAME = #{userName},
+		       EMAIL    = #{email},
+		       USERTYPE = #{userType}
+		WHERE USERID = #{userId}
+    </update>
     
+    <delete id="deleteMember">
+        /* member.deleteMember */
+		DELETE 
+		FROM T_USER
+		WHERE
+			USERID = #{userId}
+    </delete>  
+
+    <select id="getMemberDetail" resultType="map">
+		/* member.getMemberDetail */
+		SELECT 
+			USERID, LOGINID, USERNAME, EMAIL, USERTYPE
+		FROM T_USER
+		WHERE USERID = #{userId}
+    </select>
+
+
 </mapper>

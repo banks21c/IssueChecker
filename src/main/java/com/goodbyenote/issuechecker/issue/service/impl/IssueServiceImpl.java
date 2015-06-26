@@ -55,4 +55,45 @@ public class IssueServiceImpl implements IssueService {
 		return issueDAO.insertUserIssueCheck(param);
 	}
 
+	@Override
+	public int saveIssueComment(Map param) {
+		return issueDAO.saveIssueComment(param);
+	}
+
+	@Override
+	public List<Map> getCommentList(Map param) {
+		return issueDAO.getCommentList(param);
+	}
+	
+	@Override
+	public int deleteIssueComment(Map param) {
+		return issueDAO.deleteIssueComment(param);
+	}
+
+	@Override
+	public List<Map> getRegisterIdList(Map param) {
+		return  issueDAO.getRegisterIdList(param);
+	}
+
+	@Override
+	public List<Map> getEventTypeList() {
+		return  issueDAO.getEventTypeList();
+	}
+
+	@Override
+	public List<Map> getIssueHistoryList(Map param) {
+		return issueDAO.getIssueHistoryList(param);
+	}
+
+	@Override
+	public List<Map> getIssueCheckList(Map param) {
+		return issueDAO.getIssueCheckList(param);
+	}
+
+	@Override
+	public int updateCheckStatus(Map param) {
+		return issueDAO.updateCheckStatus(param);
+		
+	}
+
 }
