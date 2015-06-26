@@ -525,7 +525,7 @@ public class IssueController {
 			logger.debug(this.getClass().getName()+".issueCheckList start");
 	        logger.debug(param.toString());
 	    }
-		//type
+		//type 
 		//0:요건, 1:버그, 2: 요청
 		String type = request.getParameter("type");
 		//state
