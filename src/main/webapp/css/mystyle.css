@@ -1,0 +1,98 @@
+.btn_green {
+    display: inline-block;
+    height: 30px;
+    padding: 0;
+    border: none;
+    background: url('/images/btn.png') no-repeat 0 -60px
+}
+.btn_green a {
+    display: inline-block;
+    min-width: 70px;
+    *min-width: 50px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: url('/images/btn.png') no-repeat 100% -90px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none !important
+}
+.btn_green a:hover, .btn_green a:active {
+    color: #fff !important
+}
+
+.btn_gray {
+    display: inline-block;
+    height: 30px;
+    padding: 0;
+    border: none;
+    background: url('/images/btn.png') no-repeat 0 -408px
+}
+.btn_gray a {
+    display: inline-block;
+    min-width: 70px;
+    *min-width: 50px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: url('/images/btn.png') no-repeat 100% -438px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none !important
+}
+
+.btn_sky {
+    display: inline-block;
+    height: 30px;
+    padding: 0;
+    border: none;
+    background: url('/images/btn.png') no-repeat 0 -348px
+}
+.btn_sky a {
+    display: inline-block;
+    min-width: 70px;
+    *min-width: 50px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: url('/images/btn.png') no-repeat 100% -378px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none !important
+}
+
+.list_wrap {
+	margin-bottom:20px
+}
+
+.list_wrap table {
+	border-top:2px solid #3b3e4e;border-bottom;1px solid #d1d1d1
+}
+
+.list_wrap thead th {
+	padding:5px 0;
+	background-color:#f1f1f1;
+	border-left:1px  solid #e1e1e1;
+	color:#444;
+	font-weight:normal;
+	text-align:center
+}
+
+.list_wrap thead tr th:first-child {
+	border-left:none
+}
+
+
+
+
+
+
+
+
+
